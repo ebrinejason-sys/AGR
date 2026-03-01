@@ -1,0 +1,159 @@
+.container {
+    padding: 4rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 1.5rem auto 0;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 4rem;
+}
+
+.tabBtn {
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s;
+}
+
+.tabBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.tabBtn.active {
+    background: var(--color-pink);
+    box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4);
+}
+
+.loader,
+.empty {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 4rem;
+    font-size: 1.2rem;
+}
+
+/* Stories */
+.storyGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.storyCard {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 3rem;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.storyCard h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+}
+
+.meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+.author {
+    color: var(--color-lightblue);
+    font-weight: 500;
+}
+
+.content {
+    color: #ddd;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    white-space: pre-wrap;
+}
+
+/* Gallery */
+.mediaGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    align-items: start;
+}
+
+.mediaItem {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mediaItem:hover .mediaPreview {
+    transform: scale(1.05);
+}
+
+.mediaPreview {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.mediaCaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    padding: 2rem 1rem 1rem;
+    color: white;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .storyCard {
+        padding: 2rem 1.5rem;
+    }
+
+    .storyCard h2 {
+        font-size: 1.6rem;
+    }
+}

@@ -1,0 +1,224 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.hero {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 5%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  animation: fadeUp 1s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.heroSubtitle {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* Base button styles */
+.btnPrimary,
+.btnSecondary {
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: inline-block;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+  color: var(--color-white);
+  box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(216, 27, 96, 0.5);
+}
+
+.btnPrimary:active {
+  transform: translateY(0);
+}
+
+.btnSecondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-white);
+  backdrop-filter: blur(5px);
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-lightblue);
+}
+
+/* Background Glowing Orbs for a premium dynamic feel */
+.heroGlowPink,
+.heroGlowPurple,
+.heroGlowBlue {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.4;
+  z-index: 1;
+  animation: float 10s infinite alternate ease-in-out;
+}
+
+.heroGlowPink {
+  top: 10%;
+  left: 20%;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, var(--color-pink) 0%, transparent 70%);
+}
+
+.heroGlowPurple {
+  bottom: 0%;
+  right: 10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, var(--color-purple) 0%, transparent 70%);
+  animation-delay: -5s;
+}
+
+.heroGlowBlue {
+  top: 40%;
+  left: 50%;
+  width: 30vw;
+  height: 30vw;
+  background: radial-gradient(circle, var(--color-lightblue) 0%, transparent 70%);
+  animation-delay: -2s;
+}
+
+@keyframes float {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(50px, -50px) scale(1.1);
+  }
+}
+
+/* Philosophy Section */
+.philosophy {
+  padding: 5rem 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.philosophyCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 4rem 3rem;
+  max-width: 1000px;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.philosophyCard p {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 2rem 0 4rem;
+}
+
+.philosophyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.traitBox {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  transition: transform 0.3s ease;
+  text-align: left;
+}
+
+.traitBox:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.traitIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.traitBox h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.traitBox p {
+  font-size: 0.95rem;
+  margin: 0;
+  color: #888;
+}
+
+/* iOS Specific overrides inside modules */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100dvh;
+  }
+
+  .philosophyCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+  }
+}

@@ -1,0 +1,194 @@
+.container {
+    padding: 4rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 4rem;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 1.5rem auto 0;
+    font-style: italic;
+}
+
+.contentGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+@media (min-width: 900px) {
+    .contentGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.founderCard,
+.formCard {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 3rem;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Founder Details */
+.founderImageContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.founderImage {
+    border-radius: 16px;
+    border: 3px solid var(--color-pink);
+    box-shadow: 0 10px 30px rgba(216, 27, 96, 0.2);
+    object-fit: cover;
+}
+
+.founderCard h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.role {
+    text-align: center;
+    color: var(--color-lightblue);
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.bio p {
+    color: #ccc;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.contactDetails {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contactDetails h3 {
+    color: var(--color-pink);
+    margin-bottom: 1rem;
+}
+
+.contactDetails p {
+    margin-bottom: 0.5rem;
+    color: #aaa;
+}
+
+/* Form Styling */
+.formCard h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.formDesc {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inputGroup label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #ddd;
+}
+
+.inputGroup input,
+.inputGroup textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 12px;
+    color: white;
+    font-family: inherit;
+    transition: all 0.3s;
+}
+
+.inputGroup input:focus,
+.inputGroup textarea:focus {
+    outline: none;
+    border-color: var(--color-lightblue);
+    box-shadow: 0 0 0 2px rgba(3, 169, 244, 0.2);
+}
+
+.submitBtn {
+    margin-top: 1rem;
+    background: linear-gradient(135deg, var(--color-lightblue), var(--color-purple));
+    color: white;
+    padding: 1rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(74, 20, 140, 0.3);
+    transition: all 0.3s;
+}
+
+.submitBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(74, 20, 140, 0.5);
+}
+
+.submitBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.successMsg {
+    color: #4caf50;
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+.errorMsg {
+    color: #f44336;
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+
+    .founderCard,
+    .formCard {
+        padding: 2rem 1.5rem;
+    }
+}

@@ -1,0 +1,196 @@
+.container {
+    padding: 4rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 1.5rem auto 0;
+}
+
+.loader,
+.empty {
+    text-align: center;
+    padding: 4rem;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2.5rem;
+}
+
+.eventCard {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+}
+
+.eventCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.statusBadge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--color-purple);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.eventCard.completed .statusBadge {
+    background: #4caf50;
+}
+
+.eventCard.completed {
+    opacity: 0.8;
+}
+
+.eventCard h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+    color: var(--color-white);
+}
+
+.date {
+    color: var(--color-pink);
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.description {
+    color: #ccc;
+    line-height: 1.6;
+    flex-grow: 1;
+    margin-bottom: 2rem;
+}
+
+/* Progress Bar */
+.progressContainer {
+    margin-bottom: 2rem;
+}
+
+.progressText {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.progressBar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-lightblue), var(--color-purple), var(--color-pink));
+    border-radius: 10px;
+    transition: width 1s ease-out;
+}
+
+/* Actions & Form */
+.actions {
+    margin-top: auto;
+}
+
+.btnPrimary {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+}
+
+.btnPrimary:hover {
+    filter: brightness(1.2);
+}
+
+.donateForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.donateForm input {
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.donateForm input:focus {
+    outline: none;
+    border-color: var(--color-lightblue);
+}
+
+.formActions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.btnCancel {
+    flex: 1;
+    padding: 0.8rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: background 0.2s;
+}
+
+.btnCancel:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.btnSubmit {
+    flex: 2;
+    padding: 0.8rem;
+    border-radius: 8px;
+    background: var(--color-lightblue);
+    color: black;
+    font-weight: 600;
+    transition: filter 0.2s;
+}
+
+.btnSubmit:hover {
+    filter: brightness(1.1);
+}

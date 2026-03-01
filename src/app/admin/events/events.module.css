@@ -1,0 +1,229 @@
+.container {
+    max-width: 1200px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.title {
+    font-size: 2rem;
+    color: var(--color-white);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--text-muted);
+}
+
+.createBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: filter 0.2s;
+}
+
+.createBtn:hover {
+    filter: brightness(1.1);
+}
+
+.formCard {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-top: 4px solid var(--color-pink);
+}
+
+.formCard h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inputGroup label {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.inputGroup input,
+.inputGroup textarea {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 12px;
+    color: white;
+    font-family: inherit;
+}
+
+.inputGroup input:focus,
+.inputGroup textarea:focus {
+    outline: none;
+    border-color: var(--color-purple);
+}
+
+.formActions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.cancelBtn,
+.submitBtn {
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.cancelBtn {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.cancelBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.submitBtn {
+    background: var(--color-purple);
+    color: white;
+}
+
+.submitBtn:hover {
+    filter: brightness(1.2);
+}
+
+/* Table */
+.tableCard {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.table th,
+.table td {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.table th {
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.9rem;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover {
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.cellTitle {
+    font-weight: 600;
+    color: var(--color-white);
+}
+
+.cellRaised {
+    color: var(--color-lightblue);
+    font-weight: 600;
+}
+
+.statusSelect {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+.statusSelect.upcoming {
+    color: var(--color-lightblue);
+    border-color: var(--color-lightblue);
+}
+
+.statusSelect.completed {
+    color: #4caf50;
+    border-color: #4caf50;
+}
+
+.statusSelect.cancelled {
+    color: #f44336;
+    border-color: #f44336;
+}
+
+.actionRow {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.iconBtn,
+.iconBtnThreat {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 0.5rem;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.iconBtn:hover {
+    background: rgba(3, 169, 244, 0.2);
+    color: var(--color-lightblue);
+}
+
+.iconBtnThreat:hover {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+}
+
+@media (max-width: 768px) {
+    .formRow {
+        grid-template-columns: 1fr;
+    }
+}
