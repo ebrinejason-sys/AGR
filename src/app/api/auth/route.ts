@@ -6,7 +6,7 @@ const otpStore = new Map<string, { otp: string, expires: number }>();
 
 export async function POST(req: Request) {
     try {
-        const { action, email, password, otp } = await resend.json?.() ?? await req.json();
+        const { action, email, password, otp } = await req.json();
 
         const TARGET_EMAIL = 'africangirlriseltd@gmail.com';
         const TARGET_PASSWORD = 'rise2026';
