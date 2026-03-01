@@ -56,6 +56,26 @@ input,
 textarea,
 select {
   font-size: 16px;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+/* Base resets for iOS touch rendering */
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  -webkit-touch-callout: none;
+  /* Prevent iOS text select native menu from popping up randomly on press */
+}
+
+/* Allow text selection only in specific input areas so users can still copy/paste text where they expect it */
+input,
+textarea {
+  -webkit-user-select: auto;
+  user-select: auto;
 }
 
 a {
