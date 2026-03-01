@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Image from "next/image";
-import Link from "next/link";
+import Navbar from "@/components/layout/Navbar";
 
 export const metadata: Metadata = {
   title: "African Girl Rise",
@@ -21,28 +20,7 @@ export default function RootLayout({
       </head>
       <body>
         <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
-          <header style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '1rem 5%',
-            background: 'rgba(12, 12, 12, 0.8)',
-            backdropFilter: 'blur(10px)',
-            borderBottom: '1px solid rgba(255,255,255,0.1)',
-            position: 'sticky',
-            top: 0,
-            zIndex: 1000
-          }}>
-            <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <Image src="/logo.png" alt="African Girl Rise Logo" width={40} height={40} style={{ borderRadius: '50%' }} />
-              <span style={{ fontWeight: 800, fontSize: '1.2rem', letterSpacing: '1px' }}>AFRICAN GIRL RISE</span>
-            </Link>
-            <nav style={{ display: 'flex', gap: '1.5rem', fontWeight: 500, fontSize: '0.9rem' }}>
-              <Link href="/our-story" style={{ color: 'var(--text-color)', transition: 'color 0.3s' }}>Our Story</Link>
-              <Link href="/events" style={{ color: 'var(--text-color)', transition: 'color 0.3s' }}>Events</Link>
-              <Link href="/contact" style={{ color: 'var(--text-color)', transition: 'color 0.3s' }}>Contact</Link>
-            </nav>
-          </header>
+          <Navbar />
 
           <main style={{ flex: 1 }}>
             {children}

@@ -1,0 +1,140 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: rgba(12, 12, 12, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logoLink {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    z-index: 1001;
+}
+
+.logoImage {
+    border-radius: 50%;
+}
+
+.brandName {
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    color: var(--color-white);
+}
+
+.desktopNav {
+    display: flex;
+    gap: 1.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.navLink {
+    color: var(--text-color);
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+.navLink:hover {
+    color: var(--color-lightblue);
+}
+
+.mobileToggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    cursor: pointer;
+    z-index: 1001;
+    padding: 0.5rem;
+}
+
+.mobileNavOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+    background: rgba(12, 12, 12, 0.98);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.mobileNavOverlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobileNavLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+}
+
+.mobileNavLink {
+    color: var(--color-white);
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.mobileNavOverlay.open .mobileNavLink {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mobileNavOverlay.open .mobileNavLink:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.mobileNavOverlay.open .mobileNavLink:nth-child(2) {
+    transition-delay: 0.15s;
+}
+
+.mobileNavOverlay.open .mobileNavLink:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+.mobileNavOverlay.open .mobileNavLink:nth-child(4) {
+    transition-delay: 0.25s;
+}
+
+.mobileNavOverlay.open .mobileNavLink:nth-child(5) {
+    transition-delay: 0.3s;
+}
+
+.mobileNavLink:hover {
+    color: var(--color-pink);
+}
+
+/* Media Queries for responsive behavior */
+@media (max-width: 768px) {
+    .desktopNav {
+        display: none;
+    }
+
+    .mobileToggle {
+        display: block;
+    }
+}
