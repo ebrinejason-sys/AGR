@@ -37,6 +37,7 @@ export default function Navbar() {
                 <Link href="/events" className={styles.navLink}>Events</Link>
                 <Link href="/stories" className={styles.navLink}>Stories</Link>
                 <Link href="/contact" className={styles.navLink}>Contact</Link>
+                <Link href="/events" className={styles.donateBtn}>Donate</Link>
             </nav>
 
             {/* Mobile Menu Toggle */}
@@ -52,6 +53,7 @@ export default function Navbar() {
                     <Link href="/events" className={styles.mobileNavLink} onClick={closeMenu}>Events</Link>
                     <Link href="/stories" className={styles.mobileNavLink} onClick={closeMenu}>Stories</Link>
                     <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>
+                    <Link href="/events" className={styles.mobileDonateBtn} onClick={closeMenu}>Donate</Link>
                 </nav>
             </div>
         </header>

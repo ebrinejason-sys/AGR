@@ -48,6 +48,24 @@
     color: var(--color-lightblue);
 }
 
+.donateBtn {
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: var(--color-white);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+    border: none;
+    cursor: pointer;
+}
+
+.donateBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(216, 27, 96, 0.5);
+}
+
 .mobileToggle {
     display: none;
     background: none;
@@ -127,6 +145,28 @@
 
 .mobileNavLink:hover {
     color: var(--color-pink);
+}
+
+.mobileDonateBtn {
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: var(--color-white);
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+}
+
+.mobileNavOverlay.open .mobileDonateBtn {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.35s;
 }
 
 /* Media Queries for responsive behavior */

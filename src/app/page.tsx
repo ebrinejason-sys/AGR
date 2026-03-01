@@ -24,7 +24,7 @@ export default function Home() {
               Read Our Story
             </Link>
             <Link href="/events" className={styles.btnSecondary}>
-              Support a Girl
+              Donate Now
             </Link>
           </div>
         </div>
