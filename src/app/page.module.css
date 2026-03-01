@@ -97,7 +97,6 @@
 .heroGlowBlue {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
   opacity: 0.4;
   z-index: 1;
   animation: float 10s infinite alternate ease-in-out;
