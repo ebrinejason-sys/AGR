@@ -25,7 +25,7 @@ export default function OurStory() {
                         <p><strong>If you are a parent reading this, please hear me with your whole heart: Your children do not have to suffer the way you suffered.</strong></p>
                         <p>I know you love them. I know you want the best for them. But sometimes we carry a dangerous belief without even realizing it: &quot;I suffered, so my children must also suffer. That is how life is.&quot; No. That is not how life has to be.</p>
                         <p>My parents proved that suffering does not have to be inherited. Struggle does not have to be a family tradition. Poverty does not have to pass from generation to generation. The cycle can be broken. You have the power to break it.</p>
-                        <p>When you keep your daughter in school—even when it&apos;s hard, even when the world tells you she&apos;s not worth it—you are not just educating a child. You are changing your family&apos;s future for generations.</p>
+                        <p>When you keep your daughter in school, even when it is hard and the world tells you she is not worth it, you are not just educating a child. You are changing your family&apos;s future for generations.</p>
                         <p>This is how poverty ends. This is how communities transform. This is how nations rise.</p>
                     </div>
                 </div>
@@ -45,7 +45,7 @@ export default function OurStory() {
                     <h2>The Vision</h2>
                     <div className={styles.textBody}>
                         <p><strong>My vision is simple and enormous:</strong></p>
-                        <p>I want every girl in Ibanda District—every girl in Uganda—every girl in Africa—to have the chance I had. I want every girl to have parents who believe in her enough to break the cycle.</p>
+                        <p>I want every girl in Ibanda District, every girl in Uganda, and every girl in Africa to have the chance I had. I want every girl to have parents who believe in her enough to break the cycle.</p>
                         <p>I want every girl to have a safe space to heal, a ladder to climb, and a community that celebrates her rising.</p>
                         <p>This is not charity. This is not pity. This is justice.</p>
                     </div>
@@ -60,7 +60,7 @@ export default function OurStory() {
                 <div className={styles.ctaGrid}>
                     <div className={styles.ctaBox}>
                         <h3>If you are a Donor:</h3>
-                        <p>Sponsor a girl. Fund a Rise Room. Support a scholarship. Your money, invested wisely, does not just change one life—it transforms generations.</p>
+                        <p>Sponsor a girl. Fund a Rise Room. Support a scholarship. Your money, invested wisely, does not just change one life. It transforms generations.</p>
                     </div>
                     <div className={styles.ctaBox}>
                         <h3>If you are a Teacher:</h3>

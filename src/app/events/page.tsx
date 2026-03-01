@@ -76,8 +76,8 @@ export default function EventsPage() {
         <div className={styles.container}>
             <header className={styles.header}>
                 <h1 className="heading-xl">Events & <span className="text-gradient">Donations</span></h1>
-                <p className={styles.subtitle}>
-                    Support our mission. Your money, invested wisely, does not just change one life—it transforms generations.
+                <p className={styles.ctaSubtitle}>
+                    Support our mission. Your money, invested wisely, does not just change one life. It transforms generations.
                 </p>
             </header>
 

@@ -1,5 +1,5 @@
 export const BaseEmailTemplate = (title: string, contentHtml: string) => {
-    return `
+  return `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -114,9 +114,9 @@ export const BaseEmailTemplate = (title: string, contentHtml: string) => {
 
 // Example specific templates
 export const ContactSubmissionTemplate = (name: string, email: string, message: string) => {
-    return BaseEmailTemplate(
-        "New Contact Form Submission",
-        `
+  return BaseEmailTemplate(
+    "New Contact Form Submission",
+    `
       <p>Hello Admin,</p>
       <p>You have received a new message from the website contact form.</p>
       
@@ -129,20 +129,20 @@ export const ContactSubmissionTemplate = (name: string, email: string, message: 
       <p>Please respond to this inquiry when possible.</p>
       <a href="mailto:${email}" class="btn">Reply to ${name}</a>
     `
-    );
+  );
 };
 
 export const SubscriberWelcomeTemplate = (name: string) => {
-    return BaseEmailTemplate(
-        "Welcome to African Girl Rise",
-        `
+  return BaseEmailTemplate(
+    "Welcome to African Girl Rise",
+    `
       <p>Hello <strong class="accent-pink">${name || 'Friend'}</strong>,</p>
       <p>Thank you for subscribing to our updates and joining our movement.</p>
-      <p>Your children do not have to suffer the way you suffered. When you keep your daughter in school, you are not just educating a child—you are changing your family's future for generations.</p>
+      <p>Your children do not have to suffer the way you suffered. When you keep your daughter in school, you are not just educating a child. You are changing your family's future for generations.</p>
       <p>We will keep you informed about our <strong>Rise Rooms</strong>, stories of generational transformation, and ways you can help us break cycles of poverty.</p>
       <p>Rise. Then reach back.</p>
       <br/>
       <p>Warm regards,<br/><strong>Grace Akatwijuka</strong><br/>Founder, African Girl Rise Initiative</p>
     `
-    );
+  );
 };

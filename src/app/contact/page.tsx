@@ -156,7 +156,7 @@ export default function Contact() {
                     <h3>My Mother: The Girl Who Studied Through Everything</h3>
                     <p>My mother&apos;s life was hard from the very beginning. She grew up in poverty so deep that she often walked to school hungry. She lacked proper uniforms, decent shoes, enough books. While other children had parents who could help with homework, she had no one her own parents were uneducated and struggling simply to survive.</p>
                     <p>But she stayed in school. She studied by kerosene lamp when there was kerosene. She walked kilometers on empty stomachs, determined that education would be her ladder out of poverty. She faced challenges I cannot fully imagine and she kept going.</p>
-                    <p>That achievement—a girl from a poor village, with no resources, no connections, no safety net—is the foundation of everything I am. She proved that circumstances do not define destiny.</p>
+                    <p>That achievement is the foundation of everything I am. A girl from a poor village, with no resources, connections, or safety net, proved that circumstances do not define destiny.</p>
                 </section>
 
                 <section className={styles.storySection}>
@@ -176,20 +176,20 @@ export default function Contact() {
 
                 <section className={styles.storySection}>
                     <h3>The Girls Who Walked Beside Me</h3>
-                    <p>I did not walk this path alone. I grew up with five girls who were my sisters in every way but blood—Annet, Grace, Mary, Robinah, and Sylvia.</p>
+                    <p>I did not walk this path alone. I grew up with five girls who were my sisters in every way but blood: Annet, Grace, Mary, Robinah, and Sylvia.</p>
                     <p>We sat together on broken desks, sharing textbooks with missing pages. We walked the same dusty roads to school, our bare feet slapping against the red earth. We dreamed under the mango tree of the women we would become while studying at Kiburara Primary school and Good Hope primary school.</p>
                     <p>Annet wanted to be a nurse. Grace wanted to be a writer in the newspapers. Mary wanted to be a teacher. Robinah wanted to be an artist. Sylvia wanted to travel the world.</p>
                     <p>But life had different plans. One by one, they fell away.</p>
                     <p>Annet was married at fifteen. Grace dropped out when her father died. Mary was told to stay home for her brother&apos;s secondary school. Robinah became pregnant and was expelled while the teacher faced no consequences. Sylvia was married at seventeen as a third wife.</p>
-                    <p>And I—I kept walking. I kept studying. I kept rising. Why me? The answer is simple: my parents chose differently. They chose to break the cycle. That is the lesson I am determined to teach.</p>
+                    <p>And yet, I kept walking. I kept studying. I kept rising. Why me? The answer is simple: my parents chose differently. They chose to break the cycle. That is the lesson I am determined to teach.</p>
                 </section>
 
                 <section className={styles.storySection}>
                     <h3>The Path to Law</h3>
                     <p>My parents supported every dream I ever had. When I discovered my calling in law, they said: &quot;Go. Become. We are with you.&quot;</p>
-                    <p>I am currently in my fourth year of law school at Uganda Christian University, pursuing a degree that I believe is essential to the work of breaking cycles and transforming communities. I chose law because I understand that lasting change requires more than safe spaces and scholarships—it requires changing the systems that fail girls in the first place.</p>
+                    <p>I am currently in my fourth year of law school at Uganda Christian University, pursuing a degree that I believe is essential to the work of breaking cycles and transforming communities. I chose law because I understand that lasting change requires more than safe spaces and scholarships. It requires a complete change in the systems that fail girls in the first place.</p>
                     <p>I want to be the lawyer who stands between a girl and those who would abuse her. Who fights for policies that allow pregnant girls to return to school. Who challenges discriminatory practices. Who uses the law as a tool for healing, not just punishment.</p>
-                    <p>My law degree will serve my initiative. My initiative will serve my community. And my community—one girl at a time—will transform this nation.</p>
+                    <p>My law degree will serve my initiative. My initiative will serve my community. And my community will transform this nation, one girl at a time.</p>
                 </section>
             </div>
         </div>
