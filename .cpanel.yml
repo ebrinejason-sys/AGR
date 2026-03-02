@@ -2,6 +2,6 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/africang/repositories/AGR
-    - /bin/cp -R * \
-    - npm install
-    - npm run build
+    - /bin/cp -R * $DEPLOYPATH
+    - cd $DEPLOYPATH && npm install
+    - cd $DEPLOYPATH && npm run build
