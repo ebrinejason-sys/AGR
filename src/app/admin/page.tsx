@@ -8,7 +8,7 @@ export default function AdminOverview() {
 
             <div className={styles.statsGrid}>
                 <div className={styles.statCard}>
-                    <div className={styles.statIcon} style={{ background: 'rgba(216, 27, 96, 0.1)', color: 'var(--color-pink)' }}>
+                    <div className={`${styles.statIcon} ${styles.statIconPink}`}>
                         <Calendar size={24} />
                     </div>
                     <div>
@@ -18,7 +18,7 @@ export default function AdminOverview() {
                 </div>
 
                 <div className={styles.statCard}>
-                    <div className={styles.statIcon} style={{ background: 'rgba(74, 20, 140, 0.1)', color: 'var(--color-purple)' }}>
+                    <div className={`${styles.statIcon} ${styles.statIconPurple}`}>
                         <Users size={24} />
                     </div>
                     <div>
@@ -28,7 +28,7 @@ export default function AdminOverview() {
                 </div>
 
                 <div className={styles.statCard}>
-                    <div className={styles.statIcon} style={{ background: 'rgba(3, 169, 244, 0.1)', color: 'var(--color-lightblue)' }}>
+                    <div className={`${styles.statIcon} ${styles.statIconBlue}`}>
                         <ImageIcon size={24} />
                     </div>
                     <div>
@@ -38,7 +38,7 @@ export default function AdminOverview() {
                 </div>
 
                 <div className={styles.statCard}>
-                    <div className={styles.statIcon} style={{ background: 'rgba(255, 255, 255, 0.05)', color: 'white' }}>
+                    <div className={`${styles.statIcon} ${styles.statIconDefault}`}>
                         <BookOpen size={24} />
                     </div>
                     <div>

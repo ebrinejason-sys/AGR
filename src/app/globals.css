@@ -89,6 +89,9 @@ html {
   /* Prevent Safari crashes from rendering issues */
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
+  /* Prevent iOS Safari crashes with complex animations */
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
 }
 
 /* Allow text selection only in specific input areas so users can still copy/paste text where they expect it */
@@ -102,6 +105,9 @@ textarea {
 * {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  /* Prevent iOS crashes with transforms */
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
 }
 
 /* Smooth scrolling for Safari */
@@ -109,6 +115,15 @@ textarea {
   html {
     -webkit-overflow-scrolling: touch;
   }
+}
+
+/* Prevent iOS crashes with images */
+img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  pointer-events: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 a {

@@ -5,7 +5,7 @@
 .title {
     font-size: 2rem;
     margin-bottom: 0.5rem;
-    color: var(--color-white);
+    color: var(--text-color);
 }
 
 .subtitle {
@@ -14,16 +14,20 @@
 }
 
 .uploaderBox {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 2rem;
     margin-bottom: 3rem;
+    /* iOS stability */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .uploaderBox h2 {
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
+    color: var(--text-color);
 }
 
 .uploadForm {
@@ -33,13 +37,13 @@
 }
 
 .fileDrop {
-    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border: 2px dashed var(--border-color);
     border-radius: 12px;
     padding: 3rem 2rem;
     text-align: center;
     position: relative;
     transition: all 0.2s;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--card-hover-bg);
 }
 
 .fileDrop:hover {
@@ -71,16 +75,17 @@
 }
 
 .inputGroup label {
-    color: #ccc;
+    color: var(--text-color);
     font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .inputGroup input {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
     padding: 1rem;
     border-radius: 12px;
-    color: white;
+    color: var(--text-color);
 }
 
 .inputGroup input:focus {
@@ -109,7 +114,7 @@
     color: var(--text-muted);
     text-align: center;
     padding: 3rem;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     margin-top: 1rem;
 }

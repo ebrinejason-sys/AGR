@@ -6,7 +6,7 @@
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 2rem;
-    color: var(--color-white);
+    color: var(--text-color);
 }
 
 .statsGrid {
@@ -17,13 +17,16 @@
 }
 
 .statCard {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 1.5rem;
     display: flex;
     align-items: center;
     gap: 1rem;
+    /* iOS stability */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .statIcon {
@@ -33,6 +36,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.statIconPink {
+    background: rgba(216, 27, 96, 0.1);
+    color: var(--color-pink);
+}
+
+.statIconPurple {
+    background: rgba(74, 20, 140, 0.1);
+    color: var(--color-purple);
+}
+
+.statIconBlue {
+    background: rgba(3, 169, 244, 0.1);
+    color: var(--color-lightblue);
+}
+
+.statIconDefault {
+    background: var(--card-hover-bg);
+    color: var(--text-color);
 }
 
 .statCard h3 {
@@ -45,7 +68,7 @@
 .statValue {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--color-white);
+    color: var(--text-color);
 }
 
 .panelsGrid {
@@ -55,8 +78,8 @@
 }
 
 .panel {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 2rem;
 }
@@ -64,8 +87,9 @@
 .panel h2 {
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 1rem;
+    color: var(--text-color);
 }
 
 .emptyState {
@@ -81,19 +105,20 @@
 }
 
 .actionBtn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
     padding: 1rem;
     border-radius: 12px;
-    color: var(--color-white);
+    color: var(--text-color);
     text-align: left;
     transition: all 0.2s;
     font-weight: 500;
 }
 
 .actionBtn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--card-hover-bg);
     border-color: var(--color-lightblue);
+    color: var(--color-lightblue);
 }
 
 @media (max-width: 1024px) {

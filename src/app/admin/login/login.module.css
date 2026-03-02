@@ -3,20 +3,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-black);
+    background: var(--bg-color);
     padding: 1rem;
+    /* iOS stability */
+    -webkit-overflow-scrolling: touch;
 }
 
 .loginCard {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-top: 4px solid var(--color-pink);
     padding: 3rem;
     border-radius: 20px;
     width: 100%;
     max-width: 450px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    /* iOS stability */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .logoBox {
@@ -38,7 +42,7 @@
 
 .header h1 {
     font-size: 1.8rem;
-    color: var(--color-white);
+    color: var(--text-color);
     margin-bottom: 0.5rem;
 }
 
@@ -72,17 +76,17 @@
 }
 
 .inputGroup label {
-    color: #ccc;
+    color: var(--text-color);
     font-size: 0.9rem;
     font-weight: 500;
 }
 
 .inputGroup input {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
     padding: 1rem;
     border-radius: 12px;
-    color: white;
+    color: var(--text-color);
     width: 100%;
     font-size: 1rem;
 }

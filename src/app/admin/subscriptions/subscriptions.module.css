@@ -13,7 +13,7 @@
 
 .title {
     font-size: 2rem;
-    color: var(--color-white);
+    color: var(--text-color);
     margin-bottom: 0.5rem;
 }
 
@@ -37,11 +37,11 @@
 
 .searchInput {
     width: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
     padding: 0.8rem 1rem 0.8rem 3rem;
     border-radius: 50px;
-    color: white;
+    color: var(--text-color);
 }
 
 .searchInput:focus {
@@ -51,10 +51,12 @@
 
 /* Table */
 .tableCard {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     overflow-x: auto;
+    /* iOS scrolling */
+    -webkit-overflow-scrolling: touch;
 }
 
 .table {
@@ -66,14 +68,14 @@
 .table th,
 .table td {
     padding: 1.2rem 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .table th {
     color: var(--text-muted);
     font-weight: 500;
     font-size: 0.9rem;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--card-hover-bg);
 }
 
 .table tr:last-child td {
@@ -81,11 +83,12 @@
 }
 
 .table tr:hover {
-    background: rgba(255, 255, 255, 0.01);
+    background: var(--card-hover-bg);
 }
 
 .cellName {
     font-weight: 600;
+    color: var(--text-color);
 }
 
 .cellEmail {
@@ -132,19 +135,23 @@
 }
 
 .modal {
-    background: #0f0f0f;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-top: 4px solid var(--color-lightblue);
     border-radius: 16px;
     padding: 2.5rem;
     width: 100%;
     max-width: 600px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    /* iOS stability */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .modal h2 {
     margin-bottom: 1.5rem;
     font-size: 1.4rem;
+    color: var(--text-color);
 }
 
 .form {
@@ -160,17 +167,18 @@
 }
 
 .inputGroup label {
-    color: #ccc;
+    color: var(--text-color);
     font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .inputGroup input,
 .inputGroup textarea {
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
     padding: 1rem;
     border-radius: 12px;
-    color: white;
+    color: var(--text-color);
     font-family: inherit;
 }
 
@@ -196,17 +204,19 @@
 }
 
 .cancelBtn {
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
 }
 
 .cancelBtn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--card-hover-bg);
+    border-color: var(--text-muted);
 }
 
 .submitBtn {
     background: var(--color-lightblue);
-    color: black;
+    color: white;
 }
 
 .submitBtn:hover:not(:disabled) {
