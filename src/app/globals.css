@@ -1,12 +1,11 @@
-:root {
+/* Default dark theme */
+:root,
+[data-theme="dark"] {
   --color-black: #0c0c0c;
   --color-white: #ffffff;
   --color-pink: #d81b60;
-  /* Deep premium pink */
   --color-purple: #4a148c;
-  /* Rich deep purple */
   --color-lightblue: #03a9f4;
-  /* Vibrant light blue */
 
   --color-pink-light: #f48fb1;
   --color-purple-light: #ab47bc;
@@ -14,16 +13,38 @@
   --bg-color: var(--color-black);
   --text-color: var(--color-white);
   --text-muted: #a0a0a0;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-hover-bg: rgba(255, 255, 255, 0.05);
+
+  --nav-bg: rgba(12, 12, 12, 0.85);
+  --nav-hover-bg: rgba(255, 255, 255, 0.1);
+  --footer-bg-color: #050505;
 
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    /* Even in light mode we keep it dark/professional or a clean white 
-       But the user requested pink, purple, light blue and black. 
-       Let's stick to a dark luxurious theme by default, it looks more premium */
-  }
+/* Light theme */
+[data-theme="light"] {
+  --color-black: #0c0c0c;
+  --color-white: #ffffff;
+  --color-pink: #e91e63;
+  --color-purple: #6a1b9a;
+  --color-lightblue: #0288d1;
+
+  --color-pink-light: #c2185b;
+  --color-purple-light: #4a148c;
+
+  --bg-color: #f8f9fa;
+  --text-color: #1a1a1a;
+  --text-muted: #666666;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --card-bg: #ffffff;
+  --card-hover-bg: #f0f0f0;
+
+  --nav-bg: rgba(255, 255, 255, 0.95);
+  --nav-hover-bg: rgba(0, 0, 0, 0.05);
+  --footer-bg-color: #eeeeee;
 }
 
 * {

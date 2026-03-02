@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import styles from './Navbar.module.css';
 
+import { ThemeToggle } from '../ThemeToggle';
+
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -38,6 +40,9 @@ export default function Navbar() {
                 <Link href="/stories" className={styles.navLink}>Stories</Link>
                 <Link href="/contact" className={styles.navLink}>Contact</Link>
                 <Link href="/events" className={styles.donateBtn}>Donate</Link>
+                <div style={{ marginLeft: '1rem', display: 'flex', alignItems: 'center' }}>
+                    <ThemeToggle />
+                </div>
             </nav>
 
             {/* Mobile Menu Toggle */}
@@ -54,6 +59,9 @@ export default function Navbar() {
                     <Link href="/stories" className={styles.mobileNavLink} onClick={closeMenu}>Stories</Link>
                     <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>
                     <Link href="/events" className={styles.mobileDonateBtn} onClick={closeMenu}>Donate</Link>
+                    <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
+                        <ThemeToggle />
+                    </div>
                 </nav>
             </div>
         </header>
