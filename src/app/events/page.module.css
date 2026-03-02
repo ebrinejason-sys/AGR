@@ -212,3 +212,46 @@
 .btnSubmit:hover {
     filter: brightness(1.1);
 }
+
+/* Currency Selector */
+.currencySelector {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem;
+    background: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.currencySelector label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--bg-color);
+}
+
+.currencySelector label:hover {
+    background: var(--card-hover-bg);
+}
+
+.currencySelector input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.currencySelector span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.currencySelector input[type="radio"]:checked + span {
+    color: var(--color-lightblue);
+    font-weight: 600;
+}

@@ -29,23 +29,23 @@
 [data-theme="light"] {
   --color-black: #0c0c0c;
   --color-white: #ffffff;
-  --color-pink: #e91e63;
+  --color-pink: #d81b60;
   --color-purple: #6a1b9a;
-  --color-lightblue: #0288d1;
+  --color-lightblue: #0277bd;
 
-  --color-pink-light: #c2185b;
-  --color-purple-light: #4a148c;
+  --color-pink-light: #ad1457;
+  --color-purple-light: #4a0e78;
 
-  --bg-color: #f8f9fa;
-  --text-color: #1a1a1a;
-  --text-muted: #666666;
-  --border-color: rgba(0, 0, 0, 0.1);
-  --card-bg: #ffffff;
-  --card-hover-bg: #f0f0f0;
+  --bg-color: #ffffff;
+  --text-color: #0a0a0a;
+  --text-muted: #424242;
+  --border-color: rgba(0, 0, 0, 0.15);
+  --card-bg: #f5f5f5;
+  --card-hover-bg: #e8e8e8;
 
-  --nav-bg: rgba(255, 255, 255, 0.95);
-  --nav-hover-bg: rgba(0, 0, 0, 0.05);
-  --footer-bg-color: #eeeeee;
+  --nav-bg: rgba(255, 255, 255, 0.98);
+  --nav-hover-bg: rgba(0, 0, 0, 0.08);
+  --footer-bg-color: #f5f5f5;
   color-scheme: light;
 }
 

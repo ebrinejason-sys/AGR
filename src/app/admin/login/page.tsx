@@ -108,7 +108,7 @@ export default function AdminLogin() {
                                     required
                                     value={email}
                                     onChange={e => setEmail(e.target.value)}
-                                    placeholder="africangirlriseltd@gmail.com"
+                                    placeholder="admin@example.com"
                                 />
                             </div>
                         </div>
@@ -122,7 +122,7 @@ export default function AdminLogin() {
                                     required
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
-                                    placeholder="••••••••"
+                                    placeholder="Enter your password"
                                 />
                             </div>
                         </div>

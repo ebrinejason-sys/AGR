@@ -19,6 +19,8 @@ export default function EventsPage() {
     const [loading, setLoading] = useState(true);
     const [donateModal, setDonateModal] = useState<string | null>(null);
     const [generalDonateLoading, setGeneralDonateLoading] = useState(false);
+    const [currency, setCurrency] = useState<'UGX' | 'USD'>('UGX');
+    const [eventCurrency, setEventCurrency] = useState<{[key: string]: 'UGX' | 'USD'}>({});
 
     useEffect(() => {
         async function fetchEvents() {
@@ -54,18 +56,20 @@ export default function EventsPage() {
         const amount = form.amount.value;
         const email = form.email.value;
         const name = form.donorName.value;
+        const selectedCurrency = eventCurrency[eventId] || 'UGX';
+        const phoneNumber = selectedCurrency === 'UGX' ? form.phoneNumber?.value : undefined;
 
         try {
             const res = await fetch('/api/donate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ amount, email, name, eventId })
+                body: JSON.stringify({ amount, email, name, eventId, currency: selectedCurrency, phoneNumber })
             });
             const data = await res.json();
             if (data.paymentUrl) {
                 window.location.href = data.paymentUrl;
             } else {
-                alert("Payment initialization failed. Please try again later.");
+                alert(data.error || "Payment initialization failed. Please try again later.");
             }
         } catch (err) {
             console.error(err);
@@ -79,13 +83,14 @@ export default function EventsPage() {
         const amount = form.amount.value;
         const email = form.email.value;
         const name = form.donorName.value;
+        const phoneNumber = currency === 'UGX' ? form.phoneNumber?.value : undefined;
 
         try {
             setGeneralDonateLoading(true);
             const res = await fetch('/api/donate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ amount, email, name })
+                body: JSON.stringify({ amount, email, name, currency, phoneNumber })
             });
             const data = await res.json();
             if (data.paymentUrl) {
@@ -114,9 +119,34 @@ export default function EventsPage() {
                 <h2>Donate Any Amount</h2>
                 <p>Support the overall cause even if you are not selecting a specific event.</p>
                 <form className={styles.donateForm} onSubmit={handleGeneralDonate}>
+                    <div className={styles.currencySelector}>
+                        <label>
+                            <input 
+                                type="radio" 
+                                name="currency" 
+                                value="UGX" 
+                                checked={currency === 'UGX'} 
+                                onChange={() => setCurrency('UGX')} 
+                            />
+                            <span>UGX (Mobile Money)</span>
+                        </label>
+                        <label>
+                            <input 
+                                type="radio" 
+                                name="currency" 
+                                value="USD" 
+                                checked={currency === 'USD'} 
+                                onChange={() => setCurrency('USD')} 
+                            />
+                            <span>USD (Card)</span>
+                        </label>
+                    </div>
                     <input type="text" name="donorName" placeholder="Your Name" required />
                     <input type="email" name="email" placeholder="Your Email" required />
-                    <input type="number" name="amount" placeholder="Amount (UGX)" required min="1000" />
+                    {currency === 'UGX' && (
+                        <input type="tel" name="phoneNumber" placeholder="Phone Number (256...)" required pattern="[0-9]{10,12}" />
+                    )}
+                    <input type="number" name="amount" placeholder={`Amount (${currency})`} required min={currency === 'UGX' ? '1000' : '5'} />
                     <div className={styles.formActions}>
                         <button type="submit" className={styles.btnSubmit} disabled={generalDonateLoading}>
                             {generalDonateLoading ? 'Processing...' : 'Donate to the Cause'}
@@ -155,9 +185,34 @@ export default function EventsPage() {
                                     <div className={styles.actions}>
                                         {donateModal === evt.id ? (
                                             <form className={styles.donateForm} onSubmit={(e) => handleDonate(e, evt.id)}>
+                                                <div className={styles.currencySelector}>
+                                                    <label>
+                                                        <input 
+                                                            type="radio" 
+                                                            name={`currency-${evt.id}`}
+                                                            value="UGX" 
+                                                            checked={(eventCurrency[evt.id] || 'UGX') === 'UGX'} 
+                                                            onChange={() => setEventCurrency({...eventCurrency, [evt.id]: 'UGX'})} 
+                                                        />
+                                                        <span>UGX (Mobile Money)</span>
+                                                    </label>
+                                                    <label>
+                                                        <input 
+                                                            type="radio" 
+                                                            name={`currency-${evt.id}`}
+                                                            value="USD" 
+                                                            checked={(eventCurrency[evt.id] || 'UGX') === 'USD'} 
+                                                            onChange={() => setEventCurrency({...eventCurrency, [evt.id]: 'USD'})} 
+                                                        />
+                                                        <span>USD (Card)</span>
+                                                    </label>
+                                                </div>
                                                 <input type="text" name="donorName" placeholder="Your Name" required />
                                                 <input type="email" name="email" placeholder="Your Email" required />
-                                                <input type="number" name="amount" placeholder="Amount (UGX)" required min="1000" />
+                                                {(eventCurrency[evt.id] || 'UGX') === 'UGX' && (
+                                                    <input type="tel" name="phoneNumber" placeholder="Phone Number (256...)" required pattern="[0-9]{10,12}" />
+                                                )}
+                                                <input type="number" name="amount" placeholder={`Amount (${eventCurrency[evt.id] || 'UGX'})`} required min={(eventCurrency[evt.id] || 'UGX') === 'UGX' ? '1000' : '5'} />
                                                 <div className={styles.formActions}>
                                                     <button type="button" onClick={() => setDonateModal(null)} className={styles.btnCancel}>Cancel</button>
                                                     <button type="submit" className={styles.btnSubmit}>Proceed to Pay</button>
