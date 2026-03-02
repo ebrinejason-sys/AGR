@@ -100,7 +100,139 @@
     color: var(--text-muted);
 }
 
-/* Form Styling */
+/* Tab Bar */
+.tabBar {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 2rem;
+    background: var(--bg-color);
+    border-radius: 16px;
+    padding: 0.25rem;
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tab {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.75rem 0.5rem;
+    border-radius: 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.tab:hover {
+    color: var(--text-color);
+    background: var(--card-bg);
+}
+
+.tabActive {
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: white;
+    box-shadow: 0 4px 12px rgba(216, 27, 96, 0.3);
+}
+
+.tabActive:hover {
+    color: white;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+}
+
+.tabIcon {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.tabLabel {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Two column input rows */
+.inputRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 600px) {
+    .inputRow {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Select input */
+.selectInput {
+    width: 100%;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: 12px;
+    color: var(--text-color);
+    font-family: inherit;
+    transition: all 0.3s;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+.selectInput:focus {
+    outline: none;
+    border-color: var(--color-lightblue);
+    box-shadow: 0 0 0 2px rgba(3, 169, 244, 0.2);
+}
+
+/* Radio button group */
+.radioGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.radioLabel:hover {
+    border-color: var(--color-lightblue);
+}
+
+.radioLabel input[type="radio"] {
+    accent-color: var(--color-pink);
+    width: 16px;
+    height: 16px;
+}
+
+.radioLabel input[type="radio"]:checked+span {
+    color: var(--color-pink);
+    font-weight: 600;
+}
+
+/* Form card styling */
 .formCard h2 {
     font-size: 2rem;
     margin-bottom: 0.5rem;

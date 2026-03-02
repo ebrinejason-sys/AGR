@@ -20,7 +20,10 @@ const b64urlEncode = (value: string) => Buffer.from(value, 'utf8').toString('bas
 const b64urlDecode = (value: string) => Buffer.from(value, 'base64url').toString('utf8');
 
 const getAuthSecret = () => {
-    const secret = process.env.ADMIN_AUTH_SECRET || process.env.RESEND_API_KEY || 'agr-insecure-dev-secret';
+    const secret = process.env.ADMIN_AUTH_SECRET;
+    if (!secret) {
+        throw new Error('ADMIN_AUTH_SECRET environment variable is required. Generate one with: openssl rand -hex 32');
+    }
     return secret;
 };
 
@@ -59,10 +62,14 @@ const hashOtp = (email: string, otp: string, nonce: string, exp: number) => {
     return signRaw(`${email}:${otp}:${nonce}:${exp}`);
 };
 
-export const getAdminCredentials = () => ({
-    email: process.env.ADMIN_LOGIN_EMAIL || 'africangirlriseltd@gmail.com',
-    password: process.env.ADMIN_LOGIN_PASSWORD || 'rise2026',
-});
+export const getAdminCredentials = () => {
+    const email = process.env.ADMIN_LOGIN_EMAIL;
+    const password = process.env.ADMIN_LOGIN_PASSWORD;
+    if (!email || !password) {
+        throw new Error('ADMIN_LOGIN_EMAIL and ADMIN_LOGIN_PASSWORD environment variables are required.');
+    }
+    return { email, password };
+};
 
 export const createOtpToken = (email: string, otp: string) => {
     const exp = Date.now() + OTP_DURATION_SECONDS * 1000;
