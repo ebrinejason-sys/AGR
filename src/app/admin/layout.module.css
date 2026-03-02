@@ -1,16 +1,16 @@
 .adminContainer {
     display: flex;
     min-height: 100vh;
-    background-color: #050505;
-    color: var(--color-white);
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .sidebar {
     width: 260px;
-    background-color: #0c0c0c;
+    background-color: var(--card-bg);
     display: flex;
     flex-direction: column;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid var(--border-color);
     position: fixed;
     height: 100vh;
     z-index: 100;
@@ -18,7 +18,7 @@
 
 .sidebarHeader {
     padding: 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .sidebarHeader h2 {
@@ -43,18 +43,18 @@
     gap: 1rem;
     padding: 1rem;
     border-radius: 12px;
-    color: #a0a0a0;
+    color: var(--text-muted);
     transition: all 0.2s;
 }
 
 .navItem:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--color-white);
+    background: var(--card-hover-bg);
+    color: var(--text-color);
 }
 
 .sidebarFooter {
     padding: 2rem 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--border-color);
 }
 
 .logoutBtn {
@@ -83,12 +83,12 @@
 
 .topbar {
     height: 70px;
-    background: #0c0c0c;
+    background: var(--card-bg);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 3rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 90;
@@ -115,8 +115,8 @@
 
 
 .active {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--color-white);
+    background: var(--card-hover-bg);
+    color: var(--text-color);
     border-left: 3px solid var(--color-pink);
 }
 
@@ -155,8 +155,8 @@
         justify-content: space-between;
         padding: 0 1.5rem;
         height: 60px;
-        background: #0c0c0c;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        background: var(--card-bg);
+        border-bottom: 1px solid var(--border-color);
         position: fixed;
         top: 0;
         left: 0;
@@ -175,7 +175,7 @@
     .mobileToggleBtn {
         background: none;
         border: none;
-        color: var(--color-white);
+        color: var(--text-color);
         padding: 0.5rem;
         cursor: pointer;
     }

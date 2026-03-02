@@ -1,23 +1,63 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Upload } from 'lucide-react';
 import styles from './media.module.css';
+
+type MediaItem = {
+    id: string;
+    url: string;
+    type: 'image' | 'video';
+    description: string | null;
+};
 
 export default function AdminMedia() {
 
     const [description, setDescription] = useState('');
     const [uploading, setUploading] = useState(false);
+    const [items, setItems] = useState<MediaItem[]>([]);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+    const fetchMedia = async () => {
+        const res = await fetch('/api/admin/media', { cache: 'no-store' });
+        const data = await res.json();
+        if (res.ok) {
+            setItems(data.media || []);
+        }
+    };
+
+    useEffect(() => {
+        fetchMedia();
+    }, []);
 
     const handleUpload = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!selectedFile) {
+            alert('Please choose a file.');
+            return;
+        }
         setUploading(true);
-        // Process File Upload via Supabase Storage here in the future
-        setTimeout(() => {
-            alert("Media Uploaded Successfully!");
+
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('description', description);
+
+        const res = await fetch('/api/admin/media', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+            alert(data.error || 'Upload failed.');
             setUploading(false);
-            setDescription('');
-        }, 1500);
+            return;
+        }
+
+        setUploading(false);
+        setDescription('');
+        setSelectedFile(null);
+        await fetchMedia();
     };
 
     return (
@@ -33,8 +73,14 @@ export default function AdminMedia() {
 
                     <div className={styles.fileDrop}>
                         <Upload size={40} className={styles.uploadIcon} />
-                        <p>Drag and drop or click to select a file (Image / Video)</p>
-                        <input type="file" required className={styles.fileInput} accept="image/*,video/*" />
+                        <p>{selectedFile ? selectedFile.name : 'Drag and drop or click to select a file (Image / Video)'}</p>
+                        <input
+                            type="file"
+                            required
+                            className={styles.fileInput}
+                            accept="image/*,video/*"
+                            onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+                        />
                     </div>
 
                     <div className={styles.inputGroup}>
@@ -55,7 +101,23 @@ export default function AdminMedia() {
 
             <div className={styles.mediaGallery}>
                 <h2>Existing Media</h2>
-                <div className={styles.emptyState}>No media library items found.</div>
+                {items.length === 0 ? (
+                    <div className={styles.emptyState}>No media library items found.</div>
+                ) : (
+                    <div className={styles.mediaGrid}>
+                        {items.map((item) => (
+                            <div key={item.id} className={styles.mediaCard}>
+                                {item.type === 'image' ? (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img src={item.url} alt={item.description || 'Media item'} className={styles.previewImage} />
+                                ) : (
+                                    <video src={item.url} controls className={styles.previewImage} />
+                                )}
+                                <p>{item.description || 'No description'}</p>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

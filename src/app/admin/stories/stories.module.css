@@ -103,3 +103,42 @@
     border-radius: 16px;
     margin-top: 1rem;
 }
+
+.storyList {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1rem;
+}
+
+.storyCard {
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.storyCard h3 {
+    margin-bottom: 0.5rem;
+}
+
+.storyCard p {
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.storyMeta {
+    margin-top: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.deleteBtn {
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid rgba(244, 67, 54, 0.35);
+    color: #f44336;
+    background: rgba(244, 67, 54, 0.12);
+}

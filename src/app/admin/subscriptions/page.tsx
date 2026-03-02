@@ -1,31 +1,66 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Mail, Search } from 'lucide-react';
 import styles from './subscriptions.module.css';
 
+type Subscriber = {
+    id: string;
+    email: string;
+    name: string | null;
+    created_at: string;
+};
+
 export default function AdminSubscriptions() {
-    const [subscribers] = useState([
-        { id: '1', email: 'supporter@example.com', name: 'John Doe', joined: '2026-02-15' },
-        { id: '2', email: 'hello@world.com', name: 'Jane Smith', joined: '2026-02-28' }
-    ]);
+    const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
+    const [search, setSearch] = useState('');
 
     const [composeModal, setComposeModal] = useState<string | null>(null);
     const [emailSubject, setEmailSubject] = useState('');
     const [emailBody, setEmailBody] = useState('');
     const [sending, setSending] = useState(false);
 
-    const handleSendEmail = (e: React.FormEvent) => {
+    useEffect(() => {
+        fetch('/api/admin/subscriptions', { cache: 'no-store' })
+            .then((res) => res.json())
+            .then((data) => setSubscribers(data.subscribers || []));
+    }, []);
+
+    const filteredSubscribers = useMemo(() => {
+        const term = search.trim().toLowerCase();
+        if (!term) return subscribers;
+
+        return subscribers.filter((subscriber) =>
+            subscriber.email.toLowerCase().includes(term)
+            || (subscriber.name || '').toLowerCase().includes(term)
+        );
+    }, [subscribers, search]);
+
+    const handleSendEmail = async (e: React.FormEvent) => {
         e.preventDefault();
         setSending(true);
-        // Future: POST to /api/admin/email taking composeModal (email) and the subject/body
-        setTimeout(() => {
-            alert("Email queued successfully!");
+
+        const res = await fetch('/api/admin/email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                to: composeModal,
+                subject: emailSubject,
+                message: emailBody,
+            }),
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+            alert(data.error || 'Failed to send email.');
             setSending(false);
-            setComposeModal(null);
-            setEmailSubject('');
-            setEmailBody('');
-        }, 1500);
+            return;
+        }
+
+        setSending(false);
+        setComposeModal(null);
+        setEmailSubject('');
+        setEmailBody('');
     };
 
     return (
@@ -38,7 +73,13 @@ export default function AdminSubscriptions() {
 
                 <div className={styles.searchBox}>
                     <Search size={20} className={styles.searchIcon} />
-                    <input type="text" placeholder="Search subscribers..." className={styles.searchInput} />
+                    <input
+                        type="text"
+                        placeholder="Search subscribers..."
+                        className={styles.searchInput}
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
                 </div>
             </div>
 
@@ -53,11 +94,11 @@ export default function AdminSubscriptions() {
                         </tr>
                     </thead>
                     <tbody>
-                        {subscribers.map(sub => (
+                        {filteredSubscribers.map(sub => (
                             <tr key={sub.id}>
                                 <td className={styles.cellName}>{sub.name || 'Anonymous'}</td>
                                 <td className={styles.cellEmail}>{sub.email}</td>
-                                <td>{sub.joined}</td>
+                                <td>{new Date(sub.created_at).toLocaleDateString()}</td>
                                 <td>
                                     <button
                                         className={styles.emailBtn}
@@ -70,7 +111,7 @@ export default function AdminSubscriptions() {
                         ))}
                     </tbody>
                 </table>
-                {subscribers.length === 0 && (
+                {filteredSubscribers.length === 0 && (
                     <div className={styles.emptyState}>No subscribers found.</div>
                 )}
             </div>

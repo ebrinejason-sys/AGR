@@ -18,6 +18,7 @@ export default function EventsPage() {
     const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
     const [donateModal, setDonateModal] = useState<string | null>(null);
+    const [generalDonateLoading, setGeneralDonateLoading] = useState(false);
 
     useEffect(() => {
         async function fetchEvents() {
@@ -72,6 +73,34 @@ export default function EventsPage() {
         }
     };
 
+    const handleGeneralDonate = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const form = e.target as HTMLFormElement;
+        const amount = form.amount.value;
+        const email = form.email.value;
+        const name = form.donorName.value;
+
+        try {
+            setGeneralDonateLoading(true);
+            const res = await fetch('/api/donate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ amount, email, name })
+            });
+            const data = await res.json();
+            if (data.paymentUrl) {
+                window.location.href = data.paymentUrl;
+            } else {
+                alert(data.error || 'Payment initialization failed. Please try again later.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert("An error occurred connecting to the payment gateway.");
+        } finally {
+            setGeneralDonateLoading(false);
+        }
+    };
+
     return (
         <div className={styles.container}>
             <header className={styles.header}>
@@ -80,6 +109,21 @@ export default function EventsPage() {
                     Support our mission. Your money, invested wisely, does not just change one life. It transforms generations.
                 </p>
             </header>
+
+            <section className={styles.generalDonateCard}>
+                <h2>Donate Any Amount</h2>
+                <p>Support the overall cause even if you are not selecting a specific event.</p>
+                <form className={styles.donateForm} onSubmit={handleGeneralDonate}>
+                    <input type="text" name="donorName" placeholder="Your Name" required />
+                    <input type="email" name="email" placeholder="Your Email" required />
+                    <input type="number" name="amount" placeholder="Amount (UGX)" required min="1000" />
+                    <div className={styles.formActions}>
+                        <button type="submit" className={styles.btnSubmit} disabled={generalDonateLoading}>
+                            {generalDonateLoading ? 'Processing...' : 'Donate to the Cause'}
+                        </button>
+                    </div>
+                </form>
+            </section>
 
             {loading ? (
                 <div className={styles.loader}>Loading events...</div>

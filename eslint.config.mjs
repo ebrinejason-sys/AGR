@@ -18,6 +18,9 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "server.js",
+      "ssh_install.js",
+      "upload_to_cpanel.js",
     ],
   },
 ];

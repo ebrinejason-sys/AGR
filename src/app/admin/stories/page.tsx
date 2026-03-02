@@ -1,22 +1,63 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PenTool } from 'lucide-react';
 import styles from './stories.module.css';
+
+type Story = {
+    id: string;
+    title: string;
+    content: string;
+    created_at: string;
+};
 
 export default function AdminStories() {
     const [formData, setFormData] = useState({ title: '', content: '' });
     const [publishing, setPublishing] = useState(false);
+    const [stories, setStories] = useState<Story[]>([]);
+
+    const fetchStories = async () => {
+        const res = await fetch('/api/admin/stories', { cache: 'no-store' });
+        const data = await res.json();
+        if (res.ok) {
+            setStories(data.stories || []);
+        }
+    };
+
+    useEffect(() => {
+        fetchStories();
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setPublishing(true);
-        // In future, save to Supabase 'stories' table
-        setTimeout(() => {
-            alert("Story Published Successfully!");
+
+        const res = await fetch('/api/admin/stories', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+            alert(data.error || 'Failed to publish story.');
             setPublishing(false);
-            setFormData({ title: '', content: '' });
-        }, 1500);
+            return;
+        }
+
+        setPublishing(false);
+        setFormData({ title: '', content: '' });
+        await fetchStories();
+    };
+
+    const deleteStory = async (id: string) => {
+        if (!confirm('Delete this story?')) return;
+        await fetch('/api/admin/stories', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id }),
+        });
+        await fetchStories();
     };
 
     return (
@@ -60,7 +101,26 @@ export default function AdminStories() {
 
             <div className={styles.publishedList}>
                 <h2>Published Stories</h2>
-                <div className={styles.emptyState}>No stories have been published yet.</div>
+                {stories.length === 0 ? (
+                    <div className={styles.emptyState}>No stories have been published yet.</div>
+                ) : (
+                    <div className={styles.storyList}>
+                        {stories.map((story) => (
+                            <article key={story.id} className={styles.storyCard}>
+                                <div>
+                                    <h3>{story.title}</h3>
+                                    <p>{story.content.slice(0, 180)}...</p>
+                                </div>
+                                <div className={styles.storyMeta}>
+                                    <span>{new Date(story.created_at).toLocaleDateString()}</span>
+                                    <button className={styles.deleteBtn} onClick={() => deleteStory(story.id)}>
+                                        Delete
+                                    </button>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

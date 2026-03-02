@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Lock, Mail } from 'lucide-react';
 import styles from './login.module.css';
 import Image from 'next/image';
@@ -15,6 +15,18 @@ export default function AdminLogin() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
+    const [notice, setNotice] = useState('');
+
+    useEffect(() => {
+        fetch('/api/auth')
+            .then((res) => res.json())
+            .then((data) => {
+                if (!data.resendConfigured) {
+                    setNotice('RESEND_API_KEY is not configured. OTP delivery will fail until it is set.');
+                }
+            })
+            .catch(() => undefined);
+    }, []);
 
     const handleRequestOtp = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -36,7 +48,7 @@ export default function AdminLogin() {
             } else {
                 setError(data.error || 'Invalid credentials');
             }
-        } catch (err) {
+        } catch {
             setError('Something went wrong. Please try again.');
         } finally {
             setLoading(false);
@@ -58,12 +70,11 @@ export default function AdminLogin() {
 
             if (res.ok) {
                 // In a real app, you'd set a secure HTTP-Only cookie here to maintain the session
-                document.cookie = "admin_session=authenticated; path=/; max-age=86400";
                 router.push('/admin');
             } else {
                 setError(data.error || 'Invalid OTP');
             }
-        } catch (err) {
+        } catch {
             setError('Verification failed. Please try again.');
         } finally {
             setLoading(false);
@@ -84,6 +95,7 @@ export default function AdminLogin() {
 
                 {error && <div className={styles.errorMsg}>{error}</div>}
                 {successMsg && <div className={styles.successMsg}>{successMsg}</div>}
+                {notice && <div className={styles.successMsg}>{notice}</div>}
 
                 {step === 'credentials' ? (
                     <form onSubmit={handleRequestOtp} className={styles.form}>

@@ -1,34 +1,36 @@
 import { NextResponse } from 'next/server';
-import { resend, ADMIN_EMAIL, SENDER_EMAIL } from '@/lib/resend';
-
-// Store OTPs temporarily in memory. (Note: For production at scale, use Redis or Database)
-const otpStore = new Map<string, { otp: string, expires: number }>();
+import { resend, SENDER_EMAIL } from '@/lib/resend';
+import { ADMIN_OTP_COOKIE, ADMIN_SESSION_COOKIE } from '@/lib/admin-constants';
+import {
+    createAdminSessionToken,
+    createOtpToken,
+    getAdminCredentials,
+    verifyAdminSessionToken,
+    verifyOtpToken,
+} from '@/lib/admin-auth';
 
 export async function POST(req: Request) {
     try {
         const { action, email, password, otp } = await req.json();
 
-        const TARGET_EMAIL = 'africangirlriseltd@gmail.com';
-        const TARGET_PASSWORD = 'rise2026';
+        const { email: targetEmail, password: targetPassword } = getAdminCredentials();
 
         if (action === 'request_otp') {
-            if (email !== TARGET_EMAIL || password !== TARGET_PASSWORD) {
+            if (email !== targetEmail || password !== targetPassword) {
                 return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
             }
 
-            // Generate a 6-digit OTP
+            if (!resend) {
+                return NextResponse.json({ error: 'Email service is not configured. Set RESEND_API_KEY.' }, { status: 503 });
+            }
+
             const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
 
-            // Store it with a 10 minute expiration
-            otpStore.set(email, {
-                otp: generatedOtp,
-                expires: Date.now() + 10 * 60 * 1000
-            });
+            const otpState = createOtpToken(email, generatedOtp);
 
-            // Send the OTP via Resend
             const { error } = await resend.emails.send({
                 from: SENDER_EMAIL,
-                to: TARGET_EMAIL,
+                to: email,
                 subject: 'Your Admin Login OTP - African Girl Rise',
                 html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
@@ -48,29 +50,63 @@ export async function POST(req: Request) {
                 return NextResponse.json({ error: 'Failed to send OTP email' }, { status: 500 });
             }
 
-            return NextResponse.json({ success: true, message: 'OTP sent successfully' });
+            const response = NextResponse.json({ success: true, message: 'OTP sent successfully' });
+            response.cookies.set({
+                name: ADMIN_OTP_COOKIE,
+                value: otpState.token,
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: otpState.maxAge,
+                path: '/',
+            });
+
+            return response;
         }
 
         if (action === 'verify_otp') {
-            const storedData = otpStore.get(email);
+            const otpCookie = req.headers.get('cookie')
+                ?.split(';')
+                .map((item) => item.trim())
+                .find((item) => item.startsWith(`${ADMIN_OTP_COOKIE}=`))
+                ?.split('=')[1];
 
-            if (!storedData) {
-                return NextResponse.json({ error: 'OTP expired or invalid' }, { status: 400 });
-            }
-
-            if (Date.now() > storedData.expires) {
-                otpStore.delete(email);
-                return NextResponse.json({ error: 'OTP has expired' }, { status: 400 });
-            }
-
-            if (storedData.otp !== otp) {
+            if (!otpCookie || !otp || !verifyOtpToken(decodeURIComponent(otpCookie), email, otp)) {
                 return NextResponse.json({ error: 'Incorrect OTP' }, { status: 400 });
             }
 
-            // Success! Clear the OTP.
-            otpStore.delete(email);
+            const session = createAdminSessionToken(email);
+            const response = NextResponse.json({ success: true, message: 'OTP verified' });
 
-            return NextResponse.json({ success: true, message: 'OTP verified' });
+            response.cookies.set({
+                name: ADMIN_SESSION_COOKIE,
+                value: session.token,
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: session.maxAge,
+                path: '/',
+            });
+
+            response.cookies.set({
+                name: ADMIN_OTP_COOKIE,
+                value: '',
+                maxAge: 0,
+                path: '/',
+            });
+
+            return response;
+        }
+
+        if (action === 'logout') {
+            const response = NextResponse.json({ success: true });
+            response.cookies.set({
+                name: ADMIN_SESSION_COOKIE,
+                value: '',
+                maxAge: 0,
+                path: '/',
+            });
+            return response;
         }
 
         return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
@@ -79,4 +115,20 @@ export async function POST(req: Request) {
         console.error('Auth API Error:', err);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
+}
+
+export async function GET(req: Request) {
+    const sessionCookie = req.headers.get('cookie')
+        ?.split(';')
+        .map((item) => item.trim())
+        .find((item) => item.startsWith(`${ADMIN_SESSION_COOKIE}=`))
+        ?.split('=')[1];
+
+    const session = sessionCookie ? verifyAdminSessionToken(decodeURIComponent(sessionCookie)) : null;
+
+    return NextResponse.json({
+        authenticated: Boolean(session),
+        resendConfigured: Boolean(process.env.RESEND_API_KEY),
+        adminEmail: getAdminCredentials().email,
+    });
 }

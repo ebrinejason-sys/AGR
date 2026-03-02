@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from 'next/navigation';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import styles from './layout.module.css';
 
@@ -6,6 +9,12 @@ export default function AdminLayout({
 }: {
     children: React.ReactNode;
 }) {
+    const pathname = usePathname();
+
+    if (pathname === '/admin/login') {
+        return <>{children}</>;
+    }
+
     return (
         <div className={styles.adminContainer}>
             {/* Interactive Sidebar with Mobile Hamburger */}

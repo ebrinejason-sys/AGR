@@ -63,8 +63,12 @@ export default function AdminSidebar() {
                 </nav>
 
                 <div className={styles.sidebarFooter}>
-                    <button className={styles.logoutBtn} onClick={() => {
-                        // In a real app, clear cookies/session here
+                    <button className={styles.logoutBtn} onClick={async () => {
+                        await fetch('/api/auth', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ action: 'logout' }),
+                        });
                         window.location.href = '/admin/login';
                     }}>
                         <LogOut size={20} />

@@ -3,10 +3,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 5%;
-    background: rgba(12, 12, 12, 0.8);
-
-
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -28,7 +26,7 @@
     font-weight: 800;
     font-size: 1.2rem;
     letter-spacing: 1px;
-    color: var(--color-white);
+    color: var(--text-color);
 }
 
 .desktopNav {
@@ -70,7 +68,7 @@
     display: none;
     background: none;
     border: none;
-    color: var(--color-white);
+    color: var(--text-color);
     cursor: pointer;
     z-index: 1001;
     padding: 0.5rem;
@@ -83,7 +81,7 @@
     width: 100%;
     height: 100vh;
     height: 100dvh;
-    background: rgba(12, 12, 12, 0.98);
+    background: var(--nav-bg);
 
 
     display: flex;
@@ -109,7 +107,7 @@
 }
 
 .mobileNavLink {
-    color: var(--color-white);
+    color: var(--text-color);
     font-size: 1.8rem;
     font-weight: 600;
     text-decoration: none;

@@ -5,23 +5,22 @@ export async function POST(req: Request) {
         const body = await req.json();
         const { amount, email, name, eventId } = body;
 
-        if (!amount || !email) {
+        const parsedAmount = Number(amount);
+        if (!parsedAmount || Number.isNaN(parsedAmount) || parsedAmount < 1000 || !email) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
-        // Prepare Flutterwave V4 Payload request
-        // According to Flutterwave standard inline/standard payment initialization
+        if (!process.env.FLUTTERWAVE_SECRET_KEY) {
+            return NextResponse.json({ error: 'Payment service not configured. Set FLUTTERWAVE_SECRET_KEY.' }, { status: 503 });
+        }
+
         const flutterwaveUrl = "https://api.flutterwave.com/v3/payments";
-        // Wait, the user mentioned Flutterwave V4 with Client ID and Secret. 
-        // They provided: Client ID, Client Secret, Encryption Key.
-        // For V4, standard payment links or server-side calls might use these new credentials.
-        // I will mock the payment URL logic for now to allow the UI to function while the actual V4 SDK/Endpoint is confirmed.
 
         const payload = {
             tx_ref: `agr_${Date.now()}_${eventId || 'gen'}`,
-            amount,
+            amount: parsedAmount,
             currency: "UGX", // Assuming UGX for Uganda, but can make it dynamic
-            redirect_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/events?success=true`,
+            redirect_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/events?donation=success`,
             customer: {
                 email,
                 name: name || "Anonymous Donor",
@@ -44,11 +43,12 @@ export async function POST(req: Request) {
 
         const data = await response.json();
 
-        if (data.status === "success") {
-            return NextResponse.json({ paymentUrl: data.data.link });
-        } else {
+        const paymentUrl = data?.data?.link;
+        if (!response.ok || data.status !== "success" || !paymentUrl) {
             console.error("Flutterwave API Error:", data);
             return NextResponse.json({ error: 'Payment initialization failed', details: data }, { status: 500 });
+        } else {
+            return NextResponse.json({ paymentUrl });
         }
 
     } catch (error) {
