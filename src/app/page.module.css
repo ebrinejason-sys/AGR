@@ -24,6 +24,7 @@
   align-items: center;
   gap: 2rem;
   animation: fadeUp 1s ease-out forwards;
+  will-change: opacity, transform;
 }
 
 @keyframes fadeUp {
@@ -62,6 +63,7 @@
   font-size: 1rem;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: inline-block;
+  will-change: transform;
 }
 
 .btnPrimary {
@@ -100,7 +102,19 @@
   border-radius: 50%;
   opacity: 0.4;
   z-index: 1;
-  animation: float 10s infinite alternate ease-in-out;
+  /* Disable infinite animation on iOS to prevent crashes */
+  animation: none;
+  will-change: auto;
+}
+
+/* Only enable animations on desktop/non-iOS devices */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .heroGlowPink,
+  .heroGlowPurple,
+  .heroGlowBlue {
+    animation: float 15s infinite alternate ease-in-out;
+    will-change: transform;
+  }
 }
 
 .heroGlowPink {
@@ -117,7 +131,6 @@
   width: 50vw;
   height: 50vw;
   background: radial-gradient(circle, var(--color-purple) 0%, transparent 70%);
-  animation-delay: -5s;
 }
 
 .heroGlowBlue {
@@ -126,7 +139,19 @@
   width: 30vw;
   height: 30vw;
   background: radial-gradient(circle, var(--color-lightblue) 0%, transparent 70%);
-  animation-delay: -2s;
+}
+
+/* Only animate on desktop with proper hover support */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .heroGlowPink {
+    animation-delay: 0s;
+  }
+  .heroGlowPurple {
+    animation-delay: -5s;
+  }
+  .heroGlowBlue {
+    animation-delay: -2s;
+  }
 }
 
 @keyframes float {

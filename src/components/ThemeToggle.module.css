@@ -14,18 +14,17 @@
     border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2));
     color: var(--text-color);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease;
 }
 
 .toggleBtn:hover {
     background: var(--nav-hover-bg, rgba(255, 255, 255, 0.1));
-    transform: scale(1.05);
 }
 
 .icon {
-    transition: transform 0.3s ease;
+    /* No rotation animation - simpler for iOS */
 }
 
 .toggleBtn:hover .icon {
-    transform: rotate(15deg);
+    /* Removed rotation for iOS stability */
 }

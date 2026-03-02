@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import styles from "./layout.module.css";
 import Navbar from "@/components/layout/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
@@ -36,27 +37,19 @@ export default function RootLayout({
           defaultTheme="system"
           themes={["light", "dark"]}
           enableSystem
-          disableTransitionOnChange={false}
+          disableTransitionOnChange={true}
           storageKey="agr-theme"
         >
-          <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+          <div className={styles.layoutContainer}>
             <Navbar />
 
-            <main style={{ flex: 1 }}>
+            <main className={styles.mainContent}>
               {children}
             </main>
 
-            <footer style={{
-              padding: '3rem 5%',
-              borderTop: '1px solid var(--border-color, rgba(255,255,255,0.1))',
-              marginTop: 'auto',
-              background: 'var(--footer-bg-color, #050505)',
-              textAlign: 'center',
-              fontSize: '0.9rem',
-              color: 'var(--text-muted)'
-            }}>
+            <footer className={styles.footer}>
               <p>African Girl Rise Initiative © {new Date().getFullYear()}</p>
-              <p style={{ marginTop: '0.5rem' }}>Ibanda District, Western Uganda</p>
+              <p className={styles.footerLocation}>Ibanda District, Western Uganda</p>
             </footer>
           </div>
         </ThemeProvider>

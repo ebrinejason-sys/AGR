@@ -110,6 +110,29 @@ textarea {
   transform-style: preserve-3d;
 }
 
+/* Optimize animations for iOS - only use will-change on active animations */
+@media (hover: hover) and (pointer: fine) {
+  *:hover {
+    /* Desktop only - enable GPU acceleration on hover */
+    will-change: transform, opacity;
+  }
+}
+
+/* Disable expensive animations on mobile/iOS */
+@media (max-width: 1023px), (hover: none) {
+  * {
+    /* Disable all infinite animations on mobile */
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+  
+  /* Keep essential non-infinite animations */
+  *[data-animate="once"] {
+    animation-duration: revert !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 /* Smooth scrolling for Safari */
 @supports (-webkit-overflow-scrolling: touch) {
   html {

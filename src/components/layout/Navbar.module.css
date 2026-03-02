@@ -57,11 +57,24 @@
     box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
     border: none;
     cursor: pointer;
+    will-change: transform;
 }
 
 .donateBtn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(216, 27, 96, 0.5);
+}
+
+.themeToggleWrapper {
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.mobileThemeToggleWrapper {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
 }
 
 .mobileToggle {
@@ -91,7 +104,8 @@
     z-index: 1000;
     opacity: 0;
     pointer-events: none;
-    transition: all 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+    will-change: opacity;
 }
 
 .mobileNavOverlay.open {
@@ -111,34 +125,20 @@
     font-size: 1.8rem;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s;
-    opacity: 0;
-    transform: translateY(20px);
+    transition: color 0.2s;
 }
 
 .mobileNavOverlay.open .mobileNavLink {
-    opacity: 1;
-    transform: translateY(0);
+    /* Simplified for iOS - no transforms */
 }
 
-.mobileNavOverlay.open .mobileNavLink:nth-child(1) {
-    transition-delay: 0.1s;
-}
-
-.mobileNavOverlay.open .mobileNavLink:nth-child(2) {
-    transition-delay: 0.15s;
-}
-
-.mobileNavOverlay.open .mobileNavLink:nth-child(3) {
-    transition-delay: 0.2s;
-}
-
-.mobileNavOverlay.open .mobileNavLink:nth-child(4) {
-    transition-delay: 0.25s;
-}
-
+/* Remove staggered delays that can cause iOS issues */
+.mobileNavOverlay.open .mobileNavLink:nth-child(1),
+.mobileNavOverlay.open .mobileNavLink:nth-child(2),
+.mobileNavOverlay.open .mobileNavLink:nth-child(3),
+.mobileNavOverlay.open .mobileNavLink:nth-child(4),
 .mobileNavOverlay.open .mobileNavLink:nth-child(5) {
-    transition-delay: 0.3s;
+    /* Removed transition-delay for iOS stability */
 }
 
 .mobileNavLink:hover {
@@ -156,15 +156,11 @@
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s;
+    transition: box-shadow 0.2s;
 }
 
 .mobileNavOverlay.open .mobileDonateBtn {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.35s;
+    /* Simplified for iOS - no transforms */
 }
 
 /* Media Queries for responsive behavior */
