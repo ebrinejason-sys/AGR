@@ -7,9 +7,10 @@ export async function POST(req: Request) {
 
         const parsedAmount = Number(amount);
         const validCurrencies = ['UGX', 'USD'];
-        
-        if (!parsedAmount || Number.isNaN(parsedAmount) || parsedAmount < 1000 || !email) {
-            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+
+        const minAmount = currency === 'USD' ? 5 : 1000;
+        if (!parsedAmount || Number.isNaN(parsedAmount) || parsedAmount < minAmount || !email) {
+            return NextResponse.json({ error: `Missing required fields or amount below minimum (${currency} ${minAmount})` }, { status: 400 });
         }
 
         if (!validCurrencies.includes(currency)) {
@@ -27,7 +28,7 @@ export async function POST(req: Request) {
 
         const flutterwaveUrl = "https://api.flutterwave.com/v3/payments";
 
-        const payload: any = {
+        const payload: Record<string, unknown> = {
             tx_ref: `agr_${Date.now()}_${eventId || 'gen'}`,
             amount: parsedAmount,
             currency: currency,

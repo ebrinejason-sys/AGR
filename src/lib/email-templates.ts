@@ -112,8 +112,15 @@ export const BaseEmailTemplate = (title: string, contentHtml: string) => {
   `;
 };
 
+const escapeHtml = (str: string): string =>
+  str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
 // Example specific templates
 export const ContactSubmissionTemplate = (name: string, email: string, message: string) => {
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeMessage = escapeHtml(message);
+
   return BaseEmailTemplate(
     "New Contact Form Submission",
     `
@@ -121,13 +128,13 @@ export const ContactSubmissionTemplate = (name: string, email: string, message: 
       <p>You have received a new message from the website contact form.</p>
       
       <div style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #03a9f4;">
-        <p style="margin-bottom: 8px;"><strong>Name:</strong> ${name}</p>
-        <p style="margin-bottom: 8px;"><strong>Email:</strong> ${email}</p>
-        <p style="margin-bottom: 0;"><strong>Message:</strong><br/> ${message.replace(/\n/g, '<br/>')}</p>
+        <p style="margin-bottom: 8px;"><strong>Name:</strong> ${safeName}</p>
+        <p style="margin-bottom: 8px;"><strong>Email:</strong> ${safeEmail}</p>
+        <p style="margin-bottom: 0;"><strong>Message:</strong><br/> ${safeMessage.replace(/\n/g, '<br/>')}</p>
       </div>
       
       <p>Please respond to this inquiry when possible.</p>
-      <a href="mailto:${email}" class="btn">Reply to ${name}</a>
+      <a href="mailto:${safeEmail}" class="btn">Reply to ${safeName}</a>
     `
   );
 };

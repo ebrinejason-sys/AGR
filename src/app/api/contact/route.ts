@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { resend, SENDER_EMAIL } from '@/lib/resend';
 
+const escapeHtml = (str: string): string =>
+  str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
 export async function POST(request: Request) {
   try {
     if (!resend) {
@@ -26,13 +29,17 @@ export async function POST(request: Request) {
 
     const adminRecipient = process.env.CONTACT_EMAIL || 'africangirlriseltd@gmail.com';
 
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeMessage = escapeHtml(message);
+
     const adminHtml = `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
         <h2>New Contact Message</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Name:</strong> ${safeName}</p>
+        <p><strong>Email:</strong> ${safeEmail}</p>
         <p><strong>Message:</strong></p>
-        <p style="white-space: pre-wrap;">${message}</p>
+        <p style="white-space: pre-wrap;">${safeMessage}</p>
       </div>
     `;
 
@@ -40,7 +47,7 @@ export async function POST(request: Request) {
       from: SENDER_EMAIL,
       to: adminRecipient,
       replyTo: email,
-      subject: `New Contact Message from ${name}`,
+      subject: `New Contact Message from ${safeName}`,
       html: adminHtml,
     });
 
@@ -50,7 +57,7 @@ export async function POST(request: Request) {
 
     const userConfirmationHtml = `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-        <h2>Thank you, ${name}</h2>
+        <h2>Thank you, ${safeName}</h2>
         <p>We received your message and our team will get back to you soon.</p>
         <p>Rise. Then reach back.</p>
         <p>African Girl Rise Initiative</p>

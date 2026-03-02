@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { requireAdminSession } from '@/lib/admin-api';
 import { resend, SENDER_EMAIL } from '@/lib/resend';
 
+const escapeHtml = (str: string): string =>
+    str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
 export async function POST(request: Request) {
     const { error } = requireAdminSession(request);
     if (error) return error;
@@ -17,11 +20,13 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Recipient, subject and message are required.' }, { status: 400 });
     }
 
+    const safeMessage = escapeHtml(String(message));
+
     const { error: sendError } = await resend.emails.send({
         from: SENDER_EMAIL,
         to,
         subject,
-        html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; white-space: pre-wrap;">${message}</div>`,
+        html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; white-space: pre-wrap;">${safeMessage}</div>`,
     });
 
     if (sendError) {

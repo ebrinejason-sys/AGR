@@ -128,19 +128,6 @@
     transition: color 0.2s;
 }
 
-.mobileNavOverlay.open .mobileNavLink {
-    /* Simplified for iOS - no transforms */
-}
-
-/* Remove staggered delays that can cause iOS issues */
-.mobileNavOverlay.open .mobileNavLink:nth-child(1),
-.mobileNavOverlay.open .mobileNavLink:nth-child(2),
-.mobileNavOverlay.open .mobileNavLink:nth-child(3),
-.mobileNavOverlay.open .mobileNavLink:nth-child(4),
-.mobileNavOverlay.open .mobileNavLink:nth-child(5) {
-    /* Removed transition-delay for iOS stability */
-}
-
 .mobileNavLink:hover {
     color: var(--color-pink);
 }
@@ -157,10 +144,6 @@
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
     transition: box-shadow 0.2s;
-}
-
-.mobileNavOverlay.open .mobileDonateBtn {
-    /* Simplified for iOS - no transforms */
 }
 
 /* Media Queries for responsive behavior */

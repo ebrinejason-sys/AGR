@@ -80,6 +80,7 @@ textarea,
 select {
   font-size: 16px;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 /* Base resets for iOS touch rendering */
@@ -101,37 +102,13 @@ textarea {
   user-select: auto;
 }
 
-/* Fix Safari flickering and rendering issues */
-* {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  /* Prevent iOS crashes with transforms */
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-}
+/* GPU hints only for specific animated/transformed elements — NOT on * selector.
+   Blanket backface-visibility/transform-style on * causes iOS Safari to create
+   a compositing layer for every DOM node, exhausting GPU memory and crashing. */
 
-/* Optimize animations for iOS - only use will-change on active animations */
-@media (hover: hover) and (pointer: fine) {
-  *:hover {
-    /* Desktop only - enable GPU acceleration on hover */
-    will-change: transform, opacity;
-  }
-}
-
-/* Disable expensive animations on mobile/iOS */
-@media (max-width: 1023px), (hover: none) {
-  * {
-    /* Disable all infinite animations on mobile */
-    animation-duration: 0s !important;
-    animation-iteration-count: 1 !important;
-  }
-  
-  /* Keep essential non-infinite animations */
-  *[data-animate="once"] {
-    animation-duration: revert !important;
-    animation-iteration-count: 1 !important;
-  }
-}
+/* Note: Infinite glow animations are already disabled on mobile in page.module.css
+   via "animation: none" on the glow orb classes. No blanket animation kill needed
+   here — that was breaking the loading spinner and hero fadeUp animation. */
 
 /* Smooth scrolling for Safari */
 @supports (-webkit-overflow-scrolling: touch) {
@@ -185,6 +162,11 @@ button {
 
 /* Loading spinner animation */
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -109,6 +109,7 @@
 
 /* Only enable animations on desktop/non-iOS devices */
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+
   .heroGlowPink,
   .heroGlowPurple,
   .heroGlowBlue {
@@ -146,9 +147,11 @@
   .heroGlowPink {
     animation-delay: 0s;
   }
+
   .heroGlowPurple {
     animation-delay: -5s;
   }
+
   .heroGlowBlue {
     animation-delay: -2s;
   }
@@ -228,10 +231,19 @@
   color: var(--text-muted);
 }
 
-/* iOS Specific overrides inside modules */
+/* Mobile / iOS overrides */
 @media (max-width: 768px) {
   .hero {
     min-height: 100dvh;
+  }
+
+  /* Ensure hero text is visible on mobile — the fadeUp animation
+     starts at opacity:0, so disable it and show content immediately */
+  .heroContent {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    will-change: auto;
   }
 
   .philosophyCard {
@@ -246,5 +258,6 @@
   .btnPrimary,
   .btnSecondary {
     width: 100%;
+    will-change: auto;
   }
 }
