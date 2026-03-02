@@ -19,6 +19,7 @@ export default function EventsPage() {
     const [loading, setLoading] = useState(true);
     const [donateModal, setDonateModal] = useState<string | null>(null);
     const [generalDonateLoading, setGeneralDonateLoading] = useState(false);
+    const [eventDonateLoading, setEventDonateLoading] = useState<string | null>(null);
     const [currency, setCurrency] = useState<'UGX' | 'USD'>('UGX');
     const [eventCurrency, setEventCurrency] = useState<{[key: string]: 'UGX' | 'USD'}>({});
 
@@ -60,6 +61,7 @@ export default function EventsPage() {
         const phoneNumber = selectedCurrency === 'UGX' ? form.phoneNumber?.value : undefined;
 
         try {
+            setEventDonateLoading(eventId);
             const res = await fetch('/api/donate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -70,10 +72,12 @@ export default function EventsPage() {
                 window.location.href = data.paymentUrl;
             } else {
                 alert(data.error || "Payment initialization failed. Please try again later.");
+                setEventDonateLoading(null);
             }
         } catch (err) {
             console.error(err);
             alert("An error occurred connecting to the payment gateway.");
+            setEventDonateLoading(null);
         }
     };
 
@@ -144,9 +148,9 @@ export default function EventsPage() {
                     <input type="text" name="donorName" placeholder="Your Name" required />
                     <input type="email" name="email" placeholder="Your Email" required />
                     {currency === 'UGX' && (
-                        <input type="tel" name="phoneNumber" placeholder="Phone Number (256...)" required pattern="[0-9]{10,12}" />
+                        <input type="tel" name="phoneNumber" placeholder="Phone Number (e.g., 256700123456)" required pattern="[0-9]{12}" title="Enter phone number starting with country code (e.g., 256700123456)" />
                     )}
-                    <input type="number" name="amount" placeholder={`Amount (${currency})`} required min={currency === 'UGX' ? '1000' : '5'} />
+                    <input type="number" name="amount" placeholder={`Amount (${currency})`} required min={currency === 'UGX' ? '1000' : '5'} step="any" />
                     <div className={styles.formActions}>
                         <button type="submit" className={styles.btnSubmit} disabled={generalDonateLoading}>
                             {generalDonateLoading ? 'Processing...' : 'Donate to the Cause'}
@@ -210,12 +214,12 @@ export default function EventsPage() {
                                                 <input type="text" name="donorName" placeholder="Your Name" required />
                                                 <input type="email" name="email" placeholder="Your Email" required />
                                                 {(eventCurrency[evt.id] || 'UGX') === 'UGX' && (
-                                                    <input type="tel" name="phoneNumber" placeholder="Phone Number (256...)" required pattern="[0-9]{10,12}" />
+                                                    <input type="tel" name="phoneNumber" placeholder="Phone Number (e.g., 256700123456)" required pattern="[0-9]{12}" title="Enter phone number starting with country code (e.g., 256700123456)" />
                                                 )}
-                                                <input type="number" name="amount" placeholder={`Amount (${eventCurrency[evt.id] || 'UGX'})`} required min={(eventCurrency[evt.id] || 'UGX') === 'UGX' ? '1000' : '5'} />
+                                                <input type="number" name="amount" placeholder={`Amount (${eventCurrency[evt.id] || 'UGX'})`} required min={(eventCurrency[evt.id] || 'UGX') === 'UGX' ? '1000' : '5'} step="any" />
                                                 <div className={styles.formActions}>
-                                                    <button type="button" onClick={() => setDonateModal(null)} className={styles.btnCancel}>Cancel</button>
-                                                    <button type="submit" className={styles.btnSubmit}>Proceed to Pay</button>
+                                                    <button type="button" onClick={() => setDonateModal(null)} className={styles.btnCancel} disabled={eventDonateLoading === evt.id}>Cancel</button>
+                                                    <button type="submit" className={styles.btnSubmit} disabled={eventDonateLoading === evt.id}>{eventDonateLoading === evt.id ? 'Processing...' : 'Proceed to Pay'}</button>
                                                 </div>
                                             </form>
                                         ) : (

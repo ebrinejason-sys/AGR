@@ -9,7 +9,8 @@
     margin-bottom: 4rem;
 }
 
-.subtitle {
+.subtitle,
+.ctaSubtitle {
     font-size: clamp(1.1rem, 2vw, 1.4rem);
     color: var(--text-muted);
     max-width: 700px;
@@ -192,25 +193,42 @@
     border-radius: 8px;
     background: var(--card-bg);
     color: var(--text-color);
-    transition: background 0.2s;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s;
+    font-weight: 500;
 }
 
-.btnCancel:hover {
+.btnCancel:hover:not(:disabled) {
     background: var(--card-hover-bg);
+    border-color: var(--text-muted);
+}
+
+.btnCancel:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .btnSubmit {
     flex: 2;
     padding: 0.8rem;
     border-radius: 8px;
-    background: var(--color-lightblue);
-    color: black;
+    background: linear-gradient(135deg, var(--color-lightblue), var(--color-purple));
+    color: white;
     font-weight: 600;
-    transition: filter 0.2s;
+    transition: all 0.2s;
+    border: none;
 }
 
-.btnSubmit:hover {
+.btnSubmit:hover:not(:disabled) {
     filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 150, 255, 0.3);
+}
+
+.btnSubmit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(0.3);
 }
 
 /* Currency Selector */
