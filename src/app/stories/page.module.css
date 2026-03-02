@@ -42,17 +42,21 @@
     border-radius: 50px;
     font-size: 1rem;
     font-weight: 600;
-    color: #fff;
-    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
     transition: all 0.3s;
 }
 
 .tabBtn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--card-hover-bg);
+    border-color: var(--color-lightblue);
 }
 
 .tabBtn.active {
     background: var(--color-pink);
+    color: white;
+    border-color: var(--color-pink);
     box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4);
 }
 
@@ -74,17 +78,16 @@
 }
 
 .storyCard {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     padding: 3rem;
     border-radius: 20px;
-
 }
 
 .storyCard h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: var(--color-white);
+    color: var(--text-color);
 }
 
 .meta {
@@ -93,7 +96,7 @@
     margin-bottom: 2rem;
     font-size: 0.95rem;
     color: var(--text-muted);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 1rem;
 }
 
@@ -103,7 +106,7 @@
 }
 
 .content {
-    color: #ddd;
+    color: var(--text-color);
     line-height: 1.8;
     font-size: 1.1rem;
     white-space: pre-wrap;
@@ -121,8 +124,8 @@
     position: relative;
     border-radius: 16px;
     overflow: hidden;
-    background: #000;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
 }
 
 .mediaItem:hover .mediaPreview {

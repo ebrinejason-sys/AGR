@@ -29,7 +29,7 @@
 [data-theme="light"] {
   --color-black: #0c0c0c;
   --color-white: #ffffff;
-  --color-pink: #d81b60;
+  --color-pink: #c2185b;
   --color-purple: #6a1b9a;
   --color-lightblue: #0277bd;
 
@@ -37,11 +37,11 @@
   --color-purple-light: #4a0e78;
 
   --bg-color: #ffffff;
-  --text-color: #0a0a0a;
-  --text-muted: #424242;
-  --border-color: rgba(0, 0, 0, 0.15);
-  --card-bg: #f5f5f5;
-  --card-hover-bg: #e8e8e8;
+  --text-color: #000000;
+  --text-muted: #333333;
+  --border-color: rgba(0, 0, 0, 0.2);
+  --card-bg: #f8f8f8;
+  --card-hover-bg: #eeeeee;
 
   --nav-bg: rgba(255, 255, 255, 0.98);
   --nav-hover-bg: rgba(0, 0, 0, 0.08);

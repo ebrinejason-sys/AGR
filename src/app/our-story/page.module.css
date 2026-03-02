@@ -57,14 +57,13 @@
 
 .card,
 .cardSecondary {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 24px;
     padding: 4rem;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
 .cardSecondary {
@@ -102,7 +101,7 @@
 .cardSecondary h2 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: var(--color-white);
+    color: var(--text-color);
 }
 
 .cardSecondary h2 {
@@ -111,15 +110,15 @@
 }
 
 .textBody p {
-    color: #ccc;
+    color: var(--text-color);
     font-size: 1.15rem;
     line-height: 1.8;
     margin-bottom: 1.5rem;
 }
 
 .textBody strong {
-    color: var(--color-white);
-    font-weight: 600;
+    color: var(--text-color);
+    font-weight: 700;
 }
 
 /* CTA Section */
@@ -155,8 +154,8 @@
 }
 
 .ctaBox {
-    background: rgba(12, 12, 12, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-top: 4px solid var(--color-lightblue);
     padding: 2.5rem;
     border-radius: 16px;
@@ -178,11 +177,11 @@
 .ctaBox h3 {
     font-size: 1.3rem;
     margin-bottom: 1rem;
-    color: var(--color-white);
+    color: var(--text-color);
 }
 
 .ctaBox p {
-    color: #aaa;
+    color: var(--text-muted);
     line-height: 1.6;
 }
 

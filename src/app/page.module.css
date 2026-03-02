@@ -80,15 +80,16 @@
 }
 
 .btnSecondary {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--color-white);
-
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  color: var(--text-color);
+  font-weight: 600;
 }
 
 .btnSecondary:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--card-hover-bg);
   border-color: var(--color-lightblue);
+  color: var(--color-lightblue);
 }
 
 /* Background Glowing Orbs for a premium dynamic feel */
@@ -146,14 +147,13 @@
 }
 
 .philosophyCard {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 24px;
   padding: 4rem 3rem;
   max-width: 1000px;
   text-align: center;
-
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .philosophyCard p {
@@ -170,17 +170,18 @@
 }
 
 .traitBox {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--card-bg);
   padding: 2rem;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
   transition: transform 0.3s ease;
   text-align: left;
 }
 
 .traitBox:hover {
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--card-hover-bg);
+  border-color: var(--color-lightblue);
 }
 
 .traitIcon {
@@ -193,12 +194,13 @@
 .traitBox h3 {
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
+  color: var(--text-color);
 }
 
 .traitBox p {
   font-size: 0.95rem;
   margin: 0;
-  color: #888;
+  color: var(--text-muted);
 }
 
 /* iOS Specific overrides inside modules */
