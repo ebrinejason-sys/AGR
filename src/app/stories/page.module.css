@@ -152,11 +152,25 @@
 }
 
 @media (max-width: 768px) {
+    .header {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
     .storyCard {
         padding: 2rem 1.5rem;
     }
 
     .storyCard h2 {
         font-size: 1.6rem;
+    }
+
+    .mediaItem:hover .mediaPreview {
+        transform: none;
+    }
+
+    .mediaPreview {
+        transition: none;
     }
 }

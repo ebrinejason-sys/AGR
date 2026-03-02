@@ -269,7 +269,18 @@
     color: var(--text-color);
 }
 
-.currencySelector input[type="radio"]:checked + span {
+.currencySelector input[type="radio"]:checked+span {
     color: var(--color-lightblue);
     font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .eventCard:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .btnSubmit:hover:not(:disabled) {
+        transform: none;
+    }
 }

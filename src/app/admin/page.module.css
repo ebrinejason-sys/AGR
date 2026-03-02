@@ -25,8 +25,7 @@
     align-items: center;
     gap: 1rem;
     /* iOS stability */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+
 }
 
 .statIcon {

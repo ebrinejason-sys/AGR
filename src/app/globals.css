@@ -87,12 +87,6 @@ select {
 html {
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
-  /* Prevent Safari crashes from rendering issues */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  /* Prevent iOS Safari crashes with complex animations */
-  -webkit-perspective: 1000px;
-  perspective: 1000px;
 }
 
 /* Allow text selection only in specific input areas so users can still copy/paste text where they expect it */

@@ -317,10 +317,19 @@
 }
 
 @media (max-width: 768px) {
+    .header {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
 
     .founderCard,
     .formCard {
         padding: 2rem 1.5rem;
+    }
+
+    .submitBtn:hover:not(:disabled) {
+        transform: none;
     }
 }
 

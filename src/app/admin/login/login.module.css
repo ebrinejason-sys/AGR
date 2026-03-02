@@ -19,8 +19,7 @@
     max-width: 450px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     /* iOS stability */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+
 }
 
 .logoBox {

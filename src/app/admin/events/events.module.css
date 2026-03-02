@@ -45,8 +45,7 @@
     margin-bottom: 2rem;
     border-top: 4px solid var(--color-pink);
     /* iOS stability */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+
 }
 
 .formCard h2 {
