@@ -13,6 +13,10 @@
     overflow: hidden;
 }
 
+.hero h1 {
+    margin-bottom: 0.75rem;
+}
+
 .heroGlowPink,
 .heroGlowBlue {
     position: absolute;
@@ -374,6 +378,54 @@
 }
 
 @media (max-width: 768px) {
+
+    .hero {
+        padding: 5.2rem 4% 1.25rem;
+    }
+
+    .subtitle {
+        margin: 0.9rem auto 0.25rem;
+        font-size: 1rem;
+    }
+
+    .slogan {
+        font-size: 0.95rem;
+    }
+
+    .introSection,
+    .realitySection,
+    .pillarsSection,
+    .corePrograms,
+    .specialSection,
+    .outcomesSection {
+        padding: 2.25rem 4%;
+    }
+
+    .sectionTitle {
+        font-size: 1.95rem;
+        margin-bottom: 1.4rem;
+    }
+
+    .grid2 {
+        gap: 1rem;
+        margin-top: 1.25rem;
+    }
+
+    .statBox {
+        padding: 1.25rem 1rem;
+        border-radius: 12px;
+    }
+
+    .statBox h3 {
+        font-size: 2.2rem;
+        margin-bottom: 0.4rem;
+        line-height: 1.1;
+    }
+
+    .statBox p {
+        font-size: 0.95rem;
+        line-height: 1.45;
+    }
 
     .grid2,
     .grid3 {
