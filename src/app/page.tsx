@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -26,133 +27,156 @@ export default function Home() {
         <div className={styles.heroGlowPurple} />
         <div className={styles.heroGlowBlue} />
 
-        <div className={styles.heroContent}>
-          <div className={styles.badge}>A Girl Defined By Rise Initiative</div>
-          <h1 className="heading-xl">
-            Empowering Girls to<br />
-            <span className="text-gradient">Transcend Background</span>
-          </h1>
-          <p className={styles.heroSubtitle}>
-            "Your beginning does not define your becoming."<br />
-            <span className={styles.sloganText}>Your story isn't over. It's just getting powerful.</span>
-          </p>
+        <div className={styles.heroContentInner}>
+          <div className={styles.heroTextSection}>
+            <div className={styles.badge}>A Girl Defined By Rise Initiative</div>
+            <h1 className="heading-xl">
+              Empowering Communities<br />
+              <span className="text-gradient">Through Action</span>
+            </h1>
+            <p className={styles.heroSubtitle}>
+              Empowering women and girls through education, skill development, and leadership training.
+            </p>
+          </div>
 
-          <div className={styles.heroActions}>
-            <Link href="/programs" className={styles.btnPrimary}>
-              Explore Our Programs
+          <div className={styles.heroActionsRight}>
+            <Link href="/events" className={styles.btnPrimaryOutlined}>
+              Become a Member
             </Link>
-            <button onClick={() => setIsVideoModalOpen(true)} className={styles.btnSecondary}>
+            <button onClick={() => setIsVideoModalOpen(true)} className={styles.btnSecondaryOutlined}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 Watch Video
               </span>
             </button>
-            <Link href="/events" className={styles.btnSecondary}>
-              Support the Vision
+            <Link href="/events" className={styles.btnPrimaryOutlined}>
+              Donate Now
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Impact Stats Section */}
-      <section className={styles.statsSection}>
-        <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <span className={styles.statNumber}>500+</span>
-            <span className={styles.statLabel}>Girls Targeted</span>
+      {/* About Us Section */}
+      <section className={styles.aboutSection}>
+        <div className={styles.aboutContainer}>
+          <div className={styles.aboutImageWrapper}>
+            <Image src="/images/about-us.jpg" alt="About Us" fill className={styles.aboutImage} style={{ objectFit: 'cover' }} />
           </div>
-          <div className={styles.statCard}>
-            <span className={styles.statNumber}>5</span>
-            <span className={styles.statLabel}>Core Schools Reached</span>
-          </div>
-          <div className={styles.statCard}>
-            <span className={styles.statNumber}>3</span>
-            <span className={styles.statLabel}>Pillars of Intervention</span>
-          </div>
-          <div className={styles.statCard}>
-            <span className={styles.statNumber}>1</span>
-            <span className={styles.statLabel}>Generational Shift</span>
+          <div className={styles.aboutTextCard}>
+            <h2 className="heading-lg">About Us</h2>
+            <p>
+              We dream of a continent—and a world—where you can look at any girl and see not where she comes from, but where she is going. We envision a future led by women who have turned their pain into purpose. Providing school-based mental health support, academic perseverance programs, and holistic care.
+            </p>
+            <Link href="/contact" className={styles.btnSecondary}>Learn More About Us</Link>
           </div>
         </div>
       </section>
 
-      {/* The 3 Pillars Teaser */}
-      <section className={styles.howSection}>
-        <h2 className="heading-lg">The Three <span className="text-gradient">Pillars of Rise</span></h2>
-        <p className={styles.howSubtitle}>
-          Our framework turns philosophy into practice, creating a tangible ladder out of poverty.
-        </p>
-        <div className={styles.howGrid}>
-          <div className={styles.howCard}>
-            <div className={styles.howStep}>01</div>
-            <h3>Healing the Ground</h3>
-            <p>Mental and emotional foundations. Safe spaces and trauma-informed counseling, because you cannot rise from broken ground.</p>
+      {/* Projects / What We Do Section */}
+      <section className={styles.projectsSection}>
+        <div className={styles.projectsHeader}>
+          <div>
+            <span className={styles.smallLabel}>Our Support</span>
+            <h2 className="heading-lg">Discover Our Projects</h2>
           </div>
-          <div className={styles.howConnector} />
-          <div className={styles.howCard}>
-            <div className={styles.howStep}>02</div>
-            <h3>Building the Ladder</h3>
-            <p>Educational and practical ascension. Academic rescue and essential support packages, because rising requires tangible steps.</p>
-          </div>
-          <div className={styles.howConnector} />
-          <div className={styles.howCard}>
-            <div className={styles.howStep}>03</div>
-            <h3>Reaching New Altitudes</h3>
-            <p>Future and leadership development. Career mentorship and vision planning, because rising should lead to sustained elevation.</p>
-          </div>
+          <Link href="/programs" className={styles.btnSecondary}>View All</Link>
         </div>
-        <div style={{ textAlign: 'center', marginTop: '4rem' }}>
-          <Link href="/programs" className={styles.btnOutline}>Learn More About Our Framework</Link>
-        </div>
-      </section>
-
-      {/* Philosophy Section */}
-      <section className={styles.philosophy}>
-        <div className={styles.philosophyCard}>
-          <h2 className="heading-lg">Our Global <span className="text-gradient">Vision</span></h2>
-          <p>
-            We dream of a continent—and a world—where you can look at any girl and see not where she comes from, but where she is going. We envision a future led by women who have turned their pain into purpose.
-          </p>
-          <div className={styles.philosophyGrid}>
-            <div className={styles.traitBox}>
-              <div className={styles.traitIcon} style={{ background: 'var(--color-pink)' }}></div>
-              <h3>Resilience</h3>
-              <p>We do not see broken girls. We see unyielding resilience waiting to be focused.</p>
+        <div className={styles.projectsGrid}>
+          <div className={styles.projectCard}>
+            <div className={styles.projectImageWrapper}>
+              <Image src="/images/program-1.jpg" alt="Healing the Ground" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
             </div>
-            <div className={styles.traitBox}>
-              <div className={styles.traitIcon} style={{ background: 'var(--color-purple)' }}></div>
-              <h3>Empowerment</h3>
-              <p>Providing school-based mental health support, academic perseverance programs, and holistic care.</p>
+            <div className={styles.projectContent}>
+              <h3>Healing the Ground</h3>
+              <p>Mental and emotional foundations.</p>
+              <div className={styles.projectStats}>
+                <span><strong>0</strong> donors</span>
+                <span><strong>$ 0</strong></span>
+              </div>
             </div>
-            <div className={styles.traitBox}>
-              <div className={styles.traitIcon} style={{ background: 'var(--color-lightblue)' }}></div>
-              <h3>Sisterhood</h3>
-              <p>Mentorship from women who have walked similar paths and a peer network that uplifts instead of competes.</p>
+          </div>
+          <div className={styles.projectCard}>
+            <div className={styles.projectImageWrapper}>
+              <Image src="/images/program-2.jpg" alt="Building the Ladder" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
+            </div>
+            <div className={styles.projectContent}>
+              <h3>Building the Ladder</h3>
+              <p>Educational and practical ascension.</p>
+              <div className={styles.projectStats}>
+                <span><strong>0</strong> donors</span>
+                <span><strong>$ 0</strong></span>
+              </div>
+            </div>
+          </div>
+          <div className={styles.projectCard}>
+            <div className={styles.projectImageWrapper}>
+              <Image src="/images/program-3.jpg" alt="Reaching New Altitudes" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
+            </div>
+            <div className={styles.projectContent}>
+              <h3>Reaching New Altitudes</h3>
+              <p>Future and leadership development.</p>
+              <div className={styles.projectStats}>
+                <span><strong>0</strong> donors</span>
+                <span><strong>$ 0</strong></span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Quote Section */}
-      <section className={styles.quoteSection}>
-        <div className={styles.quoteCard}>
-          <div className={styles.quoteAccent} />
-          <blockquote className={styles.quoteText}>
-            &ldquo;We are not giving girls a voice. They have one. We are amplifying it until the whole world has to listen.&rdquo;
-          </blockquote>
-          <p className={styles.quoteAuthor}>— A Girl Defined By Rise Philosophy</p>
+      {/* Impact & Support Tiers Section */}
+      <section className={styles.impactSupportSection}>
+        <div className={styles.impactContainer}>
+          <div className={styles.impactText}>
+            <h2 className="heading-lg">Building Foundations for Empowerment</h2>
+            <ul className={styles.impactList}>
+              <li><strong>Education:</strong> Providing school-based support.</li>
+              <li><strong>Hygiene:</strong> Ensuring access to sanitary pads.</li>
+              <li><strong>Training:</strong> Leadership and mentorship for girls.</li>
+            </ul>
+          </div>
+          <div className={styles.supportTiers}>
+            <div className={styles.tierCard}>
+              <h3>$10</h3>
+              <p>Sanitary Pads</p>
+              <Link href="/events" className={styles.tierAction}>Donate ➔</Link>
+            </div>
+            <div className={styles.tierCard}>
+              <h3>$20</h3>
+              <p>Learning Materials</p>
+              <Link href="/events" className={styles.tierAction}>Donate ➔</Link>
+            </div>
+            <div className={styles.tierCard}>
+              <h3>$50</h3>
+              <p>Mental Health Support</p>
+              <Link href="/events" className={styles.tierAction}>Donate ➔</Link>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className={styles.ctaSection}>
-        <h2 className="heading-lg">Join the <span className="text-gradient">Movement</span></h2>
-        <p className={styles.ctaSubtitle}>
-          This is not charity. This is strategic community transformation. For every girl who rises, three family members are lifted from extreme poverty.
-        </p>
-        <div className={styles.ctaActions}>
-          <Link href="/events" className={styles.btnPrimary}>Donate & Fund</Link>
-          <Link href="/contact" className={styles.btnSecondary}>Partner With Us</Link>
+      {/* Featured Quote & Image Section */}
+      <section className={styles.featuredQuoteSection}>
+        <div className={styles.featuredContainer}>
+          <div className={styles.quoteBox}>
+            <div className={styles.quoteAccent} />
+            <blockquote className={styles.latestQuote}>
+              &ldquo;You Are Worthy Of Every Dream You Carry! And You Are Not Alone - Not Anymore.&rdquo;
+            </blockquote>
+            <p className={styles.quoteAuthor}>— African Girl Rise Community</p>
+          </div>
+          <div className={styles.featuredImageWrapper}>
+            <Image src="/images/worthy-dream.jpg" alt="Girls holding signs of empowerment" fill className={styles.featuredImage} style={{ objectFit: 'cover' }} />
+          </div>
+        </div>
+      </section>
+
+      {/* Join Us / CTA Banner */}
+      <section className={styles.joinUsSection}>
+        <div className={styles.joinUsCard}>
+          <h2 className="heading-lg text-gradient">Join Us</h2>
+          <p>Do you want to join African Girl Rise as a member?</p>
+          <Link href="/contact" className={styles.btnPrimaryOutlined}>Become a Member</Link>
         </div>
       </section>
 

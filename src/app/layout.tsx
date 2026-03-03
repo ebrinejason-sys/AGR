@@ -1,9 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import styles from "./layout.module.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 // iOS-safe viewport: prevents auto-zoom on inputs, covers notch area
 export const viewport: Viewport = {
@@ -35,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="antialiased" suppressHydrationWarning>
+    <html lang="en" className={`antialiased ${inter.variable}`} suppressHydrationWarning>
       <body>
         <ThemeProvider
           attribute="data-theme"

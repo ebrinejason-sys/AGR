@@ -12,19 +12,32 @@
   justify-content: center;
   padding: 2rem 5%;
   overflow: hidden;
-  text-align: center;
 }
 
-.heroContent {
+.heroContentInner {
   position: relative;
   z-index: 10;
-  max-width: 800px;
+  width: 100%;
+  max-width: 1200px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   gap: 2rem;
   animation: fadeUp 1s ease-out forwards;
   will-change: opacity, transform;
+}
+
+.heroTextSection {
+  flex: 1;
+  text-align: left;
+  max-width: 700px;
+}
+
+.heroActionsRight {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-end;
 }
 
 @keyframes fadeUp {
@@ -40,54 +53,59 @@
 }
 
 .heroSubtitle {
-  font-size: clamp(1.1rem, 2vw, 1.4rem);
-  color: var(--text-muted);
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  color: var(--text-color);
   line-height: 1.6;
-  max-width: 600px;
-}
-
-.heroActions {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
   margin-top: 1rem;
 }
 
 /* Base button styles */
-.btnPrimary,
-.btnSecondary {
+.btnPrimaryOutlined,
+.btnSecondaryOutlined,
+.btnSecondary,
+.btnPrimary {
   padding: 1rem 2rem;
   border-radius: 50px;
   font-weight: 600;
   font-size: 1rem;
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: inline-block;
   text-align: center;
 }
 
-.btnPrimary {
-  background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+.btnPrimaryOutlined {
+  background: transparent;
+  border: 2px solid var(--color-white);
   color: var(--color-white);
-  box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
 }
 
 @media (hover: hover) {
-  .btnPrimary:hover {
+  .btnPrimaryOutlined:hover {
+    background: var(--color-white);
+    color: #000;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(216, 27, 96, 0.5);
   }
 }
 
-.btnPrimary:active {
-  transform: translateY(0);
+.btnSecondaryOutlined {
+  background: transparent;
+  border: 2px solid var(--color-pink);
+  color: var(--color-white);
+}
+
+@media (hover: hover) {
+  .btnSecondaryOutlined:hover {
+    background: var(--color-pink);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+  }
 }
 
 .btnSecondary {
   background: var(--card-bg);
   border: 2px solid var(--border-color);
   color: var(--text-color);
-  font-weight: 600;
 }
 
 @media (hover: hover) {
@@ -106,11 +124,9 @@
   border-radius: 50%;
   opacity: 0.4;
   z-index: 1;
-  /* Hidden on mobile by default — shown only on desktop */
   display: none;
 }
 
-/* Only show and animate glow orbs on desktop with proper hover support */
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
 
   .heroGlowPink,
@@ -119,6 +135,18 @@
     display: block;
     animation: float 15s infinite alternate ease-in-out;
     will-change: transform;
+  }
+
+  .heroGlowPink {
+    animation-delay: 0s;
+  }
+
+  .heroGlowPurple {
+    animation-delay: -5s;
+  }
+
+  .heroGlowBlue {
+    animation-delay: -2s;
   }
 }
 
@@ -144,21 +172,6 @@
   width: 30vw;
   height: 30vw;
   background: radial-gradient(circle, var(--color-lightblue) 0%, transparent 70%);
-}
-
-/* Only animate on desktop with proper hover support */
-@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
-  .heroGlowPink {
-    animation-delay: 0s;
-  }
-
-  .heroGlowPurple {
-    animation-delay: -5s;
-  }
-
-  .heroGlowBlue {
-    animation-delay: -2s;
-  }
 }
 
 @keyframes float {
@@ -192,212 +205,229 @@
   z-index: 1;
 }
 
-/* ─── Impact Stats Section ─── */
-.statsSection {
+/* ─── About Us Section ─── */
+.aboutSection {
   padding: 5rem 5%;
   display: flex;
   justify-content: center;
+  background: var(--bg-color);
 }
 
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  max-width: 1000px;
+.aboutContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4rem;
+  max-width: 1200px;
   width: 100%;
 }
 
-.statCard {
-  text-align: center;
-  padding: 2.5rem 1.5rem;
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
+.aboutImageWrapper {
+  flex: 1;
+  position: relative;
+  min-height: 500px;
   border-radius: 20px;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;
+}
+
+.aboutTextCard {
+  flex: 1;
+  background: var(--card-bg);
+  padding: 3rem;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+}
+
+.aboutTextCard p {
+  color: var(--text-color);
+  line-height: 1.6;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* ─── Projects Section ─── */
+.projectsSection {
+  padding: 5rem 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.projectsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+
+.smallLabel {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--color-pink);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.projectCard {
+  background: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease;
 }
 
 @media (hover: hover) {
-  .statCard:hover {
-    transform: translateY(-4px);
+  .projectCard:hover {
+    transform: translateY(-5px);
     border-color: var(--color-pink);
   }
 }
 
-.statNumber {
-  display: block;
-  font-size: 3rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  line-height: 1.2;
+.projectImageWrapper {
+  position: relative;
+  height: 250px;
+  width: 100%;
+}
+
+.projectContent {
+  padding: 2rem;
+}
+
+.projectContent h3 {
+  font-size: 1.3rem;
   margin-bottom: 0.5rem;
 }
 
-.statLabel {
-  font-size: 0.9rem;
+.projectContent p {
   color: var(--text-muted);
-  font-weight: 500;
-  letter-spacing: 0.03em;
-}
-
-/* ─── How It Works Section ─── */
-.howSection {
-  padding: 5rem 5%;
-  text-align: center;
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.howSubtitle {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  margin: 1rem auto 4rem;
-  max-width: 500px;
-}
-
-.howGrid {
-  display: flex;
-  align-items: center;
-  gap: 0;
-}
-
-.howCard {
-  flex: 1;
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
-  padding: 3rem 2rem;
-  text-align: center;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-@media (hover: hover) {
-  .howCard:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-pink);
-  }
-}
-
-.howStep {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
-  color: white;
-  font-weight: 800;
-  font-size: 1.2rem;
+  font-size: 0.95rem;
   margin-bottom: 1.5rem;
 }
 
-.howCard h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--text-color);
-}
-
-.howCard p {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.howConnector {
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-pink), var(--color-purple));
-  flex-shrink: 0;
-}
-
-/* ─── Philosophy Section ─── */
-.philosophy {
-  padding: 5rem 5%;
+.projectStats {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+  font-size: 0.9rem;
 }
 
-.philosophyCard {
+/* ─── Impact & Support Tiers ─── */
+.impactSupportSection {
+  padding: 5rem 5%;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.impactContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+.impactText {
+  flex: 1;
+}
+
+.impactList {
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+.impactList li {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+  position: relative;
+  font-size: 1.1rem;
+}
+
+.impactList li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-pink);
+  font-weight: bold;
+}
+
+.supportTiers {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tierCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background: var(--card-bg);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
   border: 1px solid var(--border-color);
-  border-radius: 24px;
-  padding: 4rem 3rem;
-  max-width: 1000px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-}
-
-.philosophyCard p {
-  color: var(--text-muted);
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin: 2rem 0 4rem;
-}
-
-.philosophyGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.traitBox {
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: 16px;
-  border: 1px solid var(--border-color);
-  transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-  text-align: left;
+  transition: border-color 0.3s ease;
 }
 
 @media (hover: hover) {
-  .traitBox:hover {
-    transform: translateY(-5px);
-    background: var(--card-hover-bg);
+  .tierCard:hover {
     border-color: var(--color-lightblue);
   }
 }
 
-.traitIcon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  margin-bottom: 1.5rem;
-}
-
-.traitBox h3 {
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-  color: var(--text-color);
-}
-
-.traitBox p {
-  font-size: 0.95rem;
+.tierCard h3 {
+  font-size: 1.5rem;
+  color: var(--color-pink);
   margin: 0;
-  color: var(--text-muted);
+  min-width: 80px;
 }
 
-/* ─── Quote Section ─── */
-.quoteSection {
+.tierCard p {
+  flex: 1;
+  margin: 0;
+  font-weight: 500;
+  padding-left: 1rem;
+}
+
+.tierAction {
+  color: var(--text-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .tierAction:hover {
+    color: var(--color-lightblue);
+  }
+}
+
+/* ─── Featured Quote & Image Section ─── */
+.featuredQuoteSection {
   padding: 5rem 5%;
+  background: var(--bg-color);
   display: flex;
   justify-content: center;
 }
 
-.quoteCard {
-  max-width: 800px;
+.featuredContainer {
+  max-width: 1200px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.quoteBox {
+  flex: 1;
   position: relative;
-  padding: 3rem 3.5rem;
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 24px;
-  overflow: hidden;
+  padding: 2rem 0 2rem 2rem;
 }
 
 .quoteAccent {
@@ -407,44 +437,58 @@
   width: 6px;
   height: 100%;
   background: linear-gradient(to bottom, var(--color-pink), var(--color-purple), var(--color-lightblue));
-  border-radius: 6px 0 0 6px;
+  border-radius: 6px;
 }
 
-.quoteText {
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
-  line-height: 1.7;
+.latestQuote {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  line-height: 1.5;
   color: var(--text-color);
   font-style: italic;
+  font-weight: 700;
   margin: 0;
 }
 
 .quoteAuthor {
   margin-top: 1.5rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--color-pink);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* ─── CTA Section ─── */
-.ctaSection {
-  padding: 6rem 5%;
-  text-align: center;
-  background: linear-gradient(to bottom, transparent, rgba(74, 20, 140, 0.15));
+.featuredImageWrapper {
+  flex: 1;
+  position: relative;
+  min-height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-.ctaSubtitle {
-  color: var(--text-muted);
-  font-size: 1.15rem;
-  max-width: 600px;
-  margin: 1rem auto 2.5rem;
-  line-height: 1.6;
-}
-
-.ctaActions {
+/* ─── Join Us Section ─── */
+.joinUsSection {
+  padding: 5rem 5%;
   display: flex;
-  gap: 1rem;
   justify-content: center;
-  flex-wrap: wrap;
+}
+
+.joinUsCard {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 4rem;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.joinUsCard p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin: 1.5rem 0 2.5rem;
 }
 
 /* ─── Video Modal ─── */
@@ -531,11 +575,6 @@
 }
 
 /* ─── Mobile / iOS overrides ─── */
-
-.statNumber {
-  overflow-wrap: anywhere;
-}
-
 .badge {
   display: inline-block;
   padding: 0.5rem 1rem;
@@ -550,13 +589,14 @@
   margin-bottom: 1.5rem;
 }
 
-.sloganText {
-  display: block;
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  color: var(--color-purple);
-  font-weight: 600;
-  font-style: normal;
+@media (max-width: 900px) {
+
+  .aboutContainer,
+  .impactContainer,
+  .featuredContainer {
+    flex-direction: column;
+    gap: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -564,79 +604,60 @@
     min-height: 100dvh;
   }
 
-  /* Disable fadeUp on mobile — starts at opacity:0 */
-  .heroContent {
+  .heroContentInner {
+    flex-direction: column;
+    text-align: center;
+    align-items: stretch;
     animation: none;
     opacity: 1;
     transform: none;
     will-change: auto;
+    gap: 2rem;
   }
 
-  .philosophyCard {
-    padding: 2rem 1.5rem;
+  .featuredImageWrapper {
+    width: 100%;
+    min-height: 300px;
   }
 
-  .heroActions {
+  .heroTextSection {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .heroActionsRight {
     flex-direction: column;
+    align-items: stretch;
     width: 100%;
   }
 
-  .btnPrimary,
+  .projectsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .btnPrimaryOutlined,
+  .btnSecondaryOutlined,
   .btnSecondary {
     width: 100%;
     will-change: auto;
   }
 
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .statCard {
-    padding: 1.5rem 1rem;
-  }
-
-  .statNumber {
-    font-size: 1.8rem;
-  }
-
-  .howGrid {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .howConnector {
-    width: 2px;
-    height: 30px;
-    background: linear-gradient(to bottom, var(--color-pink), var(--color-purple));
-  }
-
-  .howCard {
+  .aboutTextCard,
+  .joinUsCard {
     padding: 2rem 1.5rem;
-  }
-
-  .quoteCard {
-    padding: 2rem 1.5rem 2rem 2rem;
-  }
-
-  .ctaActions {
-    flex-direction: column;
-    width: 100%;
-    max-width: 350px;
-    margin: 0 auto;
   }
 
   @media (hover: hover) {
 
-    /* Disable hover transforms on mobile */
-    .statCard:hover,
-    .howCard:hover,
-    .traitBox:hover {
+    .btnPrimaryOutlined:hover,
+    .btnSecondaryOutlined:hover,
+    .btnSecondary:hover {
       transform: none;
     }
 
-    .btnPrimary:hover,
-    .btnSecondary:hover {
+    .projectCard:hover {
       transform: none;
     }
   }

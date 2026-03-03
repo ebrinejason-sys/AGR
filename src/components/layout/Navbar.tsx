@@ -35,12 +35,14 @@ export default function Navbar() {
 
             {/* Desktop Navigation */}
             <nav className={styles.desktopNav}>
-                <Link href="/our-story" className={styles.navLink}>Our Story</Link>
-                <Link href="/programs" className={styles.navLink}>Programs</Link>
+                <Link href="/" className={styles.navLink}>Home</Link>
+                <Link href="/our-story" className={styles.navLink}>Who We Are</Link>
+                <Link href="/resources" className={styles.navLink}>Resources</Link>
+                <Link href="/programs" className={styles.navLink}>Our Work</Link>
+                <Link href="/stories" className={styles.navLink}>Blog</Link>
                 <Link href="/events" className={styles.navLink}>Events</Link>
-                <Link href="/stories" className={styles.navLink}>Stories</Link>
-                <Link href="/contact" className={styles.navLink}>Contact</Link>
-                <Link href="/events" className={styles.donateBtn}>Donate</Link>
+                <Link href="/contact" className={styles.navLink}>Contact Us</Link>
+                <Link href="/events" className={styles.donateBtn}>Donate ➔</Link>
                 <div className={styles.themeToggleWrapper}>
                     <ThemeToggle />
                 </div>
@@ -55,12 +57,13 @@ export default function Navbar() {
             <div className={`${styles.mobileNavOverlay} ${isOpen ? styles.open : ''}`}>
                 <nav className={styles.mobileNavLinks}>
                     <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
-                    <Link href="/our-story" className={styles.mobileNavLink} onClick={closeMenu}>Our Story</Link>
-                    <Link href="/programs" className={styles.mobileNavLink} onClick={closeMenu}>Programs</Link>
+                    <Link href="/our-story" className={styles.mobileNavLink} onClick={closeMenu}>Who We Are</Link>
+                    <Link href="/resources" className={styles.mobileNavLink} onClick={closeMenu}>Resources</Link>
+                    <Link href="/programs" className={styles.mobileNavLink} onClick={closeMenu}>Our Work</Link>
+                    <Link href="/stories" className={styles.mobileNavLink} onClick={closeMenu}>Blog</Link>
                     <Link href="/events" className={styles.mobileNavLink} onClick={closeMenu}>Events</Link>
-                    <Link href="/stories" className={styles.mobileNavLink} onClick={closeMenu}>Stories</Link>
-                    <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>
-                    <Link href="/events" className={styles.mobileDonateBtn} onClick={closeMenu}>Donate</Link>
+                    <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact Us</Link>
+                    <Link href="/events" className={styles.mobileDonateBtn} onClick={closeMenu}>Donate ➔</Link>
                     <div className={styles.mobileThemeToggleWrapper}>
                         <ThemeToggle />
                     </div>
