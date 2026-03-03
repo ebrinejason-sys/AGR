@@ -14,13 +14,26 @@
   overflow: hidden;
 }
 
+.heroBackgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.heroBgImage {
+  object-fit: cover;
+}
+
 .heroContentInner {
   position: relative;
   z-index: 10;
   width: 100%;
   max-width: 1200px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   gap: 2rem;
   animation: fadeUp 1s ease-out forwards;
@@ -30,14 +43,14 @@
 .heroTextSection {
   flex: 1;
   text-align: left;
-  max-width: 700px;
+  max-width: 600px;
 }
 
-.heroActionsRight {
+.heroActions {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  align-items: flex-end;
+  margin-top: 2rem;
 }
 
 @keyframes fadeUp {
@@ -59,6 +72,14 @@
   margin-top: 1rem;
 }
 
+.heroActions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  width: fit-content;
+}
+
 /* Base button styles */
 .btnPrimaryOutlined,
 .btnSecondaryOutlined,
@@ -71,6 +92,20 @@
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: inline-block;
   text-align: center;
+}
+
+.btnPrimary {
+  background: var(--color-pink);
+  border: 2px solid var(--color-pink);
+  color: white;
+}
+
+@media (hover: hover) {
+  .btnPrimary:hover {
+    background: var(--color-purple);
+    border-color: var(--color-purple);
+    transform: translateY(-2px);
+  }
 }
 
 .btnPrimaryOutlined {
@@ -184,15 +219,18 @@
   }
 }
 
-/* ─── Hero Video Background ─── */
-.heroVideo {
+/* ─── Hero Background Image ─── */
+.heroBackgroundImage {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
   z-index: 0;
+}
+
+.heroBgImage {
+  object-fit: cover;
 }
 
 .videoOverlay {
@@ -201,7 +239,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(12, 12, 12, 0.5) 0%, rgba(12, 12, 12, 0.7) 60%, var(--bg-color) 100%);
+  background: linear-gradient(to bottom, rgba(12, 12, 12, 0.4) 0%, rgba(12, 12, 12, 0.6) 60%, var(--bg-color) 100%);
   z-index: 1;
 }
 
@@ -311,6 +349,21 @@
   margin-bottom: 1.5rem;
 }
 
+.projectLink {
+  color: var(--color-pink);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+@media (hover: hover) {
+  .projectLink:hover {
+    color: var(--color-lightblue);
+  }
+}
+
 .projectStats {
   display: flex;
   justify-content: space-between;
@@ -406,6 +459,133 @@
   .tierAction:hover {
     color: var(--color-lightblue);
   }
+}
+
+/* ─── Pillars Section ─── */
+.pillarsSection {
+  padding: 5rem 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pillarsSection h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.pillarCard {
+  background: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+@media (hover: hover) {
+  .pillarCard:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-pink);
+    background: var(--card-hover-bg);
+  }
+}
+
+.pillarNumber {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-pink);
+  margin-bottom: 1rem;
+}
+
+.pillarCard h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.pillarCard p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* ─── Support Section ─── */
+.supportSection {
+  padding: 5rem 5%;
+  background: rgba(255, 255, 255, 0.02);
+  text-align: center;
+}
+
+.supportSection h2 {
+  margin-bottom: 3rem;
+}
+
+.supportGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.supportCard {
+  background: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+@media (hover: hover) {
+  .supportCard:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-lightblue);
+  }
+}
+
+.supportIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.supportCard h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.supportCard p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ─── CTA Section ─── */
+.ctaSection {
+  padding: 5rem 5%;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ctaSection h2 {
+  margin-bottom: 1.5rem;
+}
+
+.ctaSection p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ─── Featured Quote & Image Section ─── */
@@ -625,7 +805,7 @@
     max-width: 100%;
   }
 
-  .heroActionsRight {
+  .heroActions {
     flex-direction: column;
     align-items: stretch;
     width: 100%;

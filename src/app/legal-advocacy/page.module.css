@@ -1,0 +1,445 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ─── Hero Section ─── */
+.hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 5%;
+  background: linear-gradient(135deg, rgba(216, 27, 96, 0.1) 0%, rgba(106, 27, 154, 0.1) 100%);
+  text-align: center;
+}
+
+.heroContent h1 {
+  margin-bottom: 1.5rem;
+}
+
+.heroSubtitle {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+.tagline {
+  font-size: 1.15rem;
+  color: var(--color-pink);
+  font-weight: 600;
+  margin-top: 1.5rem;
+}
+
+/* ─── Intro Section ─── */
+.introSection {
+  padding: 4rem 5%;
+  background: var(--bg-color);
+}
+
+.introContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.introContainer h2 {
+  margin-bottom: 2rem;
+  line-height: 1.4;
+}
+
+.introText {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin: 0 auto;
+}
+
+/* ─── Reality Section ─── */
+.realitySection {
+  padding: 4rem 5%;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.realityContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.realityContainer h2 {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.realityIntro {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.highlight {
+  font-size: 1.15rem;
+  color: var(--color-pink);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.truthsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.truth {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+@media (hover: hover) {
+  .truth:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-pink);
+  }
+}
+
+.truthIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.truth p {
+  color: var(--text-color);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.beliefSection {
+  background: var(--card-bg);
+  padding: 3rem;
+  border-radius: 16px;
+  border: 2px solid var(--color-pink);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.beliefSection h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--color-pink);
+}
+
+.beliefSection p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+/* ─── What We Do Section ─── */
+.whatWeDoSection {
+  padding: 4rem 5%;
+  background: var(--bg-color);
+}
+
+.whatWeDoContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.whatWeDoContainer > h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.programBox {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 2.5rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+
+@media (hover: hover) {
+  .programBox:hover {
+    border-color: var(--color-purple);
+    background: var(--card-hover-bg);
+  }
+}
+
+.programNumber {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-pink);
+  margin-bottom: 0.5rem;
+}
+
+.programBox h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.programBox > p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.programList {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.programList li {
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: 0.8rem;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.programList li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-pink);
+  font-weight: bold;
+}
+
+.format,
+.emphasis {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(216, 27, 96, 0.1);
+  border-left: 3px solid var(--color-pink);
+  border-radius: 4px;
+  color: var(--text-color);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* ─── Components Section ─── */
+.componentsSection {
+  padding: 4rem 5%;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.componentsContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.componentsContainer h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.componentsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+.componentCard {
+  background: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+@media (hover: hover) {
+  .componentCard:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-lightblue);
+  }
+}
+
+.componentIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.componentCard h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-color);
+}
+
+.componentCard p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+/* ─── Impact Section ─── */
+.impactSection {
+  padding: 4rem 5%;
+  background: var(--bg-color);
+}
+
+.impactContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.impactContainer h2 {
+  margin-bottom: 1.5rem;
+}
+
+.impactIntro {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.impactBenefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.benefit {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.benefitNumber {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: var(--color-pink);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.benefit p {
+  color: var(--text-color);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* ─── CTA Section ─── */
+.ctaSection {
+  padding: 4rem 5%;
+  text-align: center;
+  background: rgba(216, 27, 96, 0.05);
+}
+
+.ctaSection h2 {
+  margin-bottom: 1rem;
+}
+
+.ctaSection > p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ─── Button Styles ─── */
+.btnPrimary,
+.btnSecondary {
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+
+.btnPrimary {
+  background: var(--color-pink);
+  color: white;
+}
+
+@media (hover: hover) {
+  .btnPrimary:hover {
+    background: var(--color-purple);
+    transform: translateY(-2px);
+  }
+}
+
+.btnSecondary {
+  background: transparent;
+  border: 2px solid var(--border-color);
+  color: var(--text-color);
+}
+
+@media (hover: hover) {
+  .btnSecondary:hover {
+    border-color: var(--color-lightblue);
+    color: var(--color-lightblue);
+  }
+}
+
+/* ─── Mobile Responsive ─── */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 50vh;
+    padding: 2rem 5%;
+  }
+
+  .introSection,
+  .realitySection,
+  .whatWeDoSection,
+  .componentsSection,
+  .impactSection,
+  .ctaSection {
+    padding: 2.5rem 5%;
+  }
+
+  .truthsGrid,
+  .componentsGrid,
+  .impactBenefits {
+    gap: 1.5rem;
+  }
+
+  .programBox,
+  .componentCard,
+  .benefit {
+    padding: 1.5rem;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+  }
+}

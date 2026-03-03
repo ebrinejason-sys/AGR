@@ -6,52 +6,40 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Home() {
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-
   return (
     <div className={styles.container}>
       {/* Hero Section */}
       <section className={styles.hero}>
-        {/* Background Video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className={styles.heroVideo}
-        >
-          <source src="/videos/hero-video.mp4" type="video/mp4" />
-        </video>
+        <div className={styles.heroBackgroundImage}>
+          <Image 
+            src="/images/hero-bg.jpg" 
+            alt="Hero Background" 
+            fill 
+            className={styles.heroBgImage} 
+            style={{ objectFit: 'cover' }}
+            priority
+          />
+        </div>
         <div className={styles.videoOverlay} />
-        <div className={styles.heroGlowPink} />
-        <div className={styles.heroGlowPurple} />
-        <div className={styles.heroGlowBlue} />
 
         <div className={styles.heroContentInner}>
           <div className={styles.heroTextSection}>
             <div className={styles.badge}>A Girl Defined By Rise Initiative</div>
             <h1 className="heading-xl">
-              Empowering Communities<br />
-              <span className="text-gradient">Through Action</span>
+              Your Beginning<br />
+              <span className="text-gradient">Does Not Define Your Becoming</span>
             </h1>
             <p className={styles.heroSubtitle}>
-              Empowering women and girls through education, skill development, and leadership training.
+              Breaking cycles of poverty and empowering girls through mental health support, education, and leadership training.
             </p>
-          </div>
-
-          <div className={styles.heroActionsRight}>
-            <Link href="/events" className={styles.btnPrimaryOutlined}>
-              Become a Member
-            </Link>
-            <button onClick={() => setIsVideoModalOpen(true)} className={styles.btnSecondaryOutlined}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                Watch Video
-              </span>
-            </button>
-            <Link href="/events" className={styles.btnPrimaryOutlined}>
-              Donate Now
-            </Link>
+            <div className={styles.heroActions}>
+              <Link href="/donate" className={styles.btnPrimary}>
+                Donate Now
+              </Link>
+              <Link href="/our-story" className={styles.btnSecondaryOutlined}>
+                Learn Our Story
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -63,141 +51,149 @@ export default function Home() {
             <Image src="/images/about-us.jpg" alt="About Us" fill className={styles.aboutImage} style={{ objectFit: 'cover' }} />
           </div>
           <div className={styles.aboutTextCard}>
-            <h2 className="heading-lg">About Us</h2>
+            <h2 className="heading-lg">Who We Are</h2>
             <p>
-              We dream of a continent—and a world—where you can look at any girl and see not where she comes from, but where she is going. We envision a future led by women who have turned their pain into purpose. Providing school-based mental health support, academic perseverance programs, and holistic care.
+              We are a registered Ugandan initiative dedicated to breaking cycles of poverty and empowering adolescent girls. We provide school-based mental health support, academic perseverance programs, and holistic care to help girls transcend their circumstances and author their own futures.
             </p>
-            <Link href="/contact" className={styles.btnSecondary}>Learn More About Us</Link>
+            <p>
+              Founded by Akatwijuka Grace, a fourth-year law student, our mission is to be the consistent, empowering space between a girl's challenging reality and her radiant possibility.
+            </p>
+            <Link href="/our-story" className={styles.btnSecondary}>Meet Grace & Our Story</Link>
           </div>
         </div>
       </section>
 
-      {/* Projects / What We Do Section */}
+      {/* Core Programs Section */}
       <section className={styles.projectsSection}>
         <div className={styles.projectsHeader}>
           <div>
-            <span className={styles.smallLabel}>Our Support</span>
-            <h2 className="heading-lg">Discover Our Projects</h2>
+            <span className={styles.smallLabel}>Our Impact</span>
+            <h2 className="heading-lg">Core Programs</h2>
           </div>
-          <Link href="/programs" className={styles.btnSecondary}>View All</Link>
+          <Link href="/programs" className={styles.btnSecondary}>View All Programs</Link>
         </div>
         <div className={styles.projectsGrid}>
           <div className={styles.projectCard}>
             <div className={styles.projectImageWrapper}>
-              <Image src="/images/program-1.jpg" alt="Healing the Ground" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
+              <Image src="/images/program-1.jpg" alt="The Rise Room Initiative" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
             </div>
             <div className={styles.projectContent}>
-              <h3>Healing the Ground</h3>
-              <p>Mental and emotional foundations.</p>
-              <div className={styles.projectStats}>
-                <span><strong>0</strong> donors</span>
-                <span><strong>$ 0</strong></span>
-              </div>
+              <h3>The Rise Room Initiative</h3>
+              <p>School-based safe spaces providing mental health support and peer networks.</p>
+              <Link href="/programs#rise-room" className={styles.projectLink}>Learn More →</Link>
             </div>
           </div>
+
           <div className={styles.projectCard}>
             <div className={styles.projectImageWrapper}>
-              <Image src="/images/program-2.jpg" alt="Building the Ladder" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
+              <Image src="/images/program-2.jpg" alt="Academic Rescue Program" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
             </div>
             <div className={styles.projectContent}>
-              <h3>Building the Ladder</h3>
-              <p>Educational and practical ascension.</p>
-              <div className={styles.projectStats}>
-                <span><strong>0</strong> donors</span>
-                <span><strong>$ 0</strong></span>
-              </div>
+              <h3>Academic Rescue Program</h3>
+              <p>Tutoring, scholarships, and STEM exposure to keep girls excelling in school.</p>
+              <Link href="/programs#academic-rescue" className={styles.projectLink}>Learn More →</Link>
             </div>
           </div>
+
           <div className={styles.projectCard}>
             <div className={styles.projectImageWrapper}>
-              <Image src="/images/program-3.jpg" alt="Reaching New Altitudes" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
+              <Image src="/images/program-3.jpg" alt="Leadership & Life Skills" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
             </div>
             <div className={styles.projectContent}>
-              <h3>Reaching New Altitudes</h3>
-              <p>Future and leadership development.</p>
-              <div className={styles.projectStats}>
-                <span><strong>0</strong> donors</span>
-                <span><strong>$ 0</strong></span>
-              </div>
+              <h3>Leadership & Life Skills Academy</h3>
+              <p>Financial literacy, public speaking, digital skills and entrepreneurship training.</p>
+              <Link href="/programs#leadership" className={styles.projectLink}>Learn More →</Link>
+            </div>
+          </div>
+
+          <div className={styles.projectCard}>
+            <div className={styles.projectImageWrapper}>
+              <Image src="/images/program-4.jpg" alt="Health & Wellness" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
+            </div>
+            <div className={styles.projectContent}>
+              <h3>Health & Wellness Program</h3>
+              <p>SRHR education, menstrual health management, nutrition and access to healthcare.</p>
+              <Link href="/programs#health-wellness" className={styles.projectLink}>Learn More →</Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Impact & Support Tiers Section */}
-      <section className={styles.impactSupportSection}>
-        <div className={styles.impactContainer}>
-          <div className={styles.impactText}>
-            <h2 className="heading-lg">Building Foundations for Empowerment</h2>
-            <ul className={styles.impactList}>
-              <li><strong>Education:</strong> Providing school-based support.</li>
-              <li><strong>Hygiene:</strong> Ensuring access to sanitary pads.</li>
-              <li><strong>Training:</strong> Leadership and mentorship for girls.</li>
-            </ul>
+      {/* Our Four Pillars Section */}
+      <section className={styles.pillarsSection}>
+        <h2 className="heading-lg">Our Four Pillars of Change</h2>
+        <div className={styles.pillarsGrid}>
+          <div className={styles.pillarCard}>
+            <div className={styles.pillarNumber}>01</div>
+            <h3>Healing the Ground</h3>
+            <p>Mental and emotional foundations where girls can heal, speak freely, and be heard without judgment.</p>
           </div>
-          <div className={styles.supportTiers}>
-            <div className={styles.tierCard}>
-              <h3>$10</h3>
-              <p>Sanitary Pads</p>
-              <Link href="/events" className={styles.tierAction}>Donate ➔</Link>
-            </div>
-            <div className={styles.tierCard}>
-              <h3>$20</h3>
-              <p>Learning Materials</p>
-              <Link href="/events" className={styles.tierAction}>Donate ➔</Link>
-            </div>
-            <div className={styles.tierCard}>
-              <h3>$50</h3>
-              <p>Mental Health Support</p>
-              <Link href="/events" className={styles.tierAction}>Donate ➔</Link>
-            </div>
+          <div className={styles.pillarCard}>
+            <div className={styles.pillarNumber}>02</div>
+            <h3>Building the Ladder</h3>
+            <p>Educational and practical ascension through tutoring, scholarships, and essential support packages.</p>
+          </div>
+          <div className={styles.pillarCard}>
+            <div className={styles.pillarNumber}>03</div>
+            <h3>Reaching New Altitudes</h3>
+            <p>Future and leadership development through career mentorship, university visits, and vocational training.</p>
+          </div>
+          <div className={styles.pillarCard}>
+            <div className={styles.pillarNumber}>04</div>
+            <h3>Knowing Your Rights</h3>
+            <p>Legal literacy and advocacy to ensure girls understand their rights and have access to justice.</p>
           </div>
         </div>
       </section>
 
-      {/* Featured Quote & Image Section */}
+      {/* Support Section */}
+      <section className={styles.supportSection}>
+        <h2 className="heading-lg">Ways to Support Our Mission</h2>
+        <div className={styles.supportGrid}>
+          <div className={styles.supportCard}>
+            <div className={styles.supportIcon}>💰</div>
+            <h3>Donate</h3>
+            <p>Fund a girl's journey, a Rise Room, or essential support packages</p>
+            <Link href="/donate" className={styles.btnSecondary}>Give Now</Link>
+          </div>
+          <div className={styles.supportCard}>
+            <div className={styles.supportIcon}>🤝</div>
+            <h3>Partner</h3>
+            <p>Bring your organization's resources to scale our impact</p>
+            <Link href="/contact" className={styles.btnSecondary}>Partner With Us</Link>
+          </div>
+          <div className={styles.supportCard}>
+            <div className={styles.supportIcon}>👥</div>
+            <h3>Mentor</h3>
+            <p>Share your time and wisdom to guide rising leaders</p>
+            <Link href="/contact" className={styles.btnSecondary}>Get Involved</Link>
+          </div>
+          <div className={styles.supportCard}>
+            <div className={styles.supportIcon}>📢</div>
+            <h3>Advocate</h3>
+            <p>Spread our message that every girl deserves to rise</p>
+            <Link href="/stories" className={styles.btnSecondary}>Share Stories</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Quote */}
       <section className={styles.featuredQuoteSection}>
-        <div className={styles.featuredContainer}>
-          <div className={styles.quoteBox}>
-            <div className={styles.quoteAccent} />
-            <blockquote className={styles.latestQuote}>
-              &ldquo;You Are Worthy Of Every Dream You Carry! And You Are Not Alone - Not Anymore.&rdquo;
-            </blockquote>
-            <p className={styles.quoteAuthor}>— African Girl Rise Community</p>
-          </div>
-          <div className={styles.featuredImageWrapper}>
-            <Image src="/images/worthy-dream.jpg" alt="Girls holding signs of empowerment" fill className={styles.featuredImage} style={{ objectFit: 'cover' }} />
-          </div>
+        <div className={styles.quoteBox}>
+          <div className={styles.quoteAccent} />
+          <blockquote className={styles.latestQuote}>
+            &ldquo;Your beginning does not define your becoming.&rdquo;
+          </blockquote>
+          <p className={styles.quoteAuthor}>— Akatwijuka Grace, Founder</p>
         </div>
       </section>
 
-      {/* Join Us / CTA Banner */}
-      <section className={styles.joinUsSection}>
-        <div className={styles.joinUsCard}>
-          <h2 className="heading-lg text-gradient">Join Us</h2>
-          <p>Do you want to join African Girl Rise as a member?</p>
-          <Link href="/contact" className={styles.btnPrimaryOutlined}>Become a Member</Link>
-        </div>
+      {/* CTA Section */}
+      <section className={styles.ctaSection}>
+        <h2 className="heading-lg">Join This Movement</h2>
+        <p>Together, we are building a generation defined not by their struggles, but by their strength.</p>
+        <Link href="/contact" className={styles.btnPrimary}>Get Involved Today</Link>
       </section>
-
-      {/* Video Modal */}
-      {isVideoModalOpen && (
-        <div className={styles.modalOverlay} onClick={() => setIsVideoModalOpen(false)}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.modalCloseBtn} onClick={() => setIsVideoModalOpen(false)}>
-              &times;
-            </button>
-            <video
-              controls
-              autoPlay
-              className={styles.modalVideo}
-            >
-              <source src="/videos/hero-video.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

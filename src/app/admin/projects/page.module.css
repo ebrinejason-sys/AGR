@@ -1,0 +1,265 @@
+.container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.btnAdd {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-pink);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btnAdd:hover {
+  background: var(--color-purple);
+  transform: translateY(-2px);
+}
+
+.projectsTable {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr 1fr 1fr 1.2fr;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--card-hover-bg);
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  color: var(--text-color);
+  position: sticky;
+  top: 0;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr 1fr 1fr 1.2fr;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: var(--card-hover-bg);
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.colTitle,
+.colDescription,
+.colPillar,
+.colStatus,
+.colActions {
+  display: flex;
+  align-items: center;
+}
+
+.colDescription {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  padding: 0.5rem;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.pillarBadge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background: rgba(216, 27, 96, 0.1);
+  color: var(--color-pink);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.statusBadge.active {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+
+.statusBadge.draft {
+  background: rgba(255, 152, 0, 0.2);
+  color: #ff9800;
+}
+
+.colActions {
+  gap: 0.5rem;
+}
+
+.btnIcon {
+  padding: 0.5rem;
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnIcon:hover {
+  background: var(--border-color);
+  color: var(--text-color);
+}
+
+.btnSuccess,
+.btnCancel {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnSuccess {
+  background: #4caf50;
+  color: white;
+}
+
+.btnSuccess:hover {
+  background: #45a049;
+}
+
+.btnCancel {
+  background: var(--border-color);
+  color: var(--text-color);
+}
+
+.btnCancel:hover {
+  background: var(--card-hover-bg);
+}
+
+.info {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(3, 169, 244, 0.1);
+  border-left: 4px solid #03a9f4;
+  border-radius: 8px;
+  color: var(--text-color);
+  font-size: 0.95rem;
+}
+
+.info p {
+  margin: 0;
+}
+
+.info strong {
+  color: var(--color-lightblue);
+}
+
+/* ─── Mobile Responsive ─── */
+@media (max-width: 1024px) {
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 1fr;
+  }
+
+  .tableHeader {
+    display: none;
+  }
+
+  .tableRow {
+    border: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    gap: 0;
+  }
+
+  .colTitle,
+  .colDescription,
+  .colPillar,
+  .colStatus,
+  .colActions {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .colTitle::before,
+  .colDescription::before,
+  .colPillar::before,
+  .colStatus::before,
+  .colActions::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .btnAdd {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+}

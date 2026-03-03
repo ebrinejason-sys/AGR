@@ -1,48 +1,354 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
     overflow: hidden;
 }
 
+/* ─── Hero Section ─── */
 .hero {
     position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 5%;
     text-align: center;
-    padding: 6rem 5% 4rem;
-    width: 100%;
 }
 
-.heroGlowPink,
-.heroGlowPurple {
-    position: absolute;
-    width: 50vw;
-    height: 50vw;
-    border-radius: 50%;
-    opacity: 0.3;
-    z-index: -1;
+.heroContent h1 {
+    margin-bottom: 1.5rem;
 }
 
-.heroGlowPink {
-    background: radial-gradient(circle, var(--color-pink) 0%, transparent 70%);
-    top: -20%;
-    left: -10%;
-}
-
-.heroGlowPurple {
-    background: radial-gradient(circle, var(--color-purple) 0%, transparent 70%);
-    bottom: -20%;
-    right: -10%;
-}
-
-.subtitle {
-    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-    color: var(--color-pink);
-    max-width: 800px;
-    margin: 1.5rem auto 0;
-    font-style: italic;
-    font-weight: 500;
+.heroSubtitle {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: var(--text-color);
     line-height: 1.6;
+    margin: 1rem 0;
+}
+
+/* ─── Founder Section ─── */
+.founderSection {
+    padding: 4rem 5%;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.founderContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+}
+
+.founderImage {
+    flex: 1;
+    position: relative;
+    min-height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.founderContent {
+    flex: 1;
+}
+
+.label {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: var(--color-pink);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.founderContent h2 {
+    margin-bottom: 0.5rem;
+}
+
+.role {
+    font-size: 1.1rem;
+    color: var(--color-purple);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.bio {
+    font-size: 1rem;
+    color: var(--text-color);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.stat {
+    text-align: left;
+}
+
+.statNumber {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-pink);
+}
+
+.statLabel {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ─── Story Section ─── */
+.storySection {
+    padding: 4rem 5%;
+    background: var(--bg-color);
+}
+
+.storyContainer {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.storyContainer h2 {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.storyContent {
+    margin-bottom: 3rem;
+}
+
+.storyContent h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--color-pink);
+    padding-bottom: 0.5rem;
+}
+
+.storyContent p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+.friendsList {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.friendsList li {
+    padding: 0.8rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.friendsList li::before {
+    content: "◆";
+    position: absolute;
+    left: 0;
+    color: var(--color-pink);
+}
+
+.lawyerGoals {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.lawyerGoals li {
+    padding: 0.8rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.lawyerGoals li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-pink);
+    font-weight: bold;
+}
+
+/* ─── Mission Section ─── */
+.missionSection {
+    padding: 4rem 5%;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.missionContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.missionContainer h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.missionGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.missionCard {
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+@media (hover: hover) {
+    .missionCard:hover {
+        transform: translateY(-5px);
+        border-color: var(--color-pink);
+    }
+}
+
+.missionCard h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-pink);
+}
+
+.missionCard p {
+    color: var(--text-color);
+    line-height: 1.8;
+    font-size: 0.95rem;
+}
+
+.missionCard p + p {
+    margin-top: 1rem;
+}
+
+/* ─── CTA Section ─── */
+.ctaSection {
+    padding: 4rem 5%;
+    text-align: center;
+    background: var(--bg-color);
+}
+
+.ctaSection h2 {
+    margin-bottom: 1.5rem;
+}
+
+.ctaSection p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ctaButtons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ─── Button Styles ─── */
+.btnPrimary,
+.btnSecondary {
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btnPrimary {
+    background: var(--color-pink);
+    color: white;
+}
+
+@media (hover: hover) {
+    .btnPrimary:hover {
+        background: var(--color-purple);
+        transform: translateY(-2px);
+    }
+}
+
+.btnSecondary {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+}
+
+@media (hover: hover) {
+    .btnSecondary:hover {
+        border-color: var(--color-lightblue);
+        color: var(--color-lightblue);
+    }
+}
+
+/* ─── Mobile Responsive ─── */
+@media (max-width: 900px) {
+    .founderContainer {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .founderImage {
+        min-height: 400px;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .missionGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: 50vh;
+        padding: 2rem 5%;
+    }
+
+    .founderSection,
+    .storySection,
+    .missionSection,
+    .ctaSection {
+        padding: 2.5rem 5%;
+    }
+
+    .founderImage {
+        min-height: 300px;
+    }
+
+    .ctaButtons {
+        flex-direction: column;
+    }
+
+    .btnPrimary,
+    .btnSecondary {
+        width: 100%;
+    }
 }
 
 .contentSection {
