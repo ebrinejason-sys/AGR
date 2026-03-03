@@ -58,12 +58,16 @@
 html,
 body {
   max-width: 100vw;
+  height: 100dvh;
   overflow-x: hidden;
   background-color: var(--bg-color);
   color: var(--text-color);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* iOS Safe Areas & Specifics */
@@ -104,10 +108,13 @@ textarea {
    via "animation: none" on the glow orb classes. No blanket animation kill needed
    here — that was breaking the loading spinner and hero fadeUp animation. */
 
-/* Smooth scrolling for Safari */
-@supports (-webkit-overflow-scrolling: touch) {
-  html {
-    -webkit-overflow-scrolling: touch;
+/* Fix for 'hover' states sticking on mobile touch devices */
+@media (hover: none) {
+
+  button:hover,
+  a:hover {
+    background-color: inherit !important;
+    color: inherit !important;
   }
 }
 

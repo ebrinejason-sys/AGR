@@ -29,7 +29,7 @@ export default function Navbar() {
     return (
         <header className={styles.header}>
             <Link href="/" className={styles.logoLink} onClick={closeMenu}>
-                <Image src="/logo.png" alt="African Girl Rise Logo" width={40} height={40} className={styles.logoImage} />
+                <Image src="/logo.png" alt="African Girl Rise Logo" width={40} height={40} priority className={styles.logoImage} />
                 <span className={styles.brandName}>AFRICAN GIRL RISE</span>
             </Link>
 

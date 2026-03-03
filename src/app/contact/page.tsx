@@ -101,6 +101,7 @@ export default function Contact() {
                             alt="Grace Akatwijuka"
                             width={200}
                             height={250}
+                            priority
                             className={styles.founderImage}
                         />
                     </div>

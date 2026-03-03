@@ -1,25 +1,11 @@
-/* Layout styles to replace inline styles */
+/* Layout styles */
 
 .layoutContainer {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .mainContent {
   flex: 1;
-}
-
-.footer {
-  padding: 3rem 5%;
-  border-top: 1px solid var(--border-color, rgba(255,255,255,0.1));
-  margin-top: auto;
-  background: var(--footer-bg-color, #050505);
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-
-.footerLocation {
-  margin-top: 0.5rem;
 }

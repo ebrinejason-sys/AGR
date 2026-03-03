@@ -1,12 +1,32 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import styles from "./layout.module.css";
 import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+
+// iOS-safe viewport: prevents auto-zoom on inputs, covers notch area
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#e91e8c" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
+  ],
+};
 
 export const metadata: Metadata = {
   title: "African Girl Rise",
   description: "Breaking cycles. One girl at a time. One generation at a time.",
+  // Disable iOS auto-detection to prevent hydration errors from injected <a> tags
+  other: {
+    "format-detection": "telephone=no, date=no, address=no, email=no",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+  },
 };
 
 export default function RootLayout({
@@ -15,22 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
-
-        {/* PWA Manifest */}
-        <link rel="manifest" href="/manifest.json" />
-
-        {/* iOS PWA Meta Tags */}
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="African Girl Rise" />
-
-        {/* Theme Color - Light theme color for better iOS compatibility */}
-        <meta name="theme-color" content="#e91e8c" media="(prefers-color-scheme: light)" />
-        <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
-      </head>
+    <html lang="en" className="antialiased" suppressHydrationWarning>
       <body>
         <ThemeProvider
           attribute="data-theme"
@@ -47,10 +52,7 @@ export default function RootLayout({
               {children}
             </main>
 
-            <footer className={styles.footer}>
-              <p>African Girl Rise Initiative © {new Date().getFullYear()}</p>
-              <p className={styles.footerLocation}>Ibanda District, Western Uganda</p>
-            </footer>
+            <Footer />
           </div>
         </ThemeProvider>
       </body>
