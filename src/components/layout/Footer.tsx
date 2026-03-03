@@ -96,7 +96,8 @@ export default function Footer() {
                             <p><strong>Location:</strong> Kiburara, Ibanda District, Uganda</p>
                             <p><strong>Email:</strong> africangirlriseltd@gmail.com</p>
                             <p><strong>Alt Email:</strong> graceakatwijuka73@gmail.com</p>
-                            <p><strong>Phone / WhatsApp:</strong> +256 703 727 965</p>
+                            <p><strong>WhatsApp:</strong> 0703727965</p>
+                            <p><strong>Calls:</strong> 0763738733</p>
                         </div>
                     </div>
 

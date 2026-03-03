@@ -66,6 +66,7 @@
 .inputRow {
     display: flex;
     gap: 0.5rem;
+    align-items: stretch;
 }
 
 .input {
@@ -95,6 +96,7 @@
     border: none;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
+    white-space: nowrap;
 }
 
 .subscribeBtn:hover {
@@ -213,9 +215,27 @@
 }
 
 @media (max-width: 600px) {
+    .footerInner {
+        padding: 4rem 5% 2rem;
+    }
+
     .footerGrid {
         grid-template-columns: 1fr;
         gap: 2.5rem;
+    }
+
+    .newsletterSection {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .inputRow {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .subscribeBtn {
+        width: 100%;
     }
 
     .bottomBar {

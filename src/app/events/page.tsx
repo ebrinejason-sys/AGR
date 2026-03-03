@@ -26,6 +26,20 @@ export default function EventsPage() {
     const [currency, setCurrency] = useState<'UGX' | 'USD'>('UGX');
     const [eventCurrency, setEventCurrency] = useState<{ [key: string]: 'UGX' | 'USD' }>({});
 
+    const selectedEvent = donateModal ? events.find((evt) => evt.id === donateModal) : null;
+
+    const getQuickAmounts = (selectedCurrency: 'UGX' | 'USD') => {
+        return selectedCurrency === 'UGX' ? ['10000', '50000', '100000'] : ['5', '20', '50'];
+    };
+
+    const applyQuickAmount = (form: HTMLFormElement, amount: string) => {
+        const amountInput = form.elements.namedItem('amount') as HTMLInputElement | null;
+        if (amountInput) {
+            amountInput.value = amount;
+            amountInput.focus();
+        }
+    };
+
     useEffect(() => {
         async function fetchEvents() {
             // If supabase url isn't set, we mock the data to preview the UI
@@ -151,9 +165,24 @@ export default function EventsPage() {
                     <input type="text" name="donorName" placeholder="Your Name" required />
                     <input type="email" name="email" placeholder="Your Email" required />
                     {currency === 'UGX' && (
-                        <input type="tel" name="phoneNumber" placeholder="Phone Number (e.g., 256700123456)" required pattern="[0-9]{12}" title="Enter phone number starting with country code (e.g., 256700123456)" />
+                        <input type="tel" name="phoneNumber" placeholder="Phone Number (e.g., 256703727965)" required pattern="[0-9]{10,15}" title="Enter a valid phone number with country code if needed (e.g., 256703727965)" />
                     )}
                     <input type="number" name="amount" placeholder={`Amount (${currency})`} required min={currency === 'UGX' ? '1000' : '5'} step="any" />
+                    <div className={styles.quickAmounts}>
+                        {getQuickAmounts(currency).map((amt) => (
+                            <button
+                                key={amt}
+                                type="button"
+                                className={styles.quickAmountBtn}
+                                onClick={(e) => applyQuickAmount((e.currentTarget.form as HTMLFormElement), amt)}
+                            >
+                                {currency} {Number(amt).toLocaleString()}
+                            </button>
+                        ))}
+                    </div>
+                    <p className={styles.paymentHelp}>
+                        {currency === 'UGX' ? 'Mobile Money requires a reachable phone number.' : 'Card payments are securely processed in USD.'}
+                    </p>
                     <div className={styles.formActions}>
                         <button type="submit" className={styles.btnSubmit} disabled={generalDonateLoading}>
                             {generalDonateLoading ? 'Processing...' : 'Donate to the Cause'}
@@ -218,51 +247,82 @@ export default function EventsPage() {
 
                                 {evt.status === 'upcoming' && (
                                     <div className={styles.actions}>
-                                        {donateModal === evt.id ? (
-                                            <form className={styles.donateForm} onSubmit={(e) => handleDonate(e, evt.id)}>
-                                                <div className={styles.currencySelector}>
-                                                    <label>
-                                                        <input
-                                                            type="radio"
-                                                            name={`currency-${evt.id}`}
-                                                            value="UGX"
-                                                            checked={(eventCurrency[evt.id] || 'UGX') === 'UGX'}
-                                                            onChange={() => setEventCurrency({ ...eventCurrency, [evt.id]: 'UGX' })}
-                                                        />
-                                                        <span>UGX (Mobile Money)</span>
-                                                    </label>
-                                                    <label>
-                                                        <input
-                                                            type="radio"
-                                                            name={`currency-${evt.id}`}
-                                                            value="USD"
-                                                            checked={(eventCurrency[evt.id] || 'UGX') === 'USD'}
-                                                            onChange={() => setEventCurrency({ ...eventCurrency, [evt.id]: 'USD' })}
-                                                        />
-                                                        <span>USD (Card)</span>
-                                                    </label>
-                                                </div>
-                                                <input type="text" name="donorName" placeholder="Your Name" required />
-                                                <input type="email" name="email" placeholder="Your Email" required />
-                                                {(eventCurrency[evt.id] || 'UGX') === 'UGX' && (
-                                                    <input type="tel" name="phoneNumber" placeholder="Phone Number (e.g., 256700123456)" required pattern="[0-9]{12}" title="Enter phone number starting with country code (e.g., 256700123456)" />
-                                                )}
-                                                <input type="number" name="amount" placeholder={`Amount (${eventCurrency[evt.id] || 'UGX'})`} required min={(eventCurrency[evt.id] || 'UGX') === 'UGX' ? '1000' : '5'} step="any" />
-                                                <div className={styles.formActions}>
-                                                    <button type="button" onClick={() => setDonateModal(null)} className={styles.btnCancel} disabled={eventDonateLoading === evt.id}>Cancel</button>
-                                                    <button type="submit" className={styles.btnSubmit} disabled={eventDonateLoading === evt.id}>{eventDonateLoading === evt.id ? 'Processing...' : 'Proceed to Pay'}</button>
-                                                </div>
-                                            </form>
-                                        ) : (
-                                            <button className={styles.btnPrimary} onClick={() => setDonateModal(evt.id)}>
-                                                Donate to this Event
-                                            </button>
-                                        )}
+                                        <button className={styles.btnPrimary} onClick={() => setDonateModal(evt.id)}>
+                                            Donate to this Event
+                                        </button>
                                     </div>
                                 )}
                             </div>
                         );
                     })}
+                </div>
+            )}
+
+            {selectedEvent && (
+                <div className={styles.modalOverlay} onClick={() => setDonateModal(null)}>
+                    <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
+                        <div className={styles.modalHeader}>
+                            <h3>Donate to: {selectedEvent.title}</h3>
+                            <button
+                                type="button"
+                                className={styles.modalClose}
+                                onClick={() => setDonateModal(null)}
+                                aria-label="Close donation modal"
+                            >
+                                ×
+                            </button>
+                        </div>
+
+                        <form className={styles.donateForm} onSubmit={(e) => handleDonate(e, selectedEvent.id)}>
+                            <div className={styles.currencySelector}>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`currency-${selectedEvent.id}`}
+                                        value="UGX"
+                                        checked={(eventCurrency[selectedEvent.id] || 'UGX') === 'UGX'}
+                                        onChange={() => setEventCurrency({ ...eventCurrency, [selectedEvent.id]: 'UGX' })}
+                                    />
+                                    <span>UGX (Mobile Money)</span>
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`currency-${selectedEvent.id}`}
+                                        value="USD"
+                                        checked={(eventCurrency[selectedEvent.id] || 'UGX') === 'USD'}
+                                        onChange={() => setEventCurrency({ ...eventCurrency, [selectedEvent.id]: 'USD' })}
+                                    />
+                                    <span>USD (Card)</span>
+                                </label>
+                            </div>
+                            <input type="text" name="donorName" placeholder="Your Name" required />
+                            <input type="email" name="email" placeholder="Your Email" required />
+                            {(eventCurrency[selectedEvent.id] || 'UGX') === 'UGX' && (
+                                <input type="tel" name="phoneNumber" placeholder="Phone Number (e.g., 256703727965)" required pattern="[0-9]{10,15}" title="Enter a valid phone number with country code if needed (e.g., 256703727965)" />
+                            )}
+                            <input type="number" name="amount" placeholder={`Amount (${eventCurrency[selectedEvent.id] || 'UGX'})`} required min={(eventCurrency[selectedEvent.id] || 'UGX') === 'UGX' ? '1000' : '5'} step="any" />
+                            <div className={styles.quickAmounts}>
+                                {getQuickAmounts(eventCurrency[selectedEvent.id] || 'UGX').map((amt) => (
+                                    <button
+                                        key={amt}
+                                        type="button"
+                                        className={styles.quickAmountBtn}
+                                        onClick={(e) => applyQuickAmount((e.currentTarget.form as HTMLFormElement), amt)}
+                                    >
+                                        {(eventCurrency[selectedEvent.id] || 'UGX')} {Number(amt).toLocaleString()}
+                                    </button>
+                                ))}
+                            </div>
+                            <p className={styles.paymentHelp}>
+                                {(eventCurrency[selectedEvent.id] || 'UGX') === 'UGX' ? 'Mobile Money requires a reachable phone number.' : 'Card payments are securely processed in USD.'}
+                            </p>
+                            <div className={styles.formActions}>
+                                <button type="button" onClick={() => setDonateModal(null)} className={styles.btnCancel} disabled={eventDonateLoading === selectedEvent.id}>Cancel</button>
+                                <button type="submit" className={styles.btnSubmit} disabled={eventDonateLoading === selectedEvent.id}>{eventDonateLoading === selectedEvent.id ? 'Processing...' : 'Proceed to Pay'}</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             )}
         </div>

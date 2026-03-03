@@ -16,7 +16,7 @@ export default function Home() {
             alt="Hero Background" 
             fill 
             className={styles.heroBgImage} 
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: 'cover', objectPosition: 'center 22%' }}
             priority
           />
         </div>

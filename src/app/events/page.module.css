@@ -172,6 +172,35 @@
     border: 1px solid var(--border-color);
 }
 
+.quickAmounts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.quickAmountBtn {
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+@media (hover: hover) {
+    .quickAmountBtn:hover {
+        border-color: var(--color-lightblue);
+        color: var(--color-lightblue);
+    }
+}
+
+.paymentHelp {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: -0.25rem;
+}
+
 .donateForm input {
     padding: 0.8rem;
     border-radius: 8px;
@@ -237,6 +266,62 @@
     cursor: not-allowed;
 }
 
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.modalCard {
+    width: 100%;
+    max-width: 560px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.2rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.modalHeader h3 {
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.modalClose {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 1.5rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (hover: hover) {
+    .modalClose:hover {
+        border-color: var(--color-pink);
+        color: var(--color-pink);
+    }
+}
+
 /* Currency Selector */
 .currencySelector {
     display: flex;
@@ -283,6 +368,53 @@
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 3.2rem 4%;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .eventCard {
+        padding: 1.25rem;
+        border-radius: 14px;
+    }
+
+    .eventCard h2 {
+        font-size: 1.2rem;
+        margin-top: 1.7rem;
+    }
+
+    .generalDonateCard {
+        border-radius: 14px;
+        padding: 1rem;
+    }
+
+    .currencySelector {
+        flex-direction: column;
+    }
+
+    .formActions {
+        flex-direction: column;
+    }
+
+    .btnSubmit,
+    .btnCancel {
+        width: 100%;
+    }
+
+    .progressText {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .modalCard {
+        max-height: 90dvh;
+        overflow-y: auto;
+    }
+
     @media (hover: hover) {
         .eventCard:hover {
             transform: none;

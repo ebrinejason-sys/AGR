@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .hero {
@@ -239,7 +241,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(12, 12, 12, 0.4) 0%, rgba(12, 12, 12, 0.6) 60%, var(--bg-color) 100%);
+  background: linear-gradient(to bottom, rgba(12, 12, 12, 0.55) 0%, rgba(12, 12, 12, 0.72) 58%, var(--bg-color) 100%);
   z-index: 1;
 }
 
@@ -781,7 +783,8 @@
 
 @media (max-width: 768px) {
   .hero {
-    min-height: 100dvh;
+    min-height: 92dvh;
+    padding: 1.25rem 4%;
   }
 
   .heroContentInner {
@@ -809,6 +812,36 @@
     flex-direction: column;
     align-items: stretch;
     width: 100%;
+  }
+
+  .aboutSection,
+  .projectsSection,
+  .pillarsSection,
+  .supportSection,
+  .featuredQuoteSection,
+  .ctaSection {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+
+  .projectsGrid,
+  .pillarsGrid,
+  .supportGrid {
+    gap: 1rem;
+  }
+
+  .projectImageWrapper {
+    height: 190px;
+  }
+
+  .projectContent,
+  .pillarCard,
+  .supportCard {
+    padding: 1.25rem;
+  }
+
+  .quoteBox {
+    padding: 1.25rem 0 1.25rem 1rem;
   }
 
   .projectsHeader {
