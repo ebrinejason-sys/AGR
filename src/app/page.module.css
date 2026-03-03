@@ -82,7 +82,7 @@
   width: fit-content;
 }
 
-/* Base button styles */
+/* Base button styles - Cross-browser compatible */
 .btnPrimaryOutlined,
 .btnSecondaryOutlined,
 .btnSecondary,
@@ -94,6 +94,17 @@
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: inline-block;
   text-align: center;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  will-change: transform, background-color;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .btnPrimary {
@@ -102,6 +113,7 @@
   color: white;
 }
 
+/* Touch devices and hover devices */
 @media (hover: hover) {
   .btnPrimary:hover {
     background: var(--color-purple);
@@ -109,6 +121,24 @@
     transform: translateY(-2px);
   }
 }
+
+/* Active/Focus states for accessibility */
+.btnPrimary:focus-visible {
+  outline: 2px solid var(--color-pink);
+  outline-offset: 2px;
+}
+
+.btnPrimary:active {
+  transform: translateY(0);
+  opacity: 0.9;
+}
+
+/* Mobile touch feedback */
+@media (max-width: 768px) {
+  .btnPrimary:active {
+    background: var(--color-purple);
+  }
+}}
 
 .btnPrimaryOutlined {
   background: transparent;
@@ -247,7 +277,7 @@
 
 /* ─── About Us Section ─── */
 .aboutSection {
-  padding: 5rem 5%;
+  padding: 2.5rem 5%;
   display: flex;
   justify-content: center;
   background: var(--bg-color);

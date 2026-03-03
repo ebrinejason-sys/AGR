@@ -36,9 +36,12 @@ export default function Home() {
               Breaking cycles of poverty and empowering girls through mental health support, education, and leadership training.
             </p>
             <div className={styles.heroActions}>
-              <Link href="/donate" className={styles.btnPrimary}>
+              <button 
+                onClick={() => setIsDonationModalOpen(true)}
+                className={styles.btnPrimary}
+              >
                 Donate Now
-              </Link>
+              </button>
               <Link href="/our-story" className={styles.btnSecondaryOutlined}>
                 Learn Our Story
               </Link>
