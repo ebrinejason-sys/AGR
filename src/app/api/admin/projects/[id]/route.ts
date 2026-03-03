@@ -18,8 +18,8 @@ const projects = [
   }
 ];
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const project = projects.find(p => p.id === id);
 
   if (!project) {
@@ -29,8 +29,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
   return NextResponse.json(project);
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const data = await request.json();
 
   const index = projects.findIndex(p => p.id === id);
@@ -42,8 +42,8 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   return NextResponse.json(projects[index]);
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const index = projects.findIndex(p => p.id === id);
 
   if (index === -1) {
