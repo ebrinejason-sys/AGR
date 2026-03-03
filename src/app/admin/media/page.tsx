@@ -17,6 +17,8 @@ export default function AdminMedia() {
     const [uploading, setUploading] = useState(false);
     const [items, setItems] = useState<MediaItem[]>([]);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [events, setEvents] = useState<{ id: string, title: string }[]>([]);
+    const [eventId, setEventId] = useState('');
 
     const fetchMedia = async () => {
         const res = await fetch('/api/admin/media', { cache: 'no-store' });
@@ -26,8 +28,17 @@ export default function AdminMedia() {
         }
     };
 
+    const fetchEvents = async () => {
+        const res = await fetch('/api/admin/events', { cache: 'no-store' });
+        const data = await res.json();
+        if (res.ok && data.events) {
+            setEvents(data.events);
+        }
+    }
+
     useEffect(() => {
         fetchMedia();
+        fetchEvents();
     }, []);
 
     const handleUpload = async (e: React.FormEvent) => {
@@ -41,6 +52,7 @@ export default function AdminMedia() {
         const formData = new FormData();
         formData.append('file', selectedFile);
         formData.append('description', description);
+        if (eventId) formData.append('event_id', eventId);
 
         const res = await fetch('/api/admin/media', {
             method: 'POST',
@@ -57,6 +69,7 @@ export default function AdminMedia() {
         setUploading(false);
         setDescription('');
         setSelectedFile(null);
+        setEventId('');
         await fetchMedia();
     };
 
@@ -91,6 +104,20 @@ export default function AdminMedia() {
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="e.g. Students inside the new Rise Room"
                         />
+                    </div>
+
+                    <div className={styles.inputGroup}>
+                        <label>Associate with Event (Optional)</label>
+                        <select
+                            value={eventId}
+                            onChange={(e) => setEventId(e.target.value)}
+                            style={{ background: 'var(--bg-color)', border: '1px solid var(--border-color)', padding: '1rem', borderRadius: '12px', color: 'var(--text-color)' }}
+                        >
+                            <option value="">-- No Event --</option>
+                            {events.map(ev => (
+                                <option key={ev.id} value={ev.id}>{ev.title}</option>
+                            ))}
+                        </select>
                     </div>
 
                     <button type="submit" className={styles.submitBtn} disabled={uploading}>

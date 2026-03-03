@@ -72,9 +72,11 @@
   box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
 }
 
-.btnPrimary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(216, 27, 96, 0.5);
+@media (hover: hover) {
+  .btnPrimary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(216, 27, 96, 0.5);
+  }
 }
 
 .btnPrimary:active {
@@ -88,10 +90,12 @@
   font-weight: 600;
 }
 
-.btnSecondary:hover {
-  background: var(--card-hover-bg);
-  border-color: var(--color-lightblue);
-  color: var(--color-lightblue);
+@media (hover: hover) {
+  .btnSecondary:hover {
+    background: var(--card-hover-bg);
+    border-color: var(--color-lightblue);
+    color: var(--color-lightblue);
+  }
 }
 
 /* Background Glowing Orbs */
@@ -191,9 +195,11 @@
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
-.statCard:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-pink);
+@media (hover: hover) {
+  .statCard:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-pink);
+  }
 }
 
 .statNumber {
@@ -248,9 +254,11 @@
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
-.howCard:hover {
-  transform: translateY(-5px);
-  border-color: var(--color-pink);
+@media (hover: hover) {
+  .howCard:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-pink);
+  }
 }
 
 .howStep {
@@ -326,10 +334,12 @@
   text-align: left;
 }
 
-.traitBox:hover {
-  transform: translateY(-5px);
-  background: var(--card-hover-bg);
-  border-color: var(--color-lightblue);
+@media (hover: hover) {
+  .traitBox:hover {
+    transform: translateY(-5px);
+    background: var(--card-hover-bg);
+    border-color: var(--color-lightblue);
+  }
 }
 
 .traitIcon {
@@ -417,6 +427,30 @@
 }
 
 /* ─── Mobile / iOS overrides ─── */
+
+.badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  background: rgba(216, 27, 96, 0.1);
+  border: 1px solid rgba(216, 27, 96, 0.3);
+  color: var(--color-pink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+}
+
+.sloganText {
+  display: block;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: var(--color-purple);
+  font-weight: 600;
+  font-style: normal;
+}
+
 @media (max-width: 768px) {
   .hero {
     min-height: 100dvh;
@@ -484,15 +518,18 @@
     margin: 0 auto;
   }
 
-  /* Disable hover transforms on mobile */
-  .statCard:hover,
-  .howCard:hover,
-  .traitBox:hover {
-    transform: none;
-  }
+  @media (hover: hover) {
 
-  .btnPrimary:hover,
-  .btnSecondary:hover {
-    transform: none;
+    /* Disable hover transforms on mobile */
+    .statCard:hover,
+    .howCard:hover,
+    .traitBox:hover {
+      transform: none;
+    }
+
+    .btnPrimary:hover,
+    .btnSecondary:hover {
+      transform: none;
+    }
   }
 }

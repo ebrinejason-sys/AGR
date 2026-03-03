@@ -10,8 +10,13 @@ export async function POST(request: Request) {
         const { error } = requireAdminSession(request);
         if (error) return error;
 
+        if (!process.env.RESEND_API_KEY) {
+            console.error('Email API Error: RESEND_API_KEY is not configured in environment variables.');
+            return NextResponse.json({ error: 'Email service is not configured. Missing API key.' }, { status: 503 });
+        }
+
         if (!resend) {
-            return NextResponse.json({ error: 'Email service not configured. Set RESEND_API_KEY.' }, { status: 503 });
+            return NextResponse.json({ error: 'Email client initialization failed.' }, { status: 500 });
         }
 
         const body = await request.json();

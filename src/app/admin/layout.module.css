@@ -25,6 +25,7 @@
     font-size: 1.5rem;
     background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
     -webkit-background-clip: text;
+    background-clip: text;
     color: transparent;
     font-weight: 800;
 }
@@ -169,6 +170,7 @@
         font-size: 1.2rem;
         background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
         -webkit-background-clip: text;
+        background-clip: text;
         color: transparent;
     }
 
@@ -186,7 +188,7 @@
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 100dvh;
         height: 100dvh;
         background: rgba(0, 0, 0, 0.5);
         z-index: 95;

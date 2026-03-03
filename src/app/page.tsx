@@ -11,20 +11,22 @@ export default function Home() {
         <div className={styles.heroGlowBlue} />
 
         <div className={styles.heroContent}>
+          <div className={styles.badge}>A Girl Defined By Rise Initiative</div>
           <h1 className="heading-xl">
-            Empower<br />
-            <span className="text-gradient">The Future</span>
+            Empowering Girls to<br />
+            <span className="text-gradient">Transcend Background</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            Breaking cycles of poverty and ensuring no girl in our community walks the path our friends walked. Rise. Then reach back.
+            "Your beginning does not define your becoming."<br />
+            <span className={styles.sloganText}>Your story isn't over. It's just getting powerful.</span>
           </p>
 
           <div className={styles.heroActions}>
-            <Link href="/our-story" className={styles.btnPrimary}>
-              Read Our Story
+            <Link href="/programs" className={styles.btnPrimary}>
+              Explore Our Programs
             </Link>
             <Link href="/events" className={styles.btnSecondary}>
-              Donate Now
+              Support the Vision
             </Link>
           </div>
         </div>
@@ -34,74 +36,76 @@ export default function Home() {
       <section className={styles.statsSection}>
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
-            <span className={styles.statNumber}>50+</span>
-            <span className={styles.statLabel}>Girls Supported</span>
+            <span className={styles.statNumber}>500+</span>
+            <span className={styles.statLabel}>Girls Targeted</span>
+          </div>
+          <div className={styles.statCard}>
+            <span className={styles.statNumber}>5</span>
+            <span className={styles.statLabel}>Core Schools Reached</span>
           </div>
           <div className={styles.statCard}>
             <span className={styles.statNumber}>3</span>
-            <span className={styles.statLabel}>Communities Reached</span>
-          </div>
-          <div className={styles.statCard}>
-            <span className={styles.statNumber}>12+</span>
-            <span className={styles.statLabel}>Scholarships Given</span>
+            <span className={styles.statLabel}>Pillars of Intervention</span>
           </div>
           <div className={styles.statCard}>
             <span className={styles.statNumber}>1</span>
-            <span className={styles.statLabel}>Rise Room Built</span>
+            <span className={styles.statLabel}>Generational Shift</span>
           </div>
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {/* The 3 Pillars Teaser */}
       <section className={styles.howSection}>
-        <h2 className="heading-lg">How We <span className="text-gradient">Break the Cycle</span></h2>
+        <h2 className="heading-lg">The Three <span className="text-gradient">Pillars of Rise</span></h2>
         <p className={styles.howSubtitle}>
-          A three-pillar approach to generational transformation
+          Our framework turns philosophy into practice, creating a tangible ladder out of poverty.
         </p>
         <div className={styles.howGrid}>
           <div className={styles.howCard}>
             <div className={styles.howStep}>01</div>
-            <h3>Identify</h3>
-            <p>We find girls at risk of dropping out — girls facing poverty, early marriage, or abuse — and we reach them before they fall away.</p>
+            <h3>Healing the Ground</h3>
+            <p>Mental and emotional foundations. Safe spaces and trauma-informed counseling, because you cannot rise from broken ground.</p>
           </div>
           <div className={styles.howConnector} />
           <div className={styles.howCard}>
             <div className={styles.howStep}>02</div>
-            <h3>Empower</h3>
-            <p>Through scholarships, Rise Rooms (safe spaces), mentorship, and legal advocacy, we give them the tools to stay in school and heal.</p>
+            <h3>Building the Ladder</h3>
+            <p>Educational and practical ascension. Academic rescue and essential support packages, because rising requires tangible steps.</p>
           </div>
           <div className={styles.howConnector} />
           <div className={styles.howCard}>
             <div className={styles.howStep}>03</div>
-            <h3>Rise</h3>
-            <p>She rises — and her family rises with her. Her income lifts them from poverty. Her education ensures her children are educated. Then she reaches back.</p>
+            <h3>Reaching New Altitudes</h3>
+            <p>Future and leadership development. Career mentorship and vision planning, because rising should lead to sustained elevation.</p>
           </div>
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+          <Link href="/programs" className={styles.btnOutline}>Learn More About Our Framework</Link>
         </div>
       </section>
 
       {/* Philosophy Section */}
       <section className={styles.philosophy}>
         <div className={styles.philosophyCard}>
-          <h2 className="heading-lg">Vision &amp; Mission</h2>
+          <h2 className="heading-lg">Our Global <span className="text-gradient">Vision</span></h2>
           <p>
-            Your children do not have to suffer the way you suffered.
-            When you keep your daughter in school, you are changing your family&apos;s future for generations.
+            We dream of a continent—and a world—where you can look at any girl and see not where she comes from, but where she is going. We envision a future led by women who have turned their pain into purpose.
           </p>
           <div className={styles.philosophyGrid}>
             <div className={styles.traitBox}>
               <div className={styles.traitIcon} style={{ background: 'var(--color-pink)' }}></div>
-              <h3>Empowerment</h3>
-              <p>Income lifts them from poverty.</p>
+              <h3>Resilience</h3>
+              <p>We do not see broken girls. We see unyielding resilience waiting to be focused.</p>
             </div>
             <div className={styles.traitBox}>
               <div className={styles.traitIcon} style={{ background: 'var(--color-purple)' }}></div>
-              <h3>Education</h3>
-              <p>Ensures children are educated.</p>
+              <h3>Empowerment</h3>
+              <p>Providing school-based mental health support, academic perseverance programs, and holistic care.</p>
             </div>
             <div className={styles.traitBox}>
               <div className={styles.traitIcon} style={{ background: 'var(--color-lightblue)' }}></div>
-              <h3>Advocacy</h3>
-              <p>Voice advocates for the community.</p>
+              <h3>Sisterhood</h3>
+              <p>Mentorship from women who have walked similar paths and a peer network that uplifts instead of competes.</p>
             </div>
           </div>
         </div>
@@ -112,9 +116,9 @@ export default function Home() {
         <div className={styles.quoteCard}>
           <div className={styles.quoteAccent} />
           <blockquote className={styles.quoteText}>
-            &ldquo;My mother studied hungry so I could study fed. My father struggled through school so my fees could be paid. They broke the cycle. That is the gift I want every girl to receive.&rdquo;
+            &ldquo;We are not giving girls a voice. They have one. We are amplifying it until the whole world has to listen.&rdquo;
           </blockquote>
-          <p className={styles.quoteAuthor}>— Grace Akatwijuka, Founder</p>
+          <p className={styles.quoteAuthor}>— A Girl Defined By Rise Philosophy</p>
         </div>
       </section>
 
@@ -122,11 +126,11 @@ export default function Home() {
       <section className={styles.ctaSection}>
         <h2 className="heading-lg">Join the <span className="text-gradient">Movement</span></h2>
         <p className={styles.ctaSubtitle}>
-          Every contribution — whether time, money, or voice — changes the trajectory of a girl&apos;s life and her entire family for generations.
+          This is not charity. This is strategic community transformation. For every girl who rises, three family members are lifted from extreme poverty.
         </p>
         <div className={styles.ctaActions}>
-          <Link href="/events" className={styles.btnPrimary}>Donate Now</Link>
-          <Link href="/contact" className={styles.btnSecondary}>Get Involved</Link>
+          <Link href="/events" className={styles.btnPrimary}>Donate & Fund</Link>
+          <Link href="/contact" className={styles.btnSecondary}>Partner With Us</Link>
         </div>
       </section>
     </div>

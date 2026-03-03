@@ -6,7 +6,6 @@ import styles from './Footer.module.css';
 
 export default function Footer() {
     const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [message, setMessage] = useState('');
 
@@ -18,7 +17,7 @@ export default function Footer() {
             const res = await fetch('/api/subscribe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, name: name || undefined }),
+                body: JSON.stringify({ email }),
             });
 
             const data = await res.json();
@@ -32,7 +31,6 @@ export default function Footer() {
             setStatus('success');
             setMessage(data.message || 'You\'re subscribed!');
             setEmail('');
-            setName('');
         } catch {
             setStatus('error');
             setMessage('Network error. Please try again.');
@@ -42,88 +40,66 @@ export default function Footer() {
     return (
         <footer className={styles.footer}>
             <div className={styles.footerInner}>
-                {/* Newsletter Section */}
-                <div className={styles.newsletterSection}>
-                    <h3 className={styles.newsletterTitle}>Stay Connected</h3>
-                    <p className={styles.newsletterDesc}>
-                        Join our newsletter for updates on events, stories of transformation, and ways you can help.
-                    </p>
-
-                    <form className={styles.subscribeForm} onSubmit={handleSubscribe}>
-                        <div className={styles.inputRow}>
-                            <input
-                                type="text"
-                                placeholder="Your name (optional)"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                className={styles.input}
-                            />
-                            <input
-                                type="email"
-                                placeholder="Your email address"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                className={styles.input}
-                            />
-                            <button
-                                type="submit"
-                                className={styles.subscribeBtn}
-                                disabled={status === 'loading'}
-                            >
-                                {status === 'loading' ? 'Joining...' : 'Subscribe'}
-                            </button>
-                        </div>
-                        {status === 'success' && (
-                            <p className={styles.successMsg}>{message}</p>
-                        )}
-                        {status === 'error' && (
-                            <p className={styles.errorMsg}>{message}</p>
-                        )}
-                    </form>
-                </div>
 
                 {/* Footer Grid */}
                 <div className={styles.footerGrid}>
-                    {/* Brand Column */}
+
+                    {/* Brand & Newsletter Column */}
                     <div className={styles.brandColumn}>
                         <h4 className={styles.brandName}>AFRICAN GIRL RISE</h4>
                         <p className={styles.brandTagline}>
-                            Breaking cycles of poverty. One girl at a time. One generation at a time.
+                            Your story isn't over. It's just getting powerful.
                         </p>
+
+                        <div className={styles.newsletterSection}>
+                            <p className={styles.newsletterDesc}>Join our movement and newsletter:</p>
+                            <form className={styles.subscribeForm} onSubmit={handleSubscribe}>
+                                <div className={styles.inputRow}>
+                                    <input
+                                        type="email"
+                                        placeholder="Your email address"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required
+                                        className={styles.input}
+                                    />
+                                    <button
+                                        type="submit"
+                                        className={styles.subscribeBtn}
+                                        disabled={status === 'loading'}
+                                    >
+                                        {status === 'loading' ? '⏳' : 'Subscribe'}
+                                    </button>
+                                </div>
+                                {status === 'success' && <p className={styles.successMsg}>{message}</p>}
+                                {status === 'error' && <p className={styles.errorMsg}>{message}</p>}
+                            </form>
+                        </div>
                     </div>
 
                     {/* Quick Links */}
                     <div className={styles.linksColumn}>
                         <h4 className={styles.columnTitle}>Explore</h4>
                         <nav className={styles.linksList}>
+                            <Link href="/">Home</Link>
                             <Link href="/our-story">Our Story</Link>
+                            <Link href="/programs">Our Programs</Link>
                             <Link href="/events">Events & Donate</Link>
                             <Link href="/stories">Stories & Gallery</Link>
-                            <Link href="/contact">Contact</Link>
-                        </nav>
-                    </div>
-
-                    {/* Get Involved */}
-                    <div className={styles.linksColumn}>
-                        <h4 className={styles.columnTitle}>Get Involved</h4>
-                        <nav className={styles.linksList}>
-                            <Link href="/events">Donate Now</Link>
-                            <Link href="/contact">Volunteer</Link>
-                            <Link href="/contact">Partner With Us</Link>
-                            <Link href="/contact">Sponsor a Girl</Link>
                         </nav>
                     </div>
 
                     {/* Contact Info */}
-                    <div className={styles.linksColumn}>
+                    <div className={styles.contactColumn}>
                         <h4 className={styles.columnTitle}>Reach Us</h4>
                         <div className={styles.contactInfo}>
-                            <p>📍 Ibanda District, Western Uganda</p>
-                            <p>📧 grace@africangirlriseltd.org</p>
-                            <p>📱 +256 703 727 965</p>
+                            <p><strong>Location:</strong> Kiburara, Ibanda District, Uganda</p>
+                            <p><strong>Email:</strong> africangirlriseltd@gmail.com</p>
+                            <p><strong>Alt Email:</strong> graceakatwijuka73@gmail.com</p>
+                            <p><strong>Phone / WhatsApp:</strong> +256 703 727 965</p>
                         </div>
                     </div>
+
                 </div>
 
                 {/* Divider */}
@@ -132,10 +108,10 @@ export default function Footer() {
                 {/* Bottom Bar */}
                 <div className={styles.bottomBar}>
                     <p className={styles.copyright}>
-                        © {new Date().getFullYear()} African Girl Rise Initiative. All rights reserved.
+                        © {new Date().getFullYear()} African Girl Rise Ltd Initiative. All rights reserved.
                     </p>
                     <p className={styles.mission}>
-                        Rise. Then reach back. Always reach back.
+                        Building a generation defined not by their struggles, but by their strength.
                     </p>
                 </div>
             </div>

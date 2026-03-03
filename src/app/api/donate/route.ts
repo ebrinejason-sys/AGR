@@ -43,7 +43,7 @@ export async function POST(req: Request) {
                 description: "Donation to break the cycle of poverty",
                 logo: "https://africangirlriseltd.org/logo.png"
             },
-            payment_options: currency === 'UGX' ? 'mobilemoneyuganda' : 'card'
+            ...(currency === 'UGX' && { payment_options: 'mobilemoneyuganda' })
         };
 
         const response = await fetch(flutterwaveUrl, {

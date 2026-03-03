@@ -8,46 +8,73 @@ export default function OurStory() {
             <section className={styles.hero}>
                 <div className={styles.heroGlowPink} />
                 <div className={styles.heroGlowPurple} />
-                <h1 className="heading-xl">Our <span className="text-gradient">Story</span></h1>
+                <h1 className="heading-xl">The <span className="text-gradient">Narrative</span></h1>
                 <p className={styles.subtitle}>
-                    We are not an initiative that comes in from outside and tells communities what to do.
-                    We are of this community. We are for this community.
+                    "Your beginning does not define your becoming."
                 </p>
             </section>
 
             {/* Main Content Sections */}
             <section className={styles.contentSection}>
 
+                {/* The Narrative */}
                 <div className={styles.card}>
                     <div className={styles.cardGlowBlue} />
-                    <h2>What We Want Parents to Understand</h2>
+                    <h2>A Promise to Keep</h2>
                     <div className={styles.textBody}>
-                        <p><strong>If you are a parent reading this, please hear me with your whole heart: Your children do not have to suffer the way you suffered.</strong></p>
-                        <p>I know you love them. I know you want the best for them. But sometimes we carry a dangerous belief without even realizing it: &quot;I suffered, so my children must also suffer. That is how life is.&quot; No. That is not how life has to be.</p>
-                        <p>My parents proved that suffering does not have to be inherited. Struggle does not have to be a family tradition. Poverty does not have to pass from generation to generation. The cycle can be broken. You have the power to break it.</p>
-                        <p>When you keep your daughter in school, even when it is hard and the world tells you she is not worth it, you are not just educating a child. You are changing your family&apos;s future for generations.</p>
-                        <p>This is how poverty ends. This is how communities transform. This is how nations rise.</p>
+                        <p>I grew up seeing it—the brilliant, sparkling potential in the eyes of young girls slowly dimmed by circumstance. A girl with a mind for numbers stops coming to school, her uniform exchanged for responsibilities too heavy for her shoulders. A young artist with a voice that could move mountains falls silent, told her dreams are too big for her world.</p>
+                        <p>I saw poverty try to write a script for lives not yet lived, and I saw society nodding, as if it were inevitable.</p>
+                        <p>But then, I also saw the exceptions. The ones who, against all odds, rose. They didn't rise because their path was easier; they rose because somewhere, somehow, they were given a single thread of hope to cling to—a teacher who believed, a book that inspired, a small act of kindness that whispered, <em>"You are more."</em></p>
+                        <p><strong>That whisper is not a privilege. It should be a promise.</strong><br />That is the promise we are here to keep.</p>
                     </div>
                 </div>
 
+                {/* Our Why */}
                 <div className={styles.cardSecondary}>
-                    <h2>What Happens When Girls Rise</h2>
+                    <h2>Our &quot;Why&quot;: The Heart of the Matter</h2>
                     <div className={styles.textBody}>
-                        <p>When a girl rises, she does not rise alone.</p>
-                        <p>She rises, and her family rises with her. Her income lifts them from poverty. Her education ensures her children are educated. Her health protects her family&apos;s health. Her voice advocates for her community.</p>
-                        <p>She rises, and her children rise higher. She rises, and her grandchildren rise higher still. By the third generation, poverty is a distant memory.</p>
-                        <p>This is what African Girl Rise Initiative is building. Not quick fixes. Not temporary relief. Not charity that creates dependency. Generational transformation. Cycle-breaking. Communities that heal themselves from within.</p>
+                        <p>We exist because the world often mistakes a difficult beginning for a predetermined ending. In communities like Kiburara and across Africa, adolescent girls face a convergence of storms:</p>
+                        <ul className={styles.featureList}>
+                            <li><strong>A Mental Health Crisis:</strong> Untreated trauma, anxiety, and depression become walls around their potential.</li>
+                            <li><strong>An Educational Emergency:</strong> School dropouts and academic failure cut the rope before they can climb.</li>
+                            <li><strong>A Cycle of Disempowerment:</strong> Early pregnancies and societal limitations tell them their stories are already written.</li>
+                        </ul>
+                        <p>We reject this narrative. We have seen that with the right support, a girl's toughest ground can become the foundation for her greatest strength. <strong>Her past is not a prophecy; it is preparation.</strong></p>
                     </div>
                 </div>
 
+                {/* Vision & Mission */}
                 <div className={styles.card}>
                     <div className={styles.cardGlowPink} />
-                    <h2>The Vision</h2>
+                    <h2>Vision & Mission</h2>
                     <div className={styles.textBody}>
-                        <p><strong>My vision is simple and enormous:</strong></p>
-                        <p>I want every girl in Ibanda District, every girl in Uganda, and every girl in Africa to have the chance I had. I want every girl to have parents who believe in her enough to break the cycle.</p>
-                        <p>I want every girl to have a safe space to heal, a ladder to climb, and a community that celebrates her rising.</p>
-                        <p>This is not charity. This is not pity. This is justice.</p>
+                        <p><strong>Our Vision: The World We Are Building</strong><br />
+                            We dream of a continent—and a world—where you can look at any girl and see not where she comes from, but where she is going. We envision a future where communities are led by women who have turned their pain into purpose, their barriers into blueprints, and their survival into service.</p>
+                        <p>Our vision is an Africa transformed by the leadership of women who were once told they couldn't, but who, through our support, discovered that they could.</p>
+
+                        <div className={styles.divider} />
+
+                        <p><strong>Our Mission: The Work of Rising</strong><br />
+                            Our mission is to be the consistent, empowering space between a girl’s challenging reality and her radiant possibility.</p>
+                        <p>We execute this mission through <em>A Girl Defined By Rise Initiative</em>, a holistic, school-based intervention that provides:</p>
+                        <ul className={styles.featureList}>
+                            <li><strong>A Safe Haven:</strong> &quot;Rise Rooms&quot; where girls can heal, speak freely, and be heard without judgment.</li>
+                            <li><strong>A Toolkit for Life:</strong> From mental health counselling and academic tutoring to sexual health education and financial literacy.</li>
+                            <li><strong>A Sisterhood of Belief:</strong> Mentorship from women who have walked similar paths and a peer network that uplifts instead of competes.</li>
+                            <li><strong>A Bridge to the Future:</strong> Career exposure, leadership training, and tangible resources (school supplies to sanitary pads) that remove practical barriers.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                {/* Core Belief */}
+                <div className={styles.cardSecondary}>
+                    <h2>Our Core Belief</h2>
+                    <div className={styles.textBody}>
+                        <p className={styles.highlightQuote}>&quot;Your beginning does not define your becoming.&quot;</p>
+                        <p>At the center of everything we do is this unwavering belief. We do not see poor backgrounds. We see unyielding resilience waiting to be focused.</p>
+                        <p>We do not see broken girls. We see heroes in the middle of their origin story.</p>
+                        <p>We believe in strength, not salvage. In investment, not charity. In partnership, not rescue.</p>
+                        <p><strong>We are not giving girls a voice. They have one. We are amplifying it until the whole world has to listen.</strong></p>
                     </div>
                 </div>
 
@@ -55,24 +82,31 @@ export default function OurStory() {
 
             {/* Call to Action */}
             <section className={styles.ctaSection}>
-                <h2>How You Can Join This Movement</h2>
-                <p>You do not have to start an organization to change a girl&apos;s life. You simply have to do something.</p>
+                <h2>Join Us: Write a New Story</h2>
+                <p>This is more than a program. It is a movement. It starts with one girl choosing to stay in school, to believe in her worth, to define her own future. It multiplies as she reaches back to lift the next.</p>
+
                 <div className={styles.ctaGrid}>
                     <div className={styles.ctaBox}>
-                        <h3>If you are a Donor:</h3>
-                        <p>Sponsor a girl. Fund a Rise Room. Support a scholarship. Your money, invested wisely, does not just change one life. It transforms generations.</p>
+                        <h3>Donate</h3>
+                        <p>Fund a "Rise Room," or support a girl's journey for a year.</p>
                     </div>
                     <div className={styles.ctaBox}>
-                        <h3>If you are a Teacher:</h3>
-                        <p>Notice the quiet girls at the back of your classroom. Be the person who asks: &quot;Are you okay?&quot; and means it.</p>
+                        <h3>Partner</h3>
+                        <p>Bring your organization's resources to scale our impact.</p>
                     </div>
                     <div className={styles.ctaBox}>
-                        <h3>If you are a Leader:</h3>
-                        <p>Advocate for girls&apos; education. Speak out against early marriage. Support policies that keep girls in school.</p>
+                        <h3>Mentor</h3>
+                        <p>Share your time and wisdom to guide a rising leader.</p>
+                    </div>
+                    <div className={styles.ctaBox}>
+                        <h3>Advocate</h3>
+                        <p>Spread our message that every girl deserves the chance to rise.</p>
                     </div>
                 </div>
-                <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-                    <Link href="/events" className={styles.btnPrimary}>Support Our Work</Link>
+
+                <div className={styles.finalCall}>
+                    <p>Together, we will build a generation defined not by their struggles, but by their strength. Defined not by their fall, but by their rise.</p>
+                    <Link href="/events" className={styles.btnPrimary}>Become a Catalyst</Link>
                 </div>
             </section>
         </div>

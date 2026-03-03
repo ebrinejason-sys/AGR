@@ -61,10 +61,12 @@
     overflow: hidden;
 }
 
-.eventCard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    background: var(--card-hover-bg);
+@media (hover: hover) {
+    .eventCard:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        background: var(--card-hover-bg);
+    }
 }
 
 .statusBadge {
@@ -154,8 +156,10 @@
     transition: opacity 0.3s ease;
 }
 
-.btnPrimary:hover {
-    opacity: 0.9;
+@media (hover: hover) {
+    .btnPrimary:hover {
+        opacity: 0.9;
+    }
 }
 
 .donateForm {
@@ -198,9 +202,11 @@
     font-weight: 500;
 }
 
-.btnCancel:hover:not(:disabled) {
-    background: var(--card-hover-bg);
-    border-color: var(--text-muted);
+@media (hover: hover) {
+    .btnCancel:hover:not(:disabled) {
+        background: var(--card-hover-bg);
+        border-color: var(--text-muted);
+    }
 }
 
 .btnCancel:disabled {
@@ -219,9 +225,11 @@
     border: none;
 }
 
-.btnSubmit:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 150, 255, 0.3);
+@media (hover: hover) {
+    .btnSubmit:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 150, 255, 0.3);
+    }
 }
 
 .btnSubmit:disabled {
@@ -251,8 +259,10 @@
     background: var(--bg-color);
 }
 
-.currencySelector label:hover {
-    background: var(--card-hover-bg);
+@media (hover: hover) {
+    .currencySelector label:hover {
+        background: var(--card-hover-bg);
+    }
 }
 
 .currencySelector input[type="radio"] {
@@ -273,12 +283,14 @@
 }
 
 @media (max-width: 768px) {
-    .eventCard:hover {
-        transform: none;
-        box-shadow: none;
-    }
+    @media (hover: hover) {
+        .eventCard:hover {
+            transform: none;
+            box-shadow: none;
+        }
 
-    .btnSubmit:hover:not(:disabled) {
-        transform: none;
+        .btnSubmit:hover:not(:disabled) {
+            transform: none;
+        }
     }
 }

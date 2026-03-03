@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import styles from './layout.module.css';
@@ -10,6 +11,38 @@ export default function AdminLayout({
     children: React.ReactNode;
 }) {
     const pathname = usePathname();
+
+    useEffect(() => {
+        // Don't auto-logout if we're already on the login page
+        if (pathname === '/admin/login') return;
+
+        let timeoutId: NodeJS.Timeout;
+
+        const handleLogout = async () => {
+            await fetch('/api/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'logout' }),
+            });
+            window.location.href = '/admin/login?expired=true';
+        };
+
+        const resetTimeout = () => {
+            clearTimeout(timeoutId);
+            // 15 minutes = 900000 ms
+            timeoutId = setTimeout(handleLogout, 900000);
+        };
+
+        resetTimeout();
+
+        const events = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll'];
+        events.forEach(e => window.addEventListener(e, resetTimeout));
+
+        return () => {
+            clearTimeout(timeoutId);
+            events.forEach(e => window.removeEventListener(e, resetTimeout));
+        };
+    }, [pathname]);
 
     if (pathname === '/admin/login') {
         return <>{children}</>;

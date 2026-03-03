@@ -1,8 +1,21 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import { PenTool } from 'lucide-react';
 import styles from './stories.module.css';
+import 'react-quill-new/dist/quill.snow.css';
+
+const ReactQuill = dynamic(
+    async () => {
+        const { default: RQ } = await import("react-quill-new");
+        // eslint-disable-next-line react/display-name
+        return function ForwardedQuill(props: any) {
+            return <RQ {...props} />;
+        };
+    },
+    { ssr: false, loading: () => <p>Loading editor...</p> }
+);
 
 type Story = {
     id: string;
@@ -16,6 +29,12 @@ export default function AdminStories() {
     const [publishing, setPublishing] = useState(false);
     const [stories, setStories] = useState<Story[]>([]);
 
+    // We cannot easily pass a ref through next/dynamic without a wrapper, 
+    // but ReactQuill natively supports string refs or functional refs if we bypass the wrapper.
+    // However, the standard way in modern ReactQuill is to just let it manage state natively,
+    // or use a custom toolbar handler that we bind.
+    const quillRef = useRef<any>(null);
+
     const fetchStories = async () => {
         const res = await fetch('/api/admin/stories', { cache: 'no-store' });
         const data = await res.json();
@@ -27,6 +46,69 @@ export default function AdminStories() {
     useEffect(() => {
         fetchStories();
     }, []);
+
+    const imageHandler = () => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files ? input.files[0] : null;
+            if (!file) return;
+
+            const uploadData = new FormData();
+            uploadData.append('file', file);
+            uploadData.append('description', 'Story embedded image');
+
+            try {
+                const res = await fetch('/api/admin/media', {
+                    method: 'POST',
+                    body: uploadData
+                });
+                const data = await res.json();
+
+                if (res.ok && data.media?.url) {
+                    // Extract quill instance from dynamic wrapper if possible
+                    // In react-quill, the actual Quill instance is nested inside the component
+                    // Depending on how dynamic() renders it, getting the quill instance might take a tick.
+                    // We can manually append it to the content state as a fallback if the ref fails,
+                    // but usually quillRef.current.getEditor() works if we bind it right.
+                    const quill = quillRef.current?.getEditor?.();
+                    if (quill) {
+                        const range = quill.getSelection(true);
+                        quill.insertEmbed(range.index, 'image', data.media.url);
+                    } else {
+                        // Fallback if ref is broken by dynamic layer
+                        setFormData(prev => ({
+                            ...prev,
+                            content: prev.content + `<br/><img src="${data.media.url}" alt="embedded image" /><br/>`
+                        }));
+                    }
+                } else {
+                    alert(data.error || 'Upload failed');
+                }
+            } catch (err) {
+                console.error('Image upload err:', err);
+                alert('Error uploading story image');
+            }
+        };
+    };
+
+    const modules = useMemo(() => ({
+        toolbar: {
+            container: [
+                [{ 'header': [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['link', 'image'],
+                ['clean']
+            ],
+            handlers: {
+                image: imageHandler
+            }
+        }
+    }), []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -84,13 +166,17 @@ export default function AdminStories() {
 
                     <div className={styles.inputGroup}>
                         <label>Story Content</label>
-                        <textarea
-                            required
-                            rows={15}
-                            value={formData.content}
-                            onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                            placeholder="Write the full story here..."
-                        />
+                        <div style={{ background: 'var(--bg-color)', color: 'var(--text-color)' }}>
+                            <ReactQuill
+                                // We cast ref to any to bypass Next dynamic ForwardRef type mismatch
+                                ref={quillRef as any}
+                                theme="snow"
+                                value={formData.content}
+                                onChange={(val: string) => setFormData({ ...formData, content: val })}
+                                modules={modules}
+                                placeholder="Write the full story here... Use the image button to upload media."
+                            />
+                        </div>
                     </div>
 
                     <button type="submit" className={styles.publishBtn} disabled={publishing}>
@@ -109,7 +195,8 @@ export default function AdminStories() {
                             <article key={story.id} className={styles.storyCard}>
                                 <div>
                                     <h3>{story.title}</h3>
-                                    <p>{story.content.slice(0, 180)}...</p>
+                                    {/* Sanitize HTML before display or slice safely. For admin preview, raw text extract is easier */}
+                                    <p>{story.content.replace(/<[^>]+>/g, '').slice(0, 180)}...</p>
                                 </div>
                                 <div className={styles.storyMeta}>
                                     <span>{new Date(story.created_at).toLocaleDateString()}</span>

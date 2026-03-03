@@ -108,15 +108,7 @@ textarea {
    via "animation: none" on the glow orb classes. No blanket animation kill needed
    here — that was breaking the loading spinner and hero fadeUp animation. */
 
-/* Fix for 'hover' states sticking on mobile touch devices */
-@media (hover: none) {
-
-  button:hover,
-  a:hover {
-    background-color: inherit !important;
-    color: inherit !important;
-  }
-}
+/* Removed destructive global hover reset */
 
 /* Prevent iOS crashes with images */
 img {

@@ -36,6 +36,7 @@ export default function Navbar() {
             {/* Desktop Navigation */}
             <nav className={styles.desktopNav}>
                 <Link href="/our-story" className={styles.navLink}>Our Story</Link>
+                <Link href="/programs" className={styles.navLink}>Programs</Link>
                 <Link href="/events" className={styles.navLink}>Events</Link>
                 <Link href="/stories" className={styles.navLink}>Stories</Link>
                 <Link href="/contact" className={styles.navLink}>Contact</Link>
@@ -55,6 +56,7 @@ export default function Navbar() {
                 <nav className={styles.mobileNavLinks}>
                     <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
                     <Link href="/our-story" className={styles.mobileNavLink} onClick={closeMenu}>Our Story</Link>
+                    <Link href="/programs" className={styles.mobileNavLink} onClick={closeMenu}>Programs</Link>
                     <Link href="/events" className={styles.mobileNavLink} onClick={closeMenu}>Events</Link>
                     <Link href="/stories" className={styles.mobileNavLink} onClick={closeMenu}>Stories</Link>
                     <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>

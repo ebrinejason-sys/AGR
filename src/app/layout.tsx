@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   // Disable iOS auto-detection to prevent hydration errors from injected <a> tags
   other: {
     "format-detection": "telephone=no, date=no, address=no, email=no",
-    "apple-mobile-web-app-capable": "yes",
+    "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "default",
   },
 };

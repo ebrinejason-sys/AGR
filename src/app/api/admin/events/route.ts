@@ -33,7 +33,7 @@ export async function POST(request: Request) {
         if (error) return error;
 
         const body = await request.json();
-        const { title, description, event_date, goal_amount } = body;
+        const { title, description, event_date, goal_amount, cover_image, achievements } = body;
 
         if (!title || !event_date) {
             return NextResponse.json({ error: 'Title and event date are required.' }, { status: 400 });
@@ -54,6 +54,8 @@ export async function POST(request: Request) {
                 goal_amount: goal,
                 current_amount: 0,
                 status: 'upcoming',
+                cover_image: cover_image || null,
+                achievements: achievements || null,
             })
             .select('*')
             .single();
@@ -78,7 +80,7 @@ export async function PATCH(request: Request) {
         if (error) return error;
 
         const body = await request.json();
-        const { id, status, title, description, event_date, goal_amount } = body;
+        const { id, status, title, description, event_date, goal_amount, cover_image, achievements } = body;
 
         if (!id) {
             return NextResponse.json({ error: 'Event id is required.' }, { status: 400 });
@@ -96,6 +98,8 @@ export async function PATCH(request: Request) {
             }
             updates.goal_amount = goal;
         }
+        if (cover_image !== undefined) updates.cover_image = cover_image;
+        if (achievements !== undefined) updates.achievements = achievements;
 
         const supabase = getAdminSupabase();
         const { data, error: dbError } = await supabase

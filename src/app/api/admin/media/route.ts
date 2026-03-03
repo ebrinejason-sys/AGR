@@ -37,6 +37,7 @@ export async function POST(request: Request) {
         const formData = await request.formData();
         const file = formData.get('file');
         const description = formData.get('description');
+        const event_id = formData.get('event_id');
 
         if (!(file instanceof File)) {
             return NextResponse.json({ error: 'File is required.' }, { status: 400 });
@@ -46,11 +47,14 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Only image and video files are supported.' }, { status: 400 });
         }
 
+        // Ensure bucket name is correct, fall back to "media"
         const bucket = process.env.SUPABASE_MEDIA_BUCKET || 'media';
         const fileName = `${Date.now()}-${sanitizeFileName(file.name)}`;
         const filePath = `uploads/${fileName}`;
 
         const supabase = getAdminSupabase();
+
+        // 1. Upload to Storage
         const { error: uploadError } = await supabase.storage
             .from(bucket)
             .upload(filePath, file, {
@@ -59,12 +63,15 @@ export async function POST(request: Request) {
             });
 
         if (uploadError) {
-            return NextResponse.json({ error: uploadError.message }, { status: 500 });
+            console.error('Supabase Storage Upload Error:', uploadError);
+            return NextResponse.json({ error: `Storage upload failed: ${uploadError.message}` }, { status: 500 });
         }
 
+        // 2. Get Public URL
         const { data: publicData } = supabase.storage.from(bucket).getPublicUrl(filePath);
         const url = publicData.publicUrl;
 
+        // 3. Insert into Database
         const mediaType = file.type.startsWith('image/') ? 'image' : 'video';
 
         const { data, error: dbError } = await supabase
@@ -73,12 +80,15 @@ export async function POST(request: Request) {
                 url,
                 type: mediaType,
                 description: typeof description === 'string' ? description : null,
+                event_id: typeof event_id === 'string' && event_id.trim() !== '' ? event_id : null,
             })
             .select('*')
             .single();
 
         if (dbError) {
-            return NextResponse.json({ error: dbError.message }, { status: 500 });
+            console.error('Supabase Database Insert Error:', dbError);
+            // Even if DB insert fails, the file is uploaded. We'll still return 500, but admin might need to clean it up.
+            return NextResponse.json({ error: `Database insert failed: ${dbError.message}` }, { status: 500 });
         }
 
         return NextResponse.json({ media: data }, { status: 201 });

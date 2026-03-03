@@ -12,6 +12,9 @@ type Event = {
     goal_amount: number;
     current_amount: number;
     status: 'upcoming' | 'completed' | 'cancelled';
+    cover_image?: string;
+    achievements?: string;
+    media?: { id: string; url: string; type: 'image' | 'video'; description: string }[];
 };
 
 export default function EventsPage() {
@@ -21,7 +24,7 @@ export default function EventsPage() {
     const [generalDonateLoading, setGeneralDonateLoading] = useState(false);
     const [eventDonateLoading, setEventDonateLoading] = useState<string | null>(null);
     const [currency, setCurrency] = useState<'UGX' | 'USD'>('UGX');
-    const [eventCurrency, setEventCurrency] = useState<{[key: string]: 'UGX' | 'USD'}>({});
+    const [eventCurrency, setEventCurrency] = useState<{ [key: string]: 'UGX' | 'USD' }>({});
 
     useEffect(() => {
         async function fetchEvents() {
@@ -41,7 +44,7 @@ export default function EventsPage() {
 
             const { data } = await supabase
                 .from('events')
-                .select('*')
+                .select('*, media(*)')
                 .neq('status', 'cancelled')
                 .order('event_date', { ascending: true });
 
@@ -125,22 +128,22 @@ export default function EventsPage() {
                 <form className={styles.donateForm} onSubmit={handleGeneralDonate}>
                     <div className={styles.currencySelector}>
                         <label>
-                            <input 
-                                type="radio" 
-                                name="currency" 
-                                value="UGX" 
-                                checked={currency === 'UGX'} 
-                                onChange={() => setCurrency('UGX')} 
+                            <input
+                                type="radio"
+                                name="currency"
+                                value="UGX"
+                                checked={currency === 'UGX'}
+                                onChange={() => setCurrency('UGX')}
                             />
                             <span>UGX (Mobile Money)</span>
                         </label>
                         <label>
-                            <input 
-                                type="radio" 
-                                name="currency" 
-                                value="USD" 
-                                checked={currency === 'USD'} 
-                                onChange={() => setCurrency('USD')} 
+                            <input
+                                type="radio"
+                                name="currency"
+                                value="USD"
+                                checked={currency === 'USD'}
+                                onChange={() => setCurrency('USD')}
                             />
                             <span>USD (Card)</span>
                         </label>
@@ -171,9 +174,37 @@ export default function EventsPage() {
                         return (
                             <div key={evt.id} className={`${styles.eventCard} ${evt.status === 'completed' ? styles.completed : ''}`}>
                                 <div className={styles.statusBadge}>{evt.status.toUpperCase()}</div>
+                                {evt.cover_image && (
+                                    <div style={{ width: '100%', height: '200px', borderRadius: '12px', overflow: 'hidden', marginBottom: '1rem' }}>
+                                        <img src={evt.cover_image} alt={evt.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    </div>
+                                )}
                                 <h2>{evt.title}</h2>
                                 <p className={styles.date}>{new Date(evt.event_date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                                 <p className={styles.description}>{evt.description}</p>
+                                {evt.status === 'completed' && evt.achievements && (
+                                    <div style={{ background: 'var(--card-hover-bg)', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', borderLeft: '3px solid var(--color-pink)' }}>
+                                        <h4 style={{ marginBottom: '0.5rem', color: 'var(--color-pink)' }}>Achievements</h4>
+                                        <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>{evt.achievements}</p>
+                                    </div>
+                                )}
+
+                                {evt.status === 'completed' && evt.media && evt.media.length > 0 && (
+                                    <div style={{ marginBottom: '1.5rem' }}>
+                                        <h4 style={{ marginBottom: '1rem', color: 'var(--text-color)' }}>Event Gallery</h4>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '8px' }}>
+                                            {evt.media.map(m => (
+                                                <div key={m.id} style={{ aspectRatio: '1', borderRadius: '8px', overflow: 'hidden' }}>
+                                                    {m.type === 'image' ? (
+                                                        <img src={m.url} alt={m.description || 'event media'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                                    ) : (
+                                                        <video src={m.url} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
 
                                 <div className={styles.progressContainer}>
                                     <div className={styles.progressText}>
@@ -191,22 +222,22 @@ export default function EventsPage() {
                                             <form className={styles.donateForm} onSubmit={(e) => handleDonate(e, evt.id)}>
                                                 <div className={styles.currencySelector}>
                                                     <label>
-                                                        <input 
-                                                            type="radio" 
+                                                        <input
+                                                            type="radio"
                                                             name={`currency-${evt.id}`}
-                                                            value="UGX" 
-                                                            checked={(eventCurrency[evt.id] || 'UGX') === 'UGX'} 
-                                                            onChange={() => setEventCurrency({...eventCurrency, [evt.id]: 'UGX'})} 
+                                                            value="UGX"
+                                                            checked={(eventCurrency[evt.id] || 'UGX') === 'UGX'}
+                                                            onChange={() => setEventCurrency({ ...eventCurrency, [evt.id]: 'UGX' })}
                                                         />
                                                         <span>UGX (Mobile Money)</span>
                                                     </label>
                                                     <label>
-                                                        <input 
-                                                            type="radio" 
+                                                        <input
+                                                            type="radio"
                                                             name={`currency-${evt.id}`}
-                                                            value="USD" 
-                                                            checked={(eventCurrency[evt.id] || 'UGX') === 'USD'} 
-                                                            onChange={() => setEventCurrency({...eventCurrency, [evt.id]: 'USD'})} 
+                                                            value="USD"
+                                                            checked={(eventCurrency[evt.id] || 'UGX') === 'USD'}
+                                                            onChange={() => setEventCurrency({ ...eventCurrency, [evt.id]: 'USD' })}
                                                         />
                                                         <span>USD (Card)</span>
                                                     </label>

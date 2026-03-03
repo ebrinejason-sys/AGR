@@ -45,8 +45,10 @@
     text-decoration: none;
 }
 
-.navLink:hover {
-    color: var(--color-lightblue);
+@media (hover: hover) {
+    .navLink:hover {
+        color: var(--color-lightblue);
+    }
 }
 
 .donateBtn {
@@ -62,9 +64,11 @@
     cursor: pointer;
 }
 
-.donateBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(216, 27, 96, 0.5);
+@media (hover: hover) {
+    .donateBtn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(216, 27, 96, 0.5);
+    }
 }
 
 .themeToggleWrapper {
@@ -94,7 +98,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     height: 100dvh;
     background: var(--nav-bg);
 
@@ -130,8 +134,10 @@
     transition: color 0.2s;
 }
 
-.mobileNavLink:hover {
-    color: var(--color-pink);
+@media (hover: hover) {
+    .mobileNavLink:hover {
+        color: var(--color-pink);
+    }
 }
 
 .mobileDonateBtn {
@@ -163,13 +169,16 @@
         background: var(--bg-color);
     }
 
-    .donateBtn:hover,
-    .mobileDonateBtn:hover {
-        transform: none;
-        box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
-    }
+    @media (hover: hover) {
 
-    .navLink:hover {
-        color: var(--text-color);
+        .donateBtn:hover,
+        .mobileDonateBtn:hover {
+            transform: none;
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+        }
+
+        .navLink:hover {
+            color: var(--text-color);
+        }
     }
 }
