@@ -1,0 +1,265 @@
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modalCard {
+    width: 100%;
+    max-width: 540px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modalTitle {
+    font-size: 1.6rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.modalSubtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.modalClose {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 1.8rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.modalClose:hover {
+    border-color: var(--color-pink);
+    color: var(--color-pink);
+    transform: rotate(90deg);
+}
+
+.donateForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.currencySelector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 0.5rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.currencySelector label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--bg-color);
+    border: 2px solid transparent;
+}
+
+.currencySelector label:hover {
+    background: var(--card-hover-bg);
+}
+
+.currencySelector label.active {
+    background: var(--card-hover-bg);
+    border-color: var(--color-lightblue);
+}
+
+.currencySelector input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--color-lightblue);
+}
+
+.currencySelector span {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.quickAmounts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+.quickAmountBtn {
+    padding: 0.65rem 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quickAmountBtn:hover {
+    border-color: var(--color-lightblue);
+    background: var(--card-hover-bg);
+    color: var(--color-lightblue);
+    transform: translateY(-2px);
+}
+
+.input {
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--color-lightblue);
+    box-shadow: 0 0 0 3px rgba(3, 169, 244, 0.1);
+}
+
+.paymentHelp {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding: 0.75rem 1rem;
+    background: var(--card-bg);
+    border-radius: 8px;
+    border-left: 3px solid var(--color-lightblue);
+}
+
+.formActions {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.btnCancel {
+    padding: 0.9rem;
+    border-radius: 10px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnCancel:hover:not(:disabled) {
+    background: var(--card-hover-bg);
+    border-color: var(--text-muted);
+}
+
+.btnCancel:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnSubmit {
+    padding: 0.9rem;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnSubmit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(216, 27, 96, 0.4);
+}
+
+.btnSubmit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+    .modalCard {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+
+    .modalTitle {
+        font-size: 1.3rem;
+    }
+
+    .quickAmounts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .formActions {
+        grid-template-columns: 1fr;
+    }
+
+    .currencySelector {
+        grid-template-columns: 1fr;
+    }
+}

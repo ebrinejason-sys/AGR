@@ -8,13 +8,9 @@
 .hero {
     position: relative;
     text-align: center;
-    padding: 6rem 5% 4rem;
+    padding: 6rem 5% 2.5rem;
     width: 100%;
     overflow: hidden;
-}
-
-.hero h1 {
-    margin-bottom: 0.75rem;
 }
 
 .heroGlowPink,
@@ -125,6 +121,23 @@
     color: var(--text-muted);
     font-size: 1.1rem;
     line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+    .statBox {
+        padding: 1.25rem;
+        border-radius: 12px;
+    }
+
+    .statBox h3 {
+        font-size: 2rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .statBox p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
 }
 
 .grid3 {
@@ -378,18 +391,12 @@
 }
 
 @media (max-width: 768px) {
+    .container {
+        overflow-x: hidden;
+    }
 
     .hero {
-        padding: 5.2rem 4% 1.25rem;
-    }
-
-    .subtitle {
-        margin: 0.9rem auto 0.25rem;
-        font-size: 1rem;
-    }
-
-    .slogan {
-        font-size: 0.95rem;
+        padding: 4.5rem 4% 2rem;
     }
 
     .introSection,
@@ -398,38 +405,13 @@
     .corePrograms,
     .specialSection,
     .outcomesSection {
-        padding: 2.25rem 4%;
-    }
-
-    .sectionTitle {
-        font-size: 1.95rem;
-        margin-bottom: 1.4rem;
-    }
-
-    .grid2 {
-        gap: 1rem;
-        margin-top: 1.25rem;
-    }
-
-    .statBox {
-        padding: 1.25rem 1rem;
-        border-radius: 12px;
-    }
-
-    .statBox h3 {
-        font-size: 2.2rem;
-        margin-bottom: 0.4rem;
-        line-height: 1.1;
-    }
-
-    .statBox p {
-        font-size: 0.95rem;
-        line-height: 1.45;
+        padding: 3.5rem 4%;
     }
 
     .grid2,
     .grid3 {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
     }
 
     .heroGlowPink,
@@ -443,5 +425,13 @@
 
     .actionBox {
         padding: 1.5rem;
+    }
+
+    .pillarCard {
+        padding: 1.75rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.75rem;
     }
 }

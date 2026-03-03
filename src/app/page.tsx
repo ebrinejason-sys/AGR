@@ -4,8 +4,11 @@ import { useState } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import DonationModal from "@/components/DonationModal";
 
 export default function Home() {
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+
   return (
     <div className={styles.container}>
       {/* Hero Section */}
@@ -154,25 +157,30 @@ export default function Home() {
             <div className={styles.supportIcon}>💰</div>
             <h3>Donate</h3>
             <p>Fund a girl's journey, a Rise Room, or essential support packages</p>
-            <Link href="/donate" className={styles.btnSecondary}>Give Now</Link>
+            <button 
+              onClick={() => setIsDonationModalOpen(true)} 
+              className={styles.btnSecondary}
+            >
+              Give Now
+            </button>
           </div>
           <div className={styles.supportCard}>
             <div className={styles.supportIcon}>🤝</div>
             <h3>Partner</h3>
             <p>Bring your organization's resources to scale our impact</p>
-            <Link href="/contact" className={styles.btnSecondary}>Partner With Us</Link>
+            <Link href="/contact/partner" className={styles.btnSecondary}>Partner With Us</Link>
           </div>
           <div className={styles.supportCard}>
             <div className={styles.supportIcon}>👥</div>
             <h3>Mentor</h3>
             <p>Share your time and wisdom to guide rising leaders</p>
-            <Link href="/contact" className={styles.btnSecondary}>Get Involved</Link>
+            <Link href="/contact/mentor" className={styles.btnSecondary}>Get Involved</Link>
           </div>
           <div className={styles.supportCard}>
             <div className={styles.supportIcon}>📢</div>
             <h3>Advocate</h3>
             <p>Spread our message that every girl deserves to rise</p>
-            <Link href="/stories" className={styles.btnSecondary}>Share Stories</Link>
+            <Link href="/contact/advocate" className={styles.btnSecondary}>Share Stories</Link>
           </div>
         </div>
       </section>
@@ -194,6 +202,12 @@ export default function Home() {
         <p>Together, we are building a generation defined not by their struggles, but by their strength.</p>
         <Link href="/contact" className={styles.btnPrimary}>Get Involved Today</Link>
       </section>
+
+      {/* Donation Modal */}
+      <DonationModal 
+        isOpen={isDonationModalOpen} 
+        onClose={() => setIsDonationModalOpen(false)} 
+      />
     </div>
   );
 }
