@@ -138,7 +138,7 @@
   .btnPrimary:active {
     background: var(--color-purple);
   }
-}}
+}
 
 .btnPrimaryOutlined {
   background: transparent;
