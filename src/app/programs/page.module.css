@@ -384,4 +384,12 @@
     .heroGlowBlue {
         display: none;
     }
+
+    .programCard {
+        padding: 1.5rem;
+    }
+
+    .actionBox {
+        padding: 1.5rem;
+    }
 }

@@ -1,11 +1,27 @@
+"use client";
+
+import { useState } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 
 export default function Home() {
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+
   return (
     <div className={styles.container}>
       {/* Hero Section */}
       <section className={styles.hero}>
+        {/* Background Video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className={styles.heroVideo}
+        >
+          <source src="/videos/hero-video.mp4" type="video/mp4" />
+        </video>
+        <div className={styles.videoOverlay} />
         <div className={styles.heroGlowPink} />
         <div className={styles.heroGlowPurple} />
         <div className={styles.heroGlowBlue} />
@@ -25,6 +41,12 @@ export default function Home() {
             <Link href="/programs" className={styles.btnPrimary}>
               Explore Our Programs
             </Link>
+            <button onClick={() => setIsVideoModalOpen(true)} className={styles.btnSecondary}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                Watch Video
+              </span>
+            </button>
             <Link href="/events" className={styles.btnSecondary}>
               Support the Vision
             </Link>
@@ -133,6 +155,25 @@ export default function Home() {
           <Link href="/contact" className={styles.btnSecondary}>Partner With Us</Link>
         </div>
       </section>
+
+      {/* Video Modal */}
+      {isVideoModalOpen && (
+        <div className={styles.modalOverlay} onClick={() => setIsVideoModalOpen(false)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.modalCloseBtn} onClick={() => setIsVideoModalOpen(false)}>
+              &times;
+            </button>
+            <video
+              controls
+              autoPlay
+              className={styles.modalVideo}
+            >
+              <source src="/videos/hero-video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -297,4 +297,8 @@
     .btnPrimary:hover {
         transform: none;
     }
+
+    .ctaBox {
+        padding: 1.5rem;
+    }
 }
