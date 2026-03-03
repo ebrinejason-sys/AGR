@@ -13,37 +13,24 @@ export default function Home() {
     <div className={styles.container}>
       {/* Hero Section */}
       <section className={styles.hero}>
-        <div className={styles.heroBackgroundImage}>
-          <Image 
-            src="/images/hero-bg.jpg" 
-            alt="Hero Background" 
-            fill 
-            className={styles.heroBgImage} 
-            style={{ objectFit: 'cover', objectPosition: 'center 22%' }}
-            priority
-          />
-        </div>
-        <div className={styles.videoOverlay} />
-
-        <div className={styles.heroContentInner}>
-          <div className={styles.heroTextSection}>
-            <div className={styles.badge}>A Girl Defined By Rise Initiative</div>
-            <h1 className="heading-xl">
-              Your Beginning<br />
-              <span className="text-gradient">Does Not Define Your Becoming</span>
-            </h1>
-            <p className={styles.heroSubtitle}>
-              Breaking cycles of poverty and empowering girls through mental health support, education, and leadership training.
+        <div className={styles.heroContent}>
+          <div className={styles.heroTextCenter}>
+            <h1 className={styles.heroTitle}>African Girl Rise</h1>
+            <p className={styles.heroTagline}>Breaking cycles. Building futures.</p>
+            <p className={styles.heroDescription}>
+              Empowering adolescent girls through mental health support, education, and leadership training.
             </p>
-            <div className={styles.heroActions}>
+            <div className={styles.heroButtons}>
               <button 
                 onClick={() => setIsDonationModalOpen(true)}
-                className={styles.btnPrimary}
+                className={styles.heroButtonPrimary}
               >
                 Donate Now
+                <span className={styles.buttonArrow}>→</span>
               </button>
-              <Link href="/our-story" className={styles.btnSecondaryOutlined}>
+              <Link href="/our-story" className={styles.heroButtonSecondary}>
                 Learn Our Story
+                <span className={styles.buttonArrow}>→</span>
               </Link>
             </div>
           </div>
