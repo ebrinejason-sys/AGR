@@ -44,6 +44,10 @@ export default function AdminSidebar() {
                         <LayoutDashboard size={20} />
                         <span>Overview</span>
                     </Link>
+                    <Link href="/admin/projects" className={`${styles.navItem} ${pathname === '/admin/projects' ? styles.active : ''}`}>
+                        <BookOpen size={20} />
+                        <span>Projects & Programs</span>
+                    </Link>
                     <Link href="/admin/media" className={`${styles.navItem} ${pathname === '/admin/media' ? styles.active : ''}`}>
                         <ImageIcon size={20} />
                         <span>Media Library</span>
