@@ -193,7 +193,7 @@
     font-weight: 600;
     font-size: 1.2rem;
     display: inline-block;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
 }
 

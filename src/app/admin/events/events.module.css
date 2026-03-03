@@ -34,7 +34,7 @@
 }
 
 .createBtn:hover {
-    filter: brightness(1.1);
+    opacity: 0.9;
 }
 
 .formCard {
@@ -106,7 +106,7 @@
     padding: 0.8rem 2rem;
     border-radius: 12px;
     font-weight: 600;
-    transition: all 0.2s;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .cancelBtn {
@@ -126,7 +126,7 @@
 }
 
 .submitBtn:hover {
-    filter: brightness(1.2);
+    opacity: 0.9;
 }
 
 /* Table */
@@ -218,7 +218,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .iconBtn:hover {

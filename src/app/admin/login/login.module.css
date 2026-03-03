@@ -126,7 +126,7 @@
     font-weight: 600;
     font-size: 1.1rem;
     margin-top: 1rem;
-    transition: all 0.2s;
+    transition: background-color 0.2s ease, color 0.2s ease;
     box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
 }
 
@@ -176,7 +176,7 @@
     border-radius: 12px;
     font-weight: 600;
     font-size: 1.1rem;
-    transition: all 0.2s;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .cancelBtn:hover {

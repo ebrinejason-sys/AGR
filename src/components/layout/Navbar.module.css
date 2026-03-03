@@ -8,6 +8,9 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+    /* Prevent iOS compositing thrash — only transition specific properties */
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
 }
 
 .logoLink {
@@ -53,11 +56,10 @@
     border-radius: 50px;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
     box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
     border: none;
     cursor: pointer;
-
 }
 
 .donateBtn:hover {
@@ -154,5 +156,20 @@
 
     .mobileToggle {
         display: block;
+    }
+
+    /* Make navbar fully opaque on mobile to prevent iOS compositing on scroll */
+    .header {
+        background: var(--bg-color);
+    }
+
+    .donateBtn:hover,
+    .mobileDonateBtn:hover {
+        transform: none;
+        box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+    }
+
+    .navLink:hover {
+        color: var(--text-color);
     }
 }

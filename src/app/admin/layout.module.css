@@ -1,6 +1,6 @@
 .adminContainer {
     display: flex;
-    min-height: 100vh;
+    min-height: 100dvh;
     background-color: var(--bg-color);
     color: var(--text-color);
 }
@@ -12,7 +12,7 @@
     flex-direction: column;
     border-right: 1px solid var(--border-color);
     position: fixed;
-    height: 100vh;
+    height: 100dvh;
     z-index: 100;
 }
 
@@ -44,7 +44,7 @@
     padding: 1rem;
     border-radius: 12px;
     color: var(--text-muted);
-    transition: all 0.2s;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .navItem:hover {
@@ -67,7 +67,7 @@
     color: #f44336;
     background: rgba(244, 67, 54, 0.1);
     font-weight: 500;
-    transition: all 0.2s;
+    transition: background-color 0.2s ease;
 }
 
 .logoutBtn:hover {
