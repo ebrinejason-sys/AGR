@@ -41,7 +41,7 @@ export default function Home() {
       <section className={styles.aboutSection}>
         <div className={styles.aboutContainer}>
           <div className={styles.aboutImageWrapper}>
-            <Image src="/images/Phone Link/IMG-20260303-WA0037.jpg" alt="About Us" fill className={styles.aboutImage} style={{ objectFit: 'cover' }} priority />
+            <Image src="/images/about-us.jpg" alt="About Us" fill className={styles.aboutImage} style={{ objectFit: 'cover' }} priority />
           </div>
           <div className={styles.aboutTextCard}>
             <h2 className="heading-lg">Who We Are</h2>
