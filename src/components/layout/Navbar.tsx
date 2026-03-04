@@ -5,11 +5,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import styles from './Navbar.module.css';
+import DonationModal from '../DonationModal';
 
 import { ThemeToggle } from '../ThemeToggle';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
     // Close menu when route changes (on mobile)
     const closeMenu = () => setIsOpen(false);
@@ -43,7 +45,7 @@ export default function Navbar() {
                 <Link href="/stories" className={styles.navLink}>GALLERY</Link>
                 <Link href="/legal-advocacy" className={styles.navLink}>LEGAL ADVOCACY</Link>
                 <Link href="/contact" className={styles.navLink}>CONTACT</Link>
-                <Link href="/donate" className={styles.donateBtn}>DONATE</Link>
+                <button onClick={() => setIsDonationModalOpen(true)} className={styles.donateBtn}>DONATE</button>
             </nav>
 
             {/* Mobile Menu Toggle */}
@@ -62,9 +64,11 @@ export default function Navbar() {
                     <Link href="/stories" className={styles.mobileNavLink} onClick={closeMenu}>GALLERY</Link>
                     <Link href="/legal-advocacy" className={styles.mobileNavLink} onClick={closeMenu}>LEGAL ADVOCACY</Link>
                     <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>CONTACT</Link>
-                    <Link href="/donate" className={styles.mobileDonateBtn} onClick={closeMenu}>DONATE</Link>
+                    <button onClick={() => { setIsDonationModalOpen(true); closeMenu(); }} className={styles.mobileDonateBtn}>DONATE</button>
                 </nav>
             </div>
+
+            <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
         </header>
     );
 }

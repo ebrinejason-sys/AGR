@@ -29,7 +29,7 @@ export default function Home() {
                 <span className={styles.buttonArrow}>→</span>
               </button>
               <Link href="/our-story" className={styles.heroButtonSecondary}>
-                Learn Our Story
+                Read Our Story
                 <span className={styles.buttonArrow}>→</span>
               </Link>
             </div>

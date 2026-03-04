@@ -50,13 +50,17 @@ export default function StoriesGallery() {
                 return;
             }
 
-            const [storiesRes, mediaRes] = await Promise.all([
-                supabase.from('stories').select('*').order('created_at', { ascending: false }),
-                supabase.from('media').select('*').order('created_at', { ascending: false })
-            ]);
+            try {
+                const res = await fetch('/api/public/data');
+                const data = await res.json();
 
-            if (storiesRes.data) setStories(storiesRes.data);
-            if (mediaRes.data) setMedia(mediaRes.data);
+                if (res.ok) {
+                    setStories(data.stories || []);
+                    setMedia(data.media || []);
+                }
+            } catch (err) {
+                console.error("Failed to fetch gallery data", err);
+            }
             setLoading(false);
         }
         fetchData();
