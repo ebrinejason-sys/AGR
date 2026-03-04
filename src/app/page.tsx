@@ -21,7 +21,7 @@ export default function Home() {
               Empowering adolescent girls through mental health support, education, and leadership training.
             </p>
             <div className={styles.heroButtons}>
-              <button 
+              <button
                 onClick={() => setIsDonationModalOpen(true)}
                 className={styles.heroButtonPrimary}
               >
@@ -144,14 +144,14 @@ export default function Home() {
         <h2 className="heading-lg">Ways to Support Our Mission</h2>
         <div className={styles.supportGrid}>
           <div className={styles.supportCard}>
-            <div className={styles.supportIcon}>💰</div>
+            <div className={styles.supportIcon}>❤️</div>
             <h3>Donate</h3>
             <p>Fund a girl's journey, a Rise Room, or essential support packages</p>
-            <button 
-              onClick={() => setIsDonationModalOpen(true)} 
+            <button
+              onClick={() => setIsDonationModalOpen(true)}
               className={styles.btnSecondary}
             >
-              Give Now
+              Donate
             </button>
           </div>
           <div className={styles.supportCard}>
@@ -194,9 +194,9 @@ export default function Home() {
       </section>
 
       {/* Donation Modal */}
-      <DonationModal 
-        isOpen={isDonationModalOpen} 
-        onClose={() => setIsDonationModalOpen(false)} 
+      <DonationModal
+        isOpen={isDonationModalOpen}
+        onClose={() => setIsDonationModalOpen(false)}
       />
     </div>
   );
