@@ -215,8 +215,8 @@
 
 @media (hover: hover) {
     .missionCard:hover {
-        transform: translateY(-5px);
         border-color: var(--color-pink);
+        opacity: 0.95;
     }
 }
 
@@ -286,7 +286,7 @@
 @media (hover: hover) {
     .btnPrimary:hover {
         background: var(--color-purple);
-        transform: translateY(-2px);
+        opacity: 0.95;
     }
 }
 
@@ -519,7 +519,7 @@
 }
 
 .ctaBox:hover {
-    transform: translateY(-5px);
+    opacity: 0.95;
 }
 
 .ctaBox h3 {
@@ -560,7 +560,7 @@
 }
 
 .btnPrimary:hover {
-    transform: translateY(-2px);
+    opacity: 0.95;
     box-shadow: 0 8px 25px rgba(216, 27, 96, 0.5);
 }
 

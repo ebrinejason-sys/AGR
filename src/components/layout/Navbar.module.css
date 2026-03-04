@@ -8,9 +8,6 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    /* Prevent iOS compositing thrash — only transition specific properties */
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
 }
 
 .logoLink {
@@ -62,7 +59,7 @@
     border-radius: 50px;
     font-weight: 600;
     text-decoration: none;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: opacity 0.3s, box-shadow 0.3s;
     box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
     border: none;
     cursor: pointer;
@@ -70,7 +67,7 @@
 
 @media (hover: hover) {
     .donateBtn:hover {
-        transform: translateY(-2px);
+        opacity: 0.9;
         box-shadow: 0 6px 20px rgba(216, 27, 96, 0.5);
     }
 }

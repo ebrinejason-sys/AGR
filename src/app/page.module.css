@@ -24,7 +24,6 @@
   max-width: 900px;
   text-align: center;
   animation: fadeUp 1s ease-out forwards;
-  will-change: opacity, transform;
 }
 
 .heroTextCenter {
@@ -131,12 +130,13 @@
 .btnPrimaryOutlined,
 .btnSecondaryOutlined,
 .btnSecondary,
-.btnPrimary {
+.btnPrimary,
+.errorButton {
   padding: 1rem 2rem;
   border-radius: 50px;
   font-weight: 600;
   font-size: 1rem;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: background-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: inline-block;
   text-align: center;
   border: none;
@@ -144,7 +144,6 @@
   font-family: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  will-change: transform, background-color;
   touch-action: manipulation;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -163,7 +162,7 @@
   .btnPrimary:hover {
     background: var(--color-purple);
     border-color: var(--color-purple);
-    transform: translateY(-2px);
+    opacity: 0.95;
   }
 }
 
@@ -174,15 +173,34 @@
 }
 
 .btnPrimary:active {
-  transform: translateY(0);
   opacity: 0.9;
 }
 
-/* Mobile touch feedback */
-@media (max-width: 768px) {
-  .btnPrimary:active {
-    background: var(--color-purple);
-  }
+/* Error page styles */
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.errorTitle {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.errorMessage {
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.errorButton {
+  background: var(--color-pink);
+  color: white;
+  border: 2px solid var(--color-pink);
 }
 
 .btnPrimaryOutlined {
