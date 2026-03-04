@@ -5,6 +5,7 @@ import styles from "./layout.module.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import Preloader from "@/components/Preloader";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -49,6 +50,7 @@ export default function RootLayout({
           storageKey="agr-theme"
         >
           <div className={styles.layoutContainer}>
+            <Preloader />
             <Navbar />
 
             <main className={styles.mainContent}>
