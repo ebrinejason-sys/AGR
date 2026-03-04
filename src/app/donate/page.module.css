@@ -1,0 +1,38 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 5%;
+  text-align: center;
+}
+
+.subtitle {
+  margin-top: 1rem;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  border-radius: 9999px;
+  padding: 0.9rem 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+  color: var(--color-white);
+}
+
+.secondaryBtn {
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}

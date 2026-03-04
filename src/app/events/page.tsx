@@ -218,7 +218,7 @@ export default function EventsPage() {
                                     </div>
                                 )}
 
-                                {evt.status === 'completed' && evt.media && evt.media.length > 0 && (
+                                {evt.media && evt.media.length > 0 && (
                                     <div style={{ marginBottom: '1.5rem' }}>
                                         <h4 style={{ marginBottom: '1rem', color: 'var(--text-color)' }}>Event Gallery</h4>
                                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '8px' }}>

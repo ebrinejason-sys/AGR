@@ -83,9 +83,11 @@ export default function Footer() {
                         <nav className={styles.linksList}>
                             <Link href="/">Home</Link>
                             <Link href="/our-story">Our Story</Link>
+                            <Link href="/founder">Founder</Link>
                             <Link href="/programs">Our Programs</Link>
-                            <Link href="/events">Events & Donate</Link>
-                            <Link href="/stories">Stories & Gallery</Link>
+                            <Link href="/events">Events</Link>
+                            <Link href="/stories">Gallery</Link>
+                            <Link href="/donate">Donate</Link>
                         </nav>
                     </div>
 

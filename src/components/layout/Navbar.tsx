@@ -37,9 +37,11 @@ export default function Navbar() {
             <nav className={styles.desktopNav}>
                 <Link href="/" className={styles.navLink}>HOME</Link>
                 <Link href="/our-story" className={styles.navLink}>WHO WE ARE</Link>
+                <Link href="/founder" className={styles.navLink}>FOUNDER</Link>
                 <Link href="/programs" className={styles.navLink}>OUR WORK</Link>
+                <Link href="/events" className={styles.navLink}>EVENTS</Link>
+                <Link href="/stories" className={styles.navLink}>GALLERY</Link>
                 <Link href="/legal-advocacy" className={styles.navLink}>LEGAL ADVOCACY</Link>
-                <Link href="/stories" className={styles.navLink}>STORIES</Link>
                 <Link href="/contact" className={styles.navLink}>CONTACT</Link>
                 <Link href="/donate" className={styles.donateBtn}>DONATE</Link>
             </nav>
@@ -54,9 +56,11 @@ export default function Navbar() {
                 <nav className={styles.mobileNavLinks}>
                     <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>HOME</Link>
                     <Link href="/our-story" className={styles.mobileNavLink} onClick={closeMenu}>WHO WE ARE</Link>
+                    <Link href="/founder" className={styles.mobileNavLink} onClick={closeMenu}>FOUNDER</Link>
                     <Link href="/programs" className={styles.mobileNavLink} onClick={closeMenu}>OUR WORK</Link>
+                    <Link href="/events" className={styles.mobileNavLink} onClick={closeMenu}>EVENTS</Link>
+                    <Link href="/stories" className={styles.mobileNavLink} onClick={closeMenu}>GALLERY</Link>
                     <Link href="/legal-advocacy" className={styles.mobileNavLink} onClick={closeMenu}>LEGAL ADVOCACY</Link>
-                    <Link href="/stories" className={styles.mobileNavLink} onClick={closeMenu}>STORIES</Link>
                     <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>CONTACT</Link>
                     <Link href="/donate" className={styles.mobileDonateBtn} onClick={closeMenu}>DONATE</Link>
                 </nav>

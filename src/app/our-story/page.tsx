@@ -89,6 +89,7 @@ export default function OurStory() {
                     <div className={styles.ctaBox}>
                         <h3>Donate</h3>
                         <p>Fund a "Rise Room," or support a girl's journey for a year.</p>
+                        <Link href="/donate" className={styles.btnPrimary}>Donate Now</Link>
                     </div>
                     <div className={styles.ctaBox}>
                         <h3>Partner</h3>

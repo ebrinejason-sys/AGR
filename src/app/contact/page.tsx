@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import styles from './page.module.css';
-import Image from 'next/image';
 
 type FormType = 'general' | 'volunteer' | 'partner' | 'sponsor';
 
@@ -17,20 +16,13 @@ export default function Contact() {
     const [activeTab, setActiveTab] = useState<FormType>('general');
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-    // General form
     const [general, setGeneral] = useState({ name: '', email: '', message: '' });
-
-    // Volunteer form
     const [volunteer, setVolunteer] = useState({
         name: '', email: '', phone: '', skills: '', availability: '', message: ''
     });
-
-    // Partner form
     const [partner, setPartner] = useState({
         orgName: '', contactPerson: '', email: '', partnershipType: '', message: ''
     });
-
-    // Sponsor form
     const [sponsor, setSponsor] = useState({
         name: '', email: '', sponsorType: 'one-time', message: ''
     });
@@ -66,12 +58,19 @@ export default function Contact() {
             if (!res.ok) throw new Error('Failed to send message');
 
             setStatus('success');
-            // Reset the active form
             switch (activeTab) {
-                case 'general': setGeneral({ name: '', email: '', message: '' }); break;
-                case 'volunteer': setVolunteer({ name: '', email: '', phone: '', skills: '', availability: '', message: '' }); break;
-                case 'partner': setPartner({ orgName: '', contactPerson: '', email: '', partnershipType: '', message: '' }); break;
-                case 'sponsor': setSponsor({ name: '', email: '', sponsorType: 'one-time', message: '' }); break;
+                case 'general':
+                    setGeneral({ name: '', email: '', message: '' });
+                    break;
+                case 'volunteer':
+                    setVolunteer({ name: '', email: '', phone: '', skills: '', availability: '', message: '' });
+                    break;
+                case 'partner':
+                    setPartner({ orgName: '', contactPerson: '', email: '', partnershipType: '', message: '' });
+                    break;
+                case 'sponsor':
+                    setSponsor({ name: '', email: '', sponsorType: 'one-time', message: '' });
+                    break;
             }
         } catch {
             setStatus('error');
@@ -86,55 +85,17 @@ export default function Contact() {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <h1 className="heading-xl">Meet the <span className="text-gradient">Founder</span></h1>
+                <h1 className="heading-xl">Contact <span className="text-gradient">African Girl Rise</span></h1>
                 <p className={styles.subtitle}>
-                    &quot;I am simply a girl whose parents chose to break the cycle. That is the gift I want every girl to receive.&quot;
+                    Reach us for volunteering, partnerships, sponsorship, or general inquiries.
                 </p>
             </div>
 
             <div className={styles.contentGrid}>
-                {/* Founder Info */}
-                <div className={styles.founderCard}>
-                    <div className={styles.founderImageContainer}>
-                        <Image
-                            src="/founder.jpg"
-                            alt="Grace Akatwijuka"
-                            width={200}
-                            height={250}
-                            priority
-                            className={styles.founderImage}
-                        />
-                    </div>
-                    <h2>Akatwijuka Grace</h2>
-                    <p className={styles.role}>Founder &amp; Visionary Director</p>
-
-                    <div className={styles.bio}>
-                        <p>
-                            While studying law at Uganda Christian University, Grace founded the African Girl Rise Initiative.
-                            Her vision is simple and enormous: to ensure every girl in Ibanda District, Uganda, and across Africa
-                            has the chance she had.
-                        </p>
-                        <p>
-                            &quot;My mother studied hungry so I could study fed. My father struggled through school so my fees could be paid...
-                            And when that girl becomes a mother, she will give the same gift to her daughter.
-                            Rise. Then reach back. Always reach back.&quot;
-                        </p>
-                    </div>
-
-                    <div className={styles.contactDetails}>
-                        <h3>Direct Contact</h3>
-                        <p><strong>Email:</strong> grace@africangirlriseltd.org</p>
-                        <p><strong>Phone:</strong> 0763738733</p>
-                        <p><strong>WhatsApp:</strong> +256703727965</p>
-                    </div>
-                </div>
-
-                {/* Contact Forms */}
-                <div className={styles.formCard}>
+                <div className={`${styles.formCard} ${styles.fullWidth}`}>
                     <h2>Get in Touch</h2>
                     <p className={styles.formDesc}>Whether you want to support a girl, volunteer, partner, or just say hello.</p>
 
-                    {/* Tab Bar */}
                     <div className={styles.tabBar}>
                         {FORM_TABS.map(tab => (
                             <button
@@ -150,105 +111,163 @@ export default function Contact() {
                     </div>
 
                     <form className={styles.form} onSubmit={handleSubmit}>
-                        {/* GENERAL FORM */}
                         {activeTab === 'general' && (
                             <>
                                 <div className={styles.inputGroup}>
                                     <label htmlFor="gen-name">Your Name</label>
-                                    <input type="text" id="gen-name" required value={general.name}
+                                    <input
+                                        type="text"
+                                        id="gen-name"
+                                        required
+                                        value={general.name}
                                         onChange={e => setGeneral({ ...general, name: e.target.value })}
-                                        placeholder="Jane Doe" />
+                                        placeholder="Jane Doe"
+                                    />
                                 </div>
                                 <div className={styles.inputGroup}>
                                     <label htmlFor="gen-email">Your Email</label>
-                                    <input type="email" id="gen-email" required value={general.email}
+                                    <input
+                                        type="email"
+                                        id="gen-email"
+                                        required
+                                        value={general.email}
                                         onChange={e => setGeneral({ ...general, email: e.target.value })}
-                                        placeholder="jane@example.com" />
+                                        placeholder="jane@example.com"
+                                    />
                                 </div>
                                 <div className={styles.inputGroup}>
                                     <label htmlFor="gen-message">Message</label>
-                                    <textarea id="gen-message" required rows={5} value={general.message}
+                                    <textarea
+                                        id="gen-message"
+                                        required
+                                        rows={5}
+                                        value={general.message}
                                         onChange={e => setGeneral({ ...general, message: e.target.value })}
-                                        placeholder="How can we help you?" />
+                                        placeholder="How can we help you?"
+                                    />
                                 </div>
                             </>
                         )}
 
-                        {/* VOLUNTEER FORM */}
                         {activeTab === 'volunteer' && (
                             <>
                                 <div className={styles.inputRow}>
                                     <div className={styles.inputGroup}>
                                         <label htmlFor="vol-name">Full Name</label>
-                                        <input type="text" id="vol-name" required value={volunteer.name}
+                                        <input
+                                            type="text"
+                                            id="vol-name"
+                                            required
+                                            value={volunteer.name}
                                             onChange={e => setVolunteer({ ...volunteer, name: e.target.value })}
-                                            placeholder="Your full name" />
+                                            placeholder="Your full name"
+                                        />
                                     </div>
                                     <div className={styles.inputGroup}>
                                         <label htmlFor="vol-email">Email</label>
-                                        <input type="email" id="vol-email" required value={volunteer.email}
+                                        <input
+                                            type="email"
+                                            id="vol-email"
+                                            required
+                                            value={volunteer.email}
                                             onChange={e => setVolunteer({ ...volunteer, email: e.target.value })}
-                                            placeholder="your@email.com" />
+                                            placeholder="your@email.com"
+                                        />
                                     </div>
                                 </div>
                                 <div className={styles.inputRow}>
                                     <div className={styles.inputGroup}>
                                         <label htmlFor="vol-phone">Phone Number</label>
-                                        <input type="tel" id="vol-phone" value={volunteer.phone}
+                                        <input
+                                            type="tel"
+                                            id="vol-phone"
+                                            value={volunteer.phone}
                                             onChange={e => setVolunteer({ ...volunteer, phone: e.target.value })}
-                                            placeholder="+256 700 123 456" />
+                                            placeholder="+256 700 123 456"
+                                        />
                                     </div>
                                     <div className={styles.inputGroup}>
                                         <label htmlFor="vol-skills">Skills / Profession</label>
-                                        <input type="text" id="vol-skills" value={volunteer.skills}
+                                        <input
+                                            type="text"
+                                            id="vol-skills"
+                                            value={volunteer.skills}
                                             onChange={e => setVolunteer({ ...volunteer, skills: e.target.value })}
-                                            placeholder="e.g. Teaching, Design, Law" />
+                                            placeholder="e.g. Teaching, Design, Law"
+                                        />
                                     </div>
                                 </div>
                                 <div className={styles.inputGroup}>
                                     <label htmlFor="vol-avail">Availability</label>
-                                    <input type="text" id="vol-avail" value={volunteer.availability}
+                                    <input
+                                        type="text"
+                                        id="vol-avail"
+                                        value={volunteer.availability}
                                         onChange={e => setVolunteer({ ...volunteer, availability: e.target.value })}
-                                        placeholder="e.g. Weekends, Full-time, Remote" />
+                                        placeholder="e.g. Weekends, Full-time, Remote"
+                                    />
                                 </div>
                                 <div className={styles.inputGroup}>
                                     <label htmlFor="vol-message">Why would you like to volunteer?</label>
-                                    <textarea id="vol-message" required rows={4} value={volunteer.message}
+                                    <textarea
+                                        id="vol-message"
+                                        required
+                                        rows={4}
+                                        value={volunteer.message}
                                         onChange={e => setVolunteer({ ...volunteer, message: e.target.value })}
-                                        placeholder="Tell us about your motivation and how you'd like to help..." />
+                                        placeholder="Tell us about your motivation and how you'd like to help..."
+                                    />
                                 </div>
                             </>
                         )}
 
-                        {/* PARTNER FORM */}
                         {activeTab === 'partner' && (
                             <>
                                 <div className={styles.inputRow}>
                                     <div className={styles.inputGroup}>
                                         <label htmlFor="part-org">Organization Name</label>
-                                        <input type="text" id="part-org" required value={partner.orgName}
+                                        <input
+                                            type="text"
+                                            id="part-org"
+                                            required
+                                            value={partner.orgName}
                                             onChange={e => setPartner({ ...partner, orgName: e.target.value })}
-                                            placeholder="Your organization" />
+                                            placeholder="Your organization"
+                                        />
                                     </div>
                                     <div className={styles.inputGroup}>
                                         <label htmlFor="part-contact">Contact Person</label>
-                                        <input type="text" id="part-contact" required value={partner.contactPerson}
+                                        <input
+                                            type="text"
+                                            id="part-contact"
+                                            required
+                                            value={partner.contactPerson}
                                             onChange={e => setPartner({ ...partner, contactPerson: e.target.value })}
-                                            placeholder="Full name" />
+                                            placeholder="Full name"
+                                        />
                                     </div>
                                 </div>
                                 <div className={styles.inputRow}>
                                     <div className={styles.inputGroup}>
                                         <label htmlFor="part-email">Email</label>
-                                        <input type="email" id="part-email" required value={partner.email}
+                                        <input
+                                            type="email"
+                                            id="part-email"
+                                            required
+                                            value={partner.email}
                                             onChange={e => setPartner({ ...partner, email: e.target.value })}
-                                            placeholder="contact@organization.com" />
+                                            placeholder="contact@organization.com"
+                                        />
                                     </div>
                                     <div className={styles.inputGroup}>
                                         <label htmlFor="part-type">Partnership Type</label>
-                                        <select id="part-type" required value={partner.partnershipType}
+                                        <select
+                                            id="part-type"
+                                            required
+                                            value={partner.partnershipType}
                                             onChange={e => setPartner({ ...partner, partnershipType: e.target.value })}
-                                            className={styles.selectInput}>
+                                            className={styles.selectInput}
+                                        >
                                             <option value="">Select type...</option>
                                             <option value="funding">Funding Partner</option>
                                             <option value="implementation">Implementation Partner</option>
@@ -260,58 +279,89 @@ export default function Contact() {
                                 </div>
                                 <div className={styles.inputGroup}>
                                     <label htmlFor="part-message">Partnership Proposal</label>
-                                    <textarea id="part-message" required rows={5} value={partner.message}
+                                    <textarea
+                                        id="part-message"
+                                        required
+                                        rows={5}
+                                        value={partner.message}
                                         onChange={e => setPartner({ ...partner, message: e.target.value })}
-                                        placeholder="Describe how your organization would like to partner with African Girl Rise..." />
+                                        placeholder="Describe how your organization would like to partner with African Girl Rise..."
+                                    />
                                 </div>
                             </>
                         )}
 
-                        {/* SPONSOR FORM */}
                         {activeTab === 'sponsor' && (
                             <>
                                 <div className={styles.inputRow}>
                                     <div className={styles.inputGroup}>
                                         <label htmlFor="spon-name">Your Name</label>
-                                        <input type="text" id="spon-name" required value={sponsor.name}
+                                        <input
+                                            type="text"
+                                            id="spon-name"
+                                            required
+                                            value={sponsor.name}
                                             onChange={e => setSponsor({ ...sponsor, name: e.target.value })}
-                                            placeholder="Your full name" />
+                                            placeholder="Your full name"
+                                        />
                                     </div>
                                     <div className={styles.inputGroup}>
                                         <label htmlFor="spon-email">Email</label>
-                                        <input type="email" id="spon-email" required value={sponsor.email}
+                                        <input
+                                            type="email"
+                                            id="spon-email"
+                                            required
+                                            value={sponsor.email}
                                             onChange={e => setSponsor({ ...sponsor, email: e.target.value })}
-                                            placeholder="your@email.com" />
+                                            placeholder="your@email.com"
+                                        />
                                     </div>
                                 </div>
                                 <div className={styles.inputGroup}>
                                     <label>Sponsorship Type</label>
                                     <div className={styles.radioGroup}>
                                         <label className={styles.radioLabel}>
-                                            <input type="radio" name="sponsorType" value="one-time"
+                                            <input
+                                                type="radio"
+                                                name="sponsorType"
+                                                value="one-time"
                                                 checked={sponsor.sponsorType === 'one-time'}
-                                                onChange={() => setSponsor({ ...sponsor, sponsorType: 'one-time' })} />
+                                                onChange={() => setSponsor({ ...sponsor, sponsorType: 'one-time' })}
+                                            />
                                             <span>One-time Sponsorship</span>
                                         </label>
                                         <label className={styles.radioLabel}>
-                                            <input type="radio" name="sponsorType" value="monthly"
+                                            <input
+                                                type="radio"
+                                                name="sponsorType"
+                                                value="monthly"
                                                 checked={sponsor.sponsorType === 'monthly'}
-                                                onChange={() => setSponsor({ ...sponsor, sponsorType: 'monthly' })} />
+                                                onChange={() => setSponsor({ ...sponsor, sponsorType: 'monthly' })}
+                                            />
                                             <span>Monthly Sponsorship</span>
                                         </label>
                                         <label className={styles.radioLabel}>
-                                            <input type="radio" name="sponsorType" value="scholarship"
+                                            <input
+                                                type="radio"
+                                                name="sponsorType"
+                                                value="scholarship"
                                                 checked={sponsor.sponsorType === 'scholarship'}
-                                                onChange={() => setSponsor({ ...sponsor, sponsorType: 'scholarship' })} />
+                                                onChange={() => setSponsor({ ...sponsor, sponsorType: 'scholarship' })}
+                                            />
                                             <span>Full Scholarship</span>
                                         </label>
                                     </div>
                                 </div>
                                 <div className={styles.inputGroup}>
                                     <label htmlFor="spon-message">Tell us about your interest</label>
-                                    <textarea id="spon-message" required rows={4} value={sponsor.message}
+                                    <textarea
+                                        id="spon-message"
+                                        required
+                                        rows={4}
+                                        value={sponsor.message}
                                         onChange={e => setSponsor({ ...sponsor, message: e.target.value })}
-                                        placeholder="Tell us about your interest in sponsoring a girl's education..." />
+                                        placeholder="Tell us about your interest in sponsoring a girl's education..."
+                                    />
                                 </div>
                             </>
                         )}
@@ -328,64 +378,6 @@ export default function Contact() {
                         )}
                     </form>
                 </div>
-            </div>
-
-            <div className={styles.fullStoryContainer}>
-                <h2 className={styles.storyHeading}>My Personal Journey</h2>
-
-                <section className={styles.storySection}>
-                    <h3>Welcome</h3>
-                    <p>Hello. I am Grace.</p>
-                    <p>If you are reading this, you are someone who believes as I do that every girl deserves a chance to become who she was meant to be. You are someone who understands that a girl&apos;s beginning does not have to define her becoming.</p>
-                    <p>This is my story. More importantly, this is the story of how we together can transform not just individual girls, but entire communities, one generation at a time.</p>
-                </section>
-
-                <section className={styles.storySection}>
-                    <h3>The Girl With Parents Who Refused to Pass On Their Suffering</h3>
-                    <p>I grew up in Ibanda District, in the rolling hills of Western Uganda. It is a place of breathtaking beauty green terraces, banana plantations, and skies that stretch forever. But beauty does not fill stomachs. Beauty does not pay school fees. Beauty does not protect a girl from the hard realities of poverty.</p>
-                    <p>My family was not wealthy. We were, in fact, poor. But poverty was not the whole story.</p>
-                    <p>The whole story is this: my parents refused to let their suffering become my inheritance.</p>
-                </section>
-
-                <section className={styles.storySection}>
-                    <h3>My Mother: The Girl Who Studied Through Everything</h3>
-                    <p>My mother&apos;s life was hard from the very beginning. She grew up in poverty so deep that she often walked to school hungry. She lacked proper uniforms, decent shoes, enough books. While other children had parents who could help with homework, she had no one her own parents were uneducated and struggling simply to survive.</p>
-                    <p>But she stayed in school. She studied by kerosene lamp when there was kerosene. She walked kilometers on empty stomachs, determined that education would be her ladder out of poverty. She faced challenges I cannot fully imagine and she kept going.</p>
-                    <p>That achievement is the foundation of everything I am. A girl from a poor village, with no resources, connections, or safety net, proved that circumstances do not define destiny.</p>
-                </section>
-
-                <section className={styles.storySection}>
-                    <h3>My Father: The Boy Who Trusted God and Stayed in School</h3>
-                    <p>My father&apos;s story is similar. He grew up with nothing. There was never enough money for school fees. There were days when studying felt impossible, when hunger gnawed at his belly while he tried to concentrate on his books.</p>
-                    <p>But he had two things: discipline and faith. He trusted God and kept going. He stayed in school when leaving would have been easier. He worked when there was work and prayed when there was none.</p>
-                    <p>He completed his education through sheer stubborn faith. He did not have an easy path. He did not have advantages. He had grit, prayer, and an unshakeable belief that tomorrow could be better than today.</p>
-                </section>
-
-                <section className={styles.storySection}>
-                    <h3>The Gift They Gave Me</h3>
-                    <p>My parents did not give me an easy life because they had easy lives. They gave me an easy life because they had hard lives and refused to pass that hardness on to me.</p>
-                    <p>They broke the cycle.</p>
-                    <p>My mother, who studied hungry, made sure I never knew hunger. My father, who struggled for every term of school, made sure my fees were paid.</p>
-                    <p>They created a good life for me so that I could focus on becoming who I was meant to be. That is the greatest gift a parent can give a child. Not wealth. Not connections. Not privilege. The gift of not having to fight the same battles they fought.</p>
-                </section>
-
-                <section className={styles.storySection}>
-                    <h3>The Girls Who Walked Beside Me</h3>
-                    <p>I did not walk this path alone. I grew up with five girls who were my sisters in every way but blood: Annet, Grace, Mary, Robinah, and Sylvia.</p>
-                    <p>We sat together on broken desks, sharing textbooks with missing pages. We walked the same dusty roads to school, our bare feet slapping against the red earth. We dreamed under the mango tree of the women we would become while studying at Kiburara Primary school and Good Hope primary school.</p>
-                    <p>Annet wanted to be a nurse. Grace wanted to be a writer in the newspapers. Mary wanted to be a teacher. Robinah wanted to be an artist. Sylvia wanted to travel the world.</p>
-                    <p>But life had different plans. One by one, they fell away.</p>
-                    <p>Annet was married at fifteen. Grace dropped out when her father died. Mary was told to stay home for her brother&apos;s secondary school. Robinah became pregnant and was expelled while the teacher faced no consequences. Sylvia was married at seventeen as a third wife.</p>
-                    <p>And yet, I kept walking. I kept studying. I kept rising. Why me? The answer is simple: my parents chose differently. They chose to break the cycle. That is the lesson I am determined to teach.</p>
-                </section>
-
-                <section className={styles.storySection}>
-                    <h3>The Path to Law</h3>
-                    <p>My parents supported every dream I ever had. When I discovered my calling in law, they said: &quot;Go. Become. We are with you.&quot;</p>
-                    <p>I am currently in my fourth year of law school at Uganda Christian University, pursuing a degree that I believe is essential to the work of breaking cycles and transforming communities. I chose law because I understand that lasting change requires more than safe spaces and scholarships. It requires a complete change in the systems that fail girls in the first place.</p>
-                    <p>I want to be the lawyer who stands between a girl and those who would abuse her. Who fights for policies that allow pregnant girls to return to school. Who challenges discriminatory practices. Who uses the law as a tool for healing, not just punishment.</p>
-                    <p>My law degree will serve my initiative. My initiative will serve my community. And my community will transform this nation, one girl at a time.</p>
-                </section>
             </div>
         </div>
     );

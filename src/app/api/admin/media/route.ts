@@ -12,7 +12,7 @@ export async function GET(request: Request) {
         const supabase = getAdminSupabase();
         const { data, error: dbError } = await supabase
             .from('media')
-            .select('*')
+            .select('id, url, type, description, event_id, created_at, events(id, title, status)')
             .order('created_at', { ascending: false });
 
         if (dbError) {

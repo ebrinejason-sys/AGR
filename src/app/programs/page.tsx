@@ -197,7 +197,7 @@ export default function Programs() {
                     <div className={styles.actionBox}>
                         <h3>Fund The Journey</h3>
                         <p>Support our comprehensive 2-year Shs 8,200,000 implementation plan.</p>
-                        <Link href="/events" className={styles.btnPrimary}>Donate Now</Link>
+                        <Link href="/donate" className={styles.btnPrimary}>Donate Now</Link>
                     </div>
                     <div className={styles.actionBox}>
                         <h3>Partner With Us</h3>

@@ -19,6 +19,12 @@ type Media = {
     description: string;
 };
 
+const sanitizeStoryHtml = (html: string) => {
+    return html
+        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+        .replace(/\son\w+=("[^"]*"|'[^']*')/gi, '');
+};
+
 export default function StoriesGallery() {
     const [stories, setStories] = useState<Story[]>([]);
     const [media, setMedia] = useState<Media[]>([]);
@@ -92,7 +98,10 @@ export default function StoriesGallery() {
                                     <span className={styles.author}>By {story.author}</span>
                                     <span className={styles.date}>{new Date(story.created_at).toLocaleDateString()}</span>
                                 </div>
-                                <p className={styles.content}>{story.content}</p>
+                                <div
+                                    className={styles.content}
+                                    dangerouslySetInnerHTML={{ __html: sanitizeStoryHtml(story.content) }}
+                                />
                             </article>
                         ))}
                     </div>

@@ -51,6 +51,13 @@
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
+.fullWidth {
+    grid-column: 1 / -1;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+}
+
 /* Founder Details */
 .founderImageContainer {
     display: flex;

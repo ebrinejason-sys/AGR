@@ -41,12 +41,15 @@ export default function Home() {
       <section className={styles.aboutSection}>
         <div className={styles.aboutContainer}>
           <div className={styles.aboutImageWrapper}>
-            <Image src="/images/about-us.jpg" alt="About Us" fill className={styles.aboutImage} style={{ objectFit: 'cover' }} />
+            <Image src="/images/Phone Link/IMG-20260303-WA0037.jpg" alt="About Us" fill className={styles.aboutImage} style={{ objectFit: 'cover' }} priority />
           </div>
           <div className={styles.aboutTextCard}>
             <h2 className="heading-lg">Who We Are</h2>
             <p>
               We are a registered Ugandan initiative dedicated to breaking cycles of poverty and empowering adolescent girls. We provide school-based mental health support, academic perseverance programs, and holistic care to help girls transcend their circumstances and author their own futures.
+            </p>
+            <p className={styles.nonprofitText}>
+              <strong>Non-profit organisation registered</strong>
             </p>
             <p>
               Founded by Akatwijuka Grace, a fourth-year law student, our mission is to be the consistent, empowering space between a girl's challenging reality and her radiant possibility.
@@ -73,7 +76,7 @@ export default function Home() {
             <div className={styles.projectContent}>
               <h3>The Rise Room Initiative</h3>
               <p>School-based safe spaces providing mental health support and peer networks.</p>
-              <Link href="/programs#rise-room" className={styles.projectLink}>Learn More →</Link>
+              <Link href="/programs#rise-room" className={styles.projectLink}>Read More →</Link>
             </div>
           </div>
 
@@ -84,7 +87,7 @@ export default function Home() {
             <div className={styles.projectContent}>
               <h3>Academic Rescue Program</h3>
               <p>Tutoring, scholarships, and STEM exposure to keep girls excelling in school.</p>
-              <Link href="/programs#academic-rescue" className={styles.projectLink}>Learn More →</Link>
+              <Link href="/programs#academic-rescue" className={styles.projectLink}>Read More →</Link>
             </div>
           </div>
 
@@ -95,18 +98,18 @@ export default function Home() {
             <div className={styles.projectContent}>
               <h3>Leadership & Life Skills Academy</h3>
               <p>Financial literacy, public speaking, digital skills and entrepreneurship training.</p>
-              <Link href="/programs#leadership" className={styles.projectLink}>Learn More →</Link>
+              <Link href="/programs#leadership" className={styles.projectLink}>Read More →</Link>
             </div>
           </div>
 
           <div className={styles.projectCard}>
             <div className={styles.projectImageWrapper}>
-              <Image src="/images/program-4.jpg" alt="Health & Wellness" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
+              <Image src="/images/program-4.jpg" alt="Legal Advocacy" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
             </div>
             <div className={styles.projectContent}>
-              <h3>Health & Wellness Program</h3>
-              <p>SRHR education, menstrual health management, nutrition and access to healthcare.</p>
-              <Link href="/programs#health-wellness" className={styles.projectLink}>Learn More →</Link>
+              <h3>Legal Advocacy</h3>
+              <p>Legal literacy, rights education, and advocacy to ensure girls understand their rights and have access to justice.</p>
+              <Link href="/legal-advocacy" className={styles.projectLink}>Read More →</Link>
             </div>
           </div>
         </div>
@@ -133,7 +136,7 @@ export default function Home() {
           </div>
           <div className={styles.pillarCard}>
             <div className={styles.pillarNumber}>04</div>
-            <h3>Knowing Your Rights</h3>
+            <h3>Legal Advocacy</h3>
             <p>Legal literacy and advocacy to ensure girls understand their rights and have access to justice.</p>
           </div>
         </div>

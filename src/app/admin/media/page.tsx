@@ -9,6 +9,13 @@ type MediaItem = {
     url: string;
     type: 'image' | 'video';
     description: string | null;
+    event_id?: string | null;
+    created_at?: string;
+    events?: {
+        id: string;
+        title: string;
+        status: 'upcoming' | 'completed' | 'cancelled';
+    } | null;
 };
 
 export default function AdminMedia() {
@@ -21,20 +28,32 @@ export default function AdminMedia() {
     const [eventId, setEventId] = useState('');
 
     const fetchMedia = async () => {
-        const res = await fetch('/api/admin/media', { cache: 'no-store' });
-        const data = await res.json();
-        if (res.ok) {
-            setItems(data.media || []);
+        try {
+            const res = await fetch('/api/admin/media', { cache: 'no-store' });
+            const data = await res.json();
+            if (res.ok) {
+                setItems(data.media || []);
+                return;
+            }
+            alert(data.error || 'Failed to fetch media items.');
+        } catch {
+            alert('Network error while fetching media items.');
         }
     };
 
     const fetchEvents = async () => {
-        const res = await fetch('/api/admin/events', { cache: 'no-store' });
-        const data = await res.json();
-        if (res.ok && data.events) {
-            setEvents(data.events);
+        try {
+            const res = await fetch('/api/admin/events', { cache: 'no-store' });
+            const data = await res.json();
+            if (res.ok && data.events) {
+                setEvents(data.events);
+                return;
+            }
+            alert(data.error || 'Failed to fetch events.');
+        } catch {
+            alert('Network error while fetching events.');
         }
-    }
+    };
 
     useEffect(() => {
         fetchMedia();
@@ -88,8 +107,11 @@ export default function AdminMedia() {
                         <Upload size={40} className={styles.uploadIcon} />
                         <p>{selectedFile ? selectedFile.name : 'Drag and drop or click to select a file (Image / Video)'}</p>
                         <input
+                            id="media-file"
                             type="file"
                             required
+                            title="Select image or video file"
+                            aria-label="Select image or video file"
                             className={styles.fileInput}
                             accept="image/*,video/*"
                             onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
@@ -97,8 +119,9 @@ export default function AdminMedia() {
                     </div>
 
                     <div className={styles.inputGroup}>
-                        <label>Description (Optional, used as caption)</label>
+                        <label htmlFor="media-description">Description (Optional, used as caption)</label>
                         <input
+                            id="media-description"
                             type="text"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -107,11 +130,13 @@ export default function AdminMedia() {
                     </div>
 
                     <div className={styles.inputGroup}>
-                        <label>Associate with Event (Optional)</label>
+                        <label htmlFor="media-event">Associate with Event (Optional)</label>
                         <select
+                            id="media-event"
+                            title="Associate media with an event"
                             value={eventId}
                             onChange={(e) => setEventId(e.target.value)}
-                            style={{ background: 'var(--bg-color)', border: '1px solid var(--border-color)', padding: '1rem', borderRadius: '12px', color: 'var(--text-color)' }}
+                            className={styles.selectInput}
                         >
                             <option value="">-- No Event --</option>
                             {events.map(ev => (
@@ -141,6 +166,11 @@ export default function AdminMedia() {
                                     <video src={item.url} controls className={styles.previewImage} />
                                 )}
                                 <p>{item.description || 'No description'}</p>
+                                {item.events?.title && (
+                                    <p className={styles.mediaMeta}>
+                                        Event: {item.events.title} ({item.events.status})
+                                    </p>
+                                )}
                             </div>
                         ))}
                     </div>
