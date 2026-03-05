@@ -18,7 +18,7 @@ function Add-VercelEnv {
     
     if ($value -ne "") {
         Write-Host "  Adding to production, preview, and development..." -ForegroundColor Gray
-        vercel env add $Name production preview development <<< $value
+        vercel env add $Name production preview development --value $value
         Write-Host "  ✓ Added $Name" -ForegroundColor Green
     } else {
         Write-Host "  ⊘ Skipped $Name" -ForegroundColor Red

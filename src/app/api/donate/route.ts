@@ -26,7 +26,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Payment service not configured. Set FLUTTERWAVE_SECRET_KEY.' }, { status: 503 });
         }
 
-        const flutterwaveUrl = "https://api.flutterwave.com/v3/payments";
+        const flutterwaveUrl = "https://api.flutterwave.com/v4/payments";
 
         const payload: Record<string, unknown> = {
             tx_ref: `agr_${Date.now()}_${eventId || 'gen'}`,
