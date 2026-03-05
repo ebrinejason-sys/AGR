@@ -49,10 +49,17 @@ Add-VercelEnv "NEXT_PUBLIC_SUPABASE_ANON_KEY" "Supabase anonymous key (starts wi
 Add-VercelEnv "SUPABASE_SERVICE_ROLE_KEY" "Supabase service role key (starts with eyJ) - KEEP SECRET"
 
 Write-Host "========================================" -ForegroundColor Magenta
-Write-Host "  FLUTTERWAVE PAYMENTS" -ForegroundColor Magenta
+Write-Host "  FLUTTERWAVE V4 PAYMENTS" -ForegroundColor Magenta
 Write-Host "========================================" -ForegroundColor Magenta
-Add-VercelEnv "NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY" "Flutterwave public key (starts with FLWPUBK-)"
-Add-VercelEnv "FLUTTERWAVE_SECRET_KEY" "Flutterwave secret key (starts with FLWSECK-) - KEEP SECRET"
+Write-Host "Adding Flutterwave V4 Client ID..." -ForegroundColor Cyan
+vercel env add NEXT_PUBLIC_FLUTTERWAVE_CLIENT_ID production preview development --value "abacfd0c-134b-411f-979c-4a84ab858e2e"
+Write-Host "  ✓ Added NEXT_PUBLIC_FLUTTERWAVE_CLIENT_ID" -ForegroundColor Green
+Write-Host "Adding Flutterwave V4 Client Secret..." -ForegroundColor Cyan
+vercel env add FLUTTERWAVE_CLIENT_SECRET production preview development --value "60445bt5D7vhayXcbUEnTE1Ngxro7JS8"
+Write-Host "  ✓ Added FLUTTERWAVE_CLIENT_SECRET" -ForegroundColor Green
+Write-Host "Adding Flutterwave V4 Encryption Key..." -ForegroundColor Cyan
+vercel env add FLUTTERWAVE_ENCRYPTION_KEY production preview development --value "mIGZjWZnibvCEXvOm33iEp2fzE0/47uMvH9OccdBMHo"
+Write-Host "  ✓ Added FLUTTERWAVE_ENCRYPTION_KEY" -ForegroundColor Green
 
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Green

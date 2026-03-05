@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import styles from "./layout.module.css";
 import Navbar from "@/components/layout/Navbar";
@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Preloader from "@/components/Preloader";
 
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 // iOS-safe viewport: prevents auto-zoom on inputs, covers notch area
@@ -39,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`antialiased ${inter.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`antialiased ${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <body>
         <ThemeProvider
           attribute="data-theme"

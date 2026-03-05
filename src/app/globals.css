@@ -21,7 +21,8 @@
   --nav-hover-bg: rgba(255, 255, 255, 0.1);
   --footer-bg-color: #050505;
 
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: var(--font-serif), 'Playfair Display', Georgia, serif;
+  --font-sans: var(--font-sans), 'Outfit', system-ui, -apple-system, sans-serif;
   color-scheme: dark;
 }
 
@@ -132,6 +133,7 @@ button {
 
 /* Base utility classes for typography */
 .heading-xl {
+  font-family: var(--font-serif);
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 800;
   line-height: 1.1;
@@ -139,6 +141,7 @@ button {
 }
 
 .heading-lg {
+  font-family: var(--font-serif);
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
   line-height: 1.2;

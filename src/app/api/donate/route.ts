@@ -22,9 +22,28 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Phone number required for Mobile Money payments' }, { status: 400 });
         }
 
-        if (!process.env.FLUTTERWAVE_SECRET_KEY) {
-            return NextResponse.json({ error: 'Payment service not configured. Set FLUTTERWAVE_SECRET_KEY.' }, { status: 503 });
+        if (!process.env.FLUTTERWAVE_CLIENT_SECRET || !process.env.NEXT_PUBLIC_FLUTTERWAVE_CLIENT_ID) {
+            return NextResponse.json({ error: 'Payment service not configured. Set FLUTTERWAVE_CLIENT_SECRET and NEXT_PUBLIC_FLUTTERWAVE_CLIENT_ID.' }, { status: 503 });
         }
+
+        // Get OAuth access token for V4
+        const tokenResponse = await fetch('https://api.flutterwave.com/v4/oauth/token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                grant_type: 'client_credentials',
+                client_id: process.env.NEXT_PUBLIC_FLUTTERWAVE_CLIENT_ID,
+                client_secret: process.env.FLUTTERWAVE_CLIENT_SECRET
+            })
+        });
+
+        const tokenData = await tokenResponse.json();
+        if (!tokenResponse.ok || !tokenData.access_token) {
+            console.error('Failed to get access token:', tokenData);
+            return NextResponse.json({ error: 'Authentication failed with payment service' }, { status: 500 });
+        }
+
+        const accessToken = tokenData.access_token;
 
         const flutterwaveUrl = "https://api.flutterwave.com/v4/payments";
 
@@ -49,7 +68,7 @@ export async function POST(req: Request) {
         const response = await fetch(flutterwaveUrl, {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
+                Authorization: `Bearer ${accessToken}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(payload),
