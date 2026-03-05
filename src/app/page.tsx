@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import DonationModal from "@/components/DonationModal";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 export default function Home() {
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
@@ -18,7 +19,7 @@ export default function Home() {
             <h1 className={styles.heroTitle}>African Girl Rise</h1>
             <p className={styles.heroTagline}>Breaking cycles. Building futures.</p>
             <p className={styles.heroDescription}>
-              Empowering adolescent girls through mental health support, education, and leadership training.
+              Breaking the cycle of poverty and empowering adolescent girls through mental health support, education, and leadership training.
             </p>
             <div className={styles.heroButtons}>
               <button
@@ -55,6 +56,29 @@ export default function Home() {
               Founded by Akatwijuka Grace, a fourth-year law student, our mission is to be the consistent, empowering space between a girl's challenging reality and her radiant possibility.
             </p>
             <Link href="/our-story" className={styles.btnSecondary}>Meet Grace & Our Story</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* The Reality We Face Section */}
+      <section className={styles.realitySection}>
+        <div className={styles.realityContainer}>
+          <h2 className="heading-lg" style={{ textAlign: "center", marginBottom: "3rem" }}>
+            The <span className="text-gradient">Reality</span> We Face
+          </h2>
+          <div className={styles.realityGrid}>
+            <div className={styles.realityCard}>
+              <h3 className="text-gradient">78%</h3>
+              <p>of girls report persistent anxiety or trauma from extreme poverty</p>
+            </div>
+            <div className={styles.realityCard}>
+              <h3 className="text-gradient">4 in 10</h3>
+              <p>girls drop out before Form 4 due to overwhelming economic pressure</p>
+            </div>
+            <div className={styles.realityCard}>
+              <h3 className="text-gradient">Teen Pregnancy</h3>
+              <p>stands as the #1 cause of permanent school dropout in marginalized areas</p>
+            </div>
           </div>
         </div>
       </section>
@@ -115,29 +139,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Our Four Pillars Section */}
-      <section className={styles.pillarsSection}>
-        <h2 className="heading-lg">Our Four Pillars of Change</h2>
-        <div className={styles.pillarsGrid}>
-          <div className={styles.pillarCard}>
-            <div className={styles.pillarNumber}>01</div>
-            <h3>Healing the Ground</h3>
-            <p>Mental and emotional foundations where girls can heal, speak freely, and be heard without judgment.</p>
-          </div>
-          <div className={styles.pillarCard}>
-            <div className={styles.pillarNumber}>02</div>
-            <h3>Building the Ladder</h3>
-            <p>Educational and practical ascension through tutoring, scholarships, and essential support packages.</p>
-          </div>
-          <div className={styles.pillarCard}>
-            <div className={styles.pillarNumber}>03</div>
-            <h3>Reaching New Altitudes</h3>
-            <p>Future and leadership development through career mentorship, university visits, and vocational training.</p>
-          </div>
-          <div className={styles.pillarCard}>
-            <div className={styles.pillarNumber}>04</div>
-            <h3>Legal Advocacy</h3>
-            <p>Legal literacy and advocacy to ensure girls understand their rights and have access to justice.</p>
+      {/* Impact in Numbers Section */}
+      <section className={styles.impactSection}>
+        <div className={styles.impactContent}>
+          <h2 className="heading-lg" style={{ color: "white" }}>Our Impact So Far</h2>
+          <div className={styles.impactGrid}>
+            <div className={styles.impactItem}>
+              <div className={styles.impactNumber}>
+                <AnimatedCounter target={1500} suffix="+" />
+              </div>
+              <p>Target Girls Reached</p>
+            </div>
+            <div className={styles.impactItem}>
+              <div className={styles.impactNumber}>
+                <AnimatedCounter target={15} suffix="+" />
+              </div>
+              <p>Active Partners</p>
+            </div>
+            <div className={styles.impactItem}>
+              <div className={styles.impactNumber}>
+                <AnimatedCounter target={300} suffix="+" />
+              </div>
+              <p>Parents & Care Givers</p>
+            </div>
           </div>
         </div>
       </section>

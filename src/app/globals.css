@@ -21,8 +21,8 @@
   --nav-hover-bg: rgba(255, 255, 255, 0.1);
   --footer-bg-color: #050505;
 
-  --font-serif: var(--font-serif), 'Playfair Display', Georgia, serif;
-  --font-sans: var(--font-sans), 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
+  --font-sans: var(--font-sans), 'Montserrat', system-ui, -apple-system, sans-serif;
   color-scheme: dark;
 }
 

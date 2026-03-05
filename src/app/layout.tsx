@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
 import styles from "./layout.module.css";
 import Navbar from "@/components/layout/Navbar";
@@ -7,8 +7,8 @@ import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Preloader from "@/components/Preloader";
 
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-serif", display: "swap" });
+const montserrat = Montserrat({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800"], variable: "--font-sans", display: "swap" });
 
 // iOS-safe viewport: prevents auto-zoom on inputs, covers notch area
 export const viewport: Viewport = {
@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`antialiased ${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`antialiased ${montserrat.variable} ${cormorant.variable}`} suppressHydrationWarning>
       <body>
         <ThemeProvider
           attribute="data-theme"

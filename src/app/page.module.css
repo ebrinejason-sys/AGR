@@ -113,6 +113,7 @@
 }
 
 @media (hover: hover) {
+
   .heroButtonPrimary:hover,
   .heroButtonSecondary:hover {
     background: var(--color-white);
@@ -561,25 +562,24 @@
   }
 }
 
-/* ─── Pillars Section ─── */
-.pillarsSection {
+/* ─── Reality Section ─── */
+.realitySection {
   padding: 5rem 5%;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.realityContainer {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.pillarsSection h2 {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.pillarsGrid {
+.realityGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
 
-.pillarCard {
+.realityCard {
   background: var(--card-bg);
   padding: 2.5rem;
   border-radius: 16px;
@@ -589,30 +589,76 @@
 }
 
 @media (hover: hover) {
-  .pillarCard:hover {
+  .realityCard:hover {
     transform: translateY(-5px);
-    border-color: var(--color-pink);
+    border-color: var(--color-purple);
     background: var(--card-hover-bg);
+    box-shadow: 0 10px 30px rgba(74, 20, 140, 0.1);
   }
 }
 
-.pillarNumber {
-  font-size: 2.5rem;
+.realityCard h3 {
+  font-size: 3rem;
   font-weight: 800;
-  color: var(--color-pink);
   margin-bottom: 1rem;
+  font-family: var(--font-serif);
 }
 
-.pillarCard h3 {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
+.realityCard p {
   color: var(--text-color);
+  line-height: 1.6;
+  font-size: 1.1rem;
 }
 
-.pillarCard p {
-  color: var(--text-muted);
-  line-height: 1.6;
-  font-size: 0.95rem;
+/* ─── Impact In Numbers Section ─── */
+.impactSection {
+  padding: 6rem 5%;
+  background: linear-gradient(135deg, var(--color-pink) 0%, var(--color-purple) 50%, var(--color-lightblue) 100%);
+  position: relative;
+  text-align: center;
+}
+
+.impactContent {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.impactContent h2 {
+  margin-bottom: 4rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.impactGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+}
+
+.impactItem {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.impactNumber {
+  font-size: clamp(3.5rem, 6vw, 5rem);
+  font-family: var(--font-serif);
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.impactItem p {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.9;
 }
 
 /* ─── Support Section ─── */
