@@ -564,8 +564,8 @@
 
 /* ─── Reality Section ─── */
 .realitySection {
-  padding: 5rem 5%;
-  background: rgba(255, 255, 255, 0.02);
+  padding: 3.5rem 5%;
+  background: rgba(255, 255, 255, 0.01);
 }
 
 .realityContainer {
@@ -580,8 +580,10 @@
 }
 
 .realityCard {
-  background: var(--card-bg);
-  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 2rem 1.5rem;
   border-radius: 16px;
   border: 1px solid var(--border-color);
   text-align: center;
@@ -598,16 +600,18 @@
 }
 
 .realityCard h3 {
-  font-size: 3rem;
+  font-size: 2.2rem;
   font-weight: 800;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   font-family: var(--font-serif);
+  color: var(--color-pink);
 }
 
 .realityCard p {
   color: var(--text-color);
-  line-height: 1.6;
-  font-size: 1.1rem;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  opacity: 0.9;
 }
 
 /* ─── Impact In Numbers Section ─── */

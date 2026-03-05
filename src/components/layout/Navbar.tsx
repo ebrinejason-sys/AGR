@@ -7,8 +7,6 @@ import { Menu, X } from 'lucide-react';
 import styles from './Navbar.module.css';
 import DonationModal from '../DonationModal';
 
-import { ThemeToggle } from '../ThemeToggle';
-
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
