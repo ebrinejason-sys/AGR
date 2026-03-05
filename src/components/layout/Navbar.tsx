@@ -38,12 +38,27 @@ export default function Navbar() {
             {/* Desktop Navigation */}
             <nav className={styles.desktopNav}>
                 <Link href="/" className={styles.navLink}>HOME</Link>
-                <Link href="/our-story" className={styles.navLink}>WHO WE ARE</Link>
-                <Link href="/founder" className={styles.navLink}>FOUNDER</Link>
-                <Link href="/programs" className={styles.navLink}>OUR WORK</Link>
+
+                {/* About Dropdown */}
+                <div className={styles.dropdown}>
+                    <button className={styles.dropbtn}>ABOUT <span className={styles.chevron}>▼</span></button>
+                    <div className={styles.dropdownContent}>
+                        <Link href="/our-story" className={styles.dropdownLink}>Who We Are</Link>
+                        <Link href="/founder" className={styles.dropdownLink}>Founder</Link>
+                        <Link href="/stories" className={styles.dropdownLink}>Gallery</Link>
+                    </div>
+                </div>
+
+                {/* Impact Dropdown */}
+                <div className={styles.dropdown}>
+                    <button className={styles.dropbtn}>IMPACT <span className={styles.chevron}>▼</span></button>
+                    <div className={styles.dropdownContent}>
+                        <Link href="/programs" className={styles.dropdownLink}>Our Work</Link>
+                        <Link href="/legal-advocacy" className={styles.dropdownLink}>Legal Advocacy</Link>
+                    </div>
+                </div>
+
                 <Link href="/events" className={styles.navLink}>EVENTS</Link>
-                <Link href="/stories" className={styles.navLink}>GALLERY</Link>
-                <Link href="/legal-advocacy" className={styles.navLink}>LEGAL ADVOCACY</Link>
                 <Link href="/contact" className={styles.navLink}>CONTACT</Link>
                 <button onClick={() => setIsDonationModalOpen(true)} className={styles.donateBtn}>DONATE</button>
             </nav>

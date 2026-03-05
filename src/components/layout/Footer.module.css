@@ -1,23 +1,53 @@
 .footer {
-    background: var(--footer-bg-color, #050505);
-    border-top: 1px solid var(--border-color);
-    padding: 0;
+    position: relative;
+    background: var(--bg-color);
     margin-top: auto;
     padding-bottom: max(env(safe-area-inset-bottom), 0px);
+    overflow: hidden;
 }
 
 .footerInner {
+    position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 5rem 5% 2rem;
+    padding: 6rem 5% 3rem;
+    z-index: 2;
+}
+
+/* ─── Footer Background Glows ─── */
+.footer::before,
+.footer::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.footer::before {
+    top: -100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    background: var(--color-pink);
+}
+
+.footer::after {
+    bottom: -150px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: var(--color-lightblue);
 }
 
 /* ─── Footer Grid ─── */
 .footerGrid {
     display: grid;
     grid-template-columns: 2fr 1fr 1.5fr;
-    gap: 4rem;
-    margin-bottom: 4rem;
+    gap: 5rem;
+    margin-bottom: 5rem;
 }
 
 /* Brand Column & Newsletter */
@@ -28,11 +58,12 @@
 }
 
 .brandName {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: 800;
-    letter-spacing: 0.1em;
+    font-family: var(--font-sans);
+    letter-spacing: 0.15em;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--color-pink), var(--color-lightblue));
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple), var(--color-lightblue));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -41,26 +72,30 @@
 
 .brandTagline {
     color: var(--text-color);
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     line-height: 1.6;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     font-style: italic;
-    opacity: 0.9;
+    font-family: var(--font-serif);
+    opacity: 0.85;
 }
 
 .newsletterSection {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    padding: 1.5rem;
-    border-radius: 16px;
-    max-width: 400px;
+    padding: 2rem;
+    border-radius: 20px;
+    max-width: 450px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .newsletterDesc {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-    font-weight: 500;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .inputRow {
@@ -71,84 +106,80 @@
 
 .input {
     flex: 1;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
+    padding: 0.85rem 1.2rem;
+    border-radius: 10px;
     border: 1px solid var(--border-color);
-    background: var(--bg-color);
+    background: rgba(0, 0, 0, 0.05);
     color: var(--text-color);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-family: inherit;
     outline: none;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .input {
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .input:focus {
     border-color: var(--color-pink);
+    box-shadow: 0 0 0 3px rgba(216, 27, 96, 0.15);
 }
 
 .subscribeBtn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    background: var(--color-pink);
+    padding: 0.85rem 1.75rem;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
     color: white;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.9rem;
+    letter-spacing: 0.5px;
     border: none;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
     white-space: nowrap;
 }
 
 .subscribeBtn:hover {
-    background: var(--color-purple);
-    opacity: 0.95;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(216, 27, 96, 0.3);
 }
 
 .successMsg {
-    color: #4caf50;
+    color: #10b981;
     font-size: 0.85rem;
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
+    font-weight: 500;
 }
 
 .errorMsg {
-    color: #f44336;
+    color: #ef4444;
     font-size: 0.85rem;
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
+    font-weight: 500;
 }
 
 /* Links & Contact */
 .columnTitle {
-    font-size: 1rem;
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
     color: var(--text-color);
     margin-bottom: 1.5rem;
     position: relative;
     padding-bottom: 0.5rem;
 }
 
-.columnTitle::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background: var(--color-pink);
-    border-radius: 2px;
-}
-
 .linksList {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
 }
 
 .linksList a {
     color: var(--text-muted);
-    font-size: 0.95rem;
-    transition: color 0.2s ease, transform 0.2s ease;
+    font-size: 1rem;
+    transition: all 0.2s ease;
     text-decoration: none;
     display: inline-block;
 }
@@ -162,24 +193,26 @@
     color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.8;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.2rem;
 }
 
 .contactInfo strong {
     color: var(--text-color);
-    font-weight: 600;
+    font-weight: 700;
     display: block;
     font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.2rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+    opacity: 0.9;
 }
 
 /* ─── Bottom Bar ─── */
 .divider {
     height: 1px;
     background: var(--border-color);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    background: linear-gradient(90deg, transparent, var(--border-color), transparent);
 }
 
 .bottomBar {
@@ -192,20 +225,21 @@
 
 .copyright {
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
 
 .mission {
     color: var(--color-lightblue);
-    font-size: 0.85rem;
-    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 /* ─── Mobile ─── */
 @media (max-width: 900px) {
     .footerGrid {
         grid-template-columns: 1fr 1fr;
-        gap: 3rem;
+        gap: 4rem;
     }
 
     .brandColumn {
@@ -221,12 +255,12 @@
 
     .footerGrid {
         grid-template-columns: 1fr;
-        gap: 2.5rem;
+        gap: 3.5rem;
     }
 
     .newsletterSection {
         max-width: 100%;
-        padding: 1rem;
+        padding: 1.5rem;
     }
 
     .inputRow {
@@ -241,5 +275,6 @@
     .bottomBar {
         flex-direction: column;
         text-align: center;
+        gap: 1.5rem;
     }
 }

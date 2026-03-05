@@ -79,16 +79,22 @@ export default function Footer() {
 
                     {/* Quick Links */}
                     <div className={styles.linksColumn}>
-                        <h4 className={styles.columnTitle}>Explore</h4>
-                        <nav className={styles.linksList}>
-                            <Link href="/">Home</Link>
-                            <Link href="/our-story">Our Story</Link>
-                            <Link href="/founder">Founder</Link>
-                            <Link href="/programs">Our Programs</Link>
-                            <Link href="/events">Events</Link>
-                            <Link href="/stories">Gallery</Link>
-                            <Link href="/donate">Donate</Link>
-                        </nav>
+                        <div>
+                            <h4 className={styles.columnTitle}>About Us</h4>
+                            <nav className={styles.linksList}>
+                                <Link href="/our-story">Who We Are</Link>
+                                <Link href="/founder">The Founder</Link>
+                                <Link href="/stories">Gallery</Link>
+                            </nav>
+                        </div>
+                        <div style={{ marginTop: '2.5rem' }}>
+                            <h4 className={styles.columnTitle}>Our Impact</h4>
+                            <nav className={styles.linksList}>
+                                <Link href="/programs">Core Programs</Link>
+                                <Link href="/legal-advocacy">Legal Advocacy</Link>
+                                <Link href="/events">Events</Link>
+                            </nav>
+                        </div>
                     </div>
 
                     {/* Contact Info */}
