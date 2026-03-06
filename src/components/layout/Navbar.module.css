@@ -279,28 +279,6 @@
     }
 }
 
-/* Mobile Navigation Sections */
-.mobileSection {
-    margin-bottom: 1.5rem;
-}
-
-.mobileSectionTitle {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-pink);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.25rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.mobileDonateContainer {
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 .mobileDonateBtn {
     background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
     color: white;
