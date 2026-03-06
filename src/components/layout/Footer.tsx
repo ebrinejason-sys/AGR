@@ -48,16 +48,16 @@ export default function Footer() {
                     <div className={styles.brandColumn}>
                         <h4 className={styles.brandName}>AFRICAN GIRL RISE</h4>
                         <p className={styles.brandTagline}>
-                            Your story isn't over. It's just getting powerful.
+                            Empowering girls, transforming futures.
                         </p>
 
                         <div className={styles.newsletterSection}>
-                            <p className={styles.newsletterDesc}>Join our movement and newsletter:</p>
+                            <p className={styles.newsletterDesc}>Stay connected:</p>
                             <form className={styles.subscribeForm} onSubmit={handleSubscribe}>
                                 <div className={styles.inputRow}>
                                     <input
                                         type="email"
-                                        placeholder="Your email address"
+                                        placeholder="Your email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         required
@@ -68,7 +68,7 @@ export default function Footer() {
                                         className={styles.subscribeBtn}
                                         disabled={status === 'loading'}
                                     >
-                                        {status === 'loading' ? '⏳' : 'Subscribe'}
+                                        {status === 'loading' ? '⏳' : 'Join'}
                                     </button>
                                 </div>
                                 {status === 'success' && <p className={styles.successMsg}>{message}</p>}
@@ -79,33 +79,28 @@ export default function Footer() {
 
                     {/* Quick Links */}
                     <div className={styles.linksColumn}>
-                        <div>
-                            <h4 className={styles.columnTitle}>About Us</h4>
-                            <nav className={styles.linksList}>
-                                <Link href="/our-story">Who We Are</Link>
-                                <Link href="/founder">The Founder</Link>
-                                <Link href="/stories">Gallery</Link>
-                            </nav>
-                        </div>
-                        <div style={{ marginTop: '2.5rem' }}>
-                            <h4 className={styles.columnTitle}>Our Impact</h4>
-                            <nav className={styles.linksList}>
-                                <Link href="/programs">Core Programs</Link>
-                                <Link href="/legal-advocacy">Legal Advocacy</Link>
-                                <Link href="/events">Events</Link>
-                            </nav>
-                        </div>
+                        <h4 className={styles.columnTitle}>About</h4>
+                        <nav className={styles.linksList}>
+                            <Link href="/our-story">Who We Are</Link>
+                            <Link href="/founder">Founder</Link>
+                            <Link href="/stories">Gallery</Link>
+                        </nav>
+
+                        <h4 className={styles.columnTitle}>Programs</h4>
+                        <nav className={styles.linksList}>
+                            <Link href="/programs">Core Programs</Link>
+                            <Link href="/legal-advocacy">Legal Advocacy</Link>
+                            <Link href="/events">Events</Link>
+                        </nav>
                     </div>
 
                     {/* Contact Info */}
                     <div className={styles.contactColumn}>
-                        <h4 className={styles.columnTitle}>Reach Us</h4>
+                        <h4 className={styles.columnTitle}>Contact</h4>
                         <div className={styles.contactInfo}>
                             <p><strong>Location:</strong> Kiburara, Ibanda District, Uganda</p>
                             <p><strong>Email:</strong> africangirlriseltd@gmail.com</p>
-                            <p><strong>Alt Email:</strong> graceakatwijuka73@gmail.com</p>
                             <p><strong>WhatsApp:</strong> 0703727965</p>
-                            <p><strong>Calls:</strong> 0763738733</p>
                         </div>
                     </div>
 
@@ -117,10 +112,10 @@ export default function Footer() {
                 {/* Bottom Bar */}
                 <div className={styles.bottomBar}>
                     <p className={styles.copyright}>
-                        © {new Date().getFullYear()} African Girl Rise Ltd Initiative. All rights reserved.
+                        © {new Date().getFullYear()} African Girl Rise Ltd. All rights reserved.
                     </p>
                     <p className={styles.mission}>
-                        Building a generation defined not by their struggles, but by their strength.
+                        Empowering girls, transforming futures.
                     </p>
                 </div>
             </div>

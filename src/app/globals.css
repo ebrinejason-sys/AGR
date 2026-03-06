@@ -63,8 +63,8 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -88,8 +88,8 @@ select {
 /* Base resets for iOS touch rendering */
 html {
   -webkit-tap-highlight-color: transparent;
-  text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* Allow text selection only in specific input areas so users can still copy/paste text where they expect it */
@@ -163,5 +163,213 @@ button {
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* ─── BROWSER COMPATIBILITY & DEVICE SUPPORT ─── */
+
+/* Cross-browser scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-pink);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-purple);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-pink) transparent;
+}
+
+/* Focus management for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-pink);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: currentColor;
+    --text-muted: currentColor;
+  }
+
+  button, a, input, textarea, select {
+    border: 2px solid currentColor !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .no-print,
+  nav,
+  .mobile-menu,
+  .donation-modal {
+    display: none !important;
+  }
+
+  a {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+}
+
+/* Device-specific optimizations */
+
+/* iOS Safari specific */
+@supports (-webkit-touch-callout: none) {
+  /* Prevent text selection on UI elements */
+  button, .nav-link, .dropdown-btn {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  /* Fix iOS Safari input zoom */
+  input[type="email"],
+  input[type="text"],
+  input[type="tel"],
+  textarea {
+    font-size: 16px !important;
+    transform: translateZ(0); /* Force hardware acceleration */
+  }
+
+  /* iOS momentum scrolling */
+  .page-content {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Android Chrome specific */
+@supports (-webkit-appearance: none) {
+  /* Remove default styling */
+  input[type="search"] {
+    -webkit-appearance: none;
+  }
+
+  /* Fix Android Chrome tap delay */
+  a, button, input, textarea, select {
+    -webkit-tap-highlight-color: rgba(233, 30, 99, 0.2);
+  }
+}
+
+/* Samsung Internet specific */
+@supports (-webkit-hyphens: none) {
+  /* Better text rendering */
+  body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Legacy browser support */
+@supports not (display: grid) {
+  .footer-grid,
+  .hero-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+/* Webkit-based browsers (Safari, Chrome, Edge) */
+@supports (-webkit-appearance: button) {
+  /* Better button styling */
+  button {
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+
+  /* Fix Safari flexbox bugs */
+  .flex-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+/* Firefox specific */
+@-moz-document url-prefix() {
+  /* Better focus styles */
+  button:focus,
+  a:focus,
+  input:focus,
+  textarea:focus {
+    outline: 2px solid var(--color-pink);
+    outline-offset: 2px;
+  }
+
+  /* Fix Firefox flexbox */
+  .flex-item {
+    min-width: 0; /* Prevent flex item overflow */
+  }
+}
+
+/* Edge/IE specific (legacy support) */
+@supports (-ms-ime-align: auto) {
+  /* Better font rendering */
+  body {
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  /* Fix IE flexbox */
+  .container {
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+/* Performance optimizations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Network-dependent loading */
+@media (max-width: 768px) and (max-resolution: 1dppx) {
+  /* Reduce animations on low-end devices */
+  * {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+}
+
+/* Dark mode compatibility */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    /* Auto dark mode if no manual theme set */
+    --bg-color: #0c0c0c;
+    --text-color: #ffffff;
+    --text-muted: #a0a0a0;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --card-bg: rgba(255, 255, 255, 0.03);
   }
 }
