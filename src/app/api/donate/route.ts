@@ -45,12 +45,11 @@ export async function POST(req: Request) {
             },
             // Configure payment options based on currency
             ...(currency === 'UGX' && {
-                payment_options: 'mobilemoneyuganda, card',
+                payment_options: 'mobilemoneyuganda,card',
                 country: 'UG'
             }),
             ...(currency === 'USD' && {
-                payment_options: 'card',
-                country: 'US'
+                payment_options: 'card'
             })
         };
 
