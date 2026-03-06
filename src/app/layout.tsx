@@ -17,10 +17,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#e91e8c" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
-  ],
+  themeColor: "#e91e8c",
 };
 
 export const metadata: Metadata = {
@@ -44,9 +41,9 @@ export default function RootLayout({
       <body>
         <ThemeProvider
           attribute="data-theme"
-          defaultTheme="system"
-          themes={["light", "dark"]}
-          enableSystem
+          defaultTheme="light"
+          themes={["light"]}
+          enableSystem={false}
           disableTransitionOnChange={true}
           storageKey="agr-theme"
         >

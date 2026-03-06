@@ -23,30 +23,6 @@
   color-scheme: light;
 }
 
-/* Dark theme */
-[data-theme="dark"] {
-  --color-black: #0c0c0c;
-  --color-white: #ffffff;
-  --color-pink: #f06292;
-  --color-purple: #ba68c8;
-  --color-lightblue: #4dd0e1;
-
-  --color-pink-light: #f48fb1;
-  --color-purple-light: #ab47bc;
-
-  --bg-color: var(--color-black);
-  --text-color: var(--color-white);
-  --text-muted: #a0a0a0;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --card-bg: rgba(255, 255, 255, 0.03);
-  --card-hover-bg: rgba(255, 255, 255, 0.05);
-
-  --nav-bg: rgba(12, 12, 12, 0.85);
-  --nav-hover-bg: rgba(240, 98, 146, 0.1);
-  --footer-bg-color: #050505;
-  color-scheme: dark;
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -359,17 +335,5 @@ button {
   * {
     animation-duration: 0.2s !important;
     transition-duration: 0.2s !important;
-  }
-}
-
-/* Dark mode compatibility */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    /* Auto dark mode if no manual theme set */
-    --bg-color: #0c0c0c;
-    --text-color: #ffffff;
-    --text-muted: #a0a0a0;
-    --border-color: rgba(255, 255, 255, 0.1);
-    --card-bg: rgba(255, 255, 255, 0.03);
   }
 }

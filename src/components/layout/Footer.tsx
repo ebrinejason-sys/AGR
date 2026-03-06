@@ -77,7 +77,7 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* Quick Links */}
+                    {/* Links & Contact Column */}
                     <div className={styles.linksColumn}>
                         <h4 className={styles.columnTitle}>About</h4>
                         <nav className={styles.linksList}>
@@ -92,10 +92,7 @@ export default function Footer() {
                             <Link href="/legal-advocacy">Legal Advocacy</Link>
                             <Link href="/events">Events</Link>
                         </nav>
-                    </div>
 
-                    {/* Contact Info */}
-                    <div className={styles.contactColumn}>
                         <h4 className={styles.columnTitle}>Contact</h4>
                         <div className={styles.contactInfo}>
                             <p><strong>Location:</strong> Kiburara, Ibanda District, Uganda</p>
