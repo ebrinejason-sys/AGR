@@ -41,40 +41,44 @@ export default function Footer() {
         <footer className={styles.footer}>
             <div className={styles.footerInner}>
 
+                {/* Stay Connected Section - Top */}
+                <div className={styles.stayConnectedSection}>
+                    <div className={styles.stayConnectedContent}>
+                        <h4 className={styles.stayConnectedTitle}>Stay Connected</h4>
+                        <p className={styles.stayConnectedDesc}>Stay connected:</p>
+                        <form className={styles.subscribeForm} onSubmit={handleSubscribe}>
+                            <div className={styles.inputRow}>
+                                <input
+                                    type="email"
+                                    placeholder="Your email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    className={styles.input}
+                                />
+                                <button
+                                    type="submit"
+                                    className={styles.subscribeBtn}
+                                    disabled={status === 'loading'}
+                                >
+                                    {status === 'loading' ? '⏳' : 'Join'}
+                                </button>
+                            </div>
+                            {status === 'success' && <p className={styles.successMsg}>{message}</p>}
+                            {status === 'error' && <p className={styles.errorMsg}>{message}</p>}
+                        </form>
+                    </div>
+                </div>
+
                 {/* Footer Grid */}
                 <div className={styles.footerGrid}>
 
-                    {/* Brand & Newsletter Column */}
+                    {/* Brand & About Column */}
                     <div className={styles.brandColumn}>
                         <h4 className={styles.brandName}>AFRICAN GIRL RISE</h4>
                         <p className={styles.brandTagline}>
                             Empowering girls, transforming futures.
                         </p>
-
-                        <div className={styles.newsletterSection}>
-                            <p className={styles.newsletterDesc}>Stay connected:</p>
-                            <form className={styles.subscribeForm} onSubmit={handleSubscribe}>
-                                <div className={styles.inputRow}>
-                                    <input
-                                        type="email"
-                                        placeholder="Your email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                        className={styles.input}
-                                    />
-                                    <button
-                                        type="submit"
-                                        className={styles.subscribeBtn}
-                                        disabled={status === 'loading'}
-                                    >
-                                        {status === 'loading' ? '⏳' : 'Join'}
-                                    </button>
-                                </div>
-                                {status === 'success' && <p className={styles.successMsg}>{message}</p>}
-                                {status === 'error' && <p className={styles.errorMsg}>{message}</p>}
-                            </form>
-                        </div>
                     </div>
 
                     {/* Links & Contact Column */}

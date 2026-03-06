@@ -6,9 +6,18 @@
   --color-pink: #e91e63;
   --color-purple: #9c27b0;
   --color-lightblue: #00bcd4;
+  --color-teal: #009688;
+  --color-orange: #ff9800;
+  --color-green: #4caf50;
+  --color-indigo: #3f51b5;
+  --color-yellow: #ffeb3b;
 
-  --color-pink-light: #f8bbd9;
-  --color-purple-light: #ce93d8;
+  --color-pink-light: #fce4ec;
+  --color-purple-light: #f3e5f5;
+  --color-teal-light: #e0f2f1;
+  --color-orange-light: #fff3e0;
+  --color-green-light: #e8f5e8;
+  --color-indigo-light: #e8eaf6;
 
   --bg-color: #ffffff;
   --text-color: #2d2d2d;
@@ -20,6 +29,14 @@
   --nav-bg: rgba(255, 255, 255, 0.95);
   --nav-hover-bg: rgba(233, 30, 99, 0.1);
   --footer-bg-color: #f8f8f8;
+
+  /* Gradient backgrounds */
+  --gradient-pink-purple: linear-gradient(135deg, #e91e63, #9c27b0);
+  --gradient-teal-blue: linear-gradient(135deg, #009688, #00bcd4);
+  --gradient-orange-yellow: linear-gradient(135deg, #ff9800, #ffeb3b);
+  --gradient-green-teal: linear-gradient(135deg, #4caf50, #009688);
+  --gradient-indigo-purple: linear-gradient(135deg, #3f51b5, #9c27b0);
+
   color-scheme: light;
 }
 

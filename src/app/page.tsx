@@ -83,62 +83,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Core Programs Section */}
-      <section className={styles.projectsSection}>
-        <div className={styles.projectsHeader}>
-          <div>
-            <span className={styles.smallLabel}>Our Impact</span>
-            <h2 className="heading-lg">Core Programs</h2>
-          </div>
-          <Link href="/programs" className={styles.btnSecondary}>View All Programs</Link>
-        </div>
-        <div className={styles.projectsGrid}>
-          <div className={styles.projectCard}>
-            <div className={styles.projectImageWrapper}>
-              <Image src="/images/program-1.jpg" alt="The Rise Room Initiative" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
-            </div>
-            <div className={styles.projectContent}>
-              <h3>The Rise Room Initiative</h3>
-              <p>School-based safe spaces providing mental health support and peer networks.</p>
-              <Link href="/programs#rise-room" className={styles.projectLink}>Read More →</Link>
-            </div>
-          </div>
-
-          <div className={styles.projectCard}>
-            <div className={styles.projectImageWrapper}>
-              <Image src="/images/program-2.jpg" alt="Academic Rescue Program" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
-            </div>
-            <div className={styles.projectContent}>
-              <h3>Academic Rescue Program</h3>
-              <p>Tutoring, scholarships, and STEM exposure to keep girls excelling in school.</p>
-              <Link href="/programs#academic-rescue" className={styles.projectLink}>Read More →</Link>
-            </div>
-          </div>
-
-          <div className={styles.projectCard}>
-            <div className={styles.projectImageWrapper}>
-              <Image src="/images/program-3.jpg" alt="Leadership & Life Skills" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
-            </div>
-            <div className={styles.projectContent}>
-              <h3>Leadership & Life Skills Academy</h3>
-              <p>Financial literacy, public speaking, digital skills and entrepreneurship training.</p>
-              <Link href="/programs#leadership" className={styles.projectLink}>Read More →</Link>
-            </div>
-          </div>
-
-          <div className={styles.projectCard}>
-            <div className={styles.projectImageWrapper}>
-              <Image src="/images/program-4.jpg" alt="Legal Advocacy" fill className={styles.projectImage} style={{ objectFit: 'cover' }} />
-            </div>
-            <div className={styles.projectContent}>
-              <h3>Legal Advocacy</h3>
-              <p>Legal literacy, rights education, and advocacy to ensure girls understand their rights and have access to justice.</p>
-              <Link href="/legal-advocacy" className={styles.projectLink}>Read More →</Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Impact in Numbers Section */}
       <section className={styles.impactSection}>
         <div className={styles.impactContent}>
@@ -146,21 +90,9 @@ export default function Home() {
           <div className={styles.impactGrid}>
             <div className={styles.impactItem}>
               <div className={styles.impactNumber}>
-                <AnimatedCounter target={1500} suffix="+" />
+                <AnimatedCounter target={56000} suffix="+" />
               </div>
               <p>Target Girls Reached</p>
-            </div>
-            <div className={styles.impactItem}>
-              <div className={styles.impactNumber}>
-                <AnimatedCounter target={15} suffix="+" />
-              </div>
-              <p>Active Partners</p>
-            </div>
-            <div className={styles.impactItem}>
-              <div className={styles.impactNumber}>
-                <AnimatedCounter target={300} suffix="+" />
-              </div>
-              <p>Parents & Care Givers</p>
             </div>
           </div>
         </div>

@@ -359,7 +359,20 @@
   padding: 3rem 5%;
   display: flex;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(248, 187, 208, 0.1) 0%, rgba(206, 147, 216, 0.1) 100%), var(--bg-color);
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.08) 0%, rgba(139, 195, 74, 0.06) 50%, rgba(76, 175, 80, 0.08) 100%), var(--bg-color);
+  position: relative;
+}
+
+.aboutSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(76, 175, 80, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(139, 195, 74, 0.1) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .aboutContainer {
@@ -369,6 +382,8 @@
   gap: 3rem;
   max-width: 1100px;
   width: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 .aboutImageWrapper {
@@ -377,21 +392,41 @@
   min-height: 450px;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(233, 30, 99, 0.15);
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.2);
+  border: 3px solid transparent;
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.3), rgba(139, 195, 74, 0.3)) border-box;
 }
 
 .aboutImage {
   object-fit: cover;
   object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.aboutImageWrapper:hover .aboutImage {
+  transform: scale(1.05);
 }
 
 .aboutTextCard {
   flex: 1;
-  background: var(--card-bg);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.9) 100%);
+  backdrop-filter: blur(10px);
   padding: 2.5rem;
   border-radius: 16px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  box-shadow: 0 4px 24px rgba(76, 175, 80, 0.15);
+  position: relative;
+}
+
+.aboutTextCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-green), var(--color-teal));
+  border-radius: 16px 16px 0 0;
 }
 
 .aboutTextCard p {
@@ -689,12 +724,27 @@
 /* ─── Support Section ─── */
 .supportSection {
   padding: 5rem 5%;
-  background: rgba(255, 255, 255, 0.02);
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.05) 0%, rgba(255, 87, 34, 0.08) 50%, rgba(255, 193, 7, 0.05) 100%);
   text-align: center;
+  position: relative;
+}
+
+.supportSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 70%, rgba(255, 193, 7, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(255, 87, 34, 0.1) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .supportSection h2 {
   margin-bottom: 3rem;
+  position: relative;
+  z-index: 2;
 }
 
 .supportGrid {
@@ -703,17 +753,56 @@
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .supportCard {
-  background: var(--card-bg);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.9) 100%);
+  backdrop-filter: blur(10px);
   padding: 2.5rem;
   border-radius: 20px;
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(255, 193, 7, 0.2);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(255, 193, 7, 0.15);
+}
+
+.supportCard:nth-child(1) {
+  border-color: rgba(76, 175, 80, 0.3);
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.15);
+}
+
+.supportCard:nth-child(1)::before {
+  background: linear-gradient(90deg, var(--color-green), var(--color-teal));
+}
+
+.supportCard:nth-child(2) {
+  border-color: rgba(33, 150, 243, 0.3);
+  box-shadow: 0 4px 20px rgba(33, 150, 243, 0.15);
+}
+
+.supportCard:nth-child(2)::before {
+  background: linear-gradient(90deg, var(--color-indigo), var(--color-lightblue));
+}
+
+.supportCard:nth-child(3) {
+  border-color: rgba(156, 39, 176, 0.3);
+  box-shadow: 0 4px 20px rgba(156, 39, 176, 0.15);
+}
+
+.supportCard:nth-child(3)::before {
+  background: linear-gradient(90deg, var(--color-purple), var(--color-pink));
+}
+
+.supportCard:nth-child(4) {
+  border-color: rgba(255, 193, 7, 0.3);
+  box-shadow: 0 4px 20px rgba(255, 193, 7, 0.15);
+}
+
+.supportCard:nth-child(4)::before {
+  background: linear-gradient(90deg, var(--color-orange), var(--color-yellow));
 }
 
 .supportCard::before {
@@ -731,7 +820,6 @@
 @media (hover: hover) {
   .supportCard:hover {
     transform: translateY(-8px) scale(1.02);
-    border-color: var(--color-lightblue);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   }
 
@@ -764,10 +852,27 @@
   text-align: center;
   max-width: 1200px;
   margin: 0 auto;
+  background: linear-gradient(135deg, rgba(63, 81, 181, 0.08) 0%, rgba(156, 39, 176, 0.06) 50%, rgba(63, 81, 181, 0.08) 100%);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(63, 81, 181, 0.1) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .ctaSection h2 {
   margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
 }
 
 .ctaSection p {
@@ -777,6 +882,8 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
+  z-index: 2;
 }
 
 /* ─── Featured Quote & Image Section ─── */

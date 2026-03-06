@@ -10,13 +10,18 @@ export default function LegalAdvocacy() {
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1 className="heading-xl">Knowing Your Rights</h1>
-          <p className={styles.heroSubtitle}>
-            Legal Advocacy & Empowerment
-          </p>
-          <p className={styles.tagline}>
-            Your Rights. Your Power. Your Protection.
-          </p>
+          <div className={styles.heroImageWrapper}>
+            <Image src="/images/legal-advocacy.jpg" alt="Legal Advocacy" fill className={styles.heroImage} style={{ objectFit: 'cover' }} priority />
+          </div>
+          <div className={styles.heroText}>
+            <h1 className="heading-xl">Knowing Your Rights</h1>
+            <p className={styles.heroSubtitle}>
+              Legal Advocacy & Empowerment
+            </p>
+            <p className={styles.tagline}>
+              Your Rights. Your Power. Your Protection.
+            </p>
+          </div>
         </div>
       </section>
 
