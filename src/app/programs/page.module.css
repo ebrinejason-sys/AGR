@@ -290,189 +290,187 @@
         border-style: solid;
         box-shadow: 0 12px 24px rgba(77, 208, 225, 0.15);
     }
-}
-}
 
-.specialItem h4 {
-    font-size: 1.2rem;
-    color: var(--color-pink);
-    margin-bottom: 1rem;
-}
-
-.specialItem p {
-    color: var(--text-muted);
-    line-height: 1.6;
-}
-
-/* Outcomes Table */
-.outcomesSection {
-    margin-bottom: 4rem;
-}
-
-.tableResponsive {
-    width: 100%;
-    overflow-x: auto;
-    margin-top: 3rem;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-}
-
-.metricsTable {
-    width: 100%;
-    min-width: 600px;
-    border-collapse: collapse;
-    background: var(--card-bg);
-}
-
-.metricsTable th {
-    background: var(--card-hover-bg);
-    color: var(--text-color);
-    text-align: left;
-    padding: 1.5rem;
-    font-weight: 600;
-    border-bottom: 2px solid var(--border-color);
-}
-
-.metricsTable td {
-    padding: 1.25rem 1.5rem;
-    color: var(--text-muted);
-    border-bottom: 1px solid var(--border-color);
-}
-
-.metricsTable tr:last-child td {
-    border-bottom: none;
-}
-
-.metricsTable tr:hover td {
-    background: rgba(255, 255, 255, 0.02);
-}
-
-/* CTA */
-.ctaSection {
-    background: linear-gradient(to bottom, transparent, rgba(74, 20, 140, 0.2));
-    width: 100%;
-    padding: 6rem 5%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.ctaSubtitle {
-    color: var(--text-muted);
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin: 1.5rem auto 3rem;
-    line-height: 1.6;
-}
-
-.actionGrid {
-    display: flex;
-    gap: 2rem;
-    max-width: 1000px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.actionBox {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 3rem;
-    border-radius: 16px;
-    flex: 1;
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.actionBox h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-}
-
-.actionBox p {
-    color: var(--text-muted);
-    margin-bottom: 2rem;
-    line-height: 1.6;
-}
-
-.btnPrimary,
-.btnSecondary {
-    padding: 1rem 3rem;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    display: inline-block;
-    transition: transform 0.3s, box-shadow 0.3s;
-    margin-top: auto;
-}
-
-.btnPrimary {
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
-    color: white;
-    box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
-}
-
-.btnPrimary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(216, 27, 96, 0.5);
-}
-
-.btnSecondary {
-    background: transparent;
-    border: 2px solid var(--color-lightblue);
-    color: var(--color-lightblue);
-}
-
-.btnSecondary:hover {
-    background: rgba(41, 182, 246, 0.1);
-    transform: translateY(-2px);
-}
-
-@media (max-width: 768px) {
-    .container {
-        overflow-x: hidden;
+    .specialItem h4 {
+        font-size: 1.2rem;
+        color: var(--color-pink);
+        margin-bottom: 1rem;
     }
 
-    .hero {
-        padding: 4.5rem 4% 2rem;
+    .specialItem p {
+        color: var(--text-muted);
+        line-height: 1.6;
     }
 
-    .introSection,
-    .realitySection,
-    .pillarsSection,
-    .corePrograms,
-    .specialSection,
+    /* Outcomes Table */
     .outcomesSection {
-        padding: 3.5rem 4%;
+        margin-bottom: 4rem;
     }
 
-    .grid2,
-    .grid3 {
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
+    .tableResponsive {
+        width: 100%;
+        overflow-x: auto;
+        margin-top: 3rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
     }
 
-    .heroGlowPink,
-    .heroGlowBlue {
-        display: none;
+    .metricsTable {
+        width: 100%;
+        min-width: 600px;
+        border-collapse: collapse;
+        background: var(--card-bg);
     }
 
-    .programCard {
+    .metricsTable th {
+        background: var(--card-hover-bg);
+        color: var(--text-color);
+        text-align: left;
         padding: 1.5rem;
+        font-weight: 600;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .metricsTable td {
+        padding: 1.25rem 1.5rem;
+        color: var(--text-muted);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .metricsTable tr:last-child td {
+        border-bottom: none;
+    }
+
+    .metricsTable tr:hover td {
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* CTA */
+    .ctaSection {
+        background: linear-gradient(to bottom, transparent, rgba(74, 20, 140, 0.2));
+        width: 100%;
+        padding: 6rem 5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .ctaSubtitle {
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 1.5rem auto 3rem;
+        line-height: 1.6;
+    }
+
+    .actionGrid {
+        display: flex;
+        gap: 2rem;
+        max-width: 1000px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .actionBox {
-        padding: 1.5rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        padding: 3rem;
+        border-radius: 16px;
+        flex: 1;
+        min-width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .pillarCard {
-        padding: 1.75rem;
+    .actionBox h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
     }
 
-    .sectionTitle {
-        font-size: 1.75rem;
+    .actionBox p {
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+        line-height: 1.6;
     }
-}
+
+    .btnPrimary,
+    .btnSecondary {
+        padding: 1rem 3rem;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: inline-block;
+        transition: transform 0.3s, box-shadow 0.3s;
+        margin-top: auto;
+    }
+
+    .btnPrimary {
+        background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+        color: white;
+        box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+    }
+
+    .btnPrimary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(216, 27, 96, 0.5);
+    }
+
+    .btnSecondary {
+        background: transparent;
+        border: 2px solid var(--color-lightblue);
+        color: var(--color-lightblue);
+    }
+
+    .btnSecondary:hover {
+        background: rgba(41, 182, 246, 0.1);
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            overflow-x: hidden;
+        }
+
+        .hero {
+            padding: 4.5rem 4% 2rem;
+        }
+
+        .introSection,
+        .realitySection,
+        .pillarsSection,
+        .corePrograms,
+        .specialSection,
+        .outcomesSection {
+            padding: 3.5rem 4%;
+        }
+
+        .grid2,
+        .grid3 {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        .heroGlowPink,
+        .heroGlowBlue {
+            display: none;
+        }
+
+        .programCard {
+            padding: 1.5rem;
+        }
+
+        .actionBox {
+            padding: 1.5rem;
+        }
+
+        .pillarCard {
+            padding: 1.75rem;
+        }
+
+        .sectionTitle {
+            font-size: 1.75rem;
+        }
+    }
