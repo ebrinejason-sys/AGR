@@ -227,7 +227,7 @@ export default function EventsPage() {
                                                     {m.type === 'image' ? (
                                                         <img src={m.url} alt={m.description || 'event media'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                                     ) : (
-                                                        <video src={m.url} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                                        <video src={m.url} playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                                     )}
                                                 </div>
                                             ))}

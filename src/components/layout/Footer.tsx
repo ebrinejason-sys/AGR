@@ -73,15 +73,7 @@ export default function Footer() {
                 {/* Footer Grid */}
                 <div className={styles.footerGrid}>
 
-                    {/* Brand & About Column */}
-                    <div className={styles.brandColumn}>
-                        <h4 className={styles.brandName}>AFRICAN GIRL RISE</h4>
-                        <p className={styles.brandTagline}>
-                            Empowering girls, transforming futures.
-                        </p>
-                    </div>
-
-                    {/* Links & Contact Column */}
+                    {/* Column 1: About & Programs */}
                     <div className={styles.linksColumn}>
                         <h4 className={styles.columnTitle}>About</h4>
                         <nav className={styles.linksList}>
@@ -90,12 +82,24 @@ export default function Footer() {
                             <Link href="/stories">Gallery</Link>
                         </nav>
 
+                        <div style={{ marginBottom: '1.5rem' }}></div>
+
                         <h4 className={styles.columnTitle}>Programs</h4>
                         <nav className={styles.linksList}>
                             <Link href="/programs">Core Programs</Link>
                             <Link href="/legal-advocacy">Legal Advocacy</Link>
                             <Link href="/events">Events</Link>
                         </nav>
+                    </div>
+
+                    {/* Column 2: Brand & Contact */}
+                    <div className={styles.brandColumn}>
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <h4 className={styles.brandName}>AFRICAN GIRL RISE</h4>
+                            <p className={styles.brandTagline}>
+                                Empowering girls, transforming futures.
+                            </p>
+                        </div>
 
                         <h4 className={styles.columnTitle}>Contact</h4>
                         <div className={styles.contactInfo}>

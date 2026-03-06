@@ -236,7 +236,7 @@
 /* ─── Mobile ─── */
 @media (max-width: 900px) {
     .footerGrid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 2rem;
         padding: 2rem 5%;
     }
@@ -246,11 +246,11 @@
     }
 
     .brandColumn {
-        order: 1;
+        order: 2;
     }
 
     .linksColumn {
-        order: 2;
+        order: 1;
     }
 }
 
@@ -264,6 +264,7 @@
     }
 
     .footerGrid {
+        grid-template-columns: 1fr 1fr;
         padding: 1.5rem 5%;
         gap: 1.5rem;
     }

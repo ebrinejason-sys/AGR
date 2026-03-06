@@ -1,5 +1,6 @@
 import styles from './page.module.css';
 import Link from 'next/link';
+import { CORE_PROGRAMS } from './data';
 
 export default function Programs() {
     return (
@@ -88,32 +89,15 @@ export default function Programs() {
             <section className={styles.corePrograms}>
                 <h2 className={styles.sectionTitle}>Core Programs</h2>
                 <div className={styles.programsGrid}>
-
-                    <div className={styles.programCard}>
-                        <h3>The Rise Room</h3>
-                        <p>School-based safe spaces providing mental health support through individual counseling, group therapy circles, trauma healing workshops, and peer support networks.</p>
-                    </div>
-
-                    <div className={styles.programCard}>
-                        <h3>Academic Rescue</h3>
-                        <p>Keeping girls in school and excelling via after-school tutoring centers, exam preparation camps, STEM workshops, and scholarship management.</p>
-                    </div>
-
-                    <div className={styles.programCard}>
-                        <h3>Leadership & Life Skills</h3>
-                        <p>Building tomorrow's leaders today with financial literacy, public speaking, digital skills bootcamps, entrepreneurship basics, and personal development planning.</p>
-                    </div>
-
-                    <div className={styles.programCard}>
-                        <h3>Health & Wellness</h3>
-                        <p>Holistic health for body and mind including SRHR education, menstrual health management, nutrition training, and access to healthcare referrals.</p>
-                    </div>
-
-                    <div className={styles.programCard}>
-                        <h3>Future Pathways</h3>
-                        <p>Bridging education to opportunity through career exposure tours, university preparation, vocational linkages, mentorship, and internship placements.</p>
-                    </div>
-
+                    {CORE_PROGRAMS.map((program) => (
+                        <div key={program.id} className={styles.programCard}>
+                            <h3>{program.title}</h3>
+                            <p style={{ marginBottom: '1rem' }}>{program.description}</p>
+                            <Link href={`/programs/${program.id}`} className={styles.readMoreLink} style={{ color: 'var(--color-pink)', fontWeight: 'bold', textDecoration: 'none' }}>
+                                Read More →
+                            </Link>
+                        </div>
+                    ))}
                 </div>
             </section>
 

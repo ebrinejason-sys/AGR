@@ -5,6 +5,8 @@ import Link from "next/link";
 import styles from "./page.module.css";
 import { Plus, Edit2, Trash2, Eye } from "lucide-react";
 
+import { CORE_PROGRAMS } from "@/app/programs/data";
+
 type Project = {
   id: string;
   title: string;
@@ -15,36 +17,7 @@ type Project = {
 };
 
 export default function ProjectsManagement() {
-  const [projects, setProjects] = useState<Project[]>([
-    {
-      id: "1",
-      title: "The Rise Room Initiative",
-      description: "School-based safe spaces providing mental health support",
-      pillarNumber: 1,
-      status: "active"
-    },
-    {
-      id: "2",
-      title: "Academic Rescue Program",
-      description: "Tutoring, scholarships, and STEM exposure",
-      pillarNumber: 2,
-      status: "active"
-    },
-    {
-      id: "3",
-      title: "Leadership & Life Skills Academy",
-      description: "Financial literacy, public speaking, digital skills",
-      pillarNumber: 3,
-      status: "active"
-    },
-    {
-      id: "4",
-      title: "Health & Wellness Program",
-      description: "SRHR education, menstrual health, nutrition",
-      pillarNumber: 4,
-      status: "active"
-    }
-  ]);
+  const [projects, setProjects] = useState<Project[]>(CORE_PROGRAMS as Project[]);
 
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Partial<Project>>({});
@@ -196,7 +169,7 @@ export default function ProjectsManagement() {
 
       <div className={styles.info}>
         <p>
-          💡 <strong>Pro Tip:</strong> Edit projects and programs to customize their descriptions, 
+          💡 <strong>Pro Tip:</strong> Edit projects and programs to customize their descriptions,
           images, and pillar assignments. These changes will be reflected across your website.
         </p>
       </div>

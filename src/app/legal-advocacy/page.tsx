@@ -11,7 +11,7 @@ export default function LegalAdvocacy() {
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <div className={styles.heroImageWrapper}>
-            <Image src="/images/legal-advocacy.jpg" alt="Legal Advocacy" fill className={styles.heroImage} style={{ objectFit: 'cover' }} priority />
+            <Image src="/images/IoD5Gp5k-1000x666.jpeg" alt="Legal Advocacy" fill className={styles.heroImage} style={{ objectFit: 'cover' }} priority />
           </div>
           <div className={styles.heroText}>
             <h1 className="heading-xl">Knowing Your Rights</h1>
@@ -39,7 +39,7 @@ export default function LegalAdvocacy() {
       <section className={styles.realitySection}>
         <div className={styles.realityContainer}>
           <h2 className="heading-lg">The Reality We Address</h2>
-          
+
           <div className={styles.realityIntro}>
             <p className={styles.highlight}>
               In Uganda, countless girls and women suffer abuse without knowing they have rights, where to turn, or that the law exists to protect them.
@@ -86,7 +86,7 @@ export default function LegalAdvocacy() {
       <section className={styles.whatWeDoSection}>
         <div className={styles.whatWeDoContainer}>
           <h2 className="heading-lg">Legal Literacy. Legal Protection. Legal Empowerment.</h2>
-          
+
           {/* Program 1 */}
           <div className={styles.programBox}>
             <div className={styles.programNumber}>01</div>

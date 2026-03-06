@@ -148,6 +148,94 @@ button {
   color: transparent;
 }
 
+/* Colorful Button Styles */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(233, 30, 99, 0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--color-teal), var(--color-lightblue));
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 188, 212, 0.4);
+}
+
+/* Colorful Card Styles */
+.card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 240, 255, 0.8));
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(233, 30, 99, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(233, 30, 99, 0.15);
+  border-color: var(--color-pink);
+}
+
+/* Gradient text utility classes */
+.gradient-pink-purple {
+  background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-teal-blue {
+  background: linear-gradient(135deg, var(--color-teal), var(--color-lightblue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-orange-yellow {
+  background: linear-gradient(135deg, var(--color-orange), var(--color-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Accent color utilities */
+.text-pink { color: var(--color-pink); }
+.text-purple { color: var(--color-purple); }
+.text-teal { color: var(--color-teal); }
+.text-orange { color: var(--color-orange); }
+.text-indigo { color: var(--color-indigo); }
+
+.bg-pink-light { background-color: var(--color-pink-light); }
+.bg-purple-light { background-color: var(--color-purple-light); }
+.bg-teal-light { background-color: var(--color-teal-light); }
+.bg-orange-light { background-color: var(--color-orange-light); }
+
+/* Border accent utilities */
+.border-pink { border-left: 4px solid var(--color-pink); }
+.border-purple { border-left: 4px solid var(--color-purple); }
+.border-teal { border-left: 4px solid var(--color-teal); }
+.border-orange { border-left: 4px solid var(--color-orange); }
+
 /* Loading spinner animation */
 @keyframes spin {
   0% {

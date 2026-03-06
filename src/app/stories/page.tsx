@@ -117,7 +117,7 @@ export default function StoriesGallery() {
                                     // eslint-disable-next-line @next/next/no-img-element
                                     <img src={item.url} alt={item.description || 'Gallery image'} className={styles.mediaPreview} />
                                 ) : (
-                                    <video src={item.url} controls className={styles.mediaPreview} />
+                                    <video src={item.url} controls playsInline className={styles.mediaPreview} />
                                 )}
                                 {item.description && <div className={styles.mediaCaption}>{item.description}</div>}
                             </div>
