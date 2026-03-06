@@ -54,7 +54,6 @@
   color: var(--color-purple);
   opacity: 0.9;
 }
-}
 
 .heroDescription {
   font-size: clamp(0.95rem, 1.8vw, 1.15rem);
