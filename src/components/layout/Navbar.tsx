@@ -76,12 +76,44 @@ export default function Navbar() {
             {/* Mobile Navigation */}
             <div className={`${styles.mobileNav} ${isOpen ? styles.open : ''}`}>
                 <nav className={styles.mobileNavLinks}>
-                    <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
-                    <Link href="/our-story" className={styles.mobileNavLink} onClick={closeMenu}>About</Link>
-                    <Link href="/programs" className={styles.mobileNavLink} onClick={closeMenu}>Programs</Link>
-                    <Link href="/events" className={styles.mobileNavLink} onClick={closeMenu}>Events</Link>
-                    <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>
-                    <button onClick={() => { setIsDonationModalOpen(true); closeMenu(); }} className={styles.mobileDonateBtn}>Donate</button>
+                    <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>
+                        🏠 Home
+                    </Link>
+
+                    {/* Mobile About Section */}
+                    <div className={styles.mobileSection}>
+                        <div className={styles.mobileSectionTitle}>About Us</div>
+                        <Link href="/our-story" className={styles.mobileNavLink} onClick={closeMenu}>
+                            📖 Who We Are
+                        </Link>
+                        <Link href="/founder" className={styles.mobileNavLink} onClick={closeMenu}>
+                            👩‍💼 Founder
+                        </Link>
+                    </div>
+
+                    {/* Mobile Programs Section */}
+                    <div className={styles.mobileSection}>
+                        <div className={styles.mobileSectionTitle}>Programs</div>
+                        <Link href="/programs" className={styles.mobileNavLink} onClick={closeMenu}>
+                            🎯 Core Programs
+                        </Link>
+                        <Link href="/legal-advocacy" className={styles.mobileNavLink} onClick={closeMenu}>
+                            ⚖️ Legal Advocacy
+                        </Link>
+                    </div>
+
+                    <Link href="/events" className={styles.mobileNavLink} onClick={closeMenu}>
+                        📅 Events
+                    </Link>
+                    <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>
+                        📞 Contact
+                    </Link>
+
+                    <div className={styles.mobileDonateContainer}>
+                        <button onClick={() => { setIsDonationModalOpen(true); closeMenu(); }} className={styles.mobileDonateBtn}>
+                            💝 Donate Now
+                        </button>
+                    </div>
                 </nav>
             </div>
 

@@ -3,7 +3,7 @@
 ## Option 1: Using Vercel Dashboard (RECOMMENDED)
 
 1. **Go to your Vercel project dashboard:**
-   - Visit: https://vercel.com/dashboard
+   - Visit: <https://vercel.com/dashboard>
    - Click on your "african-girl-rise" project
 
 2. **Navigate to Settings:**
@@ -13,58 +13,62 @@
 3. **Add each variable one at a time:**
 
 ### Flutterwave Keys
-```
+
+```text
 Name: NEXT_PUBLIC_FLUTTERWAVE_CLIENT_ID
 Value: 241b8605f297e61b6114376e
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
-```
+```text
 Name: FLUTTERWAVE_CLIENT_SECRET
 Value: FLWSECK-241b8605f297e8b7e0889e58ba30a71f-19cbf1b9a2fvt-X
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
 ### Admin Authentication
-```
+
+```text
 Name: ADMIN_AUTH_SECRET
 Value: d2fd4e6f20a35cb8182905993e36faca84e857b5447b80e7d07e5b928d209b17
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
-```
+```text
 Name: ADMIN_LOGIN_EMAIL
 Value: africangirlriseltd@gmail.com
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
 ### Email Configuration (Resend)
-```
+
+```text
 Name: RESEND_API_KEY
 Value: [Get this from https://resend.com/api-keys]
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
-```
+```text
 Name: RESEND_FROM_EMAIL
 Value: African Girl Rise <onboarding@resend.dev>
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
 ### Supabase Configuration
-```
+
+```text
 Name: NEXT_PUBLIC_SUPABASE_URL
 Value: [Get from https://supabase.com/dashboard - Settings → API]
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
-```
+```text
 Name: NEXT_PUBLIC_SUPABASE_ANON_KEY
 Value: [From Supabase dashboard - anon/public key]
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
-```
+```text
 Name: SUPABASE_SERVICE_ROLE_KEY
 Value: [From Supabase dashboard - service_role key (secret)]
 Environments: ☑ Production ☑ Preview ☑ Development
@@ -104,32 +108,33 @@ vercel env add RESEND_FROM_EMAIL
 ```
 
 After adding all variables, deploy:
+
 ```powershell
 vercel --prod
 ```
 
 ---
 
-## Missing Keys You Need to Get:
+## Missing Keys You Need to Get
 
-1. **RESEND_API_KEY**: https://resend.com/api-keys
-2. **Supabase keys**: https://supabase.com/dashboard → Your Project → Settings → API
+1. **RESEND_API_KEY**: <https://resend.com/api-keys>
+2. **Supabase keys**: <https://supabase.com/dashboard> → Your Project → Settings → API
    - NEXT_PUBLIC_SUPABASE_URL
    - NEXT_PUBLIC_SUPABASE_ANON_KEY
    - SUPABASE_SERVICE_ROLE_KEY
 
 ---
 
-## Quick Test After Deployment:
+## Quick Test After Deployment
 
 1. **Test Donations:**
-   - Visit https://www.africangirlriseltd.org/events
+   - Visit: <https://www.africangirlriseltd.org/events>
    - Try UGX donation (should ask for phone number)
    - Try USD donation (should skip phone number)
 
 2. **Test Admin Login:**
-   - Visit https://www.africangirlriseltd.org/admin/login
+   - Visit: <https://www.africangirlriseltd.org/admin/login>
    - Should send OTP via email
 
 3. **Check Vercel Logs:**
-   - If issues, check: https://vercel.com/dashboard → Deployments → Latest → Functions
+   - If issues, check: <https://vercel.com/dashboard> → Deployments → Latest → Functions

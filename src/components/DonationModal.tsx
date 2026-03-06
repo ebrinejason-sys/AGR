@@ -81,7 +81,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                                 checked={currency === 'UGX'}
                                 onChange={() => setCurrency('UGX')}
                             />
-                            <span>UGX (Mobile Money)</span>
+                            <span>🇺🇬 UGX (Mobile Money)</span>
                         </label>
                         <label className={currency === 'USD' ? styles.active : ''}>
                             <input
@@ -91,7 +91,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                                 checked={currency === 'USD'}
                                 onChange={() => setCurrency('USD')}
                             />
-                            <span>USD (Card)</span>
+                            <span>💳 USD (International Card)</span>
                         </label>
                     </div>
 
@@ -144,9 +144,9 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                     />
 
                     <p className={styles.paymentHelp}>
-                        {currency === 'UGX' 
-                            ? '💡 Mobile Money requires a reachable phone number for payment confirmation.' 
-                            : '💳 Card payments are securely processed in USD via Flutterwave.'}
+                        {currency === 'UGX'
+                            ? '🇺🇬 Mobile Money requires a reachable Ugandan phone number for payment confirmation.'
+                            : '💳 International card payments are processed securely via Flutterwave. Note: USD payments may require additional account verification.'}
                     </p>
 
                     <div className={styles.formActions}>
