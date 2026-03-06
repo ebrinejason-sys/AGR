@@ -2,7 +2,6 @@
     position: fixed;
     inset: 0;
     z-index: 1200;
-    /* iOS Safari crashes with backdrop-filter blur - removed */
     background: rgba(0, 0, 0, 0.92);
     display: flex;
     align-items: center;
@@ -10,8 +9,14 @@
     padding: 1rem;
     animation: fadeIn 0.2s ease;
     will-change: opacity;
+    /* Cross-platform improvements */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    /* Prevent background scrolling on mobile */
+    overflow: hidden;
 }
 
+/* Enhanced animations for better cross-platform support */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -31,15 +36,36 @@
     border-radius: 20px;
     padding: 2rem;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
-    animation: slideUp 0.3s ease;
+    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Cross-platform scrolling improvements */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    /* Better scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-pink) transparent;
+}
+
+.modalCard::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modalCard::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modalCard::-webkit-scrollbar-thumb {
+    background: var(--color-pink);
+    border-radius: 3px;
 }
 
 @keyframes slideUp {
     from {
         opacity: 0;
+        transform: translateY(20px) scale(0.95);
     }
     to {
         opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 
@@ -243,6 +269,7 @@
     .modalCard {
         padding: 1.5rem;
         border-radius: 16px;
+        max-height: 95vh;
     }
 
     .modalTitle {
@@ -251,13 +278,103 @@
 
     .quickAmounts {
         grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .quickAmountBtn {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+        min-height: 44px; /* iOS touch target minimum */
     }
 
     .formActions {
         grid-template-columns: 1fr;
+        gap: 0.75rem;
     }
 
     .currencySelector {
         grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .btnSubmit, .btnCancel {
+        min-height: 48px; /* Better touch targets */
+        font-size: 1rem;
+    }
+}
+
+/* Tablet styles */
+@media (min-width: 481px) and (max-width: 768px) {
+    .modalCard {
+        max-width: 480px;
+        padding: 2rem;
+    }
+
+    .quickAmounts {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Large screens */
+@media (min-width: 769px) {
+    .modalCard {
+        max-width: 540px;
+    }
+
+    .quickAmounts {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Increase touch targets for touch devices */
+    .quickAmountBtn,
+    .btnSubmit,
+    .btnCancel,
+    .modalClose {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Better spacing for touch */
+    .input,
+    .select,
+    .textarea {
+        font-size: 16px; /* Prevent zoom on iOS */
+        padding: 0.875rem;
+    }
+
+    /* Larger close button for touch */
+    .modalClose {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .modalOverlay {
+        background: rgba(0, 0, 0, 0.95);
+    }
+
+    .modalCard {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .modalOverlay,
+    .modalCard {
+        animation: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .modalOverlay {
+        display: none !important;
     }
 }
