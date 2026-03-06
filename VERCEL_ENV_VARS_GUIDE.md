@@ -14,14 +14,14 @@
 
 ### Flutterwave Keys
 ```
-Name: NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY
-Value: FLWPUBK-7be789b35694bd742506ed040929dad6-X
+Name: NEXT_PUBLIC_FLUTTERWAVE_CLIENT_ID
+Value: 241b8605f297e61b6114376e
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
 ```
-Name: FLUTTERWAVE_SECRET_KEY
-Value: FLWSECK-c12ace65ee685cd82c5a08061b888fc6-19caf686925vt-X
+Name: FLUTTERWAVE_CLIENT_SECRET
+Value: FLWSECK-241b8605f297e8b7e0889e58ba30a71f-19cbf1b9a2fvt-X
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
@@ -38,12 +38,6 @@ Value: africangirlriseltd@gmail.com
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
-```
-Name: ADMIN_LOGIN_PASSWORD
-Value: rise2026
-Environments: ☑ Production ☑ Preview ☑ Development
-```
-
 ### Email Configuration (Resend)
 ```
 Name: RESEND_API_KEY
@@ -52,14 +46,8 @@ Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
 ```
-Name: SENDER_EMAIL
-Value: onboarding@resend.dev
-Environments: ☑ Production ☑ Preview ☑ Development
-```
-
-```
-Name: CONTACT_EMAIL
-Value: africangirlriseltd@gmail.com
+Name: RESEND_FROM_EMAIL
+Value: African Girl Rise <onboarding@resend.dev>
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
@@ -93,14 +81,14 @@ Environments: ☑ Production ☑ Preview ☑ Development
 Run these commands one by one. The CLI will prompt you to enter the value:
 
 ```powershell
-# Flutterwave Public Key
-vercel env add NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY
-# When prompted, enter: FLWPUBK-7be789b35694bd742506ed040929dad6-X
+# Flutterwave Client ID
+vercel env add NEXT_PUBLIC_FLUTTERWAVE_CLIENT_ID
+# When prompted, enter: 241b8605f297e61b6114376e
 # Select: Production, Preview, Development (space to select, enter to confirm)
 
-# Flutterwave Secret Key
-vercel env add FLUTTERWAVE_SECRET_KEY
-# Enter: FLWSECK-c12ace65ee685cd82c5a08061b888fc6-19caf686925vt-X
+# Flutterwave Client Secret
+vercel env add FLUTTERWAVE_CLIENT_SECRET
+# Enter: FLWSECK-241b8605f297e8b7e0889e58ba30a71f-19cbf1b9a2fvt-X
 
 # Admin Auth Secret
 vercel env add ADMIN_AUTH_SECRET
@@ -110,16 +98,9 @@ vercel env add ADMIN_AUTH_SECRET
 vercel env add ADMIN_LOGIN_EMAIL
 # Enter: africangirlriseltd@gmail.com
 
-# Admin Login Password
-vercel env add ADMIN_LOGIN_PASSWORD
-# Enter: rise2026
-
 # Email Config
-vercel env add SENDER_EMAIL
-# Enter: onboarding@resend.dev
-
-vercel env add CONTACT_EMAIL
-# Enter: africangirlriseltd@gmail.com
+vercel env add RESEND_FROM_EMAIL
+# Enter: African Girl Rise <onboarding@resend.dev>
 ```
 
 After adding all variables, deploy:

@@ -63,7 +63,7 @@ export default function Home() {
       {/* The Reality We Face Section */}
       <section className={styles.realitySection}>
         <div className={styles.realityContainer}>
-          <h2 className="heading-lg" style={{ textAlign: "center", marginBottom: "3rem" }}>
+          <h2 className="heading-lg" style={{ textAlign: "center", marginBottom: "2rem" }}>
             The <span className="text-gradient">Reality</span> We Face
           </h2>
           <div className={styles.realityGrid}>

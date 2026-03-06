@@ -8,13 +8,13 @@
 
 .hero {
   position: relative;
-  min-height: 72vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 5% 3rem;
+  padding: 3rem 5% 2rem;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(216, 27, 96, 0.15) 0%, rgba(74, 20, 140, 0.2) 50%, rgba(3, 169, 244, 0.15) 100%), var(--bg-color);
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(156, 39, 176, 0.15) 50%, rgba(0, 188, 212, 0.1) 100%), var(--bg-color);
 }
 
 .heroContent {
@@ -34,27 +34,34 @@
 }
 
 .heroTitle {
-  font-size: clamp(2.7rem, 7vw, 4.8rem);
-  font-weight: 800;
-  letter-spacing: 0.04em;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
   line-height: 1.1;
   text-transform: uppercase;
-  color: var(--text-color);
+  background: linear-gradient(135deg, var(--color-pink), var(--color-purple), var(--color-lightblue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 .heroTagline {
-  font-size: clamp(1.1rem, 2.7vw, 1.55rem);
-  font-weight: 300;
-  letter-spacing: 0.14em;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 400;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--color-purple);
+  opacity: 0.9;
+}
 }
 
 .heroDescription {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  line-height: 1.7;
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  line-height: 1.6;
   color: var(--text-color);
-  max-width: 680px;
+  max-width: 650px;
+  opacity: 0.9;
 }
 
 .heroButtons {
@@ -83,28 +90,37 @@
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  width: min(100%, 460px);
-  min-height: 56px;
-  padding: 0.95rem 1.6rem;
-  border: 2px solid;
-  border-radius: 0;
-  background: transparent;
-  color: var(--text-color);
+  width: min(100%, 420px);
+  min-height: 52px;
+  padding: 0.9rem 1.4rem;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+  color: white;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.25s ease;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
   cursor: pointer;
   font-family: inherit;
+  box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
 }
 
-.heroButtonPrimary {
-  border-color: var(--color-white);
+.heroButtonPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
 }
 
 .heroButtonSecondary {
-  border-color: var(--color-white);
+  background: transparent;
+  border: 2px solid var(--color-purple);
+  color: var(--color-purple);
+}
+
+.heroButtonSecondary:hover {
+  background: var(--color-purple);
+  color: white;
 }
 
 .buttonArrow {
@@ -341,27 +357,28 @@
 
 /* ─── About Us Section ─── */
 .aboutSection {
-  padding: 2.5rem 5%;
+  padding: 3rem 5%;
   display: flex;
   justify-content: center;
-  background: var(--bg-color);
+  background: linear-gradient(135deg, rgba(248, 187, 208, 0.1) 0%, rgba(206, 147, 216, 0.1) 100%), var(--bg-color);
 }
 
 .aboutContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 4rem;
-  max-width: 1200px;
+  gap: 3rem;
+  max-width: 1100px;
   width: 100%;
 }
 
 .aboutImageWrapper {
   flex: 1;
   position: relative;
-  min-height: 500px;
-  border-radius: 20px;
+  min-height: 450px;
+  border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 8px 32px rgba(233, 30, 99, 0.15);
 }
 
 .aboutImage {
@@ -372,16 +389,18 @@
 .aboutTextCard {
   flex: 1;
   background: var(--card-bg);
-  padding: 3rem;
-  border-radius: 20px;
+  padding: 2.5rem;
+  border-radius: 16px;
   border: 1px solid var(--border-color);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
 }
 
 .aboutTextCard p {
   color: var(--text-color);
   line-height: 1.6;
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
 }
 
 /* ─── Projects Section ─── */
@@ -564,8 +583,8 @@
 
 /* ─── Reality Section ─── */
 .realitySection {
-  padding: 3.5rem 5%;
-  background: rgba(255, 255, 255, 0.01);
+  padding: 3rem 5%;
+  background: linear-gradient(135deg, rgba(206, 147, 216, 0.05) 0%, rgba(0, 188, 212, 0.05) 100%), var(--bg-color);
 }
 
 .realityContainer {
@@ -575,43 +594,46 @@
 
 .realityGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
 .realityCard {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--card-bg);
   padding: 2rem 1.5rem;
   border-radius: 16px;
   border: 1px solid var(--border-color);
   text-align: center;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
 }
 
 @media (hover: hover) {
   .realityCard:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     border-color: var(--color-purple);
     background: var(--card-hover-bg);
-    box-shadow: 0 10px 30px rgba(74, 20, 140, 0.1);
+    box-shadow: 0 8px 24px rgba(156, 39, 176, 0.15);
   }
 }
 
 .realityCard h3 {
-  font-size: 2.2rem;
-  font-weight: 800;
+  font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 0.75rem;
   font-family: var(--font-serif);
-  color: var(--color-pink);
+  background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 .realityCard p {
   color: var(--text-color);
   line-height: 1.5;
-  font-size: 0.95rem;
-  opacity: 0.9;
+  font-size: 0.9rem;
+  opacity: 0.85;
 }
 
 /* ─── Impact In Numbers Section ─── */

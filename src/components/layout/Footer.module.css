@@ -1,6 +1,6 @@
 .footer {
     position: relative;
-    background: var(--bg-color);
+    background: linear-gradient(135deg, var(--color-pink-light) 0%, var(--color-purple-light) 50%, var(--color-lightblue) 100%);
     margin-top: auto;
     padding-bottom: max(env(safe-area-inset-bottom), 0px);
     overflow: hidden;
@@ -10,7 +10,7 @@
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 3.5rem 5% 1.5rem;
+    padding: 1.5rem 5% 1rem;
     z-index: 2;
 }
 
@@ -20,50 +20,49 @@
     content: '';
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.15;
+    filter: blur(80px);
+    opacity: 0.1;
     z-index: 0;
     pointer-events: none;
 }
 
 .footer::before {
-    top: -100px;
-    left: -100px;
-    width: 400px;
-    height: 400px;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
     background: var(--color-pink);
 }
 
 .footer::after {
-    bottom: -150px;
-    right: -100px;
-    width: 500px;
-    height: 500px;
+    bottom: -50px;
+    right: -50px;
+    width: 250px;
+    height: 250px;
     background: var(--color-lightblue);
 }
 
 /* ─── Footer Grid ─── */
 .footerGrid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1.5fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 /* Brand Column & Newsletter */
 .brandColumn {
     display: flex;
     flex-direction: column;
-    padding-right: 2rem;
 }
 
 .brandName {
-    font-size: 1.8rem;
-    font-weight: 800;
+    font-size: 1.5rem;
+    font-weight: 700;
     font-family: var(--font-sans);
-    letter-spacing: 0.15em;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple), var(--color-lightblue));
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -72,68 +71,68 @@
 
 .brandTagline {
     color: var(--text-color);
-    font-size: 1.1rem;
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
     font-style: italic;
     font-family: var(--font-serif);
-    opacity: 0.85;
+    opacity: 0.8;
 }
 
 .newsletterSection {
-    background: var(--card-bg);
+    background: rgba(255, 255, 255, 0.9);
     border: 1px solid var(--border-color);
-    padding: 1.5rem;
-    border-radius: 16px;
-    max-width: 450px;
+    padding: 1rem;
+    border-radius: 12px;
+    max-width: 100%;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
 
 .newsletterDesc {
     color: var(--text-color);
-    font-size: 0.95rem;
-    margin-bottom: 1.25rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
 }
 
 .inputRow {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.3rem;
     align-items: stretch;
 }
 
 .input {
     flex: 1;
-    padding: 0.85rem 1.2rem;
-    border-radius: 10px;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
     border: 1px solid var(--border-color);
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.8);
     color: var(--text-color);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-family: inherit;
     outline: none;
     transition: all 0.3s ease;
 }
 
 [data-theme="dark"] .input {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .input:focus {
     border-color: var(--color-pink);
-    box-shadow: 0 0 0 3px rgba(216, 27, 96, 0.15);
+    box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.2);
 }
 
 .subscribeBtn {
-    padding: 0.85rem 1.75rem;
-    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
     background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
     color: white;
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
     border: none;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.3s ease;
@@ -141,44 +140,44 @@
 }
 
 .subscribeBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(216, 27, 96, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
 }
 
 .successMsg {
-    color: #10b981;
-    font-size: 0.85rem;
-    margin-top: 0.75rem;
+    color: #4caf50;
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
     font-weight: 500;
 }
 
 .errorMsg {
-    color: #ef4444;
-    font-size: 0.85rem;
-    margin-top: 0.75rem;
+    color: #f44336;
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
     font-weight: 500;
 }
 
 /* Links & Contact */
 .columnTitle {
     font-family: var(--font-serif);
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 1.2rem;
+    font-weight: 600;
     color: var(--text-color);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     position: relative;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
 }
 
 .linksList {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 0.8rem;
 }
 
 .linksList a {
     color: var(--text-muted);
-    font-size: 1rem;
+    font-size: 0.9rem;
     transition: all 0.2s ease;
     text-decoration: none;
     display: inline-block;
@@ -186,24 +185,24 @@
 
 .linksList a:hover {
     color: var(--color-pink);
-    transform: translateX(4px);
+    transform: translateX(2px);
 }
 
 .contactInfo p {
     color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.8;
-    margin-bottom: 1.2rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
 }
 
 .contactInfo strong {
     color: var(--text-color);
-    font-weight: 700;
+    font-weight: 600;
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.3rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.2rem;
     opacity: 0.9;
 }
 
@@ -211,61 +210,58 @@
 .divider {
     height: 1px;
     background: var(--border-color);
-    margin-bottom: 2.5rem;
+    margin-bottom: 1rem;
     background: linear-gradient(90deg, transparent, var(--border-color), transparent);
 }
 
 .bottomBar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
 .copyright {
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .mission {
     color: var(--color-lightblue);
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 
 /* ─── Mobile ─── */
 @media (max-width: 900px) {
     .footerGrid {
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
     .brandColumn {
-        grid-column: 1 / -1;
-        padding-right: 0;
+        order: -1;
     }
 }
 
 @media (max-width: 600px) {
     .footerInner {
-        padding: 4rem 5% 2rem;
+        padding: 2rem 5% 1rem;
     }
 
     .footerGrid {
-        grid-template-columns: 1fr;
-        gap: 3.5rem;
+        gap: 1.5rem;
     }
 
     .newsletterSection {
-        max-width: 100%;
-        padding: 1.5rem;
+        padding: 1rem;
     }
 
     .inputRow {
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 0.5rem;
     }
 
     .subscribeBtn {
@@ -275,6 +271,6 @@
     .bottomBar {
         flex-direction: column;
         text-align: center;
-        gap: 1.5rem;
+        gap: 0.5rem;
     }
 }
