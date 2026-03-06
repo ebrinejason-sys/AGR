@@ -1,3 +1,4 @@
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -8,80 +9,100 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
+/* Logo */
 .logoLink {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     text-decoration: none;
     z-index: 1001;
 }
 
 .logoImage {
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .brandName {
     font-weight: 800;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
     color: var(--text-color);
 }
 
+.brandNameShort {
+    display: none;
+}
+
+/* Desktop Navigation */
 .desktopNav {
     display: flex;
-    gap: 1.5rem;
-    font-weight: 500;
-    font-size: 0.9rem;
+    align-items: center;
+    gap: 2rem;
 }
 
 .navLink {
     color: var(--text-color);
-    transition: color 0.3s;
     text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.navLink::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-pink), var(--color-purple));
+    transition: width 0.3s ease;
 }
 
 @media (hover: hover) {
     .navLink:hover {
-        color: var(--color-lightblue);
+        color: var(--color-pink);
+    }
+
+    .navLink:hover::after {
+        width: 100%;
     }
 }
 
-/* Dropdown Menu Styles */
+/* Dropdown Menu */
 .dropdown {
     position: relative;
-    display: flex;
-    align-items: center;
 }
 
 .dropbtn {
     background: none;
     border: none;
     color: var(--text-color);
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
     cursor: pointer;
     font-family: inherit;
     display: flex;
     align-items: center;
     gap: 0.25rem;
-    transition: color 0.3s;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
 }
 
 .chevron {
-    font-size: 0.6rem;
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
 }
 
 .dropdown:hover .dropbtn {
-    color: var(--color-lightblue);
+    color: var(--color-pink);
 }
 
 .dropdown:hover .chevron {
@@ -93,104 +114,124 @@
     top: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(10px);
-    background: var(--nav-bg);
-    min-width: 160px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    min-width: 180px;
     border-radius: 12px;
-    padding: 0.5rem 0;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
-/* Invisible robust hover bridge to prevent dropdown collapse */
 .dropdownContent::before {
     content: '';
     position: absolute;
-    top: -15px;
-    left: 0;
-    right: 0;
-    height: 15px;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid var(--card-bg);
 }
 
 .dropdown:hover .dropdownContent {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(5px);
+    transform: translateX(-50%) translateY(0);
 }
 
 .dropdownLink {
     color: var(--text-color);
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 1.25rem;
     text-decoration: none;
     display: block;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.85rem;
-    white-space: nowrap;
-    transition: background-color 0.2s, color 0.2s;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    margin: 0.25rem;
 }
 
 .dropdownLink:hover {
-    background-color: var(--nav-hover-bg);
+    background: var(--nav-hover-bg);
     color: var(--color-pink);
+    transform: translateX(2px);
 }
 
+/* Donate Button */
 .donateBtn {
     background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
-    color: var(--color-white);
-    padding: 0.5rem 1.2rem;
-    border-radius: 50px;
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: 25px;
     font-weight: 600;
-    text-decoration: none;
-    transition: opacity 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+    font-size: 0.85rem;
     border: none;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 
 @media (hover: hover) {
     .donateBtn:hover {
-        opacity: 0.9;
-        box-shadow: 0 6px 20px rgba(216, 27, 96, 0.5);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
     }
 }
 
-.themeToggleWrapper {
-    margin-left: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-.mobileThemeToggleWrapper {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-}
-
+/* Mobile Menu Toggle */
 .mobileToggle {
     display: none;
     background: none;
     border: none;
     color: var(--text-color);
     cursor: pointer;
-    z-index: 1001;
     padding: 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
 }
 
-.mobileNavOverlay {
+@media (hover: hover) {
+    .mobileToggle:hover {
+        background: var(--nav-hover-bg);
+    }
+}
+
+/* Mobile Navigation Overlay */
+.mobileOverlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100dvh;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+}
+
+.mobileOverlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Mobile Navigation */
+.mobileNav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100dvh;
-    background: var(--nav-bg);
-
-
+    background: var(--card-bg);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -199,10 +240,9 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease-in-out;
-
 }
 
-.mobileNavOverlay.open {
+.mobileNav.open {
     opacity: 1;
     pointer-events: auto;
 }
@@ -216,10 +256,11 @@
 
 .mobileNavLink {
     color: var(--text-color);
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: 600;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 0.2s ease;
+    padding: 0.5rem 1rem;
 }
 
 @media (hover: hover) {
@@ -229,20 +270,29 @@
 }
 
 .mobileDonateBtn {
-    font-size: 1.5rem;
     background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
-    color: var(--color-white);
-    padding: 1rem 3rem;
+    color: white;
+    padding: 1rem 2rem;
     border-radius: 50px;
     font-weight: 600;
-    text-decoration: none;
+    font-size: 1.2rem;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
-    transition: box-shadow 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 1rem;
 }
 
-/* Media Queries for responsive behavior */
+@media (hover: hover) {
+    .mobileDonateBtn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+    }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .desktopNav {
         display: none;
@@ -252,21 +302,31 @@
         display: block;
     }
 
-    /* Make navbar fully opaque on mobile to prevent iOS compositing on scroll */
-    .header {
-        background: var(--bg-color);
+    .brandName {
+        display: none;
     }
 
-    @media (hover: hover) {
+    .brandNameShort {
+        display: block;
+        font-weight: 800;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        color: var(--text-color);
+    }
 
-        .donateBtn:hover,
-        .mobileDonateBtn:hover {
-            transform: none;
-            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
-        }
+    .header {
+        padding: 0.75rem 5%;
+        background: var(--bg-color);
+    }
+}
 
-        .navLink:hover {
-            color: var(--text-color);
-        }
+@media (max-width: 480px) {
+    .mobileSidebar {
+        width: 280px;
+        right: -280px;
+    }
+
+    .header {
+        padding: 0.75rem 4%;
     }
 }

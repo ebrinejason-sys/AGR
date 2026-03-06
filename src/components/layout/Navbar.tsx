@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import styles from './Navbar.module.css';
 import DonationModal from '../DonationModal';
 
@@ -29,55 +29,59 @@ export default function Navbar() {
     return (
         <header className={styles.header}>
             <Link href="/" className={styles.logoLink} onClick={closeMenu}>
-                <Image src="/logo.png" alt="African Girl Rise Logo" width={40} height={40} priority className={styles.logoImage} />
+                <Image src="/logo.png" alt="African Girl Rise Logo" width={36} height={36} priority className={styles.logoImage} />
                 <span className={styles.brandName}>AFRICAN GIRL RISE</span>
+                <span className={styles.brandNameShort}>AGR</span>
             </Link>
 
             {/* Desktop Navigation */}
             <nav className={styles.desktopNav}>
-                <Link href="/" className={styles.navLink}>HOME</Link>
+                <Link href="/" className={styles.navLink}>Home</Link>
 
                 {/* About Dropdown */}
                 <div className={styles.dropdown}>
-                    <button className={styles.dropbtn}>ABOUT <span className={styles.chevron}>▼</span></button>
+                    <button className={styles.dropbtn}>
+                        About <ChevronDown size={14} className={styles.chevron} />
+                    </button>
                     <div className={styles.dropdownContent}>
                         <Link href="/our-story" className={styles.dropdownLink}>Who We Are</Link>
                         <Link href="/founder" className={styles.dropdownLink}>Founder</Link>
-                        <Link href="/stories" className={styles.dropdownLink}>Gallery</Link>
                     </div>
                 </div>
 
-                {/* Impact Dropdown */}
+                {/* Programs Dropdown */}
                 <div className={styles.dropdown}>
-                    <button className={styles.dropbtn}>IMPACT <span className={styles.chevron}>▼</span></button>
+                    <button className={styles.dropbtn}>
+                        Programs <ChevronDown size={14} className={styles.chevron} />
+                    </button>
                     <div className={styles.dropdownContent}>
-                        <Link href="/programs" className={styles.dropdownLink}>Our Work</Link>
+                        <Link href="/programs" className={styles.dropdownLink}>Core Programs</Link>
                         <Link href="/legal-advocacy" className={styles.dropdownLink}>Legal Advocacy</Link>
                     </div>
                 </div>
 
-                <Link href="/events" className={styles.navLink}>EVENTS</Link>
-                <Link href="/contact" className={styles.navLink}>CONTACT</Link>
-                <button onClick={() => setIsDonationModalOpen(true)} className={styles.donateBtn}>DONATE</button>
+                <Link href="/events" className={styles.navLink}>Events</Link>
+                <Link href="/contact" className={styles.navLink}>Contact</Link>
+                <button onClick={() => setIsDonationModalOpen(true)} className={styles.donateBtn}>Donate</button>
             </nav>
 
             {/* Mobile Menu Toggle */}
             <button className={styles.mobileToggle} onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
-                {isOpen ? <X size={28} /> : <Menu size={28} />}
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
 
             {/* Mobile Navigation Overlay */}
-            <div className={`${styles.mobileNavOverlay} ${isOpen ? styles.open : ''}`}>
+            <div className={`${styles.mobileOverlay} ${isOpen ? styles.active : ''}`} onClick={closeMenu}></div>
+
+            {/* Mobile Navigation */}
+            <div className={`${styles.mobileNav} ${isOpen ? styles.open : ''}`}>
                 <nav className={styles.mobileNavLinks}>
-                    <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>HOME</Link>
-                    <Link href="/our-story" className={styles.mobileNavLink} onClick={closeMenu}>WHO WE ARE</Link>
-                    <Link href="/founder" className={styles.mobileNavLink} onClick={closeMenu}>FOUNDER</Link>
-                    <Link href="/programs" className={styles.mobileNavLink} onClick={closeMenu}>OUR WORK</Link>
-                    <Link href="/events" className={styles.mobileNavLink} onClick={closeMenu}>EVENTS</Link>
-                    <Link href="/stories" className={styles.mobileNavLink} onClick={closeMenu}>GALLERY</Link>
-                    <Link href="/legal-advocacy" className={styles.mobileNavLink} onClick={closeMenu}>LEGAL ADVOCACY</Link>
-                    <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>CONTACT</Link>
-                    <button onClick={() => { setIsDonationModalOpen(true); closeMenu(); }} className={styles.mobileDonateBtn}>DONATE</button>
+                    <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
+                    <Link href="/our-story" className={styles.mobileNavLink} onClick={closeMenu}>About</Link>
+                    <Link href="/programs" className={styles.mobileNavLink} onClick={closeMenu}>Programs</Link>
+                    <Link href="/events" className={styles.mobileNavLink} onClick={closeMenu}>Events</Link>
+                    <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>
+                    <button onClick={() => { setIsDonationModalOpen(true); closeMenu(); }} className={styles.mobileDonateBtn}>Donate</button>
                 </nav>
             </div>
 
