@@ -21,6 +21,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -29,7 +30,7 @@
 .modalCard {
     width: 100%;
     max-width: 540px;
-    max-height: 90vh;
+    max-height: 90dvh;
     overflow-y: auto;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
@@ -63,6 +64,7 @@
         opacity: 0;
         transform: translateY(20px) scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -73,9 +75,9 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -117,7 +119,7 @@
 .donateForm {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
 }
 
 .currencySelector {
@@ -134,7 +136,7 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.9rem 1rem;
+    padding: 0.75rem 0.5rem;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -267,9 +269,9 @@
 
 @media (max-width: 480px) {
     .modalCard {
-        padding: 1.5rem;
-        border-radius: 16px;
-        max-height: 95vh;
+        padding: 1.25rem;
+        border-radius: 12px;
+        max-height: 90dvh;
     }
 
     .modalTitle {
@@ -284,7 +286,8 @@
     .quickAmountBtn {
         padding: 0.75rem;
         font-size: 0.9rem;
-        min-height: 44px; /* iOS touch target minimum */
+        min-height: 44px;
+        /* iOS touch target minimum */
     }
 
     .formActions {
@@ -297,8 +300,10 @@
         gap: 0.75rem;
     }
 
-    .btnSubmit, .btnCancel {
-        min-height: 48px; /* Better touch targets */
+    .btnSubmit,
+    .btnCancel {
+        min-height: 48px;
+        /* Better touch targets */
         font-size: 1rem;
     }
 }
@@ -328,6 +333,7 @@
 
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
+
     /* Increase touch targets for touch devices */
     .quickAmountBtn,
     .btnSubmit,
@@ -341,7 +347,8 @@
     .input,
     .select,
     .textarea {
-        font-size: 16px; /* Prevent zoom on iOS */
+        font-size: 16px;
+        /* Prevent zoom on iOS */
         padding: 0.875rem;
     }
 
@@ -366,6 +373,7 @@
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
+
     .modalOverlay,
     .modalCard {
         animation: none;

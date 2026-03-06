@@ -30,7 +30,7 @@
 /* ─── Founder Section ─── */
 .founderSection {
     padding: 4rem 5%;
-    background: rgba(255, 255, 255, 0.02);
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.08) 0%, rgba(255, 193, 7, 0.08) 100%), var(--bg-color);
 }
 
 .founderContainer {
@@ -108,7 +108,7 @@
 /* ─── Story Section ─── */
 .storySection {
     padding: 4rem 5%;
-    background: var(--bg-color);
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(0, 150, 136, 0.1) 100%), var(--bg-color);
 }
 
 .storyContainer {
@@ -186,7 +186,7 @@
 /* ─── Mission Section ─── */
 .missionSection {
     padding: 4rem 5%;
-    background: rgba(255, 255, 255, 0.02);
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.08) 0%, rgba(233, 30, 99, 0.1) 100%), var(--bg-color);
 }
 
 .missionContainer {
@@ -232,7 +232,7 @@
     font-size: 0.95rem;
 }
 
-.missionCard p + p {
+.missionCard p+p {
     margin-top: 1rem;
 }
 

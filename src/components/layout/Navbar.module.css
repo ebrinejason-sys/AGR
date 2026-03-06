@@ -6,8 +6,10 @@
     padding: 1rem 5%;
     background: var(--nav-bg);
     border-bottom: 1px solid var(--border-color);
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
@@ -227,14 +229,17 @@
 /* Mobile Navigation */
 .mobileNav {
     position: fixed;
-    top: 70px; /* Position below the header */
+    top: 70px;
+    /* Position below the header */
     left: 0;
     width: 100%;
-    height: calc(100dvh - 70px); /* Fill remaining screen height */
+    height: calc(100dvh - 70px);
+    /* Fill remaining screen height */
     background: var(--card-bg);
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Start from top */
+    justify-content: flex-start;
+    /* Start from top */
     align-items: center;
     z-index: 1000;
     opacity: 0;
@@ -392,7 +397,8 @@
         padding: 0.875rem 1rem;
         border-radius: 8px;
         transition: all 0.2s ease;
-        min-height: 44px; /* iOS touch target */
+        min-height: 44px;
+        /* iOS touch target */
         font-size: 1rem;
         background: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -466,6 +472,7 @@
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
+
     .mobileNavLink,
     .mobileDonateBtn {
         transition: none;
