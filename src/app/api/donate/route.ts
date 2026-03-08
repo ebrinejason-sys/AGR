@@ -22,11 +22,11 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Phone number required for Mobile Money payments' }, { status: 400 });
         }
 
-        if (!process.env.FLUTTERWAVE_SECRET_KEY) {
-            return NextResponse.json({ error: 'Payment service not configured. Set FLUTTERWAVE_SECRET_KEY in Vercel.' }, { status: 503 });
-        }
+        const secretKey = process.env.FLUTTERWAVE_SECRET_KEY;
 
-        const flutterwaveUrl = "https://api.flutterwave.com/v3/payments";
+        if (!secretKey) {
+            return NextResponse.json({ error: 'Payment service not configured. Set FLUTTERWAVE_SECRET_KEY in environment variables.' }, { status: 503 });
+        }
 
         const payload: Record<string, unknown> = {
             tx_ref: `agr_${Date.now()}_${eventId || 'gen'}`,
@@ -35,13 +35,13 @@ export async function POST(req: Request) {
             redirect_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://africangirlriseltd.org'}/events?donation=success`,
             customer: {
                 email,
-                name: name || "Anonymous Donor",
+                name: name || 'Anonymous Donor',
                 phonenumber: phoneNumber || undefined
             },
             customizations: {
-                title: "African Girl Rise",
-                description: "Donation to break the cycle of poverty",
-                logo: "https://africangirlriseltd.org/logo.png"
+                title: 'African Girl Rise',
+                description: 'Donation to break the cycle of poverty',
+                logo: 'https://africangirlriseltd.org/logo.png'
             },
             // Configure payment options based on currency
             ...(currency === 'UGX' && {
@@ -53,27 +53,27 @@ export async function POST(req: Request) {
             })
         };
 
-        const response = await fetch(flutterwaveUrl, {
-            method: "POST",
+        const response = await fetch('https://api.flutterwave.com/v3/payments', {
+            method: 'POST',
             headers: {
-                Authorization: `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
-                "Content-Type": "application/json",
+                Authorization: `Bearer ${secretKey}`,
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload),
         });
 
         const data = await response.json();
-
         const paymentUrl = data?.data?.link;
-        if (!response.ok || data.status !== "success" || !paymentUrl) {
-            console.error("Flutterwave API Error:", data);
+
+        if (!response.ok || data.status !== 'success' || !paymentUrl) {
+            console.error('Flutterwave V3 API Error:', data);
             return NextResponse.json({ error: 'Payment initialization failed', details: data }, { status: 500 });
-        } else {
-            return NextResponse.json({ paymentUrl });
         }
 
+        return NextResponse.json({ paymentUrl });
+
     } catch (error) {
-        console.error("Donation API Error:", error);
+        console.error('Donation API Error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 }

@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { ADMIN_SESSION_COOKIE } from '@/lib/admin-constants';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
-    
+
     // Only process admin routes
     if (!pathname.startsWith('/admin')) {
         return NextResponse.next();
