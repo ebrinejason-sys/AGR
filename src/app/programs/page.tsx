@@ -1,6 +1,6 @@
 import styles from './page.module.css';
 import Link from 'next/link';
-import { CORE_PROGRAMS } from './data';
+import { CORE_PROGRAMS, PILLARS } from './data';
 
 export default function Programs() {
     return (
@@ -13,7 +13,7 @@ export default function Programs() {
                 <p className={styles.subtitle}>
                     Empowering Girls to Transcend Background and Build Brighter Futures
                 </p>
-                <p className={styles.slogan}>Your story isn't over. It's just getting powerful.</p>
+                <p className={styles.slogan}>Your story isn&apos;t over. It&apos;s just getting powerful.</p>
             </section>
 
             {/* Introduction / Investing in Resilience */}
@@ -21,7 +21,7 @@ export default function Programs() {
                 <div className={styles.textContainer}>
                     <h2 className={styles.sectionTitle}>Investing in Resilience</h2>
                     <p>A Girl Defined by Rise Initiative presents a transformative investment in the adolescent girls of Kiburara and surrounding communities. This school-based program directly confronts the interconnected crises of mental health deterioration, school dropouts, academic failure, and early pregnancies.</p>
-                    <p>By funding this initiative, you are not simply addressing symptoms; you are investing in the architects of Kiburara's future—the women who will lead, heal, teach, and innovate precisely because they learned to rise.</p>
+                    <p>By funding this initiative, you are not simply addressing symptoms; you are investing in the architects of Kiburara&apos;s future—the women who will lead, heal, teach, and innovate precisely because they learned to rise.</p>
                 </div>
             </section>
 
@@ -48,40 +48,29 @@ export default function Programs() {
                 </div>
             </section>
 
-            {/* The Three Pillars Framework */}
+            {/* The Four Pillars Framework */}
             <section className={styles.pillarsSection}>
-                <h2 className={styles.sectionTitle}>Our Framework: The Three Pillars</h2>
-                <div className={styles.grid3}>
-                    <div className={styles.pillarCard}>
-                        <div className={styles.pillarIcon}>01</div>
-                        <h3>Healing the Ground</h3>
-                        <p className={styles.pillarSubtitle}>Because you cannot rise from broken ground.</p>
-                        <ul>
-                            <li>Safe spaces for therapy and peer support</li>
-                            <li>Trauma-informed counseling</li>
-                            <li>Resilience and emotional intelligence curriculum</li>
-                        </ul>
-                    </div>
-                    <div className={styles.pillarCard}>
-                        <div className={styles.pillarIcon}>02</div>
-                        <h3>Building the Ladder</h3>
-                        <p className={styles.pillarSubtitle}>Because rising requires tangible steps.</p>
-                        <ul>
-                            <li>Academic Rescue (Tutoring & Scholarships)</li>
-                            <li>Essential Support Packages (Sanitary care, supplies)</li>
-                            <li>Digital Literacy Labs</li>
-                        </ul>
-                    </div>
-                    <div className={styles.pillarCard}>
-                        <div className={styles.pillarIcon}>03</div>
-                        <h3>Reaching New Altitudes</h3>
-                        <p className={styles.pillarSubtitle}>Because rising should lead to sustained elevation.</p>
-                        <ul>
-                            <li>Future Pathways & Career Mentorship</li>
-                            <li>Rise Leadership Council</li>
-                            <li>"My Rise Plan" vision development</li>
-                        </ul>
-                    </div>
+                <h2 className={styles.sectionTitle}>Our Framework: The Four Pillars</h2>
+                <div className={styles.grid4}>
+                    {PILLARS.map((pillar) => (
+                        <div key={pillar.id} className={styles.pillarCard}>
+                            <div className={styles.pillarIcon}>{pillar.number}</div>
+                            <h3>{pillar.title}</h3>
+                            <p className={styles.pillarSubtitle}>{pillar.subtitle}</p>
+                            <ul>
+                                {pillar.items.map((item, i) => (
+                                    <li key={i}>{item}</li>
+                                ))}
+                            </ul>
+                            <Link
+                                href={pillar.linkTo}
+                                className={styles.readMoreLink}
+                                style={{ color: 'var(--color-lightblue)', fontWeight: 'bold', textDecoration: 'none', display: 'inline-block', marginTop: '1rem' }}
+                            >
+                                Learn More →
+                            </Link>
+                        </div>
+                    ))}
                 </div>
             </section>
 
@@ -151,7 +140,7 @@ export default function Programs() {
                                 <td>&lt;10%</td>
                             </tr>
                             <tr>
-                                <td>Girls with Documented "Rise Plan"</td>
+                                <td>Girls with Documented &quot;Rise Plan&quot;</td>
                                 <td>0%</td>
                                 <td>100%</td>
                             </tr>
@@ -185,7 +174,7 @@ export default function Programs() {
                     </div>
                     <div className={styles.actionBox}>
                         <h3>Partner With Us</h3>
-                        <p>Bring your organization's resources, expertise, or vocational pathways to scale our impact.</p>
+                        <p>Bring your organization&apos;s resources, expertise, or vocational pathways to scale our impact.</p>
                         <Link href="/contact" className={styles.btnSecondary}>Contact Us</Link>
                     </div>
                 </div>

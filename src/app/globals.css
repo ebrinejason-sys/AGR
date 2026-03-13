@@ -50,10 +50,10 @@
 html,
 body {
   max-width: 100vw;
+  min-height: 100vh;
   min-height: 100dvh;
-  overflow-x: clip;
+  overflow-x: hidden;
   background: linear-gradient(135deg, rgba(233, 30, 99, 0.04) 0%, rgba(156, 39, 176, 0.04) 33%, rgba(0, 188, 212, 0.04) 66%, rgba(76, 175, 80, 0.04) 100%), var(--bg-color);
-  background-attachment: fixed;
   color: var(--text-color);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;

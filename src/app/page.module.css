@@ -410,6 +410,7 @@
 .aboutTextCard {
   flex: 1;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.9) 100%);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding: 2.5rem;
   border-radius: 16px;
@@ -759,6 +760,7 @@
 
 .supportCard {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.9) 100%);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding: 2.5rem;
   border-radius: 20px;

@@ -147,6 +147,27 @@
     margin-top: 3rem;
 }
 
+.grid4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.readMoreLink {
+    display: inline-block;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: opacity 0.2s ease;
+}
+
+@media (hover: hover) {
+    .readMoreLink:hover {
+        opacity: 0.75;
+    }
+}
+
 .pillarCard {
     background: linear-gradient(145deg, var(--bg-color), var(--card-hover-bg));
     border: 1px solid var(--border-color);
@@ -449,7 +470,8 @@
     }
 
     .grid2,
-    .grid3 {
+    .grid3,
+    .grid4 {
         grid-template-columns: 1fr;
         gap: 1.25rem;
     }

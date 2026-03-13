@@ -1,21 +1,81 @@
 import Link from 'next/link';
-import styles from '../page.module.css';
-import { CORE_PROGRAMS } from '../data';
+import { PROGRAM_DETAIL_MAP } from '../programDetailData';
+import type { SubSection, Section } from '../programDetailData';
+import styles from '../programDetail.module.css';
 
-export default async function ProgramPage({
+function SubSectionCard({ sub }: { sub: SubSection }) {
+    if (!sub.title && sub.paragraphs?.length === 1 && !sub.bullets && !sub.impact) {
+        return <p className={styles.sectionParagraph}>{sub.paragraphs[0]}</p>;
+    }
+
+    return (
+        <div className={styles.subsectionCard}>
+            {sub.title && <h4 className={styles.subsectionTitle}>{sub.title}</h4>}
+            {sub.quote && <p className={styles.subsectionQuote}>&ldquo;{sub.quote}&rdquo;</p>}
+            {sub.paragraphs?.map((p, i) => <p key={i}>{p}</p>)}
+            {sub.bullets && (
+                <ul className={styles.bulletList}>
+                    {sub.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                </ul>
+            )}
+            {sub.checkmarks && (
+                <ul className={styles.checkmarkList}>
+                    {sub.checkmarks.map((c, i) => <li key={i}>{c}</li>)}
+                </ul>
+            )}
+            {sub.impact && sub.impact.length > 0 && (
+                <div className={styles.impactBadges}>
+                    {sub.impact.map((imp, i) => (
+                        <span key={i} className={styles.impactBadge}>{imp}</span>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
+
+function ContentSection({ section }: { section: Section }) {
+    return (
+        <section className={styles.section}>
+            <h3 className={styles.sectionTitle}>{section.title}</h3>
+            {section.paragraphs?.map((p, i) => (
+                <p key={i} className={styles.sectionParagraph}>{p}</p>
+            ))}
+            {section.bullets && (
+                <ul className={styles.bulletList}>
+                    {section.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                </ul>
+            )}
+            {section.checkmarks && (
+                <ul className={styles.checkmarkList}>
+                    {section.checkmarks.map((c, i) => <li key={i}>{c}</li>)}
+                </ul>
+            )}
+            {section.subsections && section.subsections.length > 0 && (
+                <div className={styles.subsectionsGrid}>
+                    {section.subsections.map((sub, i) => (
+                        <SubSectionCard key={i} sub={sub} />
+                    ))}
+                </div>
+            )}
+        </section>
+    );
+}
+
+export default async function ProgramDetailPage({
     params,
 }: {
     params: Promise<{ id: string }>
 }) {
     const { id } = await params;
-    const program = CORE_PROGRAMS.find(p => p.id === id);
+    const detail = PROGRAM_DETAIL_MAP[id];
 
-    if (!program) {
+    if (!detail) {
         return (
             <div className={styles.container} style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ textAlign: 'center' }}>
                     <h2>Program not found</h2>
-                    <Link href="/programs" className={styles.btnSecondary} style={{ marginTop: '1rem', display: 'inline-block' }}>Back to Programs</Link>
+                    <Link href="/programs" className={styles.btnBack} style={{ marginTop: '1rem', display: 'inline-flex' }}>← Back to Programs</Link>
                 </div>
             </div>
         );
@@ -23,29 +83,114 @@ export default async function ProgramPage({
 
     return (
         <div className={styles.container}>
-            <section className={styles.hero} style={{ minHeight: '40vh' }}>
-                <h1 className="heading-xl">{program.title}</h1>
-                <p className={styles.subtitle}>Pillar {program.pillarNumber} Initiative</p>
+            {/* Hero */}
+            <section className={styles.hero}>
+                <span className={`${styles.typeBadge} ${detail.type === 'pillar' ? styles.badgePillar : styles.badgeProgram}`}>
+                    {detail.type === 'pillar' ? 'Core Pillar' : 'Core Program'}
+                </span>
+                <h1 className="heading-xl">
+                    <span className="text-gradient">{detail.title}</span>
+                </h1>
+                <p className={styles.heroSubtitle}>{detail.heroSubtitle}</p>
             </section>
 
-            <section className={styles.introSection} style={{ padding: '4rem 5%' }}>
-                <div className={styles.textContainer} style={{ maxWidth: '800px', margin: '0 auto' }}>
-                    <h2 className={styles.sectionTitle}>Overview</h2>
-                    <p style={{ fontSize: '1.2rem', marginBottom: '2rem', lineHeight: '1.8' }}>
-                        {program.description}
-                    </p>
-
-                    <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--color-pink)' }}>Program Details</h3>
-                    <p style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
-                        {program.fullDetails || program.description}
-                    </p>
-
-                    <div style={{ marginTop: '3rem', display: 'flex', gap: '1rem' }}>
-                        <Link href="/programs" className={styles.btnSecondary}>← Back to Programs</Link>
-                        <Link href="/donate" className={styles.btnPrimary}>Support This Program</Link>
+            {/* Philosophy */}
+            {detail.philosophy && (
+                <section className={styles.philosophySection}>
+                    <div className={styles.quoteBlock}>
+                        <p className={styles.quoteText}>&ldquo;{detail.philosophy.quote}&rdquo;</p>
                     </div>
-                </div>
-            </section>
+                    <div className={styles.philosophyParagraphs}>
+                        {detail.philosophy.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+                    </div>
+                </section>
+            )}
+
+            {/* Content Sections */}
+            {detail.sections.map((section, i) => (
+                <ContentSection key={i} section={section} />
+            ))}
+
+            {/* Impact Table */}
+            {detail.impactTable && (
+                <section className={styles.impactSection}>
+                    <h3 className={styles.impactTitle}>{detail.impactTable.title}</h3>
+                    <div className={styles.impactTableWrapper}>
+                        <table className={styles.impactTable}>
+                            <thead>
+                                <tr>
+                                    <th>Before</th>
+                                    <th>After</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {detail.impactTable.rows.map((row, i) => (
+                                    <tr key={i}>
+                                        <td>{row.before}</td>
+                                        <td>{row.after}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            )}
+
+            {/* By the Numbers */}
+            {detail.byTheNumbers && detail.byTheNumbers.length > 0 && (
+                <section className={styles.statsSection}>
+                    <div className={styles.statsContainer}>
+                        <h3 className={styles.statsTitle}>By the Numbers</h3>
+                        <div className={styles.statsGrid}>
+                            {detail.byTheNumbers.map((stat, i) => (
+                                <div key={i} className={styles.statCard}>
+                                    <p>✅ {stat}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            {/* Story */}
+            {detail.story && (
+                <section className={styles.storySection}>
+                    <div className={styles.storyCard}>
+                        <h3 className={styles.storyTitle}>{detail.story.title}</h3>
+                        {detail.story.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+                    </div>
+                </section>
+            )}
+
+            {/* Donation Tiers */}
+            {detail.donationTiers && detail.donationTiers.length > 0 && (
+                <section className={styles.donationSection}>
+                    <h3 className={styles.donationTitle}>How You Can Help</h3>
+                    <div className={styles.donationGrid}>
+                        {detail.donationTiers.map((tier, i) => (
+                            <div key={i} className={styles.donationCard}>
+                                <span className={styles.donationAmount}>{tier.amount}</span>
+                                <span className={styles.donationDesc}>{tier.description}</span>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {/* Closing */}
+            {detail.closing && detail.closing.length > 0 && (
+                <section className={styles.closingSection}>
+                    {detail.closing.map((line, i) => (
+                        <p key={i} className={styles.closingText}>{line}</p>
+                    ))}
+                </section>
+            )}
+
+            {/* CTA Buttons */}
+            <div className={styles.ctaRow}>
+                <Link href="/programs" className={styles.btnBack}>← Back to Programs</Link>
+                <Link href="/donate" className={styles.btnDonate}>Support This {detail.type === 'pillar' ? 'Pillar' : 'Program'}</Link>
+            </div>
         </div>
     );
 }
