@@ -21,6 +21,14 @@
     border-radius: 50%;
     opacity: 0.25;
     z-index: -1;
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .heroGlowPink,
+    .heroGlowBlue {
+        display: block;
+    }
 }
 
 .heroGlowPink {

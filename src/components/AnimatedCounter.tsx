@@ -28,6 +28,12 @@ export default function AnimatedCounter({
     };
 
     useEffect(() => {
+        // Fallback for browsers that don't support IntersectionObserver
+        if (typeof window !== 'undefined' && !window.IntersectionObserver) {
+            setIsVisible(true);
+            return;
+        }
+
         const observer = new IntersectionObserver(
             (entries) => {
                 if (entries[0].isIntersecting && !isVisible) {

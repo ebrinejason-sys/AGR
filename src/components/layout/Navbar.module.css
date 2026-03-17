@@ -24,6 +24,12 @@
     z-index: 1001;
 }
 
+@supports not (gap: 0.75rem) {
+    .logoLink > *:not(:last-child) {
+        margin-right: 0.75rem;
+    }
+}
+
 .logoImage {
     border-radius: 50%;
     flex-shrink: 0;
@@ -45,6 +51,12 @@
     display: flex;
     align-items: center;
     gap: 2rem;
+}
+
+@supports not (gap: 2rem) {
+    .desktopNav > * + * {
+        margin-left: 2rem;
+    }
 }
 
 .navLink {

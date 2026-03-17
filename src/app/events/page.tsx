@@ -204,8 +204,8 @@ export default function EventsPage() {
                             <div key={evt.id} className={`${styles.eventCard} ${evt.status === 'completed' ? styles.completed : ''}`}>
                                 <div className={styles.statusBadge}>{evt.status.toUpperCase()}</div>
                                 {evt.cover_image && (
-                                    <div style={{ width: '100%', height: '200px', borderRadius: '12px', overflow: 'hidden', marginBottom: '1rem' }}>
-                                        <img src={evt.cover_image} alt={evt.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    <div className={styles.eventCoverWrapper}>
+                                        <img src={evt.cover_image} alt={evt.title} className={styles.eventCoverImg} />
                                     </div>
                                 )}
                                 <h2>{evt.title}</h2>
@@ -219,15 +219,15 @@ export default function EventsPage() {
                                 )}
 
                                 {evt.media && evt.media.length > 0 && (
-                                    <div style={{ marginBottom: '1.5rem' }}>
-                                        <h4 style={{ marginBottom: '1rem', color: 'var(--text-color)' }}>Event Gallery</h4>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '8px' }}>
+                                    <div className={styles.eventGallery}>
+                                        <h4 className={styles.eventGalleryTitle}>Event Gallery</h4>
+                                        <div className={styles.eventGalleryGrid}>
                                             {evt.media.map(m => (
-                                                <div key={m.id} style={{ aspectRatio: '1', borderRadius: '8px', overflow: 'hidden' }}>
+                                                <div key={m.id} className={styles.eventGalleryItem}>
                                                     {m.type === 'image' ? (
-                                                        <img src={m.url} alt={m.description || 'event media'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                                        <img src={m.url} alt={m.description || 'event media'} className={styles.eventGalleryMedia} />
                                                     ) : (
-                                                        <video src={m.url} playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                                        <video src={m.url} playsInline className={styles.eventGalleryMedia} />
                                                     )}
                                                 </div>
                                             ))}

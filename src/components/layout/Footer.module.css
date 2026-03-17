@@ -82,6 +82,12 @@
     align-items: stretch;
 }
 
+@supports not (gap: 0.3rem) {
+    .inputRow > *:not(:last-child) {
+        margin-right: 0.3rem;
+    }
+}
+
 .input {
     flex: 1;
     padding: 0.5rem 0.7rem;

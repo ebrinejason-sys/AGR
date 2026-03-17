@@ -34,6 +34,7 @@
 }
 
 .heroTitle {
+  font-size: 2.5rem; /* Fallback for older iOS */
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 700;
   letter-spacing: 0.02em;

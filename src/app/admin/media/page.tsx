@@ -163,7 +163,7 @@ export default function AdminMedia() {
                                     // eslint-disable-next-line @next/next/no-img-element
                                     <img src={item.url} alt={item.description || 'Media item'} className={styles.previewImage} />
                                 ) : (
-                                    <video src={item.url} controls className={styles.previewImage} />
+                                    <video src={item.url} controls playsInline className={styles.previewImage} />
                                 )}
                                 <p>{item.description || 'No description'}</p>
                                 {item.events?.title && (
