@@ -21,6 +21,7 @@ const eslintConfig = [
       "server.js",
       "ssh_install.js",
       "upload_to_cpanel.js",
+      "delete_from_cpanel.js",
     ],
   },
 ];

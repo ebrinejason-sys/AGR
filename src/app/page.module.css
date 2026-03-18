@@ -411,13 +411,20 @@
 .aboutTextCard {
   flex: 1;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.9) 100%);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
   padding: 2.5rem;
   border-radius: 16px;
   border: 1px solid rgba(76, 175, 80, 0.2);
   box-shadow: 0 4px 24px rgba(76, 175, 80, 0.15);
   position: relative;
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  @supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+    .aboutTextCard {
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+  }
 }
 
 .aboutTextCard::before {
@@ -761,8 +768,6 @@
 
 .supportCard {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.9) 100%);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
   padding: 2.5rem;
   border-radius: 20px;
   border: 1px solid rgba(255, 193, 7, 0.2);
@@ -770,6 +775,15 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(255, 193, 7, 0.15);
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  @supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+    .supportCard {
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+  }
 }
 
 .supportCard:nth-child(1) {
@@ -978,6 +992,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  height: 100vh;
   height: 100dvh;
   background: rgba(0, 0, 0, 0.9);
   z-index: 9999;
@@ -985,9 +1000,16 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
   animation: fadeIn 0.3s ease;
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  @supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+    .modalOverlay {
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+  }
 }
 
 @keyframes fadeIn {
@@ -1040,9 +1062,16 @@
   cursor: pointer;
   z-index: 10;
   transition: background 0.2s;
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
   padding-bottom: 4px;
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  @supports ((-webkit-backdrop-filter: blur(5px)) or (backdrop-filter: blur(5px))) {
+    .modalCloseBtn {
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
+    }
+  }
 }
 
 .modalCloseBtn:hover {

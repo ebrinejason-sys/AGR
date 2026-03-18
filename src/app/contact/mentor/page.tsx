@@ -136,7 +136,7 @@ export default function MentorContact() {
                             </div>
                             {status === 'success' && (
                                 <div className={styles.successMsg}>
-                                    ✅ Thank you! We'll be in touch soon to onboard you into our mentor network.
+                                    ✅ Thank you! We&apos;ll be in touch soon to onboard you into our mentor network.
                                 </div>
                             )}
                             {status === 'error' && (

@@ -33,6 +33,7 @@
 .modalCard {
     width: 100%;
     max-width: 540px;
+    max-height: 90vh;
     max-height: 90dvh;
     overflow-y: auto;
     background: var(--bg-color);
@@ -274,6 +275,7 @@
     .modalCard {
         padding: 1.25rem;
         border-radius: 12px;
+        max-height: 90vh;
         max-height: 90dvh;
     }
 

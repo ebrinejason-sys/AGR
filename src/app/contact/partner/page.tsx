@@ -34,7 +34,7 @@ export default function PartnerContact() {
             <div className={styles.header}>
                 <h1 className="heading-xl">Partner <span className="text-gradient">With Us</span></h1>
                 <p className={styles.subtitle}>
-                    Bring your organization's resources, expertise, and networks to scale our impact across communities.
+                    Bring your organization&apos;s resources, expertise, and networks to scale our impact across communities.
                 </p>
             </div>
 
@@ -63,7 +63,7 @@ export default function PartnerContact() {
 
                 <div className={styles.formSection}>
                     <div className={styles.formCard}>
-                        <h2>Let's Build Together</h2>
+                        <h2>Let&apos;s Build Together</h2>
                         <form className={styles.form} onSubmit={handleSubmit}>
                             <div className={styles.formGroup}>
                                 <label htmlFor="orgName">Organization Name *</label>
@@ -124,12 +124,12 @@ export default function PartnerContact() {
                                     required
                                     rows={6}
                                     className={styles.textarea}
-                                    placeholder="Tell us about your organization and how you'd like to partner with us..."
+                                    placeholder="Tell us about your organization and how you&apos;d like to partner with us..."
                                 />
                             </div>
                             {status === 'success' && (
                                 <div className={styles.successMsg}>
-                                    ✅ Thank you! We'll review your partnership proposal and get back to you soon.
+                                    ✅ Thank you! We&apos;ll review your partnership proposal and get back to you soon.
                                 </div>
                             )}
                             {status === 'error' && (

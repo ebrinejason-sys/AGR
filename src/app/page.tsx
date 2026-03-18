@@ -53,7 +53,7 @@ export default function Home() {
               <strong>Non-profit organisation registered</strong>
             </p>
             <p>
-              Founded by Akatwijuka Grace, a fourth-year law student, our mission is to be the consistent, empowering space between a girl's challenging reality and her radiant possibility.
+              Founded by Akatwijuka Grace, a fourth-year law student, our mission is to be the consistent, empowering space between a girl&apos;s challenging reality and her radiant possibility.
             </p>
             <Link href="/our-story" className={styles.btnSecondary}>Meet Grace & Our Story</Link>
           </div>
@@ -105,7 +105,7 @@ export default function Home() {
           <div className={styles.supportCard}>
             <div className={styles.supportIcon}>❤️</div>
             <h3>Donate</h3>
-            <p>Fund a girl's journey, a Rise Room, or essential support packages</p>
+            <p>Fund a girl&apos;s journey, a Rise Room, or essential support packages</p>
             <button
               onClick={() => setIsDonationModalOpen(true)}
               className={styles.btnSecondary}
@@ -116,7 +116,7 @@ export default function Home() {
           <div className={styles.supportCard}>
             <div className={styles.supportIcon}>🤝</div>
             <h3>Partner</h3>
-            <p>Bring your organization's resources to scale our impact</p>
+            <p>Bring your organization&apos;s resources to scale our impact</p>
             <Link href="/contact/partner" className={styles.btnSecondary}>Partner With Us</Link>
           </div>
           <div className={styles.supportCard}>

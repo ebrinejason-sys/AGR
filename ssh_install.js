@@ -1,5 +1,15 @@
 const { Client } = require('ssh2');
 
+const host = process.env.CPANEL_SSH_HOST;
+const username = process.env.CPANEL_SSH_USER;
+const password = process.env.CPANEL_SSH_PASSWORD;
+const port = process.env.CPANEL_SSH_PORT ? Number(process.env.CPANEL_SSH_PORT) : 2121;
+
+if (!host || !username || !password) {
+    console.error('Missing SSH env vars. Set CPANEL_SSH_HOST, CPANEL_SSH_USER, CPANEL_SSH_PASSWORD (and optionally CPANEL_SSH_PORT).');
+    process.exit(1);
+}
+
 const conn = new Client();
 conn.on('ready', () => {
     console.log('Client :: ready');
@@ -17,9 +27,9 @@ conn.on('ready', () => {
 }).on('error', (err) => {
     console.error("SSH Connection Error: ", err.message);
 }).connect({
-    host: 's12079.fra1.stableserver.net',
-    port: 2121,
-    username: 'africang',
-    password: '3brine@BBQs@uce',
+    host,
+    port,
+    username,
+    password,
     readyTimeout: 30000
 });

@@ -1,5 +1,6 @@
 .adminContainer {
     display: flex;
+    min-height: 100vh;
     min-height: 100dvh;
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -12,6 +13,7 @@
     flex-direction: column;
     border-right: 1px solid var(--border-color);
     position: fixed;
+    height: 100vh;
     height: 100dvh;
     z-index: 100;
 }
@@ -188,7 +190,7 @@
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100dvh;
+        height: 100vh;
         height: 100dvh;
         background: rgba(0, 0, 0, 0.5);
         z-index: 95;

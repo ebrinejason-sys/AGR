@@ -61,11 +61,11 @@ export default function LegalAdvocacy() {
             </div>
             <div className={styles.truth}>
               <div className={styles.truthIcon}>👨‍🏫</div>
-              <p>Many teachers who abuse students face no consequences because girls don't know how to report them</p>
+              <p>Many teachers who abuse students face no consequences because girls don&apos;t know how to report them</p>
             </div>
             <div className={styles.truth}>
               <div className={styles.truthIcon}>🏠</div>
-              <p>Many mothers stay in violent homes because they don't know their rights to protection</p>
+              <p>Many mothers stay in violent homes because they don&apos;t know their rights to protection</p>
             </div>
             <div className={styles.truth}>
               <div className={styles.truthIcon}>📢</div>
@@ -94,7 +94,7 @@ export default function LegalAdvocacy() {
             <p>We teach girls and women about their basic legal rights in simple, accessible language:</p>
             <ul className={styles.programList}>
               <li>What is defilement? (Understanding the law)</li>
-              <li>Age of consent and child marriage (Why it's illegal)</li>
+              <li>Age of consent and child marriage (Why it&apos;s illegal)</li>
               <li>Domestic violence — physical, emotional, economic (What it looks like, what to do)</li>
               <li>Property rights (For widows, for daughters)</li>
               <li>Education rights (No one can force you out of school)</li>
@@ -118,7 +118,7 @@ export default function LegalAdvocacy() {
               <li>Uganda Law Society pro bono services — for serious cases</li>
             </ul>
             <p className={styles.emphasis}>
-              <strong>We don't just teach rights. We connect girls to the people who can enforce those rights.</strong>
+              <strong>We don&apos;t just teach rights. We connect girls to the people who can enforce those rights.</strong>
             </p>
           </div>
 
@@ -150,7 +150,7 @@ export default function LegalAdvocacy() {
               <li>Display posters with key rights information and emergency contacts</li>
               <li>Train teachers to recognize and report abuse</li>
               <li>Establish confidential reporting mechanisms within schools</li>
-              <li>Ensure girls know: "If a teacher touches you inappropriately, here is what to do."</li>
+              <li>Ensure girls know: &quot;If a teacher touches you inappropriately, here is what to do.&quot;</li>
             </ul>
           </div>
         </div>
@@ -179,7 +179,7 @@ export default function LegalAdvocacy() {
             <div className={styles.componentCard}>
               <div className={styles.componentIcon}>🏛️</div>
               <h3>Advocacy</h3>
-              <p>We engage with legal institutions to ensure systems are responsive to girls' protection</p>
+              <p>We engage with legal institutions to ensure systems are responsive to girls&apos; protection</p>
             </div>
           </div>
         </div>

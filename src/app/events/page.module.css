@@ -319,12 +319,19 @@
     left: 0;
     z-index: 1200;
     background: rgba(0, 0, 0, 0.75);
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem;
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+    @supports ((-webkit-backdrop-filter: blur(3px)) or (backdrop-filter: blur(3px))) {
+        .modalOverlay {
+            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);
+        }
+    }
 }
 
 .modalCard {
@@ -460,6 +467,7 @@
     }
 
     .modalCard {
+        max-height: 90vh;
         max-height: 90dvh;
         overflow-y: auto;
     }

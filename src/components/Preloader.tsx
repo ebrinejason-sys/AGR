@@ -1,35 +1,40 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './Preloader.module.css';
 
 export default function Preloader() {
     const [show, setShow] = useState(true);
     const [fade, setFade] = useState(false);
+    const didFinishRef = useRef(false);
 
     useEffect(() => {
-        // Prevent scrolling while preloader is visible
+        const prevOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
 
-        // Hide the preloader when the window load event fires
-        const handleLoad = () => {
+        let hideTimer: number | undefined;
+
+        const finish = () => {
+            if (didFinishRef.current) return;
+            didFinishRef.current = true;
             setFade(true);
-            document.body.style.overflow = 'unset';
-            setTimeout(() => setShow(false), 500); // 500ms for fade transition
+            document.body.style.overflow = prevOverflow;
+            hideTimer = window.setTimeout(() => setShow(false), 500);
         };
 
+        const fallbackTimer = window.setTimeout(finish, 2500);
+        window.addEventListener('load', finish);
+
         if (document.readyState === 'complete') {
-            handleLoad();
-        } else {
-            window.addEventListener('load', handleLoad);
-            // Fallback timer just in case something hangs
-            const fallbackTimer = setTimeout(handleLoad, 3000);
-            return () => {
-                window.removeEventListener('load', handleLoad);
-                clearTimeout(fallbackTimer);
-                document.body.style.overflow = 'unset';
-            };
+            finish();
         }
+
+        return () => {
+            window.removeEventListener('load', finish);
+            window.clearTimeout(fallbackTimer);
+            if (hideTimer) window.clearTimeout(hideTimer);
+            document.body.style.overflow = prevOverflow;
+        };
     }, []);
 
     if (!show) return null;

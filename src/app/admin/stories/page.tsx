@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useMemo, useRef } from 'react';
+import { useEffect, useState, useMemo } from 'react';
+import type { ComponentProps } from 'react';
 import dynamic from 'next/dynamic';
 import { PenTool } from 'lucide-react';
 import styles from './stories.module.css';
@@ -9,8 +10,7 @@ import 'react-quill-new/dist/quill.snow.css';
 const ReactQuill = dynamic(
     async () => {
         const { default: RQ } = await import("react-quill-new");
-        // eslint-disable-next-line react/display-name
-        return function ForwardedQuill(props: any) {
+        return function ForwardedQuill(props: ComponentProps<typeof RQ>) {
             return <RQ {...props} />;
         };
     },
@@ -28,12 +28,6 @@ export default function AdminStories() {
     const [formData, setFormData] = useState({ title: '', content: '' });
     const [publishing, setPublishing] = useState(false);
     const [stories, setStories] = useState<Story[]>([]);
-
-    // We cannot easily pass a ref through next/dynamic without a wrapper, 
-    // but ReactQuill natively supports string refs or functional refs if we bypass the wrapper.
-    // However, the standard way in modern ReactQuill is to just let it manage state natively,
-    // or use a custom toolbar handler that we bind.
-    const quillRef = useRef<any>(null);
 
     const fetchStories = async () => {
         const res = await fetch('/api/admin/stories', { cache: 'no-store' });
@@ -69,22 +63,10 @@ export default function AdminStories() {
                 const data = await res.json();
 
                 if (res.ok && data.media?.url) {
-                    // Extract quill instance from dynamic wrapper if possible
-                    // In react-quill, the actual Quill instance is nested inside the component
-                    // Depending on how dynamic() renders it, getting the quill instance might take a tick.
-                    // We can manually append it to the content state as a fallback if the ref fails,
-                    // but usually quillRef.current.getEditor() works if we bind it right.
-                    const quill = quillRef.current?.getEditor?.();
-                    if (quill) {
-                        const range = quill.getSelection(true);
-                        quill.insertEmbed(range.index, 'image', data.media.url);
-                    } else {
-                        // Fallback if ref is broken by dynamic layer
-                        setFormData(prev => ({
-                            ...prev,
-                            content: prev.content + `<br/><img src="${data.media.url}" alt="embedded image" /><br/>`
-                        }));
-                    }
+                    setFormData(prev => ({
+                        ...prev,
+                        content: prev.content + `<br/><img src="${data.media.url}" alt="embedded image" /><br/>`
+                    }));
                 } else {
                     alert(data.error || 'Upload failed');
                 }
@@ -168,8 +150,6 @@ export default function AdminStories() {
                         <label>Story Content</label>
                         <div style={{ background: 'var(--bg-color)', color: 'var(--text-color)' }}>
                             <ReactQuill
-                                // We cast ref to any to bypass Next dynamic ForwardRef type mismatch
-                                ref={quillRef as any}
                                 theme="snow"
                                 value={formData.content}
                                 onChange={(val: string) => setFormData({ ...formData, content: val })}
@@ -195,7 +175,6 @@ export default function AdminStories() {
                             <article key={story.id} className={styles.storyCard}>
                                 <div>
                                     <h3>{story.title}</h3>
-                                    {/* Sanitize HTML before display or slice safely. For admin preview, raw text extract is easier */}
                                     <p>{story.content.replace(/<[^>]+>/g, '').slice(0, 180)}...</p>
                                 </div>
                                 <div className={styles.storyMeta}>

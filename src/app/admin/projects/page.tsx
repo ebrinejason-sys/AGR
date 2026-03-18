@@ -129,7 +129,10 @@ export default function ProjectsManagement() {
                 <div className={styles.colStatus}>
                   <select
                     value={formData.status || "draft"}
-                    onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
+                    onChange={(e) => {
+                      const nextStatus: Project["status"] = e.target.value === "active" ? "active" : "draft";
+                      setFormData({ ...formData, status: nextStatus });
+                    }}
                     className={styles.select}
                   >
                     <option value="draft">Draft</option>

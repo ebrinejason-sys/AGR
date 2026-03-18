@@ -1,13 +1,16 @@
-const FtpDeploy = require('ftp');
+const Client = require('ftp');
 
-const config = {
-    host: 's12079.fra1.stableserver.net',
-    user: 'africang',
-    password: '3brine@BBQs@uce',
-    port: 21,
-};
+const host = process.env.CPANEL_FTP_HOST;
+const user = process.env.CPANEL_FTP_USER;
+const password = process.env.CPANEL_FTP_PASSWORD;
+const port = process.env.CPANEL_FTP_PORT ? Number(process.env.CPANEL_FTP_PORT) : 21;
 
-const client = new FtpDeploy();
+if (!host || !user || !password) {
+    console.error('Missing FTP env vars. Set CPANEL_FTP_HOST, CPANEL_FTP_USER, CPANEL_FTP_PASSWORD (and optionally CPANEL_FTP_PORT).');
+    process.exit(1);
+}
+
+const client = new Client();
 
 client.on('ready', () => {
     console.log('FTP connection established. Preparing to delete uploaded files...');
@@ -40,4 +43,4 @@ client.on('error', (err) => {
 });
 
 console.log('Connecting to FTP server to delete deployment...');
-client.connect(config);
+client.connect({ host, user, password, port });

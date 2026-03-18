@@ -127,7 +127,7 @@ export default function AdvocateContact() {
                             </div>
                             {status === 'success' && (
                                 <div className={styles.successMsg}>
-                                    ✅ Thank you for joining our advocacy movement! We'll send you resources and updates soon.
+                                    ✅ Thank you for joining our advocacy movement! We&apos;ll send you resources and updates soon.
                                 </div>
                             )}
                             {status === 'error' && (
