@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { formatDate } from '@/lib/utils';
 import styles from './page.module.css';
 
 type Story = {
@@ -100,7 +101,7 @@ export default function StoriesGallery() {
                                 <h2>{story.title}</h2>
                                 <div className={styles.meta}>
                                     <span className={styles.author}>By {story.author}</span>
-                                    <span className={styles.date}>{new Date(story.created_at).toLocaleDateString()}</span>
+                                    <span className={styles.date}>{formatDate(story.created_at)}</span>
                                 </div>
                                 <div
                                     className={styles.content}

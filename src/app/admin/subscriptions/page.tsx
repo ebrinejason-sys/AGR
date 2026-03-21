@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { Mail, Search } from 'lucide-react';
+import { formatDate } from '@/lib/utils';
 import styles from './subscriptions.module.css';
 
 type Subscriber = {
@@ -98,7 +99,7 @@ export default function AdminSubscriptions() {
                             <tr key={sub.id}>
                                 <td className={styles.cellName}>{sub.name || 'Anonymous'}</td>
                                 <td className={styles.cellEmail}>{sub.email}</td>
-                                <td>{new Date(sub.created_at).toLocaleDateString()}</td>
+                                <td>{formatDate(sub.created_at)}</td>
                                 <td>
                                     <button
                                         className={styles.emailBtn}

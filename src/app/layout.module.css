@@ -11,3 +11,14 @@
 .mainContent {
   flex: 1;
 }
+
+.centeredPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  min-height: 60dvh;
+  padding: 2rem;
+  text-align: center;
+}

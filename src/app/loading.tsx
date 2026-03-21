@@ -1,13 +1,8 @@
-import styles from './page.module.css';
+import styles from './layout.module.css';
 
 export default function Loading() {
   return (
-    <div className={styles.container} style={{ 
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center',
-      minHeight: '60vh' 
-    }}>
+    <div className={styles.centeredPage}>
       <div style={{
         width: '40px',
         height: '40px',

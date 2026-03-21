@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from 'react';
 import type { ComponentProps } from 'react';
 import dynamic from 'next/dynamic';
 import { PenTool } from 'lucide-react';
+import { formatDate } from '@/lib/utils';
 import styles from './stories.module.css';
 import 'react-quill-new/dist/quill.snow.css';
 
@@ -178,7 +179,7 @@ export default function AdminStories() {
                                     <p>{story.content.replace(/<[^>]+>/g, '').slice(0, 180)}...</p>
                                 </div>
                                 <div className={styles.storyMeta}>
-                                    <span>{new Date(story.created_at).toLocaleDateString()}</span>
+                                    <span>{formatDate(story.created_at)}</span>
                                     <button className={styles.deleteBtn} onClick={() => deleteStory(story.id)}>
                                         Delete
                                     </button>

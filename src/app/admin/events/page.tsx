@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { PlusCircle, Edit2, Trash2, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { formatDate, safeDate } from '@/lib/utils';
 import styles from './events.module.css';
 
 type EventItem = {
@@ -58,7 +59,7 @@ export default function AdminEvents() {
         setFormData({
             title: ev.title,
             description: ev.description || '',
-            event_date: new Date(ev.event_date).toISOString().split('T')[0], // format for date input
+            event_date: safeDate(ev.event_date).toISOString().split('T')[0], // format for date input
             goal_amount: ev.goal_amount.toString(),
             status: ev.status,
             cover_image: ev.cover_image || '',
@@ -318,7 +319,7 @@ export default function AdminEvents() {
                                     )}
                                 </td>
                                 <td className={styles.cellTitle}>{ev.title}</td>
-                                <td>{new Date(ev.event_date).toLocaleDateString()}</td>
+                                <td>{formatDate(ev.event_date)}</td>
                                 <td>{Number(ev.goal_amount || 0).toLocaleString()}</td>
                                 <td className={styles.cellRaised}>{Number(ev.current_amount || 0).toLocaleString()}</td>
                                 <td>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { formatDate } from '@/lib/utils';
 import styles from './page.module.css';
 
 type Event = {
@@ -209,7 +210,7 @@ export default function EventsPage() {
                                     </div>
                                 )}
                                 <h2>{evt.title}</h2>
-                                <p className={styles.date}>{new Date(evt.event_date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                                <p className={styles.date}>{formatDate(evt.event_date, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                                 <p className={styles.description}>{evt.description}</p>
                                 {evt.status === 'completed' && evt.achievements && (
                                     <div style={{ background: 'var(--card-hover-bg)', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', borderLeft: '3px solid var(--color-pink)' }}>

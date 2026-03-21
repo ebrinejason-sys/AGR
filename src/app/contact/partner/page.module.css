@@ -1,5 +1,6 @@
 .container {
     min-height: 100vh;
+    min-height: 100dvh;
     padding: 4rem 5%;
     max-width: 1400px;
     margin: 0 auto;
