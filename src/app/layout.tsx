@@ -39,12 +39,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const ua = headers().get("user-agent") || "";
+  const ua = (await headers()).get("user-agent") || "";
   const isIOSDevice = /iPad|iPhone|iPod|CriOS|FxiOS/i.test(ua);
 
   return (
