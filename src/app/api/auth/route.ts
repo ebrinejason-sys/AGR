@@ -125,9 +125,16 @@ export async function GET(req: Request) {
 
     const session = sessionCookie ? verifyAdminSessionToken(decodeURIComponent(sessionCookie)) : null;
 
+    let adminEmail = null;
+    try {
+        adminEmail = getAdminCredentials().email;
+    } catch {
+        // Handle case where env vars are missing
+    }
+
     return NextResponse.json({
         authenticated: Boolean(session),
         resendConfigured: Boolean(process.env.RESEND_API_KEY),
-        adminEmail: getAdminCredentials().email,
+        adminEmail,
     });
 }
