@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { requireAdminSession } from '@/lib/admin-api';
-import { resend, SENDER_EMAIL } from '@/lib/resend';
+import { isResendConfigured, resend, SENDER_EMAIL } from '@/lib/resend';
 
 const escapeHtml = (str: string): string =>
     str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -10,8 +10,8 @@ export async function POST(request: Request) {
         const { error } = requireAdminSession(request);
         if (error) return error;
 
-        if (!process.env.RESEND_API_KEY) {
-            console.error('Email API Error: RESEND_API_KEY is not configured in environment variables.');
+        if (!isResendConfigured) {
+            console.error('Email API Error: Resend is not configured in environment variables.');
             return NextResponse.json({ error: 'Email service is not configured. Missing API key.' }, { status: 503 });
         }
 

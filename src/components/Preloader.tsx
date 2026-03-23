@@ -3,20 +3,40 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './Preloader.module.css';
 
-export default function Preloader() {
+type PreloaderProps = {
+    skip?: boolean;
+};
+
+type NetworkInformationLike = {
+    saveData?: boolean;
+    effectiveType?: string;
+};
+
+export default function Preloader({ skip = false }: PreloaderProps) {
     const [show, setShow] = useState(true);
     const [fade, setFade] = useState(false);
     const didFinishRef = useRef(false);
 
     useEffect(() => {
+        if (skip) {
+            setShow(false);
+        }
+    }, [skip]);
+
+    useEffect(() => {
+        if (skip) return;
+
         const runtimeSafeMode = document.documentElement.getAttribute('data-runtime-safe') === '1';
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
             (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
 
+        const connection = (navigator as Navigator & { connection?: NetworkInformationLike }).connection;
+        const isSlowNetwork = Boolean(connection?.saveData) || /2g|slow-2g/i.test(connection?.effectiveType || '');
+
         // Avoid expensive startup effects on iOS and reduced-motion devices.
-        if (runtimeSafeMode || isIOS || prefersReducedMotion || coarsePointer) {
+        if (runtimeSafeMode || isIOS || prefersReducedMotion || coarsePointer || isSlowNetwork) {
             setShow(false);
             return;
         }
@@ -47,7 +67,7 @@ export default function Preloader() {
             if (hideTimer) window.clearTimeout(hideTimer);
             document.body.style.overflow = prevOverflow;
         };
-    }, []);
+    }, [skip]);
 
     if (!show) return null;
 

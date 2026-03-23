@@ -29,8 +29,12 @@ export default function Home() {
                 Donate Now
                 <span className={styles.buttonArrow}>→</span>
               </button>
-              <Link href="/our-story" className={styles.heroButtonSecondary}>
-                Read Our Story
+              <Link href="/programs" className={styles.heroButtonSecondary}>
+                Explore Core Programs
+                <span className={styles.buttonArrow}>→</span>
+              </Link>
+              <Link href="/legal-advocacy" className={styles.heroButtonSecondary}>
+                Legal Advocacy
                 <span className={styles.buttonArrow}>→</span>
               </Link>
             </div>
@@ -49,7 +53,6 @@ export default function Home() {
               sizes="(max-width: 900px) 100vw, 50vw"
               className={styles.aboutImage}
               style={{ objectFit: 'cover' }}
-              priority
             />
           </div>
           <div className={styles.aboutTextCard}>
@@ -63,7 +66,7 @@ export default function Home() {
             <p>
               Founded by Akatwijuka Grace, a fourth-year law student, our mission is to be the consistent, empowering space between a girl&apos;s challenging reality and her radiant possibility.
             </p>
-            <Link href="/our-story" className={styles.btnSecondary}>Meet Grace & Our Story</Link>
+            <Link href="/our-story" className={styles.btnSecondary}>Our Story</Link>
           </div>
         </div>
       </section>

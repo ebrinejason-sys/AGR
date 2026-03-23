@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import styles from "./layout.module.css";
@@ -43,6 +44,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const ua = headers().get("user-agent") || "";
+  const isIOSDevice = /iPad|iPhone|iPod|CriOS|FxiOS/i.test(ua);
+
   return (
     <html lang="en" className={`antialiased ${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <body>
@@ -56,7 +60,7 @@ export default function RootLayout({
           storageKey="agr-theme"
         >
           <div className={styles.layoutContainer}>
-            <Preloader />
+            <Preloader skip={isIOSDevice} />
             <Navbar />
 
             <main className={styles.mainContent}>

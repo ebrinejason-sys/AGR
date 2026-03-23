@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { resend, SENDER_EMAIL } from '@/lib/resend';
+import { isResendConfigured, resend, SENDER_EMAIL } from '@/lib/resend';
 import { ADMIN_OTP_COOKIE, ADMIN_SESSION_COOKIE } from '@/lib/admin-constants';
 import { getCookieValue } from '@/lib/admin-api';
 import {
@@ -151,7 +151,7 @@ export async function GET(req: Request) {
         authenticated: Boolean(session),
         authConfigured: missingAdminEnvVars.length === 0,
         missingAdminEnvVars,
-        resendConfigured: Boolean(process.env.RESEND_API_KEY),
+        resendConfigured: isResendConfigured,
         adminEmail,
     });
 }

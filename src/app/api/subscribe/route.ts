@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import { SubscriberWelcomeTemplate } from '@/lib/email-templates';
+import { isResendConfigured, resend, SENDER_EMAIL } from '@/lib/resend';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
 export async function POST(request: Request) {
@@ -29,12 +31,15 @@ export async function POST(request: Request) {
             });
         }
 
+        const normalizedEmail = email.toLowerCase().trim();
+        const normalizedName = name ? String(name).trim() : null;
+
         // Insert into the subscriptions table
         const { error } = await supabase
             .from('subscriptions')
             .insert({
-                email: email.toLowerCase().trim(),
-                name: name ? String(name).trim() : null,
+                email: normalizedEmail,
+                name: normalizedName,
             });
 
         if (error) {
@@ -49,6 +54,40 @@ export async function POST(request: Request) {
                 { error: 'Could not subscribe. Please try again.' },
                 { status: 500 }
             );
+        }
+
+        if (isResendConfigured && resend) {
+            const subscriberName = normalizedName || 'Friend';
+
+            const subscriberMail = await resend.emails.send({
+                from: SENDER_EMAIL,
+                to: normalizedEmail,
+                subject: 'Welcome to African Girl Rise',
+                html: SubscriberWelcomeTemplate(subscriberName),
+            });
+
+            if (subscriberMail.error) {
+                console.error('Subscribe confirmation email error:', subscriberMail.error);
+            }
+
+            const adminRecipient = process.env.CONTACT_EMAIL || 'africangirlriseltd@gmail.com';
+            const adminMail = await resend.emails.send({
+                from: SENDER_EMAIL,
+                to: adminRecipient,
+                replyTo: normalizedEmail,
+                subject: '[AGR] New newsletter subscriber',
+                html: `
+                    <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+                        <h2>New Subscriber</h2>
+                        <p><strong>Email:</strong> ${normalizedEmail}</p>
+                        <p><strong>Name:</strong> ${subscriberName}</p>
+                    </div>
+                `,
+            });
+
+            if (adminMail.error) {
+                console.error('Subscribe admin notification email error:', adminMail.error);
+            }
         }
 
         return NextResponse.json({

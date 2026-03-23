@@ -106,6 +106,7 @@ export default function Footer() {
                             <p><strong>Location:</strong> Kiburara, Ibanda District, Uganda</p>
                             <p><strong>Email:</strong> africangirlriseltd@gmail.com</p>
                             <p><strong>WhatsApp:</strong> 0703727965</p>
+                            <p><strong>Phone:</strong> 0763738733</p>
                         </div>
                     </div>
 
