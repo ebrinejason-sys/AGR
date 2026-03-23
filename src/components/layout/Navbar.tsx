@@ -30,7 +30,15 @@ export default function Navbar() {
         <>
             <header className={styles.header}>
                 <Link href="/" className={styles.logoLink} onClick={closeMenu}>
-                    <Image src="/logo.png" alt="African Girl Rise Logo" width={36} height={36} priority className={styles.logoImage} />
+                    <Image
+                        src="/logo.png"
+                        alt="African Girl Rise Logo"
+                        width={36}
+                        height={36}
+                        sizes="36px"
+                        priority
+                        className={styles.logoImage}
+                    />
                     <span className={styles.brandName}>AFRICAN GIRL RISE</span>
                     <span className={styles.brandNameShort}>AGR</span>
                 </Link>

@@ -4,8 +4,8 @@
   "description": "Breaking cycles. One girl at a time. One generation at a time.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#e91e8c",
+  "background_color": "#ffffff",
+  "theme_color": "#e91e63",
   "orientation": "portrait-primary",
   "icons": [
     {

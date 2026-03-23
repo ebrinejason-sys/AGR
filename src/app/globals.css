@@ -85,6 +85,7 @@ html {
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  -webkit-touch-callout: none;
 }
 
 /* Allow text selection only in specific input areas so users can still copy/paste text where they expect it */
