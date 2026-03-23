@@ -43,12 +43,13 @@ export default function AnimatedCounter({
             { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
         );
 
-        if (counterRef.current) {
-            observer.observe(counterRef.current);
+        const node = counterRef.current;
+        if (node) {
+            observer.observe(node);
         }
 
         return () => {
-            if (counterRef.current) observer.unobserve(counterRef.current);
+            if (node) observer.unobserve(node);
         };
     }, [isVisible]);
 

@@ -88,3 +88,27 @@
         opacity: 1;
     }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .heart,
+    .brandText,
+    .slogan {
+        animation: none;
+    }
+
+    .heart {
+        filter: none;
+    }
+}
+
+@supports (-webkit-touch-callout: none) {
+    .heart,
+    .brandText,
+    .slogan {
+        animation: none;
+    }
+
+    .heart {
+        filter: none;
+    }
+}

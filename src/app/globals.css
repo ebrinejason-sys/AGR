@@ -349,6 +349,23 @@ button {
   }
 }
 
+/* Runtime safe mode: force conservative rendering on fragile environments. */
+html[data-runtime-safe="1"] *,
+html[data-runtime-safe="1"] *::before,
+html[data-runtime-safe="1"] *::after {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  will-change: auto !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html[data-runtime-safe="1"] video {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Print styles */
 @media print {
   body {

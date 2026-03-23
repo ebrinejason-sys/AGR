@@ -117,9 +117,9 @@ export default function StoriesGallery() {
                                 <div className={styles.mediaPreviewWrapper}>
                                     {item.type === 'image' ? (
                                         // eslint-disable-next-line @next/next/no-img-element
-                                        <img src={item.url} alt={item.description || 'Gallery image'} className={styles.mediaPreview} />
+                                        <img src={item.url} alt={item.description || 'Gallery image'} className={styles.mediaPreview} loading="lazy" decoding="async" />
                                     ) : (
-                                        <video src={item.url} controls playsInline className={styles.mediaPreview} />
+                                        <video src={item.url} controls playsInline preload="none" className={styles.mediaPreview} />
                                     )}
                                 </div>
                                 {item.description && <div className={styles.mediaCaption}>{item.description}</div>}

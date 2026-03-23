@@ -206,7 +206,7 @@ export default function EventsPage() {
                                 <div className={styles.statusBadge}>{evt.status.toUpperCase()}</div>
                                 {evt.cover_image && (
                                     <div className={styles.eventCoverWrapper}>
-                                        <img src={evt.cover_image} alt={evt.title} className={styles.eventCoverImg} />
+                                        <img src={evt.cover_image} alt={evt.title} className={styles.eventCoverImg} loading="lazy" decoding="async" />
                                     </div>
                                 )}
                                 <h2>{evt.title}</h2>
@@ -226,9 +226,9 @@ export default function EventsPage() {
                                             {evt.media.map(m => (
                                                 <div key={m.id} className={styles.eventGalleryItem}>
                                                     {m.type === 'image' ? (
-                                                        <img src={m.url} alt={m.description || 'event media'} className={styles.eventGalleryMedia} />
+                                                        <img src={m.url} alt={m.description || 'event media'} className={styles.eventGalleryMedia} loading="lazy" decoding="async" />
                                                     ) : (
-                                                        <video src={m.url} playsInline className={styles.eventGalleryMedia} />
+                                                        <video src={m.url} playsInline preload="none" muted className={styles.eventGalleryMedia} />
                                                     )}
                                                 </div>
                                             ))}

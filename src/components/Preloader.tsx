@@ -9,6 +9,18 @@ export default function Preloader() {
     const didFinishRef = useRef(false);
 
     useEffect(() => {
+        const runtimeSafeMode = document.documentElement.getAttribute('data-runtime-safe') === '1';
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+        // Avoid expensive startup effects on iOS and reduced-motion devices.
+        if (runtimeSafeMode || isIOS || prefersReducedMotion || coarsePointer) {
+            setShow(false);
+            return;
+        }
+
         const prevOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
 
