@@ -98,7 +98,8 @@
   border: 1px solid var(--border-color);
   border-radius: 6px;
   font-family: inherit;
-  font-size: 0.9rem;
+  /* Ensure 16px font-size to prevent iOS auto-zoom on focused inputs */
+  font-size: 16px;
 }
 
 .textarea {
@@ -144,6 +145,8 @@
   color: var(--text-muted);
   border: none;
   border-radius: 6px;
+  min-width: 44px; /* iOS touch target */
+  min-height: 44px; /* iOS touch target */
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
