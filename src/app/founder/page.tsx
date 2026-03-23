@@ -19,6 +19,7 @@ export default function FounderPage() {
                             alt="Grace Akatwijuka"
                             width={200}
                             height={250}
+                            sizes="200px"
                             priority
                             className={styles.founderImage}
                         />

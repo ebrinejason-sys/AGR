@@ -4,6 +4,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 5%;
+    padding-top: calc(1rem + env(safe-area-inset-top));
     background: var(--nav-bg);
     border-bottom: 1px solid var(--border-color);
     position: fixed;
@@ -223,6 +224,11 @@
     color: var(--text-color);
     cursor: pointer;
     padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 6px;
     transition: background-color 0.2s ease;
 }
@@ -257,11 +263,12 @@
 .mobileNav {
     position: fixed;
     top: 70px;
-    /* Position below the header */
+    /* Updated via JS if needed, but safe default */
+    top: calc(70px + env(safe-area-inset-top));
     left: 0;
     width: 100%;
-    height: calc(100vh - 70px);
-    height: calc(100dvh - 70px);
+    height: calc(100vh - 70px - env(safe-area-inset-top));
+    height: calc(100dvh - 70px - env(safe-area-inset-top));
     /* Fill remaining screen height */
     background: var(--card-bg);
     display: flex;
@@ -274,6 +281,8 @@
     pointer-events: none;
     transition: opacity 0.3s ease-in-out;
     padding-top: 2rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .mobileNav.open {
@@ -389,6 +398,7 @@
 
     .header {
         padding: 0.75rem 5%;
+        padding-top: calc(0.75rem + env(safe-area-inset-top));
         background: var(--bg-color);
     }
 }

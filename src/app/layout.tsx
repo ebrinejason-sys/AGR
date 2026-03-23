@@ -24,11 +24,17 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "African Girl Rise",
   description: "Breaking cycles. One girl at a time. One generation at a time.",
+  appleWebApp: {
+    title: "African Girl Rise",
+    statusBarStyle: "default",
+    capable: true,
+  },
+  icons: {
+    apple: "/logo.png",
+  },
   // Disable iOS auto-detection to prevent hydration errors from injected <a> tags
   other: {
     "format-detection": "telephone=no, date=no, address=no, email=no",
-    "mobile-web-app-capable": "yes",
-    "apple-mobile-web-app-status-bar-style": "default",
   },
 };
 
