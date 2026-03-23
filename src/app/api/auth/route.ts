@@ -6,6 +6,7 @@ import {
     createAdminSessionToken,
     createOtpToken,
     getAdminCredentials,
+    getMissingAdminAuthEnvVars,
     verifyAdminSessionToken,
     verifyOtpToken,
 } from '@/lib/admin-auth';
@@ -16,6 +17,16 @@ const normalizeOtp = (value: unknown) => typeof value === 'string' ? value.repla
 export async function POST(req: Request) {
     try {
         const { action, email, password, otp } = await req.json();
+
+        const missingAdminEnvVars = getMissingAdminAuthEnvVars();
+        if (missingAdminEnvVars.length > 0 && action !== 'logout') {
+            return NextResponse.json(
+                {
+                    error: `Admin authentication is not configured. Missing: ${missingAdminEnvVars.join(', ')}`,
+                },
+                { status: 503 }
+            );
+        }
 
         const { email: targetEmail, password: targetPassword } = getAdminCredentials();
         const normalizedEmail = normalizeEmail(email);
@@ -116,11 +127,15 @@ export async function POST(req: Request) {
 
     } catch (err) {
         console.error('Auth API Error:', err);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        return NextResponse.json(
+            { error: err instanceof Error ? err.message : 'Internal Server Error' },
+            { status: 500 }
+        );
     }
 }
 
 export async function GET(req: Request) {
+    const missingAdminEnvVars = getMissingAdminAuthEnvVars();
     const sessionCookie = getCookieValue(req.headers.get('cookie'), ADMIN_SESSION_COOKIE);
 
     const session = sessionCookie ? verifyAdminSessionToken(decodeURIComponent(sessionCookie)) : null;
@@ -134,6 +149,8 @@ export async function GET(req: Request) {
 
     return NextResponse.json({
         authenticated: Boolean(session),
+        authConfigured: missingAdminEnvVars.length === 0,
+        missingAdminEnvVars,
         resendConfigured: Boolean(process.env.RESEND_API_KEY),
         adminEmail,
     });

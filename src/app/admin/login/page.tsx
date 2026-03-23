@@ -24,12 +24,13 @@ export default function AdminLogin() {
                     return;
                 }
 
-                const missingVars = [];
-                if (!data.adminEmail) missingVars.push('ADMIN_LOGIN_EMAIL');
-                if (!data.resendConfigured) missingVars.push('RESEND_API_KEY');
+                if (!data.authConfigured && Array.isArray(data.missingAdminEnvVars)) {
+                    setNotice(`Admin sign-in is not configured. Missing: ${data.missingAdminEnvVars.join(', ')}`);
+                    return;
+                }
 
-                if (missingVars.length > 0) {
-                    setNotice(`Missing environment variables: ${missingVars.join(', ')}. Login will fail until they are configured.`);
+                if (!data.resendConfigured) {
+                    setNotice('RESEND_API_KEY is not configured. OTP delivery will fail until it is set.');
                 }
             })
             .catch(() => undefined);

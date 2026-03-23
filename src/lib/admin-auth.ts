@@ -13,6 +13,8 @@ type TokenPayload = {
     otpHash?: string;
 };
 
+const REQUIRED_ADMIN_ENV_VARS = ['ADMIN_LOGIN_EMAIL', 'ADMIN_LOGIN_PASSWORD', 'ADMIN_AUTH_SECRET'] as const;
+
 const SESSION_DURATION_SECONDS = 60 * 60 * 12;
 const OTP_DURATION_SECONDS = 60 * 10;
 
@@ -20,6 +22,10 @@ const b64urlEncode = (value: string) => Buffer.from(value, 'utf8').toString('bas
 const b64urlDecode = (value: string) => Buffer.from(value, 'base64url').toString('utf8');
 
 const getAuthSecret = () => {
+    return process.env.ADMIN_AUTH_SECRET?.trim() || null;
+};
+
+const requireAuthSecret = () => {
     const secret = process.env.ADMIN_AUTH_SECRET;
     if (!secret) {
         throw new Error('ADMIN_AUTH_SECRET environment variable is required. Generate one with: openssl rand -hex 32');
@@ -27,7 +33,7 @@ const getAuthSecret = () => {
     return secret;
 };
 
-const signRaw = (value: string) => createHmac('sha256', getAuthSecret()).update(value).digest('base64url');
+const signRaw = (value: string) => createHmac('sha256', requireAuthSecret()).update(value).digest('base64url');
 
 const createSignedToken = (payload: TokenPayload) => {
     const encodedPayload = b64urlEncode(JSON.stringify(payload));
@@ -36,6 +42,10 @@ const createSignedToken = (payload: TokenPayload) => {
 };
 
 const parseAndVerifyToken = (token: string): TokenPayload | null => {
+    if (!getAuthSecret()) {
+        return null;
+    }
+
     const [encodedPayload, signature] = token.split('.');
     if (!encodedPayload || !signature) return null;
 
@@ -60,6 +70,10 @@ const parseAndVerifyToken = (token: string): TokenPayload | null => {
 
 const hashOtp = (email: string, otp: string, nonce: string, exp: number) => {
     return signRaw(`${email}:${otp}:${nonce}:${exp}`);
+};
+
+export const getMissingAdminAuthEnvVars = () => {
+    return REQUIRED_ADMIN_ENV_VARS.filter((name) => !process.env[name]?.trim());
 };
 
 export const getAdminCredentials = () => {
