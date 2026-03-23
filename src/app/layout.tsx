@@ -48,7 +48,13 @@ export default async function RootLayout({
   const isIOSDevice = /iPad|iPhone|iPod|CriOS|FxiOS/i.test(ua);
 
   return (
-    <html lang="en" className={`antialiased ${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`antialiased ${inter.variable} ${playfair.variable}`}
+      data-ios={isIOSDevice ? "1" : undefined}
+      data-runtime-safe={isIOSDevice ? "1" : undefined}
+      suppressHydrationWarning
+    >
       <body>
         <RuntimeStabilityGuard />
         <ThemeProvider

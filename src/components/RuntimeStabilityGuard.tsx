@@ -28,11 +28,21 @@ export default function RuntimeStabilityGuard() {
       html.setAttribute("data-runtime-safe", "1");
     }
 
-    let errorCount = Number(sessionStorage.getItem("agr-runtime-errors") || "0");
+    let errorCount = 0;
+    try {
+      errorCount = Number(window.sessionStorage.getItem("agr-runtime-errors") || "0");
+    } catch {
+      errorCount = 0;
+    }
 
     const markRuntimeError = () => {
       errorCount += 1;
-      sessionStorage.setItem("agr-runtime-errors", String(errorCount));
+
+      try {
+        window.sessionStorage.setItem("agr-runtime-errors", String(errorCount));
+      } catch {
+        // Ignore storage failures on restricted/private browsing contexts.
+      }
 
       if (errorCount >= ERROR_THRESHOLD) {
         html.setAttribute("data-runtime-safe", "1");

@@ -365,6 +365,16 @@ html[data-runtime-safe="1"] video {
   height: auto;
 }
 
+/* iOS safe mode (set server-side) keeps rendering conservative from first paint. */
+html[data-ios="1"][data-runtime-safe="1"] body {
+  background-attachment: scroll;
+}
+
+html[data-ios="1"][data-runtime-safe="1"] img,
+html[data-ios="1"][data-runtime-safe="1"] video {
+  content-visibility: auto;
+}
+
 /* Print styles */
 @media print {
   body {
@@ -412,6 +422,12 @@ html[data-runtime-safe="1"] video {
   /* iOS momentum scrolling */
   .page-content {
     -webkit-overflow-scrolling: touch;
+  }
+
+  /* Fallback for iOS versions where dynamic viewport units can be unstable. */
+  html,
+  body {
+    min-height: -webkit-fill-available;
   }
 }
 
