@@ -16,10 +16,13 @@
     height: 100vh;
     height: 100dvh;
     z-index: 100;
+    /* Smooth transition for mobile */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebarHeader {
     padding: 2rem;
+    padding-top: calc(2rem + env(safe-area-inset-top));
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -45,6 +48,7 @@
     align-items: center;
     gap: 1rem;
     padding: 1rem;
+    min-height: 48px; /* iOS touch target */
     border-radius: 12px;
     color: var(--text-muted);
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -57,6 +61,7 @@
 
 .sidebarFooter {
     padding: 2rem 1rem;
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
     border-top: 1px solid var(--border-color);
 }
 
@@ -66,11 +71,13 @@
     gap: 1rem;
     width: 100%;
     padding: 1rem;
+    min-height: 48px; /* iOS touch target */
     border-radius: 12px;
     color: #f44336;
     background: rgba(244, 67, 54, 0.1);
     font-weight: 500;
     transition: background-color 0.2s ease;
+    cursor: pointer;
 }
 
 .logoutBtn:hover {
@@ -157,7 +164,8 @@
         align-items: center;
         justify-content: space-between;
         padding: 0 1.5rem;
-        height: 60px;
+        padding-top: env(safe-area-inset-top);
+        height: calc(60px + env(safe-area-inset-top));
         background: var(--card-bg);
         border-bottom: 1px solid var(--border-color);
         position: fixed;
