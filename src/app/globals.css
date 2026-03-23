@@ -5,19 +5,12 @@
   --color-white: #ffffff;
   --color-pink: #e91e63;
   --color-purple: #9c27b0;
-  --color-lightblue: #00bcd4;
-  --color-teal: #009688;
-  --color-orange: #ff9800;
-  --color-green: #4caf50;
-  --color-indigo: #3f51b5;
-  --color-yellow: #ffeb3b;
+  --color-lightblue: #89CFF0; /* Baby Blue */
+  --color-black: #1a1a1a;
 
   --color-pink-light: #fce4ec;
   --color-purple-light: #f3e5f5;
-  --color-teal-light: #e0f2f1;
-  --color-orange-light: #fff3e0;
-  --color-green-light: #e8f5e8;
-  --color-indigo-light: #e8eaf6;
+  --color-lightblue-light: #e0f7fa;
 
   --bg-color: #ffffff;
   --text-color: #2d2d2d;
@@ -31,11 +24,9 @@
   --footer-bg-color: #f8f8f8;
 
   /* Gradient backgrounds */
-  --gradient-pink-purple: linear-gradient(135deg, #e91e63, #9c27b0);
-  --gradient-teal-blue: linear-gradient(135deg, #009688, #00bcd4);
-  --gradient-orange-yellow: linear-gradient(135deg, #ff9800, #ffeb3b);
-  --gradient-green-teal: linear-gradient(135deg, #4caf50, #009688);
-  --gradient-indigo-purple: linear-gradient(135deg, #3f51b5, #9c27b0);
+  --gradient-pink-purple: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+  --gradient-purple-blue: linear-gradient(135deg, var(--color-purple), var(--color-lightblue));
+  --gradient-pink-blue: linear-gradient(135deg, var(--color-pink), var(--color-lightblue));
 
   color-scheme: light;
 }
@@ -53,7 +44,7 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   overflow-x: hidden;
-  background: linear-gradient(135deg, rgba(233, 30, 99, 0.04) 0%, rgba(156, 39, 176, 0.04) 33%, rgba(0, 188, 212, 0.04) 66%, rgba(76, 175, 80, 0.04) 100%), var(--bg-color);
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.04) 0%, rgba(156, 39, 176, 0.04) 50%, rgba(137, 207, 240, 0.04) 100%), var(--bg-color);
   color: var(--text-color);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -61,6 +52,7 @@ body {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
+  line-height: 1.6;
 }
 
 /* iOS Safe Areas & Specifics */
