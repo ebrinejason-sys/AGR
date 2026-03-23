@@ -4,10 +4,8 @@ import { useEffect, useState } from 'react';
 import { Lock, Mail } from 'lucide-react';
 import styles from './login.module.css';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 export default function AdminLogin() {
-    const router = useRouter();
     const [step, setStep] = useState<'credentials' | 'otp'>('credentials');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,15 +16,23 @@ export default function AdminLogin() {
     const [notice, setNotice] = useState('');
 
     useEffect(() => {
-        fetch('/api/auth')
+        fetch('/api/auth', { cache: 'no-store', credentials: 'same-origin' })
             .then((res) => res.json())
             .then((data) => {
+                if (data.authenticated) {
+                    window.location.replace('/admin');
+                    return;
+                }
+
                 if (!data.resendConfigured) {
                     setNotice('RESEND_API_KEY is not configured. OTP delivery will fail until it is set.');
                 }
             })
             .catch(() => undefined);
     }, []);
+
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedOtp = otp.replace(/\D/g, '').slice(0, 6);
 
     const handleRequestOtp = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -38,11 +44,13 @@ export default function AdminLogin() {
             const res = await fetch('/api/auth', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'request_otp', email, password })
+                credentials: 'same-origin',
+                body: JSON.stringify({ action: 'request_otp', email: normalizedEmail, password })
             });
             const data = await res.json();
 
             if (res.ok) {
+                setEmail(normalizedEmail);
                 setSuccessMsg('OTP sent to your email.');
                 setStep('otp');
             } else {
@@ -64,13 +72,14 @@ export default function AdminLogin() {
             const res = await fetch('/api/auth', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'verify_otp', email, otp })
+                credentials: 'same-origin',
+                body: JSON.stringify({ action: 'verify_otp', email: normalizedEmail, otp: normalizedOtp })
             });
             const data = await res.json();
 
             if (res.ok) {
-                // In a real app, you'd set a secure HTTP-Only cookie here to maintain the session
-                router.push('/admin');
+                setSuccessMsg('Sign-in successful. Redirecting to the dashboard...');
+                window.location.assign('/admin');
             } else {
                 setError(data.error || 'Invalid OTP');
             }
@@ -140,7 +149,7 @@ export default function AdminLogin() {
                                 required
                                 maxLength={6}
                                 value={otp}
-                                onChange={e => setOtp(e.target.value)}
+                                onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
                                 placeholder="123456"
                                 className={styles.otpInput}
                             />

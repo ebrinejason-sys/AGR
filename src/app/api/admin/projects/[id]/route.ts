@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { requireAdminSession } from '@/lib/admin-api';
 
 // In a production app, this would connect to a database
 const projects = [
@@ -19,6 +20,9 @@ const projects = [
 ];
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { error } = requireAdminSession(request);
+  if (error) return error;
+
   const { id } = await params;
   const project = projects.find(p => p.id === id);
 
@@ -30,6 +34,9 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 }
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { error } = requireAdminSession(request);
+  if (error) return error;
+
   const { id } = await params;
   const data = await request.json();
 
@@ -43,6 +50,9 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
 }
 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { error } = requireAdminSession(request);
+  if (error) return error;
+
   const { id } = await params;
   const index = projects.findIndex(p => p.id === id);
 

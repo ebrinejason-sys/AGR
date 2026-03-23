@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { resend, SENDER_EMAIL } from '@/lib/resend';
 import { ADMIN_OTP_COOKIE, ADMIN_SESSION_COOKIE } from '@/lib/admin-constants';
+import { getCookieValue } from '@/lib/admin-api';
 import {
     createAdminSessionToken,
     createOtpToken,
@@ -9,14 +10,20 @@ import {
     verifyOtpToken,
 } from '@/lib/admin-auth';
 
+const normalizeEmail = (value: unknown) => typeof value === 'string' ? value.trim().toLowerCase() : '';
+const normalizeOtp = (value: unknown) => typeof value === 'string' ? value.replace(/\D/g, '').slice(0, 6) : '';
+
 export async function POST(req: Request) {
     try {
         const { action, email, password, otp } = await req.json();
 
         const { email: targetEmail, password: targetPassword } = getAdminCredentials();
+        const normalizedEmail = normalizeEmail(email);
+        const normalizedTargetEmail = normalizeEmail(targetEmail);
+        const normalizedOtp = normalizeOtp(otp);
 
         if (action === 'request_otp') {
-            if (email !== targetEmail || password !== targetPassword) {
+            if (normalizedEmail !== normalizedTargetEmail || password !== targetPassword) {
                 return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
             }
 
@@ -26,11 +33,11 @@ export async function POST(req: Request) {
 
             const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
 
-            const otpState = createOtpToken(email, generatedOtp);
+            const otpState = createOtpToken(normalizedEmail, generatedOtp);
 
             const { error } = await resend.emails.send({
                 from: SENDER_EMAIL,
-                to: email,
+                to: normalizedEmail,
                 subject: 'Your Admin Login OTP - African Girl Rise',
                 html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
@@ -65,17 +72,13 @@ export async function POST(req: Request) {
         }
 
         if (action === 'verify_otp') {
-            const otpCookie = req.headers.get('cookie')
-                ?.split(';')
-                .map((item) => item.trim())
-                .find((item) => item.startsWith(`${ADMIN_OTP_COOKIE}=`))
-                ?.split('=')[1];
+            const otpCookie = getCookieValue(req.headers.get('cookie'), ADMIN_OTP_COOKIE);
 
-            if (!otpCookie || !otp || !verifyOtpToken(decodeURIComponent(otpCookie), email, otp)) {
+            if (!otpCookie || !normalizedOtp || !verifyOtpToken(decodeURIComponent(otpCookie), normalizedEmail, normalizedOtp)) {
                 return NextResponse.json({ error: 'Incorrect OTP' }, { status: 400 });
             }
 
-            const session = createAdminSessionToken(email);
+            const session = createAdminSessionToken(normalizedEmail);
             const response = NextResponse.json({ success: true, message: 'OTP verified' });
 
             response.cookies.set({
@@ -118,11 +121,7 @@ export async function POST(req: Request) {
 }
 
 export async function GET(req: Request) {
-    const sessionCookie = req.headers.get('cookie')
-        ?.split(';')
-        .map((item) => item.trim())
-        .find((item) => item.startsWith(`${ADMIN_SESSION_COOKIE}=`))
-        ?.split('=')[1];
+    const sessionCookie = getCookieValue(req.headers.get('cookie'), ADMIN_SESSION_COOKIE);
 
     const session = sessionCookie ? verifyAdminSessionToken(decodeURIComponent(sessionCookie)) : null;
 
