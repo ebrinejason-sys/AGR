@@ -98,7 +98,7 @@ export default function FounderPage() {
                 <section className={styles.storySection}>
                     <div className={styles.sectionIcon}><Scale size={32} /></div>
                     <h3>The Path to Law</h3>
-                    <p>I chose law because I understand that lasting change requires more than safe spaces and scholarships—it requires changing the systems that fail girls in the first place.</p>
+                    <p>I chose law because I understand that lasting change requires more than safe spaces and temporary relief—it requires changing the systems that fail girls in the first place.</p>
                     <ul className={styles.pointsList}>
                         <li><CheckCircle size={20} /> Standing as a shield between girls and abuse</li>
                         <li><CheckCircle size={20} /> Fighting for policies for pregnant girls&apos; education</li>

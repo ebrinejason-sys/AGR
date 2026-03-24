@@ -50,7 +50,7 @@ export default function EventsPage() {
                         id: 'mock-1', title: 'Fund a Rise Room in Ibanda', description: 'Help us establish a safe space for girls to heal and climb out of poverty.', event_date: new Date(Date.now() + 864000000).toISOString(), goal_amount: 5000000, current_amount: 1500000, status: 'upcoming'
                     },
                     {
-                        id: 'mock-2', title: 'Scholarship Drive 2026', description: 'When you keep your daughter in school, you are changing your family\'s future for generations.', event_date: new Date(Date.now() - 864000000).toISOString(), goal_amount: 2000000, current_amount: 2500000, status: 'completed'
+                        id: 'mock-2', title: 'Education Drive 2026', description: 'When you keep your daughter in school, you are changing your family\'s future for generations.', event_date: new Date(Date.now() - 864000000).toISOString(), goal_amount: 2000000, current_amount: 2500000, status: 'completed'
                     }
                 ]);
                 setLoading(false);

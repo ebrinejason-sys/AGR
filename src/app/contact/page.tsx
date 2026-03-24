@@ -340,16 +340,6 @@ export default function Contact() {
                                             />
                                             <span>Monthly Sponsorship</span>
                                         </label>
-                                        <label className={styles.radioLabel}>
-                                            <input
-                                                type="radio"
-                                                name="sponsorType"
-                                                value="scholarship"
-                                                checked={sponsor.sponsorType === 'scholarship'}
-                                                onChange={() => setSponsor({ ...sponsor, sponsorType: 'scholarship' })}
-                                            />
-                                            <span>Full Scholarship</span>
-                                        </label>
                                     </div>
                                 </div>
                                 <div className={styles.inputGroup}>

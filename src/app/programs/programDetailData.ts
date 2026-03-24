@@ -501,7 +501,7 @@ const FUTURE_PATHWAYS: ProgramDetail = {
                     bullets: [
                         "Subject guidance: What subjects lead to which careers",
                         "Application support: Personal statements and interview prep",
-                        "Scholarship connections: Identifying and supporting applications",
+                        "Educational connections: Identifying and supporting school applications",
                         "Exam preparation: Intensive support for national exams",
                     ],
                     impact: [
@@ -562,7 +562,7 @@ const FUTURE_PATHWAYS: ProgramDetail = {
     byTheNumbers: [
         "200+ girls participated in career exposure events",
         "50+ professionals connected as mentors",
-        "100+ girls supported with application and scholarship guidance",
+        "100+ girls supported with school application and enrollment guidance",
         "15 girls currently in university or vocational training",
         "40% of alumni actively mentoring current participants",
     ],

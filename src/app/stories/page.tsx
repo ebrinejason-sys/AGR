@@ -39,7 +39,7 @@ export default function StoriesGallery() {
                 setStories([{
                     id: '1',
                     title: "My Journey from the Village",
-                    content: "I used to walk 10km every day just to get to a school without desks. When African Girl Rise provided me with a scholarship and a bicycle, everything changed...",
+                    content: "I used to walk 10km every day just to get to a school without desks. When African Girl Rise provided me with educational support and a bicycle, everything changed...",
                     author: "Sylvia M.",
                     created_at: new Date().toISOString()
                 }]);

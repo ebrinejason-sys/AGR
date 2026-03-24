@@ -48,7 +48,7 @@ export default function PartnerContact() {
                         </div>
                         <div className={styles.opportunityCard}>
                             <h3>🏫 Educational Partnerships</h3>
-                            <p>Schools, universities, and training institutions providing resources, mentorship, and scholarships.</p>
+                            <p>Schools, universities, and training institutions providing resources and mentorship.</p>
                         </div>
                         <div className={styles.opportunityCard}>
                             <h3>🌍 NGO & Foundation Partnerships</h3>

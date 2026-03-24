@@ -9,7 +9,7 @@ export const CORE_PROGRAMS = [
     {
         id: "academic-rescue",
         title: "Academic Rescue Program",
-        description: "Keeping girls in school and excelling via after-school tutoring centers, exam preparation camps, STEM workshops, and scholarship management.",
+        description: "Keeping girls in school and excelling via after-school tutoring centers, exam preparation camps, STEM workshops, and academic guidance.",
         pillarNumber: 2,
         status: "active",
     },
@@ -57,7 +57,7 @@ export const PILLARS = [
         subtitle: "Because rising requires tangible steps.",
         description: "Practical Skills for Self-Sufficiency",
         items: [
-            "Academic Rescue (Tutoring & Scholarships)",
+            "Academic Rescue (Tutoring & Educational Support)",
             "Essential Support Packages (Sanitary care, supplies)",
             "Digital Literacy Labs",
         ],
