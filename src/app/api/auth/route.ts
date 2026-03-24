@@ -17,7 +17,23 @@ export async function POST(req: Request) {
     try {
         const { action, email, password, otp } = await req.json();
 
-        const { email: targetEmail, password: targetPassword } = getAdminCredentials();
+        let targetEmail, targetPassword;
+        try {
+            const creds = getAdminCredentials();
+            targetEmail = creds.email;
+            targetPassword = creds.password;
+        } catch (e) {
+            return NextResponse.json({
+                error: 'Admin credentials are not configured in environment variables.'
+            }, { status: 503 });
+        }
+
+        if (!process.env.ADMIN_AUTH_SECRET) {
+            return NextResponse.json({
+                error: 'ADMIN_AUTH_SECRET is not configured.'
+            }, { status: 503 });
+        }
+
         const normalizedEmail = normalizeEmail(email);
         const normalizedTargetEmail = normalizeEmail(targetEmail);
         const normalizedOtp = normalizeOtp(otp);

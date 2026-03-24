@@ -1,65 +1,76 @@
 import { NextResponse } from 'next/server';
+import { getAdminSupabase } from '@/lib/supabase';
 import { requireAdminSession } from '@/lib/admin-api';
 
-// In a production app, this would connect to a database
-const projects = [
-  {
-    id: "1",
-    title: "The Rise Room Initiative",
-    description: "School-based safe spaces providing mental health support",
-    pillarNumber: 1,
-    status: "active"
-  },
-  {
-    id: "2",
-    title: "Academic Rescue Program",
-    description: "Tutoring, scholarships, and STEM exposure",
-    pillarNumber: 2,
-    status: "active"
-  }
-];
-
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { error } = requireAdminSession(request);
-  if (error) return error;
+    try {
+        const { error } = requireAdminSession(request);
+        if (error) return error;
 
-  const { id } = await params;
-  const project = projects.find(p => p.id === id);
+        const { id } = await params;
+        const supabase = getAdminSupabase();
 
-  if (!project) {
-    return NextResponse.json({ error: 'Project not found' }, { status: 404 });
-  }
+        const { data, error: dbError } = await supabase
+            .from('projects')
+            .select('*')
+            .eq('id', id)
+            .single();
 
-  return NextResponse.json(project);
+        if (dbError) {
+            return NextResponse.json({ error: dbError.message }, { status: 404 });
+        }
+
+        return NextResponse.json(data);
+    } catch (err) {
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    }
 }
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { error } = requireAdminSession(request);
-  if (error) return error;
+    try {
+        const { error } = requireAdminSession(request);
+        if (error) return error;
 
-  const { id } = await params;
-  const data = await request.json();
+        const { id } = await params;
+        const data = await request.json();
+        const supabase = getAdminSupabase();
 
-  const index = projects.findIndex(p => p.id === id);
-  if (index === -1) {
-    return NextResponse.json({ error: 'Project not found' }, { status: 404 });
-  }
+        const { data: updatedData, error: dbError } = await supabase
+            .from('projects')
+            .update(data)
+            .eq('id', id)
+            .select('*')
+            .single();
 
-  projects[index] = { ...projects[index], ...data };
-  return NextResponse.json(projects[index]);
+        if (dbError) {
+            return NextResponse.json({ error: dbError.message }, { status: 500 });
+        }
+
+        return NextResponse.json(updatedData);
+    } catch (err) {
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    }
 }
 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { error } = requireAdminSession(request);
-  if (error) return error;
+    try {
+        const { error } = requireAdminSession(request);
+        if (error) return error;
 
-  const { id } = await params;
-  const index = projects.findIndex(p => p.id === id);
+        const { id } = await params;
+        const supabase = getAdminSupabase();
 
-  if (index === -1) {
-    return NextResponse.json({ error: 'Project not found' }, { status: 404 });
-  }
+        const { error: dbError } = await supabase
+            .from('projects')
+            .delete()
+            .eq('id', id);
 
-  projects.splice(index, 1);
-  return NextResponse.json({ success: true });
+        if (dbError) {
+            return NextResponse.json({ error: dbError.message }, { status: 500 });
+        }
+
+        return NextResponse.json({ success: true });
+    } catch (err) {
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    }
 }

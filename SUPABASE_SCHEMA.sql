@@ -55,7 +55,18 @@ CREATE TABLE IF NOT EXISTS public.stories (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 4. Subscriptions Table
+-- 4. Projects & Programs Table
+CREATE TABLE IF NOT EXISTS public.projects (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    pillar_number INTEGER DEFAULT 1,
+    status TEXT DEFAULT 'draft' CHECK (status IN ('active', 'draft')),
+    image_url TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 5. Subscriptions Table
 CREATE TABLE IF NOT EXISTS public.subscriptions (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     email TEXT UNIQUE NOT NULL,
@@ -63,7 +74,7 @@ CREATE TABLE IF NOT EXISTS public.subscriptions (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 5. Contacts Table
+-- 6. Contacts Table
 CREATE TABLE IF NOT EXISTS public.contacts (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     name TEXT NOT NULL,
@@ -79,6 +90,7 @@ CREATE TABLE IF NOT EXISTS public.contacts (
 ALTER TABLE public.events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.media ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.stories ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.subscriptions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.contacts ENABLE ROW LEVEL SECURITY;
 
@@ -93,6 +105,10 @@ EXCEPTION WHEN duplicate_object THEN END; $$;
 
 DO $$ BEGIN
     CREATE POLICY "Public can view stories" ON public.stories FOR SELECT TO anon, authenticated USING (true);
+EXCEPTION WHEN duplicate_object THEN END; $$;
+
+DO $$ BEGIN
+    CREATE POLICY "Public can view projects" ON public.projects FOR SELECT TO anon, authenticated USING (true);
 EXCEPTION WHEN duplicate_object THEN END; $$;
 
 -- Allow public to insert into subscriptions and contacts

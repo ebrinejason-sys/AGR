@@ -11,16 +11,34 @@ type Project = {
   id: string;
   title: string;
   description: string;
-  image?: string;
+  image_url?: string;
   status: 'active' | 'draft';
-  pillarNumber: number;
+  pillar_number: number;
 };
 
 export default function ProjectsManagement() {
-  const [projects, setProjects] = useState<Project[]>(CORE_PROGRAMS as Project[]);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Partial<Project>>({});
+
+  const fetchProjects = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch('/api/admin/projects', { cache: 'no-store' });
+      const data = await res.json();
+      if (res.ok) {
+        setProjects(data.projects || []);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   const handleEdit = (project: Project) => {
     setEditingId(project.id);
@@ -29,19 +47,25 @@ export default function ProjectsManagement() {
 
   const handleSave = async () => {
     if (!editingId) return;
+    const isNew = editingId.startsWith('new-');
 
     try {
-      const response = await fetch(`/api/admin/projects/${editingId}`, {
-        method: "PUT",
+      const url = isNew ? '/api/admin/projects' : `/api/admin/projects/${editingId}`;
+      const method = isNew ? 'POST' : 'PUT';
+
+      const response = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
       });
 
       if (response.ok) {
-        const updatedProject = await response.json();
-        setProjects(projects.map(p => p.id === editingId ? updatedProject : p));
+        await fetchProjects();
         setEditingId(null);
         setFormData({});
+      } else {
+        const data = await response.json();
+        alert(data.error || 'Failed to save project');
       }
     } catch (error) {
       console.error("Error saving project:", error);
@@ -65,16 +89,17 @@ export default function ProjectsManagement() {
   };
 
   const handleAddNew = () => {
-    const newId = String(Math.max(...projects.map(p => parseInt(p.id)), 0) + 1);
+    const tempId = 'new-' + Date.now();
     const newProject: Project = {
-      id: newId,
-      title: "New Project",
-      description: "Add project description",
-      pillarNumber: 1,
+      id: tempId,
+      title: "",
+      description: "",
+      pillar_number: 1,
       status: "draft"
     };
-    setProjects([...projects, newProject]);
-    handleEdit(newProject);
+    setProjects([newProject, ...projects]);
+    setEditingId(tempId);
+    setFormData(newProject);
   };
 
   return (
@@ -116,8 +141,8 @@ export default function ProjectsManagement() {
                 </div>
                 <div className={styles.colPillar}>
                   <select
-                    value={formData.pillarNumber || 1}
-                    onChange={(e) => setFormData({ ...formData, pillarNumber: parseInt(e.target.value) })}
+                    value={formData.pillar_number || 1}
+                    onChange={(e) => setFormData({ ...formData, pillar_number: parseInt(e.target.value) })}
                     className={styles.select}
                   >
                     <option value="1">1 - Healing</option>
@@ -149,7 +174,7 @@ export default function ProjectsManagement() {
                 <div className={styles.colTitle}>{project.title}</div>
                 <div className={styles.colDescription}>{project.description}</div>
                 <div className={styles.colPillar}>
-                  <span className={styles.pillarBadge}>Pillar {project.pillarNumber}</span>
+                  <span className={styles.pillarBadge}>Pillar {project.pillar_number}</span>
                 </div>
                 <div className={styles.colStatus}>
                   <span className={`${styles.statusBadge} ${styles[project.status]}`}>
