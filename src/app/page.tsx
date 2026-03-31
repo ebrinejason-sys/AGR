@@ -101,7 +101,12 @@ export default function Home() {
           <div className={styles.impactGrid}>
             <div className={styles.impactItem}>
               <div className={styles.impactNumber}>
-                <AnimatedCounter target={56000} suffix="+" />
+                <AnimatedCounter
+                  target={56000}
+                  suffix="+"
+                  continuous={true}
+                  incrementInterval={2000}
+                />
               </div>
               <p>Target Girls Reached</p>
             </div>
