@@ -8,6 +8,8 @@ interface AnimatedCounterProps {
     prefix?: string;
     suffix?: string;
     separator?: boolean;
+    continuous?: boolean;
+    incrementInterval?: number;
 }
 
 export default function AnimatedCounter({
@@ -15,7 +17,9 @@ export default function AnimatedCounter({
     duration = 2500,
     prefix = "",
     suffix = "",
-    separator = true
+    separator = true,
+    continuous = false,
+    incrementInterval = 3000
 }: AnimatedCounterProps) {
     const [count, setCount] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
@@ -87,6 +91,25 @@ export default function AnimatedCounter({
             }
         };
     }, [isVisible, target, duration]);
+
+    useEffect(() => {
+        if (!isVisible || !continuous) return;
+
+        let interval: NodeJS.Timeout;
+
+        // Start continuous increment only after initial animation reaches target
+        // We wait for the duration of the initial animation
+        const timeout = setTimeout(() => {
+            interval = setInterval(() => {
+                setCount(prev => prev + Math.floor(Math.random() * 2) + 1);
+            }, incrementInterval);
+        }, duration);
+
+        return () => {
+            clearTimeout(timeout);
+            if (interval) clearInterval(interval);
+        };
+    }, [isVisible, continuous, incrementInterval, duration]);
 
     return (
         <div
