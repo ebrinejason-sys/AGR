@@ -41,10 +41,15 @@ export default function AdminEvents() {
     const fetchEvents = async () => {
         try {
             const res = await fetch('/api/admin/events', { cache: 'no-store' });
-            const data = await res.json();
+            const data = await res.json().catch(() => ({ error: 'Failed to parse response' }));
             if (res.ok) {
                 setEvents(data.events || []);
+            } else {
+                const msg = res.status === 503 ? `Configuration Required: ${data.error}` : (data.error || 'Failed to fetch events.');
+                alert(msg);
             }
+        } catch {
+            alert('Network error while fetching events.');
         } finally {
             setLoading(false);
         }
