@@ -10,11 +10,12 @@ export async function GET(request: Request) {
         const supabase = getAdminSupabase();
 
         // Fetch all counts in parallel
-        const [eventsRes, subscribersRes, mediaRes, storiesRes] = await Promise.all([
+        const [eventsRes, subscribersRes, mediaRes, storiesRes, projectsRes] = await Promise.all([
             supabase.from('events').select('id', { count: 'exact', head: true }).eq('status', 'upcoming'),
             supabase.from('subscriptions').select('id', { count: 'exact', head: true }),
             supabase.from('media').select('id', { count: 'exact', head: true }),
             supabase.from('stories').select('id', { count: 'exact', head: true }),
+            supabase.from('projects').select('id', { count: 'exact', head: true }),
         ]);
 
         return NextResponse.json({
@@ -22,6 +23,7 @@ export async function GET(request: Request) {
             subscribers: subscribersRes.count ?? 0,
             mediaItems: mediaRes.count ?? 0,
             publishedStories: storiesRes.count ?? 0,
+            projects: projectsRes.count ?? 0,
         });
     } catch (err) {
         console.error('GET /api/admin/stats error:', err);

@@ -103,3 +103,20 @@ EXCEPTION WHEN duplicate_object THEN END; $$;
 DO $$ BEGIN
     CREATE POLICY "Public can submit contact form" ON public.contacts FOR INSERT TO anon, authenticated WITH CHECK (true);
 EXCEPTION WHEN duplicate_object THEN END; $$;
+
+-- 6. Projects Table
+CREATE TABLE IF NOT EXISTS public.projects (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT,
+    image_url TEXT,
+    status TEXT DEFAULT 'draft' CHECK (status IN ('active', 'draft')),
+    pillar_number INTEGER DEFAULT 1,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
+
+DO $$ BEGIN
+    CREATE POLICY "Public can view projects" ON public.projects FOR SELECT TO anon, authenticated USING (true);
+EXCEPTION WHEN duplicate_object THEN END; $$;
