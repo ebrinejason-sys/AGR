@@ -1,8 +1,47 @@
+"use client";
+
+import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import Link from 'next/link';
 import { CORE_PROGRAMS, PILLARS } from './data';
+import { Loader2 } from 'lucide-react';
+
+type Project = {
+    id: string;
+    title: string;
+    description: string;
+    image_url?: string;
+    status: 'active' | 'draft';
+    pillar_number: number;
+};
 
 export default function Programs() {
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch('/api/public/data')
+            .then(res => res.json())
+            .then(data => {
+                if (data.projects && data.projects.length > 0) {
+                    setProjects(data.projects.filter((p: Project) => p.status === 'active'));
+                } else {
+                    // Fallback to static data if DB is empty or misconfigured
+                    setProjects(CORE_PROGRAMS.map(p => ({
+                        ...p,
+                        pillar_number: p.pillarNumber,
+                    })) as Project[]);
+                }
+            })
+            .catch(() => {
+                setProjects(CORE_PROGRAMS.map(p => ({
+                    ...p,
+                    pillar_number: p.pillarNumber,
+                })) as Project[]);
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
     return (
         <div className={styles.container}>
             {/* Hero Section */}
@@ -77,17 +116,28 @@ export default function Programs() {
             {/* Core Programs Detailed */}
             <section className={styles.corePrograms}>
                 <h2 className={styles.sectionTitle}>Core Programs</h2>
-                <div className={styles.programsGrid}>
-                    {CORE_PROGRAMS.map((program) => (
-                        <div key={program.id} className={styles.programCard}>
-                            <h3>{program.title}</h3>
-                            <p style={{ marginBottom: '1rem' }}>{program.description}</p>
-                            <Link href={`/programs/${program.id}`} className={styles.readMoreLink} style={{ color: 'var(--color-pink)', fontWeight: 'bold', textDecoration: 'none' }}>
-                                Read More →
-                            </Link>
-                        </div>
-                    ))}
-                </div>
+                {loading ? (
+                    <div style={{ textAlign: 'center', padding: '3rem' }}>
+                        <Loader2 className="spin" size={40} color="var(--color-pink)" />
+                    </div>
+                ) : (
+                    <div className={styles.programsGrid}>
+                        {projects.map((program) => (
+                            <div key={program.id} className={styles.programCard}>
+                                {program.image_url && (
+                                    <div style={{ marginBottom: '1rem', borderRadius: '8px', overflow: 'hidden', height: '180px' }}>
+                                        <img src={program.image_url} alt={program.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    </div>
+                                )}
+                                <h3>{program.title}</h3>
+                                <p style={{ marginBottom: '1rem' }}>{program.description}</p>
+                                <Link href={`/programs/${program.id}`} className={styles.readMoreLink} style={{ color: 'var(--color-pink)', fontWeight: 'bold', textDecoration: 'none' }}>
+                                    Read More →
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </section>
 
             {/* Special Initiatives */}

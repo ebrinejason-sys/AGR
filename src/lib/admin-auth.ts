@@ -33,23 +33,26 @@ const requireAuthSecret = () => {
     return secret;
 };
 
-const signRaw = (value: string) => createHmac('sha256', requireAuthSecret()).update(value).digest('base64url');
+const signRaw = (value: string) => {
+    const secret = getAuthSecret();
+    if (!secret) return null;
+    return createHmac('sha256', secret).update(value).digest('base64url');
+};
 
 const createSignedToken = (payload: TokenPayload) => {
     const encodedPayload = b64urlEncode(JSON.stringify(payload));
     const signature = signRaw(encodedPayload);
+    if (!signature) throw new Error("Cannot sign token: ADMIN_AUTH_SECRET is missing.");
     return `${encodedPayload}.${signature}`;
 };
 
 const parseAndVerifyToken = (token: string): TokenPayload | null => {
-    if (!getAuthSecret()) {
-        return null;
-    }
-
     const [encodedPayload, signature] = token.split('.');
     if (!encodedPayload || !signature) return null;
 
     const expected = signRaw(encodedPayload);
+    if (!expected) return null;
+
     const providedBuffer = Buffer.from(signature, 'utf8');
     const expectedBuffer = Buffer.from(expected, 'utf8');
 
@@ -89,6 +92,7 @@ export const createOtpToken = (email: string, otp: string) => {
     const exp = Date.now() + OTP_DURATION_SECONDS * 1000;
     const nonce = crypto.randomUUID();
     const otpHash = hashOtp(email, otp, nonce, exp);
+    if (!otpHash) throw new Error("Cannot create OTP token: ADMIN_AUTH_SECRET is missing.");
 
     return {
         token: createSignedToken({
@@ -109,6 +113,8 @@ export const verifyOtpToken = (token: string, email: string, otp: string) => {
     }
 
     const expectedHash = hashOtp(email, otp, payload.nonce, payload.exp);
+    if (!expectedHash) return false;
+
     const providedBuffer = Buffer.from(payload.otpHash, 'utf8');
     const expectedBuffer = Buffer.from(expectedHash, 'utf8');
 

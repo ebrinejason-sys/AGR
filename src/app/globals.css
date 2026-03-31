@@ -286,6 +286,10 @@ button {
   }
 }
 
+.spin {
+  animation: spin 1s linear infinite;
+}
+
 /* ─── BROWSER COMPATIBILITY & DEVICE SUPPORT ─── */
 
 /* Cross-browser scrollbar styling */

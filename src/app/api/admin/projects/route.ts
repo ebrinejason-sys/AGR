@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAdminSupabase } from '@/lib/supabase';
+import { getAdminSupabase, checkSupabaseAdminConfig } from '@/lib/supabase';
 import { requireAdminSession } from '@/lib/admin-api';
 
 export async function GET(request: Request) {
@@ -7,6 +7,7 @@ export async function GET(request: Request) {
         const { error } = requireAdminSession(request);
         if (error) return error;
 
+        checkSupabaseAdminConfig();
         const supabase = getAdminSupabase();
         const { data, error: dbError } = await supabase
             .from('projects')
@@ -20,10 +21,9 @@ export async function GET(request: Request) {
         return NextResponse.json({ projects: data || [] });
     } catch (err) {
         console.error('GET /api/admin/projects error:', err);
-        return NextResponse.json(
-            { error: err instanceof Error ? err.message : 'Internal server error' },
-            { status: 500 }
-        );
+        const message = err instanceof Error ? err.message : 'Internal server error';
+        const status = message.includes('not configured') ? 503 : 500;
+        return NextResponse.json({ error: message }, { status });
     }
 }
 
@@ -32,6 +32,7 @@ export async function POST(request: Request) {
         const { error } = requireAdminSession(request);
         if (error) return error;
 
+        checkSupabaseAdminConfig();
         const body = await request.json();
         const { title, description, image_url, status, pillar_number } = body;
 
@@ -59,9 +60,8 @@ export async function POST(request: Request) {
         return NextResponse.json({ project: data }, { status: 201 });
     } catch (err) {
         console.error('POST /api/admin/projects error:', err);
-        return NextResponse.json(
-            { error: err instanceof Error ? err.message : 'Internal server error' },
-            { status: 500 }
-        );
+        const message = err instanceof Error ? err.message : 'Internal server error';
+        const status = message.includes('not configured') ? 503 : 500;
+        return NextResponse.json({ error: message }, { status });
     }
 }

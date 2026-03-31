@@ -17,3 +17,16 @@
  GET /admin/login 200 in 110ms (compile: 4ms, proxy.ts: 4ms, render: 101ms)
  GET /api/auth 200 in 33ms (compile: 24ms, render: 9ms)
  GET /api/auth 200 in 35ms (compile: 30ms, render: 5ms)
+○ Compiling /programs ...
+ GET /programs 200 in 8.0s (compile: 7.5s, render: 496ms)
+○ Compiling /api/public/data ...
+GET /api/public/data error: Error: Supabase admin client is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.
+    at getAdminSupabase (src/lib/supabase.ts:22:15)
+    at GET (src/app/api/public/data/route.ts:6:42)
+  20 |     const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  21 |     if (!supabaseUrl || !serviceRoleKey) {
+> 22 |         throw new Error("Supabase admin client is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.");
+     |               ^
+  23 |     }
+  24 |     return createClient(
+  25 |         supabaseUrl,

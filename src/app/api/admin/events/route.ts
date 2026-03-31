@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAdminSupabase } from '@/lib/supabase';
+import { getAdminSupabase, checkSupabaseAdminConfig } from '@/lib/supabase';
 import { requireAdminSession } from '@/lib/admin-api';
 
 export async function GET(request: Request) {
@@ -7,6 +7,7 @@ export async function GET(request: Request) {
         const { error } = requireAdminSession(request);
         if (error) return error;
 
+        checkSupabaseAdminConfig();
         const supabase = getAdminSupabase();
         const { data, error: dbError } = await supabase
             .from('events')
@@ -20,10 +21,9 @@ export async function GET(request: Request) {
         return NextResponse.json({ events: data || [] });
     } catch (err) {
         console.error('GET /api/admin/events error:', err);
-        return NextResponse.json(
-            { error: err instanceof Error ? err.message : 'Internal server error' },
-            { status: 500 }
-        );
+        const message = err instanceof Error ? err.message : 'Internal server error';
+        const status = message.includes('not configured') ? 503 : 500;
+        return NextResponse.json({ error: message }, { status });
     }
 }
 
@@ -32,6 +32,7 @@ export async function POST(request: Request) {
         const { error } = requireAdminSession(request);
         if (error) return error;
 
+        checkSupabaseAdminConfig();
         const body = await request.json();
         const { title, description, event_date, goal_amount, cover_image, achievements } = body;
 
@@ -67,10 +68,9 @@ export async function POST(request: Request) {
         return NextResponse.json({ event: data }, { status: 201 });
     } catch (err) {
         console.error('POST /api/admin/events error:', err);
-        return NextResponse.json(
-            { error: err instanceof Error ? err.message : 'Internal server error' },
-            { status: 500 }
-        );
+        const message = err instanceof Error ? err.message : 'Internal server error';
+        const status = message.includes('not configured') ? 503 : 500;
+        return NextResponse.json({ error: message }, { status });
     }
 }
 
@@ -79,6 +79,7 @@ export async function PATCH(request: Request) {
         const { error } = requireAdminSession(request);
         if (error) return error;
 
+        checkSupabaseAdminConfig();
         const body = await request.json();
         const { id, status, title, description, event_date, goal_amount, cover_image, achievements } = body;
 
@@ -116,10 +117,9 @@ export async function PATCH(request: Request) {
         return NextResponse.json({ event: data });
     } catch (err) {
         console.error('PATCH /api/admin/events error:', err);
-        return NextResponse.json(
-            { error: err instanceof Error ? err.message : 'Internal server error' },
-            { status: 500 }
-        );
+        const message = err instanceof Error ? err.message : 'Internal server error';
+        const status = message.includes('not configured') ? 503 : 500;
+        return NextResponse.json({ error: message }, { status });
     }
 }
 
@@ -128,6 +128,7 @@ export async function DELETE(request: Request) {
         const { error } = requireAdminSession(request);
         if (error) return error;
 
+        checkSupabaseAdminConfig();
         const body = await request.json();
         const { id } = body;
 
@@ -148,9 +149,8 @@ export async function DELETE(request: Request) {
         return NextResponse.json({ success: true });
     } catch (err) {
         console.error('DELETE /api/admin/events error:', err);
-        return NextResponse.json(
-            { error: err instanceof Error ? err.message : 'Internal server error' },
-            { status: 500 }
-        );
+        const message = err instanceof Error ? err.message : 'Internal server error';
+        const status = message.includes('not configured') ? 503 : 500;
+        return NextResponse.json({ error: message }, { status });
     }
 }

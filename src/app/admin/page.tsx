@@ -20,15 +20,19 @@ export default function AdminOverview() {
         const fetchStats = async () => {
             try {
                 const res = await fetch('/api/admin/stats', { cache: 'no-store' });
+                const data = await res.json().catch(() => ({ error: 'Failed to parse stats response' }));
+
                 if (res.ok) {
-                    const data = await res.json();
                     setStats(data);
                 } else {
-                    const data = await res.json().catch(() => ({ error: 'Failed to load stats' }));
-                    setError(data.error || 'Failed to load stats');
+                    let errorMessage = data.error || 'Failed to load stats';
+                    if (res.status === 503) {
+                        errorMessage = `Configuration Required: ${errorMessage}`;
+                    }
+                    setError(errorMessage);
                 }
             } catch {
-                setError('Network error loading stats');
+                setError('Network error loading stats. Ensure environment variables are set and the database is accessible.');
             }
         };
         fetchStats();

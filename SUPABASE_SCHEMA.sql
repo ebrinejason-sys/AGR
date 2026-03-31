@@ -120,3 +120,9 @@ ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
 DO $$ BEGIN
     CREATE POLICY "Public can view projects" ON public.projects FOR SELECT TO anon, authenticated USING (true);
 EXCEPTION WHEN duplicate_object THEN END; $$;
+
+-- STORAGE BUCKET SETUP
+-- 1. Go to Supabase Storage -> Buckets
+-- 2. Create a new public bucket named "media"
+-- 3. Add a policy for "public" to "SELECT" (read) objects in the "media" bucket.
+-- 4. Add a policy for "authenticated" or "service_role" to "INSERT", "UPDATE", "DELETE" objects.
