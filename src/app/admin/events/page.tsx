@@ -226,10 +226,9 @@ export default function AdminEvents() {
                             <div className={styles.inputGroup}>
                                 <label>Event Status</label>
                                 <select
-                                    className={styles.statusSelect}
+                                    className={`${styles.statusSelect} ${styles.statusSelectFull}`}
                                     value={formData.status}
                                     onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value }))}
-                                    style={{ padding: '1rem', width: '100%' }}
                                 >
                                     <option value="upcoming">Upcoming</option>
                                     <option value="completed">Completed</option>
@@ -239,8 +238,8 @@ export default function AdminEvents() {
                         </div>
 
                         {/* Cover Image Upload */}
-                        <div className={styles.inputGroup} style={{ border: '1px dashed var(--border-color)', padding: '1.5rem', borderRadius: '12px' }}>
-                            <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div className={`${styles.inputGroup} ${styles.imageUploadArea}`}>
+                            <label className={styles.imageUploadLabel}>
                                 <span>Cover Image</span>
                                 <button
                                     type="button"
@@ -249,7 +248,7 @@ export default function AdminEvents() {
                                     disabled={uploadingImage}
                                 >
                                     {uploadingImage ? <Loader2 size={16} className="spin" /> : <ImageIcon size={16} />}
-                                    <span style={{ marginLeft: '8px' }}>{formData.cover_image ? 'Change Image' : 'Upload Image'}</span>
+                                    <span className={styles.btnLabelText}>{formData.cover_image ? 'Change Image' : 'Upload Image'}</span>
                                 </button>
                             </label>
                             <input
@@ -260,23 +259,23 @@ export default function AdminEvents() {
                                 onChange={handleImageUpload}
                             />
                             {formData.cover_image && (
-                                <div style={{ marginTop: '1rem', height: '150px', borderRadius: '8px', overflow: 'hidden' }}>
-                                    <img src={formData.cover_image} alt="Cover Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <div className={styles.imagePreviewWrapper}>
+                                    <img src={formData.cover_image} alt="Cover Preview" className={styles.imagePreviewImg} />
                                 </div>
                             )}
                         </div>
 
                         {/* Achievements - Only strictly relevant if completed, but we can allow writing them beforehand */}
                         {formData.status === 'completed' && (
-                            <div className={styles.inputGroup} style={{ background: 'rgba(76, 175, 80, 0.05)', padding: '1.5rem', borderRadius: '12px', borderLeft: '4px solid #4caf50' }}>
+                            <div className={`${styles.inputGroup} ${styles.achievementsArea}`}>
                                 <label>Achievements (Completed Event)</label>
-                                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Write about the achievements that were accomplished in this event.</p>
+                                <p className={styles.achievementsDesc}>Write about the achievements that were accomplished in this event.</p>
                                 <textarea
                                     rows={4}
                                     placeholder="We successfully raised 10 million UGX and built a new Rise Room..."
                                     value={formData.achievements}
                                     onChange={(e) => setFormData((prev) => ({ ...prev, achievements: e.target.value }))}
-                                    style={{ background: 'var(--bg-color)' }}
+                                    className={styles.bgTextarea}
                                 />
                             </div>
                         )}
@@ -314,11 +313,11 @@ export default function AdminEvents() {
                             <tr key={ev.id}>
                                 <td>
                                     {ev.cover_image ? (
-                                        <div style={{ width: '50px', height: '50px', borderRadius: '8px', overflow: 'hidden' }}>
-                                            <img src={ev.cover_image} alt="cover" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        <div className={styles.thumbWrapper}>
+                                            <img src={ev.cover_image} alt="cover" className={styles.imagePreviewImg} />
                                         </div>
                                     ) : (
-                                        <div style={{ width: '50px', height: '50px', borderRadius: '8px', background: 'var(--card-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
+                                        <div className={styles.thumbPlaceholder}>
                                             <ImageIcon size={20} />
                                         </div>
                                     )}

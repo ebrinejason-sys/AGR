@@ -20,7 +20,12 @@
     padding: 2.5rem;
     margin-bottom: 3rem;
     /* iOS stability */
+    will-change: transform, opacity;
+}
 
+.quillWrapper {
+    background: var(--bg-color);
+    color: var(--text-color);
 }
 
 .composerBox h2 {

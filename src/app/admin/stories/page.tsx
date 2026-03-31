@@ -149,7 +149,7 @@ export default function AdminStories() {
 
                     <div className={styles.inputGroup}>
                         <label>Story Content</label>
-                        <div style={{ background: 'var(--bg-color)', color: 'var(--text-color)' }}>
+                        <div className={styles.quillWrapper}>
                             <ReactQuill
                                 theme="snow"
                                 value={formData.content}
