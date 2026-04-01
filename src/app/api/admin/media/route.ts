@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server';
 import { getAdminSupabase } from '@/lib/supabase';
-import { requireAdminSession } from '@/lib/admin-api';
+import { requireAdminSession, checkSupabaseAdminConfig } from '@/lib/admin-api';
 
 const sanitizeFileName = (fileName: string) => fileName.replace(/[^a-zA-Z0-9._-]/g, '-');
 
 export async function GET(request: Request) {
     try {
+        const configError = checkSupabaseAdminConfig();
+        if (configError) return configError;
+
         const { error } = requireAdminSession(request);
         if (error) return error;
 
@@ -31,6 +34,9 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
     try {
+        const configError = checkSupabaseAdminConfig();
+        if (configError) return configError;
+
         const { error } = requireAdminSession(request);
         if (error) return error;
 
@@ -87,8 +93,9 @@ export async function POST(request: Request) {
 
         if (dbError) {
             console.error('Supabase Database Insert Error:', dbError);
-            // Even if DB insert fails, the file is uploaded. We'll still return 500, but admin might need to clean it up.
-            return NextResponse.json({ error: `Database insert failed: ${dbError.message}` }, { status: 500 });
+            // If DB insert fails, cleanup: delete the uploaded file from storage
+            await supabase.storage.from(bucket).remove([filePath]);
+            return NextResponse.json({ error: `Database insert failed: ${dbError.message}. Storage has been cleaned up.` }, { status: 500 });
         }
 
         return NextResponse.json({ media: data }, { status: 201 });

@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server';
 import { getAdminSupabase } from '@/lib/supabase';
-import { requireAdminSession } from '@/lib/admin-api';
+import { requireAdminSession, checkSupabaseAdminConfig } from '@/lib/admin-api';
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
+        const configError = checkSupabaseAdminConfig();
+        if (configError) return configError;
+
         const { error } = requireAdminSession(request);
         if (error) return error;
 
@@ -35,6 +38,9 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
+        const configError = checkSupabaseAdminConfig();
+        if (configError) return configError;
+
         const { error } = requireAdminSession(request);
         if (error) return error;
 
@@ -73,6 +79,9 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
+        const configError = checkSupabaseAdminConfig();
+        if (configError) return configError;
+
         const { error } = requireAdminSession(request);
         if (error) return error;
 

@@ -1,6 +1,17 @@
 import { NextResponse } from 'next/server';
 import { ADMIN_SESSION_COOKIE } from '@/lib/admin-constants';
 import { verifyAdminSessionToken } from '@/lib/admin-auth';
+import { isSupabaseAdminConfigured } from '@/lib/supabase';
+
+export const checkSupabaseAdminConfig = () => {
+    if (!isSupabaseAdminConfigured) {
+        return NextResponse.json(
+            { error: 'Supabase Admin is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables.' },
+            { status: 503 }
+        );
+    }
+    return null;
+};
 
 export const getCookieValue = (cookieHeader: string | null, cookieName: string) => {
     if (!cookieHeader) return null;

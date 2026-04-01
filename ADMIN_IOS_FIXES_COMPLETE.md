@@ -296,8 +296,8 @@ You still need to add these to Vercel for full functionality:
 
 ```
 NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY=FLWPUBK-7be789b35694bd742506ed040929dad6-X
-FLUTTERWAVE_SECRET_KEY=FLWSECK-c12ace65ee685cd82c5a08061b888fc6-19caf686925vt-X
-RESEND_API_KEY=re_K8wjcJXD_7M3KmfM1CuYzrrdC7F6YLzWN
+FLUTTERWAVE_SECRET_KEY=FLWSECK-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxx-X
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 NEXT_PUBLIC_SUPABASE_URL=https://dupwvxngxgmbpnezhnum.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=[your-anon-key]
 ADMIN_LOGIN_EMAIL=africangirlriseltd@gmail.com

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { resend, SENDER_EMAIL } from '@/lib/resend';
+import { rateLimit, getIP } from '@/lib/rate-limit';
 
 const escapeHtml = (str: string): string =>
   str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -75,6 +76,11 @@ function buildAdminHtml(type: FormType, fields: Record<string, string>): string 
 
 export async function POST(request: Request) {
   try {
+    const ip = getIP(request);
+    // Limit contact form submissions (3 requests per hour)
+    const { isLimited, response } = rateLimit(ip, 3, 60 * 60 * 1000);
+    if (isLimited) return response;
+
     if (!resend) {
       return NextResponse.json(
         { error: 'Email service is not configured. Set RESEND_API_KEY.' },
@@ -83,10 +89,16 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
+
+    // Strict type and length validation
     const type = (body.type as FormType) || 'general';
     const email = String(body.email || '').trim();
     const name = String(body.name || body.contactPerson || '').trim();
     const message = String(body.message || '').trim();
+
+    if (email.length > 255 || name.length > 255 || message.length > 10000) {
+      return NextResponse.json({ error: 'Input too long' }, { status: 400 });
+    }
 
     if (!email || !message) {
       return NextResponse.json({ error: 'Email and message are required' }, { status: 400 });

@@ -35,7 +35,7 @@
     align-items: center;
     gap: 1rem;
     /* iOS stability */
-
+    will-change: transform, opacity;
 }
 
 .statIcon {
@@ -91,6 +91,8 @@
     border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 2rem;
+    /* iOS stability */
+    will-change: transform, opacity;
 }
 
 .panel h2 {
@@ -120,17 +122,81 @@
     min-height: 48px; /* iOS touch target */
     display: flex;
     align-items: center;
+    gap: 0.75rem;
     border-radius: 12px;
     color: var(--text-color);
     text-align: left;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: all 0.2s ease;
     font-weight: 500;
+    text-decoration: none;
 }
 
 .actionBtn:hover {
     background: var(--card-hover-bg);
     border-color: var(--color-lightblue);
     color: var(--color-lightblue);
+    transform: translateX(5px);
+}
+
+.welcomeBanner {
+    background: linear-gradient(135deg, rgba(216, 27, 96, 0.1), rgba(74, 20, 140, 0.1));
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    border-left: 6px solid var(--color-pink);
+}
+
+.welcomeBanner h2 {
+    color: var(--color-pink);
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.welcomeBanner p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.navGuide {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.guideItem {
+    display: flex;
+    gap: 1rem;
+}
+
+.guideIcon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.guideContent h4 {
+    margin: 0 0 0.25rem;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+.guideContent p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.actionIcon {
+    color: var(--color-pink);
+    flex-shrink: 0;
 }
 
 @media (max-width: 1024px) {

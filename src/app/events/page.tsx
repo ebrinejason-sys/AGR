@@ -18,6 +18,30 @@ type Event = {
     media?: { id: string; url: string; type: 'image' | 'video'; description: string }[];
 };
 
+const MOCK_EVENTS: Event[] = [
+    {
+        id: 'mock-1',
+        title: 'Education Drive 2025 Launch',
+        description: 'Join us as we kick off our 2025 Education Drive program, providing tuition and supplies for 50 girls in Kiburara.',
+        event_date: '2025-02-15T09:00:00Z',
+        goal_amount: 15000000,
+        current_amount: 4500000,
+        status: 'upcoming',
+        cover_image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop',
+    },
+    {
+        id: 'mock-2',
+        title: 'Community Health & Wellness Workshop',
+        description: 'A successful weekend workshop covering SRHR and mental health resilience for adolescent girls and their guardians.',
+        event_date: '2024-11-10T10:00:00Z',
+        goal_amount: 5000000,
+        current_amount: 5000000,
+        status: 'completed',
+        cover_image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1200&auto=format&fit=crop',
+        achievements: 'Reached over 120 girls and distributed 500 dignity kits.',
+    }
+];
+
 export default function EventsPage() {
     const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
@@ -43,28 +67,25 @@ export default function EventsPage() {
 
     useEffect(() => {
         async function fetchEvents() {
-            // If supabase url isn't set, we mock the data to preview the UI
-            if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-                setEvents([
-                    {
-                        id: 'mock-1', title: 'Fund a Rise Room in Ibanda', description: 'Help us establish a safe space for girls to heal and climb out of poverty.', event_date: new Date(Date.now() + 864000000).toISOString(), goal_amount: 5000000, current_amount: 1500000, status: 'upcoming'
-                    },
-                    {
-                        id: 'mock-2', title: 'Scholarship Drive 2026', description: 'When you keep your daughter in school, you are changing your family\'s future for generations.', event_date: new Date(Date.now() - 864000000).toISOString(), goal_amount: 2000000, current_amount: 2500000, status: 'completed'
-                    }
-                ]);
+            try {
+                // If supabase is not configured, we just show an empty state or handle it gracefully
+                const { data } = await supabase
+                    .from('events')
+                    .select('*, media(*)')
+                    .neq('status', 'cancelled')
+                    .order('event_date', { ascending: true });
+
+                if (data && data.length > 0) {
+                    setEvents(data);
+                } else {
+                    setEvents(MOCK_EVENTS);
+                }
+            } catch (err) {
+                console.error("Failed to fetch events", err);
+                setEvents(MOCK_EVENTS);
+            } finally {
                 setLoading(false);
-                return;
             }
-
-            const { data } = await supabase
-                .from('events')
-                .select('*, media(*)')
-                .neq('status', 'cancelled')
-                .order('event_date', { ascending: true });
-
-            if (data) setEvents(data);
-            setLoading(false);
         }
         fetchEvents();
     }, []);

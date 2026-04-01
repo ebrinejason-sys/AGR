@@ -123,6 +123,7 @@ export default function AdminLogin() {
                                     value={email}
                                     onChange={e => setEmail(e.target.value)}
                                     placeholder="admin@example.com"
+                                    autoComplete="username"
                                 />
                             </div>
                         </div>
@@ -137,6 +138,7 @@ export default function AdminLogin() {
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
                                     placeholder="Enter your password"
+                                    autoComplete="current-password"
                                 />
                             </div>
                         </div>
@@ -157,6 +159,8 @@ export default function AdminLogin() {
                                 onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
                                 placeholder="123456"
                                 className={styles.otpInput}
+                                autoComplete="one-time-code"
+                                inputMode="numeric"
                             />
                         </div>
 

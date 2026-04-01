@@ -2,11 +2,24 @@ import { NextResponse } from 'next/server';
 import { SubscriberWelcomeTemplate } from '@/lib/email-templates';
 import { isResendConfigured, resend, SENDER_EMAIL } from '@/lib/resend';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { rateLimit, getIP } from '@/lib/rate-limit';
 
 export async function POST(request: Request) {
     try {
+        const ip = getIP(request);
+        // Limit newsletter subscriptions (3 requests per hour)
+        const { isLimited, response } = rateLimit(ip, 3, 60 * 60 * 1000);
+        if (isLimited) return response;
+
         const body = await request.json();
         const { email, name } = body;
+
+        if (email && String(email).length > 255) {
+            return NextResponse.json({ error: 'Email too long' }, { status: 400 });
+        }
+        if (name && String(name).length > 255) {
+            return NextResponse.json({ error: 'Name too long' }, { status: 400 });
+        }
 
         if (!email || typeof email !== 'string') {
             return NextResponse.json(

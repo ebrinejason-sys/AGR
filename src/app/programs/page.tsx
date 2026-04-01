@@ -1,8 +1,44 @@
+"use client";
+
+import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import Link from 'next/link';
 import { CORE_PROGRAMS, PILLARS } from './data';
 
+type Project = {
+    id: string;
+    title: string;
+    description: string;
+    image_url?: string;
+    status: 'active' | 'draft';
+    pillar_number: number;
+};
+
 export default function Programs() {
+    const [dynamicProjects, setDynamicProjects] = useState<Project[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchProjects() {
+            try {
+                const res = await fetch('/api/public/data');
+                const data = await res.json();
+                if (res.ok && data.projects) {
+                    setDynamicProjects(data.projects.filter((p: Project) => p.status === 'active'));
+                }
+            } catch (err) {
+                console.error("Failed to fetch dynamic projects", err);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchProjects();
+    }, []);
+
+    // If dynamic projects are available, we can either replace or append to CORE_PROGRAMS.
+    // For now, let's prioritize dynamic projects and use static as a fallback if none are found.
+    const displayPrograms = dynamicProjects.length > 0 ? dynamicProjects : CORE_PROGRAMS;
+
     return (
         <div className={styles.container}>
             {/* Hero Section */}
@@ -78,15 +114,23 @@ export default function Programs() {
             <section className={styles.corePrograms}>
                 <h2 className={styles.sectionTitle}>Core Programs</h2>
                 <div className={styles.programsGrid}>
-                    {CORE_PROGRAMS.map((program) => (
-                        <div key={program.id} className={styles.programCard}>
-                            <h3>{program.title}</h3>
-                            <p style={{ marginBottom: '1rem' }}>{program.description}</p>
-                            <Link href={`/programs/${program.id}`} className={styles.readMoreLink} style={{ color: 'var(--color-pink)', fontWeight: 'bold', textDecoration: 'none' }}>
-                                Read More →
-                            </Link>
-                        </div>
-                    ))}
+                    {loading ? (
+                        <div className={styles.loader}>Loading programs...</div>
+                    ) : (
+                        displayPrograms.map((program) => (
+                            <div key={program.id} className={styles.programCard}>
+                                <h3>{program.title}</h3>
+                                <p style={{ marginBottom: '1rem' }}>{program.description}</p>
+                                <Link
+                                    href={program.id.startsWith('new-') ? '/programs' : `/programs/${program.id}`}
+                                    className={styles.readMoreLink}
+                                    style={{ color: 'var(--color-pink)', fontWeight: 'bold', textDecoration: 'none' }}
+                                >
+                                    Read More →
+                                </Link>
+                            </div>
+                        ))
+                    )}
                 </div>
             </section>
 

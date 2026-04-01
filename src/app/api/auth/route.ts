@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { isResendConfigured, resend, SENDER_EMAIL } from '@/lib/resend';
+import { rateLimit, getIP } from '@/lib/rate-limit';
 import { ADMIN_OTP_COOKIE, ADMIN_SESSION_COOKIE } from '@/lib/admin-constants';
 import { getCookieValue } from '@/lib/admin-api';
 import {
@@ -9,6 +10,8 @@ import {
     getMissingAdminAuthEnvVars,
     verifyAdminSessionToken,
     verifyOtpToken,
+    safeCompare,
+    generateSecureOtp,
 } from '@/lib/admin-auth';
 
 const normalizeEmail = (value: unknown) => typeof value === 'string' ? value.trim().toLowerCase() : '';
@@ -16,6 +19,14 @@ const normalizeOtp = (value: unknown) => typeof value === 'string' ? value.repla
 
 export async function POST(req: Request) {
     try {
+        const ip = getIP(req);
+        // Limit login attempts (5 requests per 10 minutes)
+        const { isLimited, response } = rateLimit(ip, 5, 10 * 60 * 1000);
+        if (isLimited) {
+            console.warn(`[SECURITY] Rate limit hit for IP: ${ip} on Auth API`);
+            return response;
+        }
+
         const { action, email, password, otp } = await req.json();
 
         const missingAdminEnvVars = getMissingAdminAuthEnvVars();
@@ -34,7 +45,8 @@ export async function POST(req: Request) {
         const normalizedOtp = normalizeOtp(otp);
 
         if (action === 'request_otp') {
-            if (normalizedEmail !== normalizedTargetEmail || password !== targetPassword) {
+            if (!safeCompare(normalizedEmail, normalizedTargetEmail) || !safeCompare(password, targetPassword)) {
+                console.warn(`[SECURITY] Failed login attempt from IP: ${ip} for email: ${normalizedEmail}`);
                 return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
             }
 
@@ -42,7 +54,7 @@ export async function POST(req: Request) {
                 return NextResponse.json({ error: 'Email service is not configured. Set RESEND_API_KEY.' }, { status: 503 });
             }
 
-            const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+            const generatedOtp = generateSecureOtp();
 
             const otpState = createOtpToken(normalizedEmail, generatedOtp);
 
