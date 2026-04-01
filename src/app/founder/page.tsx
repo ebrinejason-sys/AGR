@@ -167,7 +167,7 @@ export default function FounderPage() {
                     <h3>The Path to Law</h3>
                     <p>My parents supported every dream I ever had. When I wanted to be a Civil Engineer, they cheered. When I wanted to go to university, they sacrificed. When I discovered my calling in law, they said: &quot;Go. Become. We are with you.&quot;</p>
                     <p>I am currently in my fourth year of law school, pursuing a degree that I believe is essential to the work of breaking cycles and transforming communities. Now, through my law degree, I am equipping myself to fight for other girls to have the same chance.</p>
-                    <p>I chose law because I understand that lasting change requires more than safe spaces and scholarships—it requires changing the systems that fail girls in the first place.</p>
+                    <p>I chose law because I understand that lasting change requires more than safe spaces and Education Drives—it requires changing the systems that fail girls in the first place.</p>
                     <p>I did not choose law for prestige or wealth. I chose it because I have watched too many girls—my friends, my students, my community—fall through the gaps of a system that was never designed to catch them.</p>
                     <p>A lawyer has the power to change lives in moments where everything is on the line.</p>
                     <p>They stand as a shield between individuals and systems that are often cruel and unforgiving, giving strength to those who feel powerless and unheard. It&apos;s about choosing justice, even when the system is flawed.</p>
@@ -236,7 +236,7 @@ export default function FounderPage() {
                     <p>You do not have to start an organization to change a girl&apos;s life. You do not have to be wealthy or powerful or famous. You simply have to do something.</p>
                     <p><strong>If you are a parent:</strong> Look at your daughter and ask yourself: Am I investing in her future the way my parents invested in mine? Am I breaking the cycle or passing it on? Choose differently. Choose her.</p>
                     <p><strong>If you are a teacher:</strong> Notice the quiet girls at the back of your classroom. The ones who are exhausted. The ones who never speak. They are carrying weights you cannot see. Be the person who asks: &quot;Are you okay?&quot; and means it.</p>
-                    <p><strong>If you are a donor:</strong> Sponsor a girl. Fund a Rise Room. Support a scholarship. Your money, invested wisely, does not just change one life—it transforms generations.</p>
+                    <p><strong>If you are a donor:</strong> Sponsor a girl. Fund a Rise Room. Support an Education Drive. Your money, invested wisely, does not just change one life—it transforms generations.</p>
                     <p><strong>If you are a community leader:</strong> Advocate for girls&apos; education. Speak out against early marriage. Support policies that keep girls in school. Use your voice to amplify theirs.</p>
                     <p><strong>If you are a girl reading this:</strong> Hold on. I know you are tired. I know it feels impossible. But you are stronger than you know. Your beginning does not define your becoming. Find someone who believes in you. And when you rise—because you will—reach back.</p>
                 </section>

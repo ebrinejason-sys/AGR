@@ -20,7 +20,7 @@
     padding: 2.5rem;
     margin-bottom: 3rem;
     /* iOS stability */
-
+    will-change: transform, opacity;
 }
 
 .composerBox h2 {
@@ -62,7 +62,8 @@
     border-radius: 12px;
     color: var(--text-color);
     font-family: inherit;
-    font-size: 1rem;
+    /* Ensure 16px font-size to prevent iOS auto-zoom on focused inputs */
+    font-size: 16px;
 }
 
 .inputGroup input:focus,

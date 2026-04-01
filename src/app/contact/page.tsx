@@ -344,11 +344,11 @@ export default function Contact() {
                                             <input
                                                 type="radio"
                                                 name="sponsorType"
-                                                value="scholarship"
-                                                checked={sponsor.sponsorType === 'scholarship'}
-                                                onChange={() => setSponsor({ ...sponsor, sponsorType: 'scholarship' })}
+                                                value="education-drive"
+                                                checked={sponsor.sponsorType === 'education-drive'}
+                                                onChange={() => setSponsor({ ...sponsor, sponsorType: 'education-drive' })}
                                             />
-                                            <span>Full Scholarship</span>
+                                            <span>Full Education Drive</span>
                                         </label>
                                     </div>
                                 </div>

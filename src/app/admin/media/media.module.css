@@ -20,7 +20,7 @@
     padding: 2rem;
     margin-bottom: 3rem;
     /* iOS stability */
-
+    will-change: transform, opacity;
 }
 
 .uploaderBox h2 {

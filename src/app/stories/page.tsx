@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
 import { formatDate } from '@/lib/utils';
 import styles from './page.module.css';
 
@@ -20,6 +19,38 @@ type Media = {
     description: string;
 };
 
+const MOCK_STORIES: Story[] = [
+    {
+        id: 'mock-1',
+        title: 'Rising Beyond My Background',
+        content: '<p>Before joining African Girl Rise, I thought my story was already written. Now, I am writing my own destiny through the Education Drive program.</p>',
+        author: 'Sarah M.',
+        created_at: new Date().toISOString(),
+    },
+    {
+        id: 'mock-2',
+        title: 'The Power of Mentorship',
+        content: '<p>Having a mentor who looks like me and has walked my path made all the difference in my academic journey.</p>',
+        author: 'Grace A.',
+        created_at: new Date().toISOString(),
+    }
+];
+
+const MOCK_MEDIA: Media[] = [
+    {
+        id: 'mock-m1',
+        url: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800&auto=format&fit=crop',
+        type: 'image',
+        description: 'Classroom empowerment session',
+    },
+    {
+        id: 'mock-m2',
+        url: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800&auto=format&fit=crop',
+        type: 'image',
+        description: 'Community outreach 2024',
+    }
+];
+
 const sanitizeStoryHtml = (html: string) => {
     return html
         .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
@@ -34,33 +65,21 @@ export default function StoriesGallery() {
 
     useEffect(() => {
         async function fetchData() {
-            if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-                // Mock Data
-                setStories([{
-                    id: '1',
-                    title: "My Journey from the Village",
-                    content: "I used to walk 10km every day just to get to a school without desks. When African Girl Rise provided me with a scholarship and a bicycle, everything changed...",
-                    author: "Sylvia M.",
-                    created_at: new Date().toISOString()
-                }]);
-                setMedia([
-                    { id: 'm1', url: 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=600&auto=format&fit=crop', type: 'image', description: 'Students smiling in the new Rise Room' },
-                    { id: 'm2', url: 'https://images.unsplash.com/photo-1524584218214-e77adba52419?q=80&w=600&auto=format&fit=crop', type: 'image', description: 'Community gathering at Ibanda' },
-                ]);
-                setLoading(false);
-                return;
-            }
-
             try {
                 const res = await fetch('/api/public/data');
                 const data = await res.json();
 
                 if (res.ok) {
-                    setStories(data.stories || []);
-                    setMedia(data.media || []);
+                    setStories(data.stories && data.stories.length > 0 ? data.stories : MOCK_STORIES);
+                    setMedia(data.media && data.media.length > 0 ? data.media : MOCK_MEDIA);
+                } else {
+                    setStories(MOCK_STORIES);
+                    setMedia(MOCK_MEDIA);
                 }
             } catch (err) {
                 console.error("Failed to fetch gallery data", err);
+                setStories(MOCK_STORIES);
+                setMedia(MOCK_MEDIA);
             }
             setLoading(false);
         }
