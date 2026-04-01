@@ -1,9 +1,25 @@
 import { NextResponse } from 'next/server';
+import { rateLimit, getIP } from '@/lib/rate-limit';
 
 export async function POST(req: Request) {
     try {
+        const ip = getIP(req);
+        // Limit donation attempts (5 requests per hour)
+        const { isLimited, response } = rateLimit(ip, 5, 60 * 60 * 1000);
+        if (isLimited) return response;
+
         const body = await req.json();
         const { amount, email, name, eventId, currency = 'UGX', phoneNumber } = body;
+
+        if (email && String(email).length > 255) {
+            return NextResponse.json({ error: 'Email too long' }, { status: 400 });
+        }
+        if (name && String(name).length > 255) {
+            return NextResponse.json({ error: 'Name too long' }, { status: 400 });
+        }
+        if (phoneNumber && String(phoneNumber).length > 20) {
+            return NextResponse.json({ error: 'Phone number too long' }, { status: 400 });
+        }
 
         const parsedAmount = Number(amount);
         const validCurrencies = ['UGX', 'USD'];
@@ -53,7 +69,7 @@ export async function POST(req: Request) {
             })
         };
 
-        const response = await fetch('https://api.flutterwave.com/v3/payments', {
+        const fwResponse = await fetch('https://api.flutterwave.com/v3/payments', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${secretKey}`,
@@ -62,10 +78,10 @@ export async function POST(req: Request) {
             body: JSON.stringify(payload),
         });
 
-        const data = await response.json();
+        const data = await fwResponse.json();
         const paymentUrl = data?.data?.link;
 
-        if (!response.ok || data.status !== 'success' || !paymentUrl) {
+        if (!fwResponse.ok || data.status !== 'success' || !paymentUrl) {
             console.error('Flutterwave V3 API Error:', data);
             return NextResponse.json({ error: 'Payment initialization failed', details: data }, { status: 500 });
         }

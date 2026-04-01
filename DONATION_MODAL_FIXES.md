@@ -210,7 +210,7 @@ const [eventDonateLoading, setEventDonateLoading] = useState<string | null>(null
 **Environment Variables Needed on Vercel:**
 ```
 NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY=FLWPUBK-7be789b35694bd742506ed040929dad6-X
-FLUTTERWAVE_SECRET_KEY=FLWSECK-c12ace65ee685cd82c5a08061b888fc6-19caf686925vt-X
+FLUTTERWAVE_SECRET_KEY=FLWSECK-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxx-X
 ```
 
 **After adding env vars:**

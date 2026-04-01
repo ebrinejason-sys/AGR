@@ -1,4 +1,4 @@
-import { createHmac, timingSafeEqual } from 'crypto';
+import { createHmac, timingSafeEqual, randomInt } from 'crypto';
 // Cookie constants exported from admin-constants.ts to avoid Edge Runtime issues
 import { ADMIN_SESSION_COOKIE, ADMIN_OTP_COOKIE } from './admin-constants';
 
@@ -83,6 +83,29 @@ export const getAdminCredentials = () => {
         throw new Error('ADMIN_LOGIN_EMAIL and ADMIN_LOGIN_PASSWORD environment variables are required.');
     }
     return { email, password };
+};
+
+/**
+ * Performs a timing-safe comparison of two strings.
+ */
+export const safeCompare = (a: string, b: string) => {
+    const bufferA = Buffer.from(a, 'utf8');
+    const bufferB = Buffer.from(b, 'utf8');
+
+    if (bufferA.length !== bufferB.length) {
+        // Still perform a comparison to mitigate timing attacks
+        timingSafeEqual(bufferA, bufferA);
+        return false;
+    }
+
+    return timingSafeEqual(bufferA, bufferB);
+};
+
+/**
+ * Generates a cryptographically secure 6-digit OTP.
+ */
+export const generateSecureOtp = () => {
+    return randomInt(100000, 1000000).toString();
 };
 
 export const createOtpToken = (email: string, otp: string) => {

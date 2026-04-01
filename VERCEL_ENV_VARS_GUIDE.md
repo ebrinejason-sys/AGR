@@ -22,7 +22,7 @@ Environments: ☑ Production ☑ Preview ☑ Development
 
 ```text
 Name: FLUTTERWAVE_CLIENT_SECRET
-Value: FLWSECK-241b8605f297e8b7e0889e58ba30a71f-19cbf1b9a2fvt-X
+Value: FLWSECK-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxx-X
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
@@ -92,7 +92,7 @@ vercel env add NEXT_PUBLIC_FLUTTERWAVE_CLIENT_ID
 
 # Flutterwave Client Secret
 vercel env add FLUTTERWAVE_CLIENT_SECRET
-# Enter: FLWSECK-241b8605f297e8b7e0889e58ba30a71f-19cbf1b9a2fvt-X
+# Enter: FLWSECK-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxx-X
 
 # Admin Auth Secret
 vercel env add ADMIN_AUTH_SECRET
