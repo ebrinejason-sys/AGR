@@ -23,6 +23,14 @@ export const getCookieValue = (cookieHeader: string | null, cookieName: string) 
         ?.slice(cookieName.length + 1) ?? null;
 };
 
+const safeDecodeCookie = (value: string) => {
+    try {
+        return decodeURIComponent(value);
+    } catch {
+        return value;
+    }
+};
+
 export const requireAdminSession = (request: Request) => {
     const sessionCookie = getCookieValue(request.headers.get('cookie'), ADMIN_SESSION_COOKIE);
 
@@ -30,7 +38,7 @@ export const requireAdminSession = (request: Request) => {
         return { session: null, error: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }) };
     }
 
-    const session = verifyAdminSessionToken(decodeURIComponent(sessionCookie));
+    const session = verifyAdminSessionToken(safeDecodeCookie(sessionCookie));
     if (!session) {
         return { session: null, error: NextResponse.json({ error: 'Session expired. Please log in again.' }, { status: 401 }) };
     }

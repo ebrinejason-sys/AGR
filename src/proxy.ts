@@ -19,12 +19,6 @@ export function proxy(request: NextRequest) {
         return NextResponse.redirect(loginUrl);
     }
 
-    // Redirect to admin dashboard if already logged in and trying to access login page
-    if (sessionCookie && isLoginPage) {
-        const adminUrl = new URL('/admin', request.url);
-        return NextResponse.redirect(adminUrl);
-    }
-
     return NextResponse.next();
 }
 

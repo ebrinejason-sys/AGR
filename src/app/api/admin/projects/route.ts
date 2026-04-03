@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { getAdminSupabase } from '@/lib/supabase';
 import { requireAdminSession, checkSupabaseAdminConfig } from '@/lib/admin-api';
 
+const VALID_PROJECT_STATUSES = new Set(['active', 'draft']);
+
 export async function GET(request: Request) {
     try {
         const configError = checkSupabaseAdminConfig();
@@ -45,6 +47,15 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Title is required.' }, { status: 400 });
         }
 
+        if (status !== undefined && !VALID_PROJECT_STATUSES.has(String(status))) {
+            return NextResponse.json({ error: 'Invalid project status.' }, { status: 400 });
+        }
+
+        const parsedPillar = Number(pillar_number || 1);
+        if (!Number.isInteger(parsedPillar) || parsedPillar < 1 || parsedPillar > 4) {
+            return NextResponse.json({ error: 'pillar_number must be an integer between 1 and 4.' }, { status: 400 });
+        }
+
         const supabase = getAdminSupabase();
         const { data, error: dbError } = await supabase
             .from('projects')
@@ -53,7 +64,7 @@ export async function POST(request: Request) {
                 description: description || null,
                 image_url: image_url || null,
                 status: status || 'draft',
-                pillar_number: Number(pillar_number || 1),
+                pillar_number: parsedPillar,
             })
             .select('*')
             .single();

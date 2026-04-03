@@ -16,6 +16,7 @@ type Project = {
 export default function ProjectsManagement() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -33,12 +34,21 @@ export default function ProjectsManagement() {
     setLoading(true);
     try {
       const response = await fetch("/api/admin/projects");
+      if (response.status === 401) {
+        window.location.assign('/admin/login');
+        return;
+      }
       if (response.ok) {
         const data = await response.json();
         setProjects(data.projects || []);
+        setError(null);
+      } else {
+        const data = await response.json().catch(() => ({ error: 'Failed to load projects.' }));
+        setError(data.error || 'Failed to load projects.');
       }
     } catch (error) {
       console.error("Error fetching projects:", error);
+      setError('Network error while loading projects.');
     } finally {
       setLoading(false);
     }
@@ -115,9 +125,15 @@ export default function ProjectsManagement() {
         body: JSON.stringify(formData)
       });
 
+      if (response.status === 401) {
+        window.location.assign('/admin/login');
+        return;
+      }
+
       if (response.ok) {
         setShowForm(false);
         setEditingId(null);
+        setError(null);
         fetchProjects();
       } else {
         const errorData = await response.json();
@@ -137,6 +153,11 @@ export default function ProjectsManagement() {
         method: "DELETE"
       });
 
+      if (response.status === 401) {
+        window.location.assign('/admin/login');
+        return;
+      }
+
       if (response.ok) {
         fetchProjects();
       } else {
@@ -154,6 +175,7 @@ export default function ProjectsManagement() {
         <div>
             <h1 className={styles.title}>Projects & Programs</h1>
             <p className={styles.subtitle}>Manage core initiatives and pillars of African Girl Rise.</p>
+          {error && <p className={styles.subtitle}>{error}</p>}
         </div>
         <button onClick={handleAddNew} className={styles.btnAdd}>
           <Plus size={20} /> Add New Project

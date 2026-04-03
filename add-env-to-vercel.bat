@@ -1,19 +1,30 @@
 @echo off
 echo ====================================
-echo   Adding Flutterwave Keys to Vercel
+echo   Adding Payment Keys to Vercel
 echo ====================================
 echo.
 
-echo Adding NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY...
-echo FLWPUBK-7be789b35694bd742506ed040929dad6-X | vercel env add NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY production
-echo FLWPUBK-7be789b35694bd742506ed040929dad6-X | vercel env add NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY preview
-echo FLWPUBK-7be789b35694bd742506ed040929dad6-X | vercel env add NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY development
+set /p FLW_SECRET=Enter FLUTTERWAVE_SECRET_KEY (UGX mobile money): 
+set /p STRIPE_SECRET=Enter STRIPE_SECRET_KEY (international cards): 
+set /p BASE_URL=Enter NEXT_PUBLIC_BASE_URL (e.g. https://www.africangirlriseltd.org): 
+
+echo.
+echo Adding FLUTTERWAVE_SECRET_KEY...
+echo %FLW_SECRET% | vercel env add FLUTTERWAVE_SECRET_KEY production
+echo %FLW_SECRET% | vercel env add FLUTTERWAVE_SECRET_KEY preview
+echo %FLW_SECRET% | vercel env add FLUTTERWAVE_SECRET_KEY development
 echo.
 
-echo Adding FLUTTERWAVE_SECRET_KEY...
-echo FLWSECK-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxx-X | vercel env add FLUTTERWAVE_SECRET_KEY production
-echo FLWSECK-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxx-X | vercel env add FLUTTERWAVE_SECRET_KEY preview
-echo FLWSECK-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxx-X | vercel env add FLUTTERWAVE_SECRET_KEY development
+echo Adding STRIPE_SECRET_KEY...
+echo %STRIPE_SECRET% | vercel env add STRIPE_SECRET_KEY production
+echo %STRIPE_SECRET% | vercel env add STRIPE_SECRET_KEY preview
+echo %STRIPE_SECRET% | vercel env add STRIPE_SECRET_KEY development
+echo.
+
+echo Adding NEXT_PUBLIC_BASE_URL...
+echo %BASE_URL% | vercel env add NEXT_PUBLIC_BASE_URL production
+echo %BASE_URL% | vercel env add NEXT_PUBLIC_BASE_URL preview
+echo %BASE_URL% | vercel env add NEXT_PUBLIC_BASE_URL development
 echo.
 
 echo Adding ADMIN_AUTH_SECRET...

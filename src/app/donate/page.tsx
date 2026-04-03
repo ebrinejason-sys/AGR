@@ -11,7 +11,7 @@ export default function DonatePage() {
   return (
     <div className={styles.container}>
       <h1 className="heading-xl">Support <span className="text-gradient">African Girl Rise</span></h1>
-      <p className={styles.subtitle}>Use the secure donation modal to contribute by mobile money or card.</p>
+      <p className={styles.subtitle}>Use the secure donation modal to contribute by Uganda Mobile Money, or by international card checkout via Stripe.</p>
 
       <div className={styles.actions}>
         <button className={styles.primaryBtn} onClick={() => setIsOpen(true)}>

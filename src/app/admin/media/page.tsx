@@ -26,24 +26,34 @@ export default function AdminMedia() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [events, setEvents] = useState<{ id: string, title: string }[]>([]);
     const [eventId, setEventId] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
     const fetchMedia = async () => {
         try {
             const res = await fetch('/api/admin/media', { cache: 'no-store' });
+            if (res.status === 401) {
+                window.location.assign('/admin/login');
+                return;
+            }
             const data = await res.json();
             if (res.ok) {
                 setItems(data.media || []);
+                setError(null);
                 return;
             }
-            alert(data.error || 'Failed to fetch media items.');
+            setError(data.error || 'Failed to fetch media items.');
         } catch {
-            alert('Network error while fetching media items.');
+            setError('Network error while fetching media items.');
         }
     };
 
     const fetchEvents = async () => {
         try {
             const res = await fetch('/api/admin/events', { cache: 'no-store' });
+            if (res.status === 401) {
+                window.location.assign('/admin/login');
+                return;
+            }
             const data = await res.json();
             if (res.ok && data.events) {
                 setEvents(data.events);
@@ -78,6 +88,11 @@ export default function AdminMedia() {
             body: formData,
         });
 
+        if (res.status === 401) {
+            window.location.assign('/admin/login');
+            return;
+        }
+
         const data = await res.json();
         if (!res.ok) {
             alert(data.error || 'Upload failed.');
@@ -97,6 +112,7 @@ export default function AdminMedia() {
             <div className={styles.header}>
                 <h1 className={styles.title}>Media Library</h1>
                 <p className={styles.subtitle}>Upload images and videos with descriptions for the public gallery.</p>
+                {error && <p className={styles.subtitle}>{error}</p>}
             </div>
 
             <div className={styles.uploaderBox}>

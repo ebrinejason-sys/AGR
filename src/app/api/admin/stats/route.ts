@@ -21,6 +21,17 @@ export async function GET(request: Request) {
             supabase.from('projects').select('id', { count: 'exact', head: true }),
         ]);
 
+        const statsError =
+            eventsRes.error ||
+            subscribersRes.error ||
+            mediaRes.error ||
+            storiesRes.error ||
+            projectsRes.error;
+
+        if (statsError) {
+            return NextResponse.json({ error: `Failed to load admin stats: ${statsError.message}` }, { status: 500 });
+        }
+
         return NextResponse.json({
             activeEvents: eventsRes.count ?? 0,
             subscribers: subscribersRes.count ?? 0,

@@ -12,17 +12,23 @@
 
 3. **Add each variable one at a time:**
 
-### Flutterwave Keys
+### Payments (Flutterwave + Stripe)
 
 ```text
-Name: NEXT_PUBLIC_FLUTTERWAVE_CLIENT_ID
-Value: 241b8605f297e61b6114376e
+Name: FLUTTERWAVE_SECRET_KEY
+Value: FLWSECK-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxx-X
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
 ```text
-Name: FLUTTERWAVE_CLIENT_SECRET
-Value: FLWSECK-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxx-X
+Name: STRIPE_SECRET_KEY
+Value: your_stripe_secret_key_here
+Environments: ☑ Production ☑ Preview ☑ Development
+```
+
+```text
+Name: NEXT_PUBLIC_BASE_URL
+Value: https://www.africangirlriseltd.org
 Environments: ☑ Production ☑ Preview ☑ Development
 ```
 
@@ -85,14 +91,17 @@ Environments: ☑ Production ☑ Preview ☑ Development
 Run these commands one by one. The CLI will prompt you to enter the value:
 
 ```powershell
-# Flutterwave Client ID
-vercel env add NEXT_PUBLIC_FLUTTERWAVE_CLIENT_ID
-# When prompted, enter: 241b8605f297e61b6114376e
-# Select: Production, Preview, Development (space to select, enter to confirm)
-
-# Flutterwave Client Secret
-vercel env add FLUTTERWAVE_CLIENT_SECRET
+# Flutterwave Secret (UGX Mobile Money)
+vercel env add FLUTTERWAVE_SECRET_KEY
 # Enter: FLWSECK-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxx-X
+
+# Stripe Secret (International Cards)
+vercel env add STRIPE_SECRET_KEY
+# Enter: your_stripe_secret_key_here
+
+# Site URL used for payment success/cancel redirects
+vercel env add NEXT_PUBLIC_BASE_URL
+# Enter: https://www.africangirlriseltd.org
 
 # Admin Auth Secret
 vercel env add ADMIN_AUTH_SECRET
@@ -122,6 +131,7 @@ vercel --prod
    - NEXT_PUBLIC_SUPABASE_URL
    - NEXT_PUBLIC_SUPABASE_ANON_KEY
    - SUPABASE_SERVICE_ROLE_KEY
+3. **Stripe key**: <https://dashboard.stripe.com/apikeys>
 
 ---
 

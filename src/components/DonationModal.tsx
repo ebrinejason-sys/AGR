@@ -9,7 +9,7 @@ type DonationModalProps = {
 };
 
 export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
-    const [currency, setCurrency] = useState<'UGX' | 'USD'>('UGX');
+    const [currency, setCurrency] = useState<'UGX' | 'USD' | 'EUR' | 'GBP'>('UGX');
     const [loading, setLoading] = useState(false);
 
     if (!isOpen) return null;
@@ -32,6 +32,8 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
             const data = await res.json();
             if (data.paymentUrl) {
                 window.location.href = data.paymentUrl;
+            } else if (data.paypalUrl) {
+                window.location.href = data.paypalUrl;
             } else {
                 alert(data.error || 'Payment initialization failed. Please try again later.');
                 setLoading(false);
@@ -91,7 +93,27 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                                 checked={currency === 'USD'}
                                 onChange={() => setCurrency('USD')}
                             />
-                            <span>💳 USD (International Card)</span>
+                            <span>USD (International Card)</span>
+                        </label>
+                        <label className={currency === 'EUR' ? styles.active : ''}>
+                            <input
+                                type="radio"
+                                name="currency"
+                                value="EUR"
+                                checked={currency === 'EUR'}
+                                onChange={() => setCurrency('EUR')}
+                            />
+                            <span>EUR (International Card)</span>
+                        </label>
+                        <label className={currency === 'GBP' ? styles.active : ''}>
+                            <input
+                                type="radio"
+                                name="currency"
+                                value="GBP"
+                                checked={currency === 'GBP'}
+                                onChange={() => setCurrency('GBP')}
+                            />
+                            <span>GBP (International Card)</span>
                         </label>
                     </div>
 
@@ -146,7 +168,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                     <p className={styles.paymentHelp}>
                         {currency === 'UGX'
                             ? '🇺🇬 Mobile Money requires a reachable Ugandan phone number for payment confirmation.'
-                            : '💳 International card payments are processed securely via Flutterwave. Note: USD payments may require additional account verification.'}
+                            : 'International donations are processed via Flutterwave. If unavailable, we redirect you to PayPal secure checkout.'}
                     </p>
 
                     <div className={styles.formActions}>

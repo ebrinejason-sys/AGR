@@ -29,12 +29,24 @@ export default function AdminStories() {
     const [formData, setFormData] = useState({ title: '', content: '' });
     const [publishing, setPublishing] = useState(false);
     const [stories, setStories] = useState<Story[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
     const fetchStories = async () => {
-        const res = await fetch('/api/admin/stories', { cache: 'no-store' });
-        const data = await res.json();
-        if (res.ok) {
-            setStories(data.stories || []);
+        try {
+            const res = await fetch('/api/admin/stories', { cache: 'no-store' });
+            if (res.status === 401) {
+                window.location.assign('/admin/login');
+                return;
+            }
+            const data = await res.json();
+            if (res.ok) {
+                setStories(data.stories || []);
+                setError(null);
+                return;
+            }
+            setError(data.error || 'Failed to load stories.');
+        } catch {
+            setError('Network error while loading stories.');
         }
     };
 
@@ -103,6 +115,11 @@ export default function AdminStories() {
             body: JSON.stringify(formData),
         });
 
+        if (res.status === 401) {
+            window.location.assign('/admin/login');
+            return;
+        }
+
         const data = await res.json();
         if (!res.ok) {
             alert(data.error || 'Failed to publish story.');
@@ -117,11 +134,20 @@ export default function AdminStories() {
 
     const deleteStory = async (id: string) => {
         if (!confirm('Delete this story?')) return;
-        await fetch('/api/admin/stories', {
+        const res = await fetch('/api/admin/stories', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id }),
         });
+        if (res.status === 401) {
+            window.location.assign('/admin/login');
+            return;
+        }
+        if (!res.ok) {
+            const data = await res.json().catch(() => ({ error: 'Failed to delete story.' }));
+            alert(data.error || 'Failed to delete story.');
+            return;
+        }
         await fetchStories();
     };
 
@@ -130,6 +156,7 @@ export default function AdminStories() {
             <div className={styles.header}>
                 <h1 className={styles.title}>Stories Composer</h1>
                 <p className={styles.subtitle}>Write and publish stories of resilience and transformation.</p>
+                {error && <p className={styles.subtitle}>{error}</p>}
             </div>
 
             <div className={styles.composerBox}>

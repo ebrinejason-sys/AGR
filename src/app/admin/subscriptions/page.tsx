@@ -15,6 +15,7 @@ type Subscriber = {
 export default function AdminSubscriptions() {
     const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
     const [search, setSearch] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
     const [composeModal, setComposeModal] = useState<string | null>(null);
     const [emailSubject, setEmailSubject] = useState('');
@@ -23,8 +24,20 @@ export default function AdminSubscriptions() {
 
     useEffect(() => {
         fetch('/api/admin/subscriptions', { cache: 'no-store' })
-            .then((res) => res.json())
-            .then((data) => setSubscribers(data.subscribers || []));
+            .then(async (res) => {
+                if (res.status === 401) {
+                    window.location.assign('/admin/login');
+                    return;
+                }
+                const data = await res.json();
+                if (res.ok) {
+                    setSubscribers(data.subscribers || []);
+                    setError(null);
+                    return;
+                }
+                setError(data.error || 'Failed to load subscribers.');
+            })
+            .catch(() => setError('Network error while loading subscribers.'));
     }, []);
 
     const filteredSubscribers = useMemo(() => {
@@ -51,6 +64,11 @@ export default function AdminSubscriptions() {
             }),
         });
 
+        if (res.status === 401) {
+            window.location.assign('/admin/login');
+            return;
+        }
+
         const data = await res.json();
         if (!res.ok) {
             alert(data.error || 'Failed to send email.');
@@ -70,6 +88,7 @@ export default function AdminSubscriptions() {
                 <div>
                     <h1 className={styles.title}>Subscribers & Contacts</h1>
                     <p className={styles.subtitle}>View your audience and send communications directly.</p>
+                    {error && <p className={styles.subtitle}>{error}</p>}
                 </div>
 
                 <div className={styles.searchBox}>

@@ -16,6 +16,14 @@ import {
 
 const normalizeEmail = (value: unknown) => typeof value === 'string' ? value.trim().toLowerCase() : '';
 const normalizeOtp = (value: unknown) => typeof value === 'string' ? value.replace(/\D/g, '').slice(0, 6) : '';
+const normalizeText = (value: unknown) => typeof value === 'string' ? value.trim() : '';
+const safeDecodeCookie = (value: string) => {
+    try {
+        return decodeURIComponent(value);
+    } catch {
+        return value;
+    }
+};
 
 export async function POST(req: Request) {
     try {
@@ -27,7 +35,15 @@ export async function POST(req: Request) {
             return response;
         }
 
-        const { action, email, password, otp } = await req.json();
+        const payload = await req.json();
+        const action = normalizeText(payload?.action);
+        const email = payload?.email;
+        const password = normalizeText(payload?.password);
+        const otp = payload?.otp;
+
+        if (!action) {
+            return NextResponse.json({ error: 'Action is required.' }, { status: 400 });
+        }
 
         const missingAdminEnvVars = getMissingAdminAuthEnvVars();
         if (missingAdminEnvVars.length > 0 && action !== 'logout') {
@@ -97,7 +113,7 @@ export async function POST(req: Request) {
         if (action === 'verify_otp') {
             const otpCookie = getCookieValue(req.headers.get('cookie'), ADMIN_OTP_COOKIE);
 
-            if (!otpCookie || !normalizedOtp || !verifyOtpToken(decodeURIComponent(otpCookie), normalizedEmail, normalizedOtp)) {
+            if (!otpCookie || !normalizedOtp || !verifyOtpToken(safeDecodeCookie(otpCookie), normalizedEmail, normalizedOtp)) {
                 return NextResponse.json({ error: 'Incorrect OTP' }, { status: 400 });
             }
 
@@ -150,7 +166,7 @@ export async function GET(req: Request) {
     const missingAdminEnvVars = getMissingAdminAuthEnvVars();
     const sessionCookie = getCookieValue(req.headers.get('cookie'), ADMIN_SESSION_COOKIE);
 
-    const session = sessionCookie ? verifyAdminSessionToken(decodeURIComponent(sessionCookie)) : null;
+    const session = sessionCookie ? verifyAdminSessionToken(safeDecodeCookie(sessionCookie)) : null;
 
     let adminEmail = null;
     try {

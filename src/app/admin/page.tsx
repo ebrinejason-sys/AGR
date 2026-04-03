@@ -26,6 +26,10 @@ export default function AdminOverview() {
         const fetchStats = async () => {
             try {
                 const res = await fetch('/api/admin/stats', { cache: 'no-store' });
+                if (res.status === 401) {
+                    window.location.assign('/admin/login');
+                    return;
+                }
                 if (res.ok) {
                     const data = await res.json();
                     setStats(data);

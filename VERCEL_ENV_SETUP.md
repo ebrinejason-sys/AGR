@@ -62,16 +62,23 @@ vercel env add SUPABASE_SERVICE_ROLE_KEY
 # Select: Production, Preview, Development
 ```
 
-### 4. FLUTTERWAVE PAYMENTS
+### 4. PAYMENTS (UGX + INTERNATIONAL)
 ```powershell
-vercel env add NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY
-# Enter: your Flutterwave public key (starts with FLWPUBK-)
+vercel env add FLUTTERWAVE_SECRET_KEY
+# Enter: your Flutterwave secret key (starts with FLWSECK-)
 # Select: Production, Preview, Development
 ```
 
 ```powershell
-vercel env add FLUTTERWAVE_SECRET_KEY
-# Enter: your Flutterwave secret key (starts with FLWSECK-)
+vercel env add STRIPE_SECRET_KEY
+# Enter: your Stripe secret key (starts with sk_live_ or sk_test_)
+# Select: Production, Preview, Development
+```
+
+```powershell
+vercel env add NEXT_PUBLIC_BASE_URL
+# Enter: your production site URL (for checkout redirects)
+# Example: https://www.africangirlriseltd.org
 # Select: Production, Preview, Development
 ```
 

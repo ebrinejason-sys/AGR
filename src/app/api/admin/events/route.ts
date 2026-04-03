@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { getAdminSupabase } from '@/lib/supabase';
 import { requireAdminSession, checkSupabaseAdminConfig } from '@/lib/admin-api';
 
+const VALID_EVENT_STATUSES = new Set(['upcoming', 'completed', 'cancelled']);
+
 export async function GET(request: Request) {
     try {
         const configError = checkSupabaseAdminConfig();
@@ -96,7 +98,12 @@ export async function PATCH(request: Request) {
         }
 
         const updates: Record<string, unknown> = {};
-        if (status) updates.status = status;
+        if (status !== undefined) {
+            if (!VALID_EVENT_STATUSES.has(String(status))) {
+                return NextResponse.json({ error: 'Invalid event status.' }, { status: 400 });
+            }
+            updates.status = status;
+        }
         if (title) updates.title = title;
         if (description !== undefined) updates.description = description;
         if (event_date) updates.event_date = event_date;

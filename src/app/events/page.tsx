@@ -18,6 +18,8 @@ type Event = {
     media?: { id: string; url: string; type: 'image' | 'video'; description: string }[];
 };
 
+type DonationCurrency = 'UGX' | 'USD' | 'EUR' | 'GBP';
+
 const MOCK_EVENTS: Event[] = [
     {
         id: 'mock-1',
@@ -48,13 +50,16 @@ export default function EventsPage() {
     const [donateModal, setDonateModal] = useState<string | null>(null);
     const [generalDonateLoading, setGeneralDonateLoading] = useState(false);
     const [eventDonateLoading, setEventDonateLoading] = useState<string | null>(null);
-    const [currency, setCurrency] = useState<'UGX' | 'USD'>('UGX');
-    const [eventCurrency, setEventCurrency] = useState<{ [key: string]: 'UGX' | 'USD' }>({});
+    const [currency, setCurrency] = useState<DonationCurrency>('UGX');
+    const [eventCurrency, setEventCurrency] = useState<{ [key: string]: DonationCurrency }>({});
 
     const selectedEvent = donateModal ? events.find((evt) => evt.id === donateModal) : null;
 
-    const getQuickAmounts = (selectedCurrency: 'UGX' | 'USD') => {
-        return selectedCurrency === 'UGX' ? ['10000', '50000', '100000'] : ['5', '20', '50'];
+    const getQuickAmounts = (selectedCurrency: DonationCurrency) => {
+        if (selectedCurrency === 'UGX') return ['10000', '50000', '100000'];
+        if (selectedCurrency === 'USD') return ['5', '20', '50'];
+        if (selectedCurrency === 'EUR') return ['5', '20', '50'];
+        return ['5', '20', '50'];
     };
 
     const applyQuickAmount = (form: HTMLFormElement, amount: string) => {
@@ -109,6 +114,8 @@ export default function EventsPage() {
             const data = await res.json();
             if (data.paymentUrl) {
                 window.location.href = data.paymentUrl;
+            } else if (data.paypalUrl) {
+                window.location.href = data.paypalUrl;
             } else {
                 alert(data.error || "Payment initialization failed. Please try again later.");
                 setEventDonateLoading(null);
@@ -138,6 +145,8 @@ export default function EventsPage() {
             const data = await res.json();
             if (data.paymentUrl) {
                 window.location.href = data.paymentUrl;
+            } else if (data.paypalUrl) {
+                window.location.href = data.paypalUrl;
             } else {
                 alert(data.error || 'Payment initialization failed. Please try again later.');
             }
@@ -181,7 +190,27 @@ export default function EventsPage() {
                                 checked={currency === 'USD'}
                                 onChange={() => setCurrency('USD')}
                             />
-                            <span>USD (Card)</span>
+                            <span>USD (International Card)</span>
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="currency"
+                                value="EUR"
+                                checked={currency === 'EUR'}
+                                onChange={() => setCurrency('EUR')}
+                            />
+                            <span>EUR (International Card)</span>
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="currency"
+                                value="GBP"
+                                checked={currency === 'GBP'}
+                                onChange={() => setCurrency('GBP')}
+                            />
+                            <span>GBP (International Card)</span>
                         </label>
                     </div>
                     <input type="text" name="donorName" placeholder="Your Name" required />
@@ -203,7 +232,7 @@ export default function EventsPage() {
                         ))}
                     </div>
                     <p className={styles.paymentHelp}>
-                        {currency === 'UGX' ? 'Mobile Money requires a reachable phone number.' : 'Card payments are securely processed in USD.'}
+                        {currency === 'UGX' ? 'Uganda donations are processed via Mobile Money only and require a reachable phone number.' : 'International donations use Flutterwave, with automatic PayPal fallback if Flutterwave is unavailable.'}
                     </p>
                     <div className={styles.formActions}>
                         <button type="submit" className={styles.btnSubmit} disabled={generalDonateLoading}>
@@ -315,7 +344,27 @@ export default function EventsPage() {
                                         checked={(eventCurrency[selectedEvent.id] || 'UGX') === 'USD'}
                                         onChange={() => setEventCurrency({ ...eventCurrency, [selectedEvent.id]: 'USD' })}
                                     />
-                                    <span>USD (Card)</span>
+                                    <span>USD (International Card)</span>
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`currency-${selectedEvent.id}`}
+                                        value="EUR"
+                                        checked={(eventCurrency[selectedEvent.id] || 'UGX') === 'EUR'}
+                                        onChange={() => setEventCurrency({ ...eventCurrency, [selectedEvent.id]: 'EUR' })}
+                                    />
+                                    <span>EUR (International Card)</span>
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`currency-${selectedEvent.id}`}
+                                        value="GBP"
+                                        checked={(eventCurrency[selectedEvent.id] || 'UGX') === 'GBP'}
+                                        onChange={() => setEventCurrency({ ...eventCurrency, [selectedEvent.id]: 'GBP' })}
+                                    />
+                                    <span>GBP (International Card)</span>
                                 </label>
                             </div>
                             <input type="text" name="donorName" placeholder="Your Name" required />
@@ -337,7 +386,7 @@ export default function EventsPage() {
                                 ))}
                             </div>
                             <p className={styles.paymentHelp}>
-                                {(eventCurrency[selectedEvent.id] || 'UGX') === 'UGX' ? 'Mobile Money requires a reachable phone number.' : 'Card payments are securely processed in USD.'}
+                                {(eventCurrency[selectedEvent.id] || 'UGX') === 'UGX' ? 'Uganda donations are processed via Mobile Money only and require a reachable phone number.' : 'International donations use Flutterwave, with automatic PayPal fallback if Flutterwave is unavailable.'}
                             </p>
                             <div className={styles.formActions}>
                                 <button type="button" onClick={() => setDonateModal(null)} className={styles.btnCancel} disabled={eventDonateLoading === selectedEvent.id}>Cancel</button>

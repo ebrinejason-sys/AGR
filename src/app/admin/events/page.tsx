@@ -22,6 +22,7 @@ export default function AdminEvents() {
     const [events, setEvents] = useState<EventItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [uploadingImage, setUploadingImage] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     // Edit state
     const [editId, setEditId] = useState<string | null>(null);
@@ -41,10 +42,19 @@ export default function AdminEvents() {
     const fetchEvents = async () => {
         try {
             const res = await fetch('/api/admin/events', { cache: 'no-store' });
+            if (res.status === 401) {
+                window.location.assign('/admin/login');
+                return;
+            }
             const data = await res.json();
             if (res.ok) {
                 setEvents(data.events || []);
+                setError(null);
+                return;
             }
+            setError(data.error || 'Failed to load events.');
+        } catch {
+            setError('Network error while loading events.');
         } finally {
             setLoading(false);
         }
@@ -123,39 +133,74 @@ export default function AdminEvents() {
             ...(editId && { id: editId })
         };
 
-        const res = await fetch('/api/admin/events', {
-            method,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body),
-        });
+        try {
+            const res = await fetch('/api/admin/events', {
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
 
-        if (res.ok) {
-            setShowForm(false);
-            setEditId(null);
-            setFormData({ title: '', description: '', event_date: '', goal_amount: '', status: 'upcoming', cover_image: '', achievements: '' });
-            await fetchEvents();
-        } else {
-            const data = await res.json();
-            alert(data.error || 'Failed to save event.');
+            if (res.status === 401) {
+                window.location.assign('/admin/login');
+                return;
+            }
+
+            if (res.ok) {
+                setShowForm(false);
+                setEditId(null);
+                setFormData({ title: '', description: '', event_date: '', goal_amount: '', status: 'upcoming', cover_image: '', achievements: '' });
+                setError(null);
+                await fetchEvents();
+            } else {
+                const data = await res.json();
+                alert(data.error || 'Failed to save event.');
+            }
+        } catch {
+            alert('Network error while saving event.');
         }
     };
 
-    const toggleStatus = (id: string, newStatus: string) => {
-        fetch('/api/admin/events', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, status: newStatus }),
-        }).then(() => fetchEvents());
+    const toggleStatus = async (id: string, newStatus: string) => {
+        try {
+            const res = await fetch('/api/admin/events', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, status: newStatus }),
+            });
+            if (res.status === 401) {
+                window.location.assign('/admin/login');
+                return;
+            }
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({ error: 'Failed to update event status.' }));
+                alert(data.error || 'Failed to update event status.');
+            }
+            await fetchEvents();
+        } catch {
+            alert('Network error while updating status.');
+        }
     };
 
     const deleteEvent = async (id: string) => {
         if (!confirm('Delete this event?')) return;
-        await fetch('/api/admin/events', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id }),
-        });
-        await fetchEvents();
+        try {
+            const res = await fetch('/api/admin/events', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id }),
+            });
+            if (res.status === 401) {
+                window.location.assign('/admin/login');
+                return;
+            }
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({ error: 'Failed to delete event.' }));
+                alert(data.error || 'Failed to delete event.');
+            }
+            await fetchEvents();
+        } catch {
+            alert('Network error while deleting event.');
+        }
     };
 
     return (
@@ -164,6 +209,7 @@ export default function AdminEvents() {
                 <div>
                     <h1 className={styles.title}>Events Management</h1>
                     <p className={styles.subtitle}>Create events, upload cover images, and manage achievements.</p>
+                    {error && <p className={styles.subtitle}>{error}</p>}
                 </div>
                 <button className={styles.createBtn} onClick={handleAddNew}>
                     <PlusCircle size={20} /> New Event
