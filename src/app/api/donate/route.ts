@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { rateLimit, getIP } from '@/lib/rate-limit';
 
 type DonationCurrency = 'UGX' | 'USD' | 'EUR' | 'GBP';
+type PaymentMethod = 'mobile_money_ug' | 'flutterwave_international' | 'paypal';
 
 const VALID_CURRENCIES: DonationCurrency[] = ['UGX', 'USD', 'EUR', 'GBP'];
 
@@ -40,13 +41,14 @@ export async function POST(req: Request) {
         if (isLimited) return response;
 
         const body = await req.json();
-        const { amount, email, name, eventId, currency = 'UGX', phoneNumber } = body as {
+        const { amount, email, name, eventId, currency = 'UGX', phoneNumber, paymentMethod } = body as {
             amount: number | string;
             email: string;
             name?: string;
             eventId?: string;
             currency?: DonationCurrency;
             phoneNumber?: string;
+            paymentMethod?: PaymentMethod;
         };
 
         if (email && String(email).length > 255) {
@@ -69,6 +71,10 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: `Missing required fields or amount below minimum (${currency} ${minAmount})` }, { status: 400 });
         }
 
+        if (paymentMethod && !['mobile_money_ug', 'flutterwave_international', 'paypal'].includes(paymentMethod)) {
+            return NextResponse.json({ error: 'Invalid payment method selected.' }, { status: 400 });
+        }
+
         // For UGX mobile money, phone number is required
         if (currency === 'UGX' && !phoneNumber) {
             return NextResponse.json({ error: 'Phone number required for Mobile Money payments' }, { status: 400 });
@@ -77,6 +83,31 @@ export async function POST(req: Request) {
         const appBaseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://africangirlriseltd.org';
         const successUrl = `${appBaseUrl}/events?donation=success`;
         const paypalBusinessEmail = process.env.PAYPAL_BUSINESS_EMAIL || 'africangirlriseltd@gmail.com';
+
+        if (paymentMethod === 'mobile_money_ug' && currency !== 'UGX') {
+            return NextResponse.json({ error: 'Mobile Money payments only support UGX.' }, { status: 400 });
+        }
+
+        if (paymentMethod === 'flutterwave_international' && currency === 'UGX') {
+            return NextResponse.json({ error: 'Select USD, EUR, or GBP for international checkout.' }, { status: 400 });
+        }
+
+        if (paymentMethod === 'paypal') {
+            if (currency === 'UGX') {
+                return NextResponse.json({ error: 'PayPal fallback currently supports USD, EUR, and GBP only.' }, { status: 400 });
+            }
+
+            return NextResponse.json({
+                paymentUrl: getPayPalDonateUrl({
+                    businessEmail: paypalBusinessEmail,
+                    amount: parsedAmount,
+                    currency,
+                    donorName: name,
+                    eventId,
+                }),
+                provider: 'paypal',
+            });
+        }
 
         const secretKey = process.env.FLUTTERWAVE_SECRET_KEY;
 

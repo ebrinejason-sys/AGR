@@ -6,28 +6,58 @@ import styles from './DonationModal.module.css';
 type DonationModalProps = {
     isOpen: boolean;
     onClose: () => void;
+    eventId?: string;
+    eventTitle?: string;
 };
 
-export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
-    const [currency, setCurrency] = useState<'UGX' | 'USD' | 'EUR' | 'GBP'>('UGX');
+type DonationCurrency = 'UGX' | 'USD' | 'EUR' | 'GBP';
+type PaymentMethod = 'mobile_money_ug' | 'flutterwave_international' | 'paypal';
+
+export default function DonationModal({ isOpen, onClose, eventId, eventTitle }: DonationModalProps) {
+    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null);
+    const [currency, setCurrency] = useState<DonationCurrency>('UGX');
     const [loading, setLoading] = useState(false);
 
     if (!isOpen) return null;
 
+    const selectMethod = (method: PaymentMethod) => {
+        setPaymentMethod(method);
+        if (method === 'mobile_money_ug') {
+            setCurrency('UGX');
+            return;
+        }
+        setCurrency('USD');
+    };
+
+    const copyShareLink = async () => {
+        const shareUrl = `${window.location.origin}/pay`;
+        try {
+            await navigator.clipboard.writeText(shareUrl);
+            alert('Payment link copied to clipboard.');
+        } catch {
+            prompt('Copy this payment link:', shareUrl);
+        }
+    };
+
     const handleDonate = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!paymentMethod) {
+            alert('Please choose a payment method first.');
+            return;
+        }
+
         const form = e.target as HTMLFormElement;
         const amount = form.amount.value;
         const email = form.email.value;
         const name = form.donorName.value;
-        const phoneNumber = currency === 'UGX' ? form.phoneNumber?.value : undefined;
+        const phoneNumber = paymentMethod === 'mobile_money_ug' ? form.phoneNumber?.value : undefined;
 
         try {
             setLoading(true);
             const res = await fetch('/api/donate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ amount, email, name, currency, phoneNumber })
+                body: JSON.stringify({ amount, email, name, currency, phoneNumber, eventId, paymentMethod })
             });
             const data = await res.json();
             if (data.paymentUrl) {
@@ -60,7 +90,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
             <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.modalHeader}>
                     <div>
-                        <h2 className={styles.modalTitle}>Make a Donation</h2>
+                        <h2 className={styles.modalTitle}>{eventTitle ? `Donate to ${eventTitle}` : 'Make a Donation'}</h2>
                         <p className={styles.modalSubtitle}>Your investment transforms generations</p>
                     </div>
                     <button
@@ -73,48 +103,77 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                     </button>
                 </div>
 
+                <div className={styles.formActions}>
+                    <button type="button" onClick={copyShareLink} className={styles.btnCancel}>Copy Share Payment Link</button>
+                </div>
+
+                {!paymentMethod && (
+                    <div className={styles.donateForm}>
+                        <p className={styles.paymentHelp}>Choose how you want to pay first.</p>
+                        <div className={styles.currencySelector}>
+                            <label>
+                                <input type="radio" name="paymentMethod" onChange={() => selectMethod('mobile_money_ug')} />
+                                <span>Uganda Mobile Money (UGX)</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="paymentMethod" onChange={() => selectMethod('flutterwave_international')} />
+                                <span>International Card/Transfer (Flutterwave)</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="paymentMethod" onChange={() => selectMethod('paypal')} />
+                                <span>PayPal</span>
+                            </label>
+                        </div>
+                    </div>
+                )}
+
+                {paymentMethod && (
                 <form className={styles.donateForm} onSubmit={handleDonate}>
+                    <div className={styles.formActions}>
+                        <button type="button" onClick={() => setPaymentMethod(null)} className={styles.btnCancel} disabled={loading}>Change Payment Method</button>
+                    </div>
+
                     <div className={styles.currencySelector}>
-                        <label className={currency === 'UGX' ? styles.active : ''}>
-                            <input
-                                type="radio"
-                                name="currency"
-                                value="UGX"
-                                checked={currency === 'UGX'}
-                                onChange={() => setCurrency('UGX')}
-                            />
-                            <span>🇺🇬 UGX (Mobile Money)</span>
-                        </label>
-                        <label className={currency === 'USD' ? styles.active : ''}>
-                            <input
-                                type="radio"
-                                name="currency"
-                                value="USD"
-                                checked={currency === 'USD'}
-                                onChange={() => setCurrency('USD')}
-                            />
-                            <span>USD (International Card)</span>
-                        </label>
-                        <label className={currency === 'EUR' ? styles.active : ''}>
-                            <input
-                                type="radio"
-                                name="currency"
-                                value="EUR"
-                                checked={currency === 'EUR'}
-                                onChange={() => setCurrency('EUR')}
-                            />
-                            <span>EUR (International Card)</span>
-                        </label>
-                        <label className={currency === 'GBP' ? styles.active : ''}>
-                            <input
-                                type="radio"
-                                name="currency"
-                                value="GBP"
-                                checked={currency === 'GBP'}
-                                onChange={() => setCurrency('GBP')}
-                            />
-                            <span>GBP (International Card)</span>
-                        </label>
+                        {paymentMethod === 'mobile_money_ug' && (
+                            <label className={styles.active}>
+                                <input type="radio" name="currency" value="UGX" checked readOnly />
+                                <span>UGX (Mobile Money)</span>
+                            </label>
+                        )}
+                        {paymentMethod !== 'mobile_money_ug' && (
+                            <>
+                                <label className={currency === 'USD' ? styles.active : ''}>
+                                    <input
+                                        type="radio"
+                                        name="currency"
+                                        value="USD"
+                                        checked={currency === 'USD'}
+                                        onChange={() => setCurrency('USD')}
+                                    />
+                                    <span>USD</span>
+                                </label>
+                                <label className={currency === 'EUR' ? styles.active : ''}>
+                                    <input
+                                        type="radio"
+                                        name="currency"
+                                        value="EUR"
+                                        checked={currency === 'EUR'}
+                                        onChange={() => setCurrency('EUR')}
+                                    />
+                                    <span>EUR</span>
+                                </label>
+                                <label className={currency === 'GBP' ? styles.active : ''}>
+                                    <input
+                                        type="radio"
+                                        name="currency"
+                                        value="GBP"
+                                        checked={currency === 'GBP'}
+                                        onChange={() => setCurrency('GBP')}
+                                    />
+                                    <span>GBP</span>
+                                </label>
+                            </>
+                        )}
                     </div>
 
                     <div className={styles.quickAmounts}>
@@ -144,7 +203,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                         required 
                         className={styles.input}
                     />
-                    {currency === 'UGX' && (
+                    {paymentMethod === 'mobile_money_ug' && (
                         <input 
                             type="tel" 
                             name="phoneNumber" 
@@ -160,15 +219,17 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                         name="amount" 
                         placeholder={`Amount (${currency})`} 
                         required 
-                        min={currency === 'UGX' ? '1000' : '5'} 
+                        min={paymentMethod === 'mobile_money_ug' ? '1000' : '5'} 
                         step="any" 
                         className={styles.input}
                     />
 
                     <p className={styles.paymentHelp}>
-                        {currency === 'UGX'
-                            ? '🇺🇬 Mobile Money requires a reachable Ugandan phone number for payment confirmation.'
-                            : 'International donations are processed via Flutterwave. If unavailable, we redirect you to PayPal secure checkout.'}
+                        {paymentMethod === 'mobile_money_ug'
+                            ? 'Mobile Money requires a reachable Ugandan phone number for payment confirmation.'
+                            : paymentMethod === 'flutterwave_international'
+                                ? 'International checkout uses Flutterwave first, with PayPal fallback if unavailable.'
+                                : 'You will be redirected to PayPal secure checkout.'}
                     </p>
 
                     <div className={styles.formActions}>
@@ -189,6 +250,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
                         </button>
                     </div>
                 </form>
+                )}
             </div>
         </div>
     );
