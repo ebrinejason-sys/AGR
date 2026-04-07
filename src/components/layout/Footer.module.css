@@ -1,294 +1,135 @@
 .footer {
-    position: relative;
-    background: #000000;
-    margin-top: auto;
-    padding-bottom: max(env(safe-area-inset-bottom), 0px);
-    overflow: hidden;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-black);
+  color: white;
+  padding: 12rem 5% 4rem;
 }
 
 .footerInner {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem 5% 0.5rem;
-    z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* ─── Stay Connected Section ─── */
-.stayConnectedSection {
-    padding: 2rem 5%;
-    background: rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.stayConnectedContent {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.stayConnectedTitle {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 0.5rem;
-}
-
-.stayConnectedDesc {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-}
-
-/* ─── Footer Grid ─── */
 .footerGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    padding: 2rem 5%;
-}
-
-/* Brand Column & Newsletter */
-.brandColumn {
-    display: flex;
-    flex-direction: column;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 6rem;
+  margin-bottom: 8rem;
 }
 
 .brandName {
-    font-size: 1.2rem;
-    font-weight: 700;
-    font-family: var(--font-sans);
-    letter-spacing: 0.05em;
-    margin-bottom: 0.25rem;
-    color: white;
-    text-transform: uppercase;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--color-white);
 }
 
 .brandTagline {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.8rem;
-    line-height: 1.3;
-    margin-bottom: 0.75rem;
-    font-style: italic;
-    font-family: var(--font-serif);
+  font-size: 1.1rem;
+  opacity: 0.6;
+  font-family: var(--font-serif);
+  font-style: italic;
+  max-width: 400px;
+  line-height: 1.6;
 }
 
-.inputRow {
-    display: flex;
-    gap: 0.3rem;
-    align-items: stretch;
-}
-
-@supports not (gap: 0.3rem) {
-    .inputRow > *:not(:last-child) {
-        margin-right: 0.3rem;
-    }
-}
-
-.input {
-    flex: 1;
-    padding: 0.5rem 0.7rem;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    font-size: 0.8rem;
-    font-family: inherit;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.input:focus {
-    border-color: var(--color-pink);
-    box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.3);
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.subscribeBtn {
-    padding: 0.5rem 0.8rem;
-    border-radius: 6px;
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
-    color: white;
-    font-weight: 600;
-    font-size: 0.75rem;
-    letter-spacing: 0.3px;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    white-space: nowrap;
-}
-
-.subscribeBtn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
-}
-
-.successMsg {
-    color: #4caf50;
-    font-size: 0.7rem;
-    margin-top: 0.25rem;
-    font-weight: 500;
-}
-
-.errorMsg {
-    color: #f44336;
-    font-size: 0.7rem;
-    margin-top: 0.25rem;
-    font-weight: 500;
-}
-
-/* Links & Contact */
 .columnTitle {
-    font-family: var(--font-serif);
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-    position: relative;
-    padding-bottom: 0.3rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--color-pink-soft);
+  margin-bottom: 2.5rem;
+  font-weight: 800;
 }
 
 .linksList {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
 .linksList a {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.8rem;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    display: inline-block;
+  color: white;
+  opacity: 0.5;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
 .linksList a:hover {
-    color: var(--color-pink);
-    transform: translateX(2px);
+  opacity: 1;
+  color: var(--color-lightblue);
 }
 
 .contactInfo p {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.8rem;
-    line-height: 1.5;
-    margin-bottom: 0.6rem;
+  opacity: 0.6;
+  margin-bottom: 1.2rem;
+  font-size: 0.95rem;
 }
 
 .contactInfo strong {
-    color: white;
-    font-weight: 600;
-    display: block;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.1rem;
-    opacity: 0.9;
+  display: block;
+  color: white;
+  opacity: 1;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
 }
 
-.columnTitle {
-    font-family: var(--font-serif);
-    font-size: 1rem;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 0.75rem;
-    position: relative;
-    padding-bottom: 0.2rem;
+.stayConnectedSection {
+  margin-bottom: 6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 6rem;
 }
 
-.columnTitle::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 30px;
-    height: 2px;
-    background: var(--color-pink);
+.stayConnectedTitle {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  margin-bottom: 2rem;
 }
 
-/* ─── Bottom Bar ─── */
-.divider {
-    height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    margin-bottom: 0.75rem;
+.inputRow {
+  display: flex;
+  max-width: 500px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.input {
+  background: none;
+  border: none;
+  color: white;
+  padding: 1rem 0;
+  flex-grow: 1;
+  font-size: 1.2rem;
+  outline: none;
+}
+
+.subscribeBtn {
+  background: none;
+  border: none;
+  color: var(--color-pink-soft);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  cursor: pointer;
 }
 
 .bottomBar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  padding-top: 4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.4;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
-.copyright {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.75rem;
+@media (max-width: 1200px) {
+  .footerGrid { grid-template-columns: 1fr 1fr; gap: 4rem; }
 }
 
-.mission {
-    color: var(--color-lightblue);
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-}
-
-/* ─── Mobile ─── */
-@media (max-width: 900px) {
-    .footerGrid {
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        padding: 2rem 5%;
-    }
-
-    .stayConnectedSection {
-        padding: 1.5rem 5%;
-    }
-
-    .brandColumn {
-        order: 2;
-    }
-
-    .linksColumn {
-        order: 1;
-    }
-}
-
-@media (max-width: 600px) {
-    .footerInner {
-        padding: 0;
-    }
-
-    .stayConnectedSection {
-        padding: 1.5rem 5%;
-    }
-
-    .footerGrid {
-        grid-template-columns: 1fr 1fr;
-        padding: 1.5rem 5%;
-        gap: 1.5rem;
-    }
-
-    .inputRow {
-        flex-direction: column;
-        gap: 0.4rem;
-    }
-
-    .subscribeBtn {
-        width: 100%;
-    }
-
-    .bottomBar {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.4rem;
-        padding: 0 5%;
-        margin-bottom: 1rem;
-    }
+@media (max-width: 768px) {
+  .footerGrid { grid-template-columns: 1fr; }
+  .bottomBar { flex-direction: column; gap: 2rem; text-align: center; }
 }

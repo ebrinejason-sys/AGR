@@ -1,486 +1,136 @@
 .container {
-  display: flex;
-  flex-direction: column;
   width: 100%;
 }
 
-/* ─── Hero Section ─── */
 .hero {
-  position: relative;
-  min-height: 70vh;
-  min-height: 70dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 5%;
-  background: linear-gradient(135deg, rgba(216, 27, 96, 0.1) 0%, rgba(106, 27, 154, 0.1) 100%);
-  overflow: hidden;
+  padding: 12rem 5% 8rem;
+  text-align: center;
+  background: white;
 }
 
-.heroContent {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: center;
-  max-width: 1200px;
-  width: 100%;
-}
-
-.heroImageWrapper {
-  position: relative;
-  height: 400px;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-}
-
-.heroImage {
-  border-radius: 16px;
-}
-
-.heroText {
-  text-align: left;
-}
-
-.heroText h1 {
-  margin-bottom: 1.5rem;
-}
-
-.heroSubtitle {
-  font-size: clamp(1.1rem, 2vw, 1.3rem);
-  color: var(--text-color);
-  line-height: 1.6;
-  margin: 1rem 0;
-}
-
-.tagline {
-  font-size: 1.15rem;
-  color: var(--color-pink);
-  font-weight: 600;
-  margin-top: 1.5rem;
-}
-
-/* ─── Intro Section ─── */
-.introSection {
-  padding: 4rem 5%;
+.editorialIntro {
+  padding: 15rem 5%;
   background: var(--bg-color);
 }
 
 .introContainer {
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.introContainer h2 {
-  margin-bottom: 2rem;
-  line-height: 1.4;
-}
-
-.introText {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  line-height: 1.8;
-  margin: 0 auto;
-}
-
-/* ─── Reality Section ─── */
-.realitySection {
-  padding: 4rem 5%;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.realityContainer {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.realityContainer h2 {
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.realityIntro {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.highlight {
-  font-size: 1.15rem;
-  color: var(--color-pink);
-  font-weight: 600;
-  line-height: 1.6;
-}
-
-.truthsGrid {
+.premiumGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  margin-bottom: 3rem;
+  margin-top: 10rem;
 }
 
-.truth {
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  text-align: center;
-  transition: all 0.3s ease;
+.truthCard {
+  background: white;
+  padding: 5rem 3rem;
+  border-radius: 4px;
+  border-top: 2px solid var(--border-color);
+  transition: all 0.5s ease;
+  position: relative;
+  text-align: left;
 }
 
-@media (hover: hover) {
-  .truth:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-pink);
-  }
+.truthCard:hover {
+  border-top-color: var(--color-pink);
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-premium);
 }
 
 .truthIcon {
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2.5rem;
+  display: block;
 }
 
-.truth p {
-  color: var(--text-color);
-  line-height: 1.6;
-  font-size: 0.95rem;
-}
-
-.beliefSection {
-  background: var(--card-bg);
-  padding: 3rem;
-  border-radius: 16px;
-  border: 2px solid var(--color-pink);
-  margin-top: 2rem;
-  text-align: center;
-}
-
-.beliefSection h3 {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  color: var(--color-pink);
-}
-
-.beliefSection p {
+.truthCard p {
   font-size: 1.1rem;
-  line-height: 1.6;
-  color: var(--text-color);
-}
-
-/* ─── What We Do Section ─── */
-.whatWeDoSection {
-  padding: 4rem 5%;
-  background: var(--bg-color);
-}
-
-.whatWeDoContainer {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.whatWeDoContainer > h2 {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.programBox {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  padding: 2.5rem;
-  border-radius: 16px;
-  margin-bottom: 2rem;
-  transition: all 0.3s ease;
-}
-
-@media (hover: hover) {
-  .programBox:hover {
-    border-color: var(--color-purple);
-    background: var(--card-hover-bg);
-  }
-}
-
-.programNumber {
-  display: inline-block;
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--color-pink);
-  margin-bottom: 0.5rem;
-}
-
-.programBox h3 {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  color: var(--text-color);
-}
-
-.programBox > p {
   color: var(--text-muted);
   line-height: 1.6;
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
 }
 
-.programList {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0;
+.editorialBody {
+  padding: 15rem 5%;
+  background: white;
 }
 
-.programList li {
-  padding-left: 1.5rem;
+.advocacyBox {
+  max-width: 1100px;
+  margin: 0 auto 12rem;
+  padding: 8rem 5rem;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
   position: relative;
-  margin-bottom: 0.8rem;
-  color: var(--text-color);
-  line-height: 1.5;
 }
 
-.programList li::before {
-  content: "✓";
+.advocacyBox::after {
+  content: '';
   position: absolute;
-  left: 0;
-  color: var(--color-pink);
-  font-weight: bold;
+  top: 2rem; left: 2rem; width: 100%; height: 100%;
+  border: 1px solid var(--color-pink-soft);
+  z-index: -1;
+  opacity: 0.3;
 }
 
-.format,
-.emphasis {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  background: rgba(216, 27, 96, 0.1);
-  border-left: 3px solid var(--color-pink);
-  border-radius: 4px;
-  color: var(--text-color);
-  line-height: 1.6;
-  font-size: 0.95rem;
-}
-
-/* ─── Components Section ─── */
-.componentsSection {
-  padding: 4rem 5%;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.componentsContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.componentsContainer h2 {
-  text-align: center;
+.advocacyBox h3 {
+  font-size: 2.5rem;
   margin-bottom: 3rem;
 }
 
-.componentsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 2rem;
-}
-
-.componentCard {
-  background: var(--card-bg);
-  padding: 2.5rem;
-  border-radius: 16px;
-  border: 1px solid var(--border-color);
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-@media (hover: hover) {
-  .componentCard:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-lightblue);
-  }
-}
-
-.componentIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.componentCard h3 {
+.advocacyBox p {
   font-size: 1.2rem;
-  margin-bottom: 0.8rem;
-  color: var(--text-color);
-}
-
-.componentCard p {
   color: var(--text-muted);
-  line-height: 1.6;
-  font-size: 0.9rem;
+  margin-bottom: 4rem;
 }
 
-/* ─── Impact Section ─── */
-.impactSection {
-  padding: 4rem 5%;
-  background: var(--bg-color);
-}
-
-.impactContainer {
-  max-width: 1100px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.impactContainer h2 {
-  margin-bottom: 1.5rem;
-}
-
-.impactIntro {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  line-height: 1.8;
-  margin-bottom: 3rem;
-  max-width: 700px;
+.benefitGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+  margin-top: 10rem;
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.impactBenefits {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
+.benefitCard {
+  border-left: 1px solid var(--border-color);
+  padding-left: 3rem;
 }
 
-.benefit {
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-}
-
-.benefitNumber {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: var(--color-pink);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-}
-
-.benefit p {
-  color: var(--text-color);
-  line-height: 1.6;
-  font-weight: 500;
-}
-
-/* ─── CTA Section ─── */
-.ctaSection {
-  padding: 4rem 5%;
-  text-align: center;
-  background: rgba(216, 27, 96, 0.05);
-}
-
-.ctaSection h2 {
-  margin-bottom: 1rem;
-}
-
-.ctaSection > p {
-  font-size: 1.1rem;
-  color: var(--text-muted);
+.benefitCard span {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--color-pink);
+  letter-spacing: 0.2em;
+  display: block;
   margin-bottom: 2rem;
 }
 
-.ctaButtons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
+.benefitCard p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
-/* ─── Button Styles ─── */
-.btnPrimary,
-.btnSecondary {
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  display: inline-block;
-  text-align: center;
-  border: none;
-  cursor: pointer;
-}
-
-.btnPrimary {
-  background: var(--color-pink);
+.ctaBox {
+  padding: 15rem 5%;
+  background: var(--color-black);
   color: white;
+  text-align: center;
 }
 
-@media (hover: hover) {
-  .btnPrimary:hover {
-    background: var(--color-purple);
-    transform: translateY(-2px);
-  }
-}
-
-.btnSecondary {
-  background: transparent;
-  border: 2px solid var(--border-color);
-  color: var(--text-color);
-}
-
-@media (hover: hover) {
-  .btnSecondary:hover {
-    border-color: var(--color-lightblue);
-    color: var(--color-lightblue);
-  }
-}
-
-/* ─── Mobile Responsive ─── */
-@media (max-width: 768px) {
-  .hero {
-    min-height: 50vh;
-    padding: 2rem 5%;
-  }
-
-  .heroContent {
+@media (max-width: 1024px) {
+  .premiumGrid, .benefitGrid {
     grid-template-columns: 1fr;
-    gap: 2rem;
-    text-align: center;
+    gap: 4rem;
   }
+}
 
-  .heroImageWrapper {
-    height: 250px;
-    order: -1;
-  }
-
-  .heroText {
-    text-align: center;
-  }
-
-  .introSection,
-  .realitySection,
-  .whatWeDoSection,
-  .componentsSection,
-  .impactSection,
-  .ctaSection {
-    padding: 2.5rem 5%;
-  }
-
-  .truthsGrid,
-  .componentsGrid,
-  .impactBenefits {
-    gap: 1.5rem;
-  }
-
-  .programBox,
-  .componentCard,
-  .benefit {
-    padding: 1.5rem;
-  }
-
-  .ctaButtons {
-    flex-direction: column;
-  }
-
-  .btnPrimary,
-  .btnSecondary {
-    width: 100%;
-  }
+@media (max-width: 768px) {
+  .advocacyBox { padding: 4rem 2rem; }
 }
