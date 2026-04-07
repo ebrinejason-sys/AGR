@@ -14,9 +14,9 @@
     transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
 }
 
-/* Light theme fallback */
+/* Light theme fallback — now also dark */
 :global([data-theme='light']) .preloader {
-    background-color: var(--bg-color, #ffffff);
+    background-color: var(--bg-color, #07071a);
 }
 
 .fadeOut {
