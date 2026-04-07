@@ -1,0 +1,141 @@
+.container {
+  width: 100%;
+}
+
+.hero {
+  padding: 10rem 5% 6rem;
+  background: var(--color-blue-light);
+  text-align: center;
+}
+
+.founderIntro {
+  padding: 12rem 5%;
+  background: white;
+}
+
+.founderGrid {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 8rem;
+  align-items: center;
+}
+
+.founderImageWrapper {
+  position: relative;
+  height: 800px;
+  border-radius: 80px 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-dramatic);
+}
+
+.founderBio h2 {
+  margin-bottom: 3rem;
+  color: var(--color-purple-deep);
+}
+
+.bioText p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.storySection {
+  padding: 10rem 5%;
+  background: white;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.storySection h3 {
+  font-size: 2.8rem;
+  margin-bottom: 3rem;
+  color: var(--color-pink);
+  font-family: var(--font-serif);
+}
+
+.emphasis {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-purple-deep);
+  margin: 5rem 0;
+  font-style: italic;
+  text-align: center;
+  position: relative;
+  padding: 4rem;
+  background: var(--color-pink-light);
+  border-radius: 40px;
+  font-family: var(--font-serif);
+}
+
+.personalStatement {
+  background: var(--color-black);
+  color: white;
+  padding: 10rem 5%;
+  border-radius: 80px;
+  margin: 12rem 0;
+  position: relative;
+}
+
+.personalStatement p {
+  font-size: 2rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.signature {
+  text-align: right;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  color: var(--color-pink-soft);
+  margin-top: 6rem !important;
+  font-size: 1.2rem;
+}
+
+.atAGlance {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 3rem;
+  background: var(--color-blue-light);
+  padding: 6rem;
+  border-radius: 40px;
+  margin-top: 6rem;
+}
+
+.atAGlance p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.closingSection {
+  text-align: center;
+  padding: 10rem 5%;
+  background: var(--gradient-dramatic);
+  color: white;
+  border-radius: 80px 80px 0 0;
+}
+
+@media (max-width: 1024px) {
+  .founderGrid {
+    grid-template-columns: 1fr;
+    gap: 6rem;
+  }
+  .founderImageWrapper {
+    height: 600px;
+  }
+  .personalStatement p {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .atAGlance {
+    padding: 3rem 2rem;
+  }
+}

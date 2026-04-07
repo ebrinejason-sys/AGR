@@ -1,186 +1,129 @@
 .container {
-    padding: 4rem 5%;
-    max-width: 1200px;
-    margin: 0 auto;
+  width: 100%;
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 3rem;
-    animation: fadeIn 1s ease-out;
+.hero {
+  padding: 10rem 5% 6rem;
+  background: var(--color-pink-light);
+  text-align: center;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    color: var(--text-muted);
-    max-width: 700px;
-    margin: 1.5rem auto 0;
-}
-
-/* Tabs */
 .tabs {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 4rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 6rem 0;
 }
 
 .tabBtn {
-    padding: 0.8rem 2rem;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-color);
-    background: var(--card-bg);
-    border: 2px solid var(--border-color);
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
-
-.tabBtn:hover {
-    background: var(--card-hover-bg);
-    border-color: var(--color-lightblue);
+  padding: 1.2rem 3rem;
+  border-radius: 50px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-color);
+  background: white;
+  transition: all 0.3s ease;
 }
 
 .tabBtn.active {
-    background: var(--color-pink);
-    color: white;
-    border-color: var(--color-pink);
-    box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4);
+  background: var(--color-pink);
+  color: white;
+  border-color: var(--color-pink);
+  box-shadow: var(--shadow-dramatic);
 }
 
-.loader,
-.empty {
-    text-align: center;
-    color: var(--text-muted);
-    padding: 4rem;
-    font-size: 1.2rem;
-}
-
-/* Stories */
 .storyGrid {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    max-width: 800px;
-    margin: 0 auto;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 5% 10rem;
+  display: grid;
+  gap: 6rem;
 }
 
 .storyCard {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 3rem;
-    border-radius: 20px;
+  background: white;
+  padding: 5rem;
+  border-radius: 60px 10px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
 }
 
 .storyCard h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: var(--text-color);
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+  color: var(--color-purple-deep);
 }
 
 .meta {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1rem;
-}
-
-.author {
-    color: var(--color-lightblue);
-    font-weight: 500;
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-pink);
+  font-weight: 700;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
 }
 
 .content {
-    color: var(--text-color);
-    line-height: 1.8;
-    font-size: 1.1rem;
-    white-space: pre-wrap;
+  font-size: 1.2rem;
+  line-height: 1.9;
+  color: var(--text-muted);
 }
 
-/* Gallery */
 .mediaGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    align-items: start;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5% 10rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 3rem;
 }
 
 .mediaItem {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
+  background: white;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: transform 0.4s ease;
 }
 
-.mediaItem:hover .mediaPreview {
-    opacity: 0.95;
+.mediaItem:hover {
+  transform: translateY(-10px);
 }
 
 .mediaPreviewWrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 75%; /* 4:3 Aspect Ratio */
-    background: #000;
+  height: 350px;
+  position: relative;
 }
 
 .mediaPreview {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: opacity 0.3s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .mediaCaption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-    padding: 2rem 1rem 1rem;
-    color: white;
-    font-size: 0.95rem;
+  padding: 2rem;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-family: var(--font-serif);
+  font-style: italic;
 }
 
 @media (max-width: 768px) {
-    .header {
-        animation: none;
-        opacity: 1;
-        transform: none;
-    }
-
-    .storyCard {
-        padding: 2rem 1.5rem;
-    }
-
-    .storyCard h2 {
-        font-size: 1.6rem;
-    }
-
-    .mediaItem:hover .mediaPreview {
-        transform: none;
-    }
-
-    .mediaPreview {
-        transition: none;
-    }
+  .storyCard {
+    padding: 3rem 2rem;
+  }
+  .tabBtn {
+    padding: 1rem 1.5rem;
+  }
+  .mediaGrid {
+    grid-template-columns: 1fr;
+  }
 }

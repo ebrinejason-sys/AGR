@@ -20,3 +20,31 @@ https://nextjs.org/telemetry
  GET / 200 in 243ms (compile: 70ms, render: 174ms)
  GET /events 200 in 221ms (compile: 63ms, render: 158ms)
 ✓ Compiled in 45ms
+ GET / 200 in 1256ms (compile: 655ms, render: 601ms)
+○ Compiling /programs ...
+ GET /programs 200 in 6.2s (compile: 6.0s, render: 190ms)
+○ Compiling /api/public/data ...
+GET /api/public/data error: Error: Supabase admin client is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.
+    at getAdminSupabase (src/lib/supabase.ts:16:15)
+    at GET (src/app/api/public/data/route.ts:6:42)
+  14 |     const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  15 |     if (!supabaseUrl || !serviceRoleKey) {
+> 16 |         throw new Error("Supabase admin client is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.");
+     |               ^
+  17 |     }
+  18 |     return createClient(
+  19 |         supabaseUrl,
+ GET /api/public/data 500 in 3.7s (compile: 3.5s, render: 230ms)
+GET /api/public/data error: Error: Supabase admin client is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.
+    at getAdminSupabase (src/lib/supabase.ts:16:15)
+    at GET (src/app/api/public/data/route.ts:6:42)
+  14 |     const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  15 |     if (!supabaseUrl || !serviceRoleKey) {
+> 16 |         throw new Error("Supabase admin client is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.");
+     |               ^
+  17 |     }
+  18 |     return createClient(
+  19 |         supabaseUrl,
+ GET /api/public/data 500 in 111ms (compile: 26ms, render: 85ms)
+ GET /our-story 200 in 1676ms (compile: 1422ms, render: 255ms)
+ GET / 200 in 218ms (compile: 7ms, render: 211ms)
