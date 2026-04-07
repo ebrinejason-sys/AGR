@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { formatDate } from '@/lib/utils';
 import styles from './page.module.css';
+import Image from 'next/image';
 
 type Story = {
     id: string;
@@ -69,7 +70,7 @@ export default function StoriesGallery() {
                     setStories(MOCK_STORIES);
                     setMedia(MOCK_MEDIA);
                 }
-            } catch (err) {
+            } catch {
                 setStories(MOCK_STORIES);
                 setMedia(MOCK_MEDIA);
             }
@@ -81,9 +82,10 @@ export default function StoriesGallery() {
     return (
         <div className={styles.container}>
             <section className={styles.hero}>
-                <h1 className="heading-xl">Voices of <span className="text-gradient">Resilience</span></h1>
-                <p className={styles.subtitle}>
-                    Narratives of transformation and visual journeys of our rise.
+                <p className="subheading reveal">Narratives</p>
+                <h1 className="heading-display reveal">Voices of <span className="text-gradient">Resilience</span></h1>
+                <p className="subheading reveal" style={{ marginTop: '2rem', fontStyle: 'italic', letterSpacing: '0.1em' }}>
+                    Authentic journeys of transformation and visual archives of our rise.
                 </p>
             </section>
 
@@ -92,7 +94,7 @@ export default function StoriesGallery() {
                     className={`${styles.tabBtn} ${activeTab === 'stories' ? styles.active : ''}`}
                     onClick={() => setActiveTab('stories')}
                 >
-                    Written Stories
+                    Written Archives
                 </button>
                 <button
                     className={`${styles.tabBtn} ${activeTab === 'gallery' ? styles.active : ''}`}
@@ -103,15 +105,15 @@ export default function StoriesGallery() {
             </div>
 
             {loading ? (
-                <div style={{ textAlign: 'center', padding: '10rem' }}>Loading resilience...</div>
+                <div style={{ textAlign: 'center', padding: '15rem', opacity: 0.5, letterSpacing: '0.2em' }}>DOCUMENTING RESILIENCE...</div>
             ) : activeTab === 'stories' ? (
                 <div className={styles.storyGrid}>
                     {stories.map(story => (
                         <article key={story.id} className={styles.storyCard}>
                             <h2 className="serif">{story.title}</h2>
                             <div className={styles.meta}>
-                                <span>{story.author}</span>
-                                <span>{formatDate(story.created_at)}</span>
+                                <span>WRITTEN BY: {story.author}</span>
+                                <span>DATE: {formatDate(story.created_at)}</span>
                             </div>
                             <div
                                 className={styles.content}
@@ -126,7 +128,13 @@ export default function StoriesGallery() {
                         <div key={item.id} className={styles.mediaItem}>
                             <div className={styles.mediaPreviewWrapper}>
                                 {item.type === 'image' ? (
-                                    <img src={item.url} alt={item.description} className={styles.mediaPreview} />
+                                    <Image
+                                      src={item.url}
+                                      alt={item.description}
+                                      fill
+                                      className={styles.mediaPreview}
+                                      style={{ objectFit: 'cover' }}
+                                    />
                                 ) : (
                                     <video src={item.url} controls className={styles.mediaPreview} />
                                 )}

@@ -3,66 +3,63 @@
 }
 
 .hero {
-  padding: 10rem 5% 6rem;
-  background: var(--color-pink-light);
+  padding: 12rem 5% 8rem;
   text-align: center;
+  background: white;
 }
 
 .tabs {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.5rem;
   margin: 6rem 0;
 }
 
 .tabBtn {
-  padding: 1.2rem 3rem;
-  border-radius: 50px;
-  font-weight: 700;
+  padding: 1rem 3rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.9rem;
+  letter-spacing: 0.25em;
+  font-weight: 700;
   border: 1px solid var(--border-color);
   background: white;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .tabBtn.active {
-  background: var(--color-pink);
+  background: var(--color-black);
   color: white;
-  border-color: var(--color-pink);
-  box-shadow: var(--shadow-dramatic);
+  border-color: var(--color-black);
 }
 
 .storyGrid {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 5% 10rem;
+  padding: 0 5% 15rem;
   display: grid;
-  gap: 6rem;
+  gap: 10rem;
 }
 
 .storyCard {
   background: white;
-  padding: 5rem;
-  border-radius: 60px 10px;
-  box-shadow: var(--card-shadow);
+  padding: 8rem 5rem;
   border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-premium);
 }
 
 .storyCard h2 {
   font-size: 2.8rem;
-  margin-bottom: 2rem;
-  color: var(--color-purple-deep);
+  margin-bottom: 2.5rem;
 }
 
 .meta {
   display: flex;
-  gap: 2rem;
-  margin-bottom: 3rem;
-  font-size: 1rem;
+  gap: 2.5rem;
+  margin-bottom: 4rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.2em;
   color: var(--color-pink);
   font-weight: 700;
   border-bottom: 1px solid var(--border-color);
@@ -70,35 +67,33 @@
 }
 
 .content {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   line-height: 1.9;
   color: var(--text-muted);
 }
 
 .mediaGrid {
-  max-width: 1400px;
+  max-width: 1500px;
   margin: 0 auto;
-  padding: 0 5% 10rem;
+  padding: 0 5% 15rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  gap: 2rem;
 }
 
 .mediaItem {
   background: white;
-  border-radius: 40px;
-  overflow: hidden;
-  box-shadow: var(--card-shadow);
   border: 1px solid var(--border-color);
-  transition: transform 0.4s ease;
+  transition: all 0.4s ease;
 }
 
 .mediaItem:hover {
   transform: translateY(-10px);
+  box-shadow: var(--shadow-premium);
 }
 
 .mediaPreviewWrapper {
-  height: 350px;
+  height: 400px;
   position: relative;
 }
 
@@ -109,7 +104,7 @@
 }
 
 .mediaCaption {
-  padding: 2rem;
+  padding: 2.5rem;
   font-size: 1.1rem;
   color: var(--text-muted);
   font-family: var(--font-serif);
@@ -117,13 +112,7 @@
 }
 
 @media (max-width: 768px) {
-  .storyCard {
-    padding: 3rem 2rem;
-  }
-  .tabBtn {
-    padding: 1rem 1.5rem;
-  }
-  .mediaGrid {
-    grid-template-columns: 1fr;
-  }
+  .storyCard { padding: 4rem 2rem; }
+  .storyCard h2 { font-size: 2rem; }
+  .mediaGrid { grid-template-columns: 1fr; }
 }

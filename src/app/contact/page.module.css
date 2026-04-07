@@ -1,381 +1,132 @@
 .container {
-    padding: 4rem 5%;
-    max-width: 1200px;
-    margin: 0 auto;
+  width: 100%;
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 4rem;
-    animation: fadeIn 1s ease-out;
+.hero {
+  padding: 12rem 5% 8rem;
+  text-align: center;
+  background: white;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.contactSection {
+  padding: 15rem 5%;
+  background: var(--bg-color);
 }
 
-.subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    color: var(--text-muted);
-    max-width: 700px;
-    margin: 1.5rem auto 0;
-    font-style: italic;
+.contactGrid {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 10rem;
 }
 
-.contentGrid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
+.infoCol h2 {
+  margin-bottom: 4rem;
 }
 
-@media (min-width: 900px) {
-    .contentGrid {
-        grid-template-columns: 1fr 1fr;
-    }
+.infoItem {
+  margin-bottom: 4rem;
 }
 
-.founderCard,
+.infoLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-pink);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.infoValue {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
 .formCard {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 24px;
-    padding: 3rem;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  background: white;
+  padding: 6rem;
+  box-shadow: var(--shadow-premium);
 }
 
-.fullWidth {
-    grid-column: 1 / -1;
-    max-width: 900px;
-    width: 100%;
-    margin: 0 auto;
-}
-
-/* Founder Details */
-.founderImageContainer {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-}
-
-.founderImage {
-    border-radius: 16px;
-    border: 3px solid var(--color-pink);
-    box-shadow: 0 10px 30px rgba(216, 27, 96, 0.2);
-    object-fit: cover;
-}
-
-.founderCard h2 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.role {
-    text-align: center;
-    color: var(--color-lightblue);
-    font-weight: 500;
-    margin-bottom: 2rem;
-}
-
-.bio p {
-    color: var(--text-color);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-}
-
-.contactDetails {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border-color);
-}
-
-.contactDetails h3 {
-    color: var(--color-pink);
-    margin-bottom: 1rem;
-}
-
-.contactDetails p {
-    margin-bottom: 0.5rem;
-    color: var(--text-muted);
-}
-
-/* Tab Bar */
 .tabBar {
-    display: flex;
-    gap: 0.25rem;
-    margin-bottom: 2rem;
-    background: var(--bg-color);
-    border-radius: 16px;
-    padding: 0.25rem;
-    border: 1px solid var(--border-color);
-    overflow-x: auto;
-
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .tab {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.75rem 0.5rem;
-    border-radius: 12px;
-    border: none;
-    background: transparent;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    font-size: 0.8rem;
-    font-weight: 500;
-    white-space: nowrap;
-}
-
-.tab:hover {
-    color: var(--text-color);
-    background: var(--card-bg);
+  background: none;
+  border: none;
+  padding: 1.5rem 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text-muted);
+  position: relative;
 }
 
 .tabActive {
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
-    color: white;
-    box-shadow: 0 4px 12px rgba(216, 27, 96, 0.3);
+  color: var(--color-black);
 }
 
-.tabActive:hover {
-    color: white;
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
-}
-
-.tabIcon {
-    font-size: 1.2rem;
-    line-height: 1;
-}
-
-.tabLabel {
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-/* Two column input rows */
-.inputRow {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-@media (max-width: 600px) {
-    .inputRow {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Select input */
-.selectInput {
-    width: 100%;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    padding: 1rem;
-    border-radius: 12px;
-    color: var(--text-color);
-    font-family: inherit;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.5rem;
-}
-
-.selectInput:focus {
-    outline: none;
-    border-color: var(--color-lightblue);
-    box-shadow: 0 0 0 2px rgba(3, 169, 244, 0.2);
-}
-
-/* Radio button group */
-.radioGroup {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    padding: 0.5rem 0;
-}
-
-.radioLabel {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    padding: 0.75rem 1.25rem;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-color);
-    transition: border-color 0.3s ease;
-    font-size: 0.9rem;
-    color: var(--text-color);
-}
-
-.radioLabel:hover {
-    border-color: var(--color-lightblue);
-}
-
-.radioLabel input[type="radio"] {
-    accent-color: var(--color-pink);
-    width: 16px;
-    height: 16px;
-}
-
-.radioLabel input[type="radio"]:checked+span {
-    color: var(--color-pink);
-    font-weight: 600;
-}
-
-/* Form card styling */
-.formCard h2 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.formDesc {
-    color: var(--text-muted);
-    margin-bottom: 2rem;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-black);
 }
 
 .inputGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  margin-bottom: 2.5rem;
 }
 
-.inputGroup label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-color);
+.inputLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: block;
 }
 
-.inputGroup input,
-.inputGroup textarea {
-    width: 100%;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    padding: 1rem;
-    border-radius: 12px;
-    color: var(--text-color);
-    font-family: inherit;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+.input {
+  width: 100%;
+  padding: 1.2rem 0;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  background: none;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
-.inputGroup input:focus,
-.inputGroup textarea:focus {
-    outline: none;
-    border-color: var(--color-lightblue);
-    box-shadow: 0 0 0 2px rgba(3, 169, 244, 0.2);
+.input:focus {
+  border-bottom-color: var(--color-pink);
 }
 
-.submitBtn {
-    margin-top: 1rem;
-    background: linear-gradient(135deg, var(--color-lightblue), var(--color-purple));
-    color: white;
-    padding: 1rem;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    box-shadow: 0 4px 15px rgba(74, 20, 140, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.radioGroup {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
 }
 
-.submitBtn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(74, 20, 140, 0.5);
+.radioLabel {
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.submitBtn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-
-.successMsg {
-    color: #4caf50;
-    text-align: center;
-    margin-top: 1rem;
-    font-weight: 500;
-}
-
-.errorMsg {
-    color: #f44336;
-    text-align: center;
-    margin-top: 1rem;
-    font-weight: 500;
-}
-
-@media (max-width: 768px) {
-    .header {
-        animation: none;
-        opacity: 1;
-        transform: none;
-    }
-
-    .founderCard,
-    .formCard {
-        padding: 2rem 1.5rem;
-    }
-
-    .submitBtn:hover:not(:disabled) {
-        transform: none;
-    }
-}
-
-.fullStoryContainer {
-    margin-top: 5rem;
-    padding: 3rem;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 24px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    border-top: 4px solid var(--color-purple);
-}
-
-.storyHeading {
-    text-align: center;
-    font-size: 2.2rem;
-    color: var(--text-color);
-    margin-bottom: 3rem;
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.storySection {
-    margin-bottom: 2.5rem;
-}
-
-.storySection h3 {
-    font-size: 1.4rem;
-    color: var(--color-lightblue);
-    margin-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.5rem;
-}
-
-.storySection p {
-    color: var(--text-color);
-    line-height: 1.8;
-    margin-bottom: 1.2rem;
-    font-size: 1.05rem;
+@media (max-width: 1100px) {
+  .contactGrid { grid-template-columns: 1fr; gap: 8rem; }
+  .formCard { padding: 4rem 2rem; }
 }

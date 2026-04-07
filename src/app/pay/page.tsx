@@ -10,10 +10,10 @@ export default function PayPage() {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <h1>Secure Payment</h1>
-        <p>This is a shareable payment link. Choose your preferred payment method to continue.</p>
-        <button onClick={() => setIsOpen(true)} className={styles.button}>
-          Open Payment Modal
+        <h1 className="serif">Secure <span className="text-gradient">Investment</span></h1>
+        <p>You have accessed our secure payment gateway. Please select your contribution method below to proceed with your investment in the next generation.</p>
+        <button onClick={() => setIsOpen(true)} className="btn-premium">
+          <span>Continue to Secure Modal</span>
         </button>
       </div>
       <DonationModal isOpen={isOpen} onClose={() => setIsOpen(false)} />

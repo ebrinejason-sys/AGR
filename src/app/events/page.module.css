@@ -1,485 +1,105 @@
 .container {
-    padding: 4rem 5%;
-    max-width: 1200px;
-    margin: 0 auto;
+  width: 100%;
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 4rem;
+.hero {
+  padding: 12rem 5% 8rem;
+  text-align: center;
+  background: white;
 }
 
-.subtitle,
-.ctaSubtitle {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    color: var(--text-muted);
-    max-width: 700px;
-    margin: 1.5rem auto 0;
+.eventSection {
+  padding: 15rem 5%;
+  background: var(--bg-color);
 }
 
-.loader,
-.empty {
-    text-align: center;
-    padding: 4rem;
-    color: var(--text-muted);
-    font-size: 1.2rem;
-}
-
-.generalDonateCard {
-    margin: 0 auto 2.5rem;
-    max-width: 720px;
-    border: 1px solid var(--border-color);
-    background: var(--card-bg);
-    border-radius: 20px;
-    padding: 1.5rem;
-}
-
-.generalDonateCard h2 {
-    margin-bottom: 0.4rem;
-}
-
-.generalDonateCard p {
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2.5rem;
+.eventGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .eventCard {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 2.5rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    overflow: hidden;
+  background: white;
+  border: 1px solid var(--border-color);
+  padding: 5rem;
+  transition: all 0.5s ease;
+  position: relative;
 }
 
-@media (hover: hover) {
-    .eventCard:hover {
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        background: var(--card-hover-bg);
-    }
+.eventCard:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-premium);
+  border-color: var(--color-pink);
 }
 
 .statusBadge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: var(--color-purple);
-    color: white;
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 1px;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 800;
+  color: var(--color-pink);
 }
 
-.eventCard.completed .statusBadge {
-    background: #4caf50;
+.eventTitle {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
 }
 
-.eventCard.completed {
-    opacity: 0.8;
+.eventDate {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 3rem;
+  display: block;
 }
 
-.eventCard h2 {
-    font-size: 1.6rem;
-    margin-bottom: 0.5rem;
-    margin-top: 1rem;
-    color: var(--text-color);
+.eventDescription {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 4rem;
 }
 
-.date {
-    color: var(--color-pink);
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-}
-
-.eventCoverWrapper {
-    width: 100%;
-    height: 200px;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 1rem;
-}
-
-.eventCoverImg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.eventGallery {
-    margin-bottom: 1.5rem;
-}
-
-.eventGalleryTitle {
-    margin-bottom: 1rem;
-    color: var(--text-color);
-}
-
-.eventGalleryGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 8px;
-}
-
-.eventGalleryItem {
-    position: relative;
-    width: 100%;
-    padding-top: 100%; /* 1:1 Aspect Ratio */
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.eventGalleryMedia {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.description {
-    color: var(--text-muted);
-    line-height: 1.6;
-    flex-grow: 1;
-    margin-bottom: 2rem;
-}
-
-/* Progress Bar */
 .progressContainer {
-    margin-bottom: 2rem;
+  margin-bottom: 4rem;
 }
 
-.progressText {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    margin-bottom: 0.8rem;
-    color: var(--text-muted);
-    font-weight: 500;
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
 }
 
 .progressBar {
-    width: 100%;
-    height: 8px;
-    background: var(--border-color);
-    border-radius: 10px;
-    overflow: hidden;
+  height: 2px;
+  background: var(--border-color);
+  width: 100%;
 }
 
 .progressFill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--color-lightblue), var(--color-purple), var(--color-pink));
-    border-radius: 10px;
-    transition: width 1s ease-out;
+  height: 100%;
+  background: var(--color-pink);
+  transition: width 1s ease;
 }
 
-/* Actions & Form */
-.actions {
-    margin-top: auto;
-}
-
-.btnPrimary {
-    width: 100%;
-    padding: 1rem;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
-    color: white;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: opacity 0.3s ease;
-}
-
-@media (hover: hover) {
-    .btnPrimary:hover {
-        opacity: 0.9;
-    }
-}
-
-.donateForm {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    background: var(--card-hover-bg);
-    padding: 1.5rem;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-}
-
-.quickAmounts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.quickAmountBtn {
-    padding: 0.45rem 0.8rem;
-    border-radius: 999px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-color);
-    color: var(--text-color);
-    font-size: 0.82rem;
-    font-weight: 600;
-}
-
-@media (hover: hover) {
-    .quickAmountBtn:hover {
-        border-color: var(--color-lightblue);
-        color: var(--color-lightblue);
-    }
-}
-
-.paymentHelp {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    margin-top: -0.25rem;
-}
-
-.donateForm input {
-    padding: 0.8rem;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-color);
-    color: var(--text-color);
-}
-
-.donateForm input:focus {
-    outline: none;
-    border-color: var(--color-lightblue);
-}
-
-.formActions {
-    display: flex;
-    gap: 1rem;
-    margin-top: 0.5rem;
-}
-
-.btnCancel {
-    flex: 1;
-    padding: 0.8rem;
-    border-radius: 8px;
-    background: var(--card-bg);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-    font-weight: 500;
-}
-
-@media (hover: hover) {
-    .btnCancel:hover:not(:disabled) {
-        background: var(--card-hover-bg);
-        border-color: var(--text-muted);
-    }
-}
-
-.btnCancel:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.btnSubmit {
-    flex: 2;
-    padding: 0.8rem;
-    border-radius: 8px;
-    background: linear-gradient(135deg, var(--color-lightblue), var(--color-purple));
-    color: white;
-    font-weight: 600;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: none;
-}
-
-@media (hover: hover) {
-    .btnSubmit:hover:not(:disabled) {
-        opacity: 0.95;
-        box-shadow: 0 4px 12px rgba(0, 150, 255, 0.3);
-    }
-}
-
-.btnSubmit:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.modalOverlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1200;
-    background: rgba(0, 0, 0, 0.75);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-}
-
-@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
-    @supports ((-webkit-backdrop-filter: blur(3px)) or (backdrop-filter: blur(3px))) {
-        .modalOverlay {
-            -webkit-backdrop-filter: blur(3px);
-            backdrop-filter: blur(3px);
-        }
-    }
-}
-
-.modalCard {
-    width: 100%;
-    max-width: 560px;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 1.2rem;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
-}
-
-.modalHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.modalHeader h3 {
-    font-size: 1.1rem;
-    color: var(--text-color);
-}
-
-.modalClose {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-    font-size: 1.5rem;
-    line-height: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-@media (hover: hover) {
-    .modalClose:hover {
-        border-color: var(--color-pink);
-        color: var(--color-pink);
-    }
-}
-
-/* Currency Selector */
-.currencySelector {
-    display: flex;
-    gap: 1rem;
-    padding: 0.5rem;
-    background: var(--card-bg);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-}
-
-.currencySelector label {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    background: var(--bg-color);
-}
-
-@media (hover: hover) {
-    .currencySelector label:hover {
-        background: var(--card-hover-bg);
-    }
-}
-
-.currencySelector input[type="radio"] {
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-}
-
-.currencySelector span {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-color);
-}
-
-.currencySelector input[type="radio"]:checked+span {
-    color: var(--color-lightblue);
-    font-weight: 600;
+@media (max-width: 1024px) {
+  .eventGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
-    .container {
-        padding: 3.2rem 4%;
-    }
-
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
-    }
-
-    .eventCard {
-        padding: 1.25rem;
-        border-radius: 14px;
-    }
-
-    .eventCard h2 {
-        font-size: 1.2rem;
-        margin-top: 1.7rem;
-    }
-
-    .generalDonateCard {
-        border-radius: 14px;
-        padding: 1rem;
-    }
-
-    .currencySelector {
-        flex-direction: column;
-    }
-
-    .formActions {
-        flex-direction: column;
-    }
-
-    .btnSubmit,
-    .btnCancel {
-        width: 100%;
-    }
-
-    .progressText {
-        flex-direction: column;
-        gap: 0.25rem;
-    }
-
-    .modalCard {
-        max-height: 90vh;
-        max-height: 90dvh;
-        overflow-y: auto;
-    }
-
-    @media (hover: hover) {
-        .eventCard:hover {
-            transform: none;
-            box-shadow: none;
-        }
-
-        .btnSubmit:hover:not(:disabled) {
-            transform: none;
-        }
-    }
+  .eventCard { padding: 3rem 2rem; }
 }

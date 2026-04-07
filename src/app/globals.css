@@ -1,35 +1,36 @@
-/* ─── African Girl Rise: Dramatic & Feminine Design System ─── */
+/* ─── African Girl Rise: Premium Editorial Design System ─── */
 
 :root {
   /* Core Palette (Maintaining User's Colors) */
   --color-pink: #d81b60;
-  --color-pink-soft: #f06292;
+  --color-pink-soft: #f48fb1; /* Slightly softer for premium feel */
   --color-purple: #7b1fa2;
   --color-purple-deep: #4a148c;
   --color-lightblue: #89CFF0;
-  --color-black: #121212;
+  --color-black: #0a0a0a; /* Deeper black */
   --color-white: #ffffff;
+  --color-cream: #fdfafb; /* Sophisticated off-white background */
 
   /* Refined UI Colors */
-  --bg-color: #ffffff;
+  --bg-color: var(--color-cream);
   --text-primary: #1a1a1a;
-  --text-muted: #555555;
-  --border-color: rgba(216, 27, 96, 0.08);
+  --text-muted: #666666;
+  --border-color: rgba(216, 27, 96, 0.06);
 
   /* Gradients */
   --gradient-dramatic: linear-gradient(135deg, var(--color-pink) 0%, var(--color-purple) 100%);
   --gradient-feminine: linear-gradient(135deg, var(--color-pink-soft) 0%, var(--color-lightblue) 100%);
-  --gradient-dark: linear-gradient(135deg, var(--color-purple-deep) 0%, var(--color-black) 100%);
-  --gradient-soft-bg: radial-gradient(circle at 10% 20%, rgba(216, 27, 96, 0.03) 0%, rgba(137, 207, 240, 0.03) 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+  --gradient-soft-bg: radial-gradient(circle at 0% 0%, rgba(216, 27, 96, 0.05) 0%, rgba(137, 207, 240, 0.05) 100%);
 
   /* Typography */
-  --font-serif: var(--font-serif), serif; /* Playfair Display */
-  --font-sans: var(--font-sans), sans-serif; /* Inter */
+  --font-serif: var(--font-serif), serif;
+  --font-sans: var(--font-sans), sans-serif;
 
-  /* Shadows & Depth */
-  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.04);
-  --shadow-dramatic: 0 20px 60px rgba(216, 27, 96, 0.12);
-  --shadow-hover: 0 30px 80px rgba(0, 0, 0, 0.08);
+  /* Depth & Sophistication */
+  --shadow-premium: 0 10px 50px rgba(0, 0, 0, 0.03);
+  --shadow-elevated: 0 20px 80px rgba(216, 27, 96, 0.08);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.4);
 
   /* Z-Index Hierarchy */
   --z-nav: 1000;
@@ -43,7 +44,6 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 html, body {
@@ -54,15 +54,16 @@ html, body {
   background-image: var(--gradient-soft-bg);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  line-height: 1.7;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Typography Utilities */
-h1, h2, h3, .serif {
+/* ─── Typography ─── */
+h1, h2, h3, h4, .serif {
   font-family: var(--font-serif);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  color: var(--color-black);
 }
 
 .text-gradient {
@@ -70,107 +71,137 @@ h1, h2, h3, .serif {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: transparent;
 }
 
-.heading-xl {
-  font-size: clamp(3.5rem, 10vw, 6.5rem);
-  line-height: 0.9;
-  letter-spacing: -0.04em;
-  margin-bottom: 2rem;
+.heading-display {
+  font-size: clamp(3rem, 12vw, 8rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  margin-bottom: 2.5rem;
 }
 
-.heading-lg {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+.heading-section {
+  font-size: clamp(2rem, 5vw, 3.5rem);
   line-height: 1.1;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-/* Dramatic UI Components */
-.dramatic-card {
-  background: var(--color-white);
-  border-radius: 40px 5px 40px 5px; /* Asymmetric "feminine" curves */
-  padding: 3rem;
-  box-shadow: var(--shadow-soft);
-  border: 1px solid var(--border-color);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.dramatic-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-hover);
-  border-color: var(--color-pink-soft);
-}
-
-.btn-dramatic {
-  display: inline-block;
-  padding: 1.2rem 3rem;
-  background: var(--gradient-dramatic);
-  color: white;
-  border-radius: 60px;
-  font-weight: 700;
+.subheading {
+  font-size: 0.9rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.85rem;
-  transition: all 0.4s ease;
-  box-shadow: 0 10px 25px rgba(216, 27, 96, 0.2);
+  letter-spacing: 0.3em;
+  color: var(--color-pink);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+/* ─── Premium Components ─── */
+.premium-card {
+  background: var(--color-white);
+  padding: 4rem;
+  border-radius: 4px; /* Classic editorial look prefers cleaner edges or subtle rounds */
+  box-shadow: var(--shadow-premium);
+  border-left: 1px solid var(--color-pink);
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.premium-card:hover {
+  transform: translateX(10px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: var(--glass-border);
+  padding: 3rem;
+  border-radius: 20px;
+}
+
+.btn-premium {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 3.5rem;
+  background: var(--color-black);
+  color: var(--color-white);
+  border-radius: 0; /* Sharp, modern look */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  transition: all 0.3s ease;
   border: none;
   cursor: pointer;
   text-decoration: none;
-  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.btn-dramatic:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(216, 27, 96, 0.4);
+.btn-premium::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: var(--gradient-dramatic);
+  transition: all 0.4s ease;
+  z-index: 0;
 }
 
-.btn-outline {
+.btn-premium:hover::after {
+  left: 0;
+}
+
+.btn-premium span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-feminine {
   display: inline-block;
-  padding: 1.2rem 3rem;
-  background: transparent;
-  color: var(--color-pink);
-  border: 2px solid var(--color-pink);
-  border-radius: 60px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.85rem;
+  padding: 1rem 2.5rem;
+  background: var(--color-pink);
+  color: white;
+  border-radius: 50px;
+  font-weight: 600;
+  box-shadow: 0 10px 20px rgba(216, 27, 96, 0.15);
   transition: all 0.3s ease;
   text-decoration: none;
-  text-align: center;
 }
 
-.btn-outline:hover {
-  background: var(--color-pink-light);
-  transform: translateY(-5px);
+.btn-feminine:hover {
+  background: var(--color-purple);
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(123, 31, 162, 0.2);
 }
 
-/* iOS & Device Specifics */
-body {
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+/* ─── Device Optimizations ─── */
+@supports (padding: max(0px)) {
+  body {
+    padding-top: max(env(safe-area-inset-top), 0px);
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+    padding-left: max(env(safe-area-inset-left), 0px);
+    padding-right: max(env(safe-area-inset-right), 0px);
+  }
 }
 
 input, select, textarea {
-  font-size: 16px !important;
-  -webkit-appearance: none;
-  border-radius: 12px;
-  padding: 1rem;
+  font-size: 16px !important; /* Prevents iOS auto-zoom */
   border: 1px solid var(--border-color);
   background: var(--color-white);
+  border-radius: 0;
+  padding: 1.2rem;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #fdfdfd; }
-::-webkit-scrollbar-thumb { background: var(--color-pink-soft); border-radius: 10px; }
-
-/* Animation Classes */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
+/* ─── Animations ─── */
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-up {
-  animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+.reveal {
+  animation: reveal 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
