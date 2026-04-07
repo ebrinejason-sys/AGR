@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
@@ -109,7 +110,7 @@ export default function EventsPage() {
                                 <div className={styles.statusBadge}>{evt.status.toUpperCase()}</div>
                                 {evt.cover_image && (
                                     <div className={styles.eventCoverWrapper}>
-                                        <img src={evt.cover_image} alt={evt.title} className={styles.eventCoverImg} loading="lazy" decoding="async" />
+                                        <Image src={evt.cover_image} alt={evt.title} fill className={styles.eventCoverImg} sizes="(max-width: 768px) 100vw, 350px" />
                                     </div>
                                 )}
                                 <h2>{evt.title}</h2>
@@ -129,7 +130,7 @@ export default function EventsPage() {
                                             {evt.media.map(m => (
                                                 <div key={m.id} className={styles.eventGalleryItem}>
                                                     {m.type === 'image' ? (
-                                                        <img src={m.url} alt={m.description || 'event media'} className={styles.eventGalleryMedia} loading="lazy" decoding="async" />
+                                                        <Image src={m.url} alt={m.description || 'event media'} fill className={styles.eventGalleryMedia} sizes="100px" />
                                                     ) : (
                                                         <video src={m.url} playsInline preload="none" muted className={styles.eventGalleryMedia} />
                                                     )}

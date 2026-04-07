@@ -4,91 +4,58 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1200;
-    background: rgba(0, 0, 0, 0.92);
+    z-index: var(--z-modal-overlay);
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem;
     animation: fadeIn 0.2s ease;
     will-change: opacity;
-    /* Cross-platform improvements */
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
-    /* Prevent background scrolling on mobile */
-    overflow: hidden;
 }
 
-/* Enhanced animations for better cross-platform support */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .modalCard {
     width: 100%;
-    max-width: 540px;
-    max-height: 90vh;
+    max-width: 500px;
     max-height: 90dvh;
     overflow-y: auto;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
-    border-radius: 20px;
+    border-radius: 24px;
     padding: 2rem;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
     animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    /* Cross-platform scrolling improvements */
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: contain;
-    /* Better scrollbar styling */
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-pink) transparent;
-}
-
-.modalCard::-webkit-scrollbar {
-    width: 6px;
-}
-
-.modalCard::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.modalCard::-webkit-scrollbar-thumb {
-    background: var(--color-pink);
-    border-radius: 3px;
+    position: relative;
 }
 
 @keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .modalHeader {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
     border-bottom: 1px solid var(--border-color);
 }
 
 .modalTitle {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: var(--text-color);
     margin: 0;
+    line-height: 1.2;
 }
 
 .modalSubtitle {
@@ -98,54 +65,47 @@
 }
 
 .modalClose {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     color: var(--text-color);
-    font-size: 1.8rem;
-    line-height: 1;
-    display: inline-flex;
+    font-size: 1.5rem;
+    display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    flex-shrink: 0;
 }
 
 .modalClose:hover {
     border-color: var(--color-pink);
     color: var(--color-pink);
-    transform: rotate(90deg);
 }
 
 .donateForm {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
 }
 
 .currencySelector {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    padding: 0.5rem;
-    background: var(--card-bg);
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .currencySelector label {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.75rem 0.5rem;
-    border-radius: 8px;
+    padding: 1rem;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.2s ease;
-    background: var(--bg-color);
+    background: var(--card-bg);
     border: 2px solid transparent;
+    transition: all 0.2s ease;
 }
 
 .currencySelector label:hover {
@@ -153,241 +113,105 @@
 }
 
 .currencySelector label.active {
-    background: var(--card-hover-bg);
     border-color: var(--color-lightblue);
+    background: var(--bg-color);
 }
 
 .currencySelector input[type="radio"] {
     width: 20px;
     height: 20px;
-    cursor: pointer;
     accent-color: var(--color-lightblue);
-}
-
-.currencySelector span {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text-color);
 }
 
 .quickAmounts {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
 }
 
 .quickAmountBtn {
-    padding: 0.65rem 0.5rem;
-    border-radius: 8px;
+    padding: 0.75rem;
+    min-height: 48px;
+    border-radius: 12px;
     border: 1px solid var(--border-color);
     background: var(--card-bg);
     color: var(--text-color);
-    font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
-.quickAmountBtn:hover {
-    border-color: var(--color-lightblue);
-    background: var(--card-hover-bg);
-    color: var(--color-lightblue);
+.quickAmountBtn:active {
+    transform: scale(0.95);
+    background: var(--color-lightblue);
+    color: white;
 }
 
 .input {
-    padding: 0.9rem 1rem;
-    border-radius: 10px;
+    padding: 1rem;
+    border-radius: 12px;
     border: 1px solid var(--border-color);
     background: var(--bg-color);
     color: var(--text-color);
-    font-size: 1rem;
-    font-family: inherit;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-size: 16px;
+    width: 100%;
 }
 
 .input:focus {
     outline: none;
     border-color: var(--color-lightblue);
-    box-shadow: 0 0 0 3px rgba(3, 169, 244, 0.1);
 }
 
 .paymentHelp {
     font-size: 0.85rem;
     color: var(--text-muted);
-    line-height: 1.5;
+    line-height: 1.4;
     padding: 0.75rem 1rem;
     background: var(--card-bg);
-    border-radius: 8px;
-    border-left: 3px solid var(--color-lightblue);
+    border-radius: 10px;
+    border-left: 4px solid var(--color-lightblue);
 }
 
 .formActions {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
     margin-top: 0.5rem;
 }
 
 .btnCancel {
-    padding: 0.9rem;
-    border-radius: 10px;
+    padding: 1rem;
+    border-radius: 12px;
     background: var(--card-bg);
     color: var(--text-color);
     border: 1px solid var(--border-color);
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.btnCancel:hover:not(:disabled) {
-    background: var(--card-hover-bg);
-    border-color: var(--text-muted);
-}
-
-.btnCancel:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
 }
 
 .btnSubmit {
-    padding: 0.9rem;
-    border-radius: 10px;
+    padding: 1rem;
+    border-radius: 12px;
     background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
     color: white;
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 700;
     border: none;
     cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.btnSubmit:hover:not(:disabled) {
-    opacity: 0.95;
-    box-shadow: 0 8px 20px rgba(216, 27, 96, 0.4);
 }
 
 .btnSubmit:disabled {
     opacity: 0.6;
-    cursor: not-allowed;
 }
 
-@media (max-width: 480px) {
-    .modalCard {
-        padding: 1.25rem;
-        border-radius: 12px;
-        max-height: 90vh;
-        max-height: 90dvh;
-    }
-
-    .modalTitle {
-        font-size: 1.3rem;
-    }
-
-    .quickAmounts {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
-    }
-
-    .quickAmountBtn {
-        padding: 0.75rem;
-        font-size: 0.9rem;
-        min-height: 44px;
-        /* iOS touch target minimum */
-    }
-
-    .formActions {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-    }
-
-    .currencySelector {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-    }
-
-    .btnSubmit,
-    .btnCancel {
-        min-height: 48px;
-        /* Better touch targets */
-        font-size: 1rem;
-    }
-}
-
-/* Tablet styles */
-@media (min-width: 481px) and (max-width: 768px) {
-    .modalCard {
-        max-width: 480px;
-        padding: 2rem;
-    }
-
-    .quickAmounts {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-/* Large screens */
-@media (min-width: 769px) {
-    .modalCard {
-        max-width: 540px;
-    }
-
+@media (min-width: 480px) {
     .quickAmounts {
         grid-template-columns: repeat(4, 1fr);
     }
-}
-
-/* Touch device optimizations */
-@media (hover: none) and (pointer: coarse) {
-
-    /* Increase touch targets for touch devices */
-    .quickAmountBtn,
-    .btnSubmit,
-    .btnCancel,
-    .modalClose {
-        min-height: 44px;
-        min-width: 44px;
+    .formActions {
+        grid-template-columns: 1fr 1fr;
     }
-
-    /* Better spacing for touch */
-    .input,
-    .select,
-    .textarea {
-        font-size: 16px;
-        /* Prevent zoom on iOS */
-        padding: 0.875rem;
-    }
-
-    /* Larger close button for touch */
-    .modalClose {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-    }
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    .modalOverlay {
-        background: rgba(0, 0, 0, 0.95);
-    }
-
-    .modalCard {
-        border: 2px solid currentColor;
-    }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-
-    .modalOverlay,
-    .modalCard {
-        animation: none;
-    }
-}
-
-/* Print styles */
-@media print {
-    .modalOverlay {
-        display: none !important;
+    .currencySelector {
+        display: grid;
+        grid-template-columns: 1fr;
     }
 }

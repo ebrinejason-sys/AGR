@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useEffect, useState, useRef } from 'react';
 import { PlusCircle, Edit2, Trash2, Image as ImageIcon, Loader2 } from 'lucide-react';
@@ -302,7 +303,7 @@ export default function AdminEvents() {
                             />
                             {formData.cover_image && (
                                 <div style={{ marginTop: '1rem', height: '150px', borderRadius: '8px', overflow: 'hidden' }}>
-                                    <img src={formData.cover_image} alt="Cover Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    <Image src={formData.cover_image} alt="Cover Preview" fill style={{ objectFit: 'cover' }} />
                                 </div>
                             )}
                         </div>
@@ -356,7 +357,7 @@ export default function AdminEvents() {
                                 <td>
                                     {ev.cover_image ? (
                                         <div style={{ width: '50px', height: '50px', borderRadius: '8px', overflow: 'hidden' }}>
-                                            <img src={ev.cover_image} alt="cover" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            <Image src={ev.cover_image} alt="cover" fill style={{ objectFit: 'cover' }} />
                                         </div>
                                     ) : (
                                         <div style={{ width: '50px', height: '50px', borderRadius: '8px', background: 'var(--card-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>

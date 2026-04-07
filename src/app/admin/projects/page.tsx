@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useState, useEffect, useRef } from "react";
 import styles from "./page.module.css";
@@ -257,7 +258,7 @@ export default function ProjectsManagement() {
                     />
                     {formData.image_url && (
                         <div className={styles.imagePreview}>
-                            <img src={formData.image_url} alt="Preview" />
+                            <Image src={formData.image_url} alt="Preview" width={200} height={150} style={{ objectFit: 'cover' }} />
                         </div>
                     )}
                  </div>
@@ -302,7 +303,7 @@ export default function ProjectsManagement() {
                             <tr key={project.id}>
                                 <td className={styles.imageCell}>
                                     {project.image_url ? (
-                                        <img src={project.image_url} alt={project.title} className={styles.tableThumb} />
+                                        <Image src={project.image_url} alt={project.title} width={40} height={40} className={styles.tableThumb} style={{ objectFit: 'cover' }} />
                                     ) : (
                                         <div className={styles.thumbPlaceholder}><ImageIcon size={20} /></div>
                                     )}

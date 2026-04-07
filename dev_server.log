@@ -1,0 +1,22 @@
+
+> african-girl-rise@0.1.0 dev
+> next dev --turbopack
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+
+✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+✓ Ready in 1427ms
+ GET / 200 in 3.2s (compile: 2.6s, render: 567ms)
+ GET /events 200 in 1291ms (compile: 1094ms, render: 197ms)
+ GET / 200 in 117ms (compile: 5ms, render: 112ms)
+ GET /events 200 in 99ms (compile: 4ms, render: 96ms)
+ GET / 200 in 243ms (compile: 70ms, render: 174ms)
+ GET /events 200 in 221ms (compile: 63ms, render: 158ms)
+✓ Compiled in 45ms
