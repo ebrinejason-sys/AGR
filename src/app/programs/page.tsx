@@ -15,6 +15,15 @@ export default function Programs() {
                 </p>
             </section>
 
+            {/* Ticker */}
+            <div className={styles.ticker} aria-hidden="true">
+                <div className={styles.tickerTrack}>
+                    {['Rise Room', 'Academic Rescue', 'Life Skills', 'Health & Wellness', 'Future Pathways', 'Leadership', 'Mentorship', 'Community', 'Resilience', 'Empowerment', 'Rise Room', 'Academic Rescue', 'Life Skills', 'Health & Wellness', 'Future Pathways', 'Leadership', 'Mentorship', 'Community', 'Resilience', 'Empowerment'].map((item, i) => (
+                        <span key={i} className={styles.tickerItem}>{item}</span>
+                    ))}
+                </div>
+            </div>
+
             {/* Strategic Pillars */}
             <section className={styles.editorialIntro}>
                 <div className={styles.editorialWrapper}>

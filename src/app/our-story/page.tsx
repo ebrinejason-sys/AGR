@@ -15,6 +15,15 @@ export default function OurStory() {
                 </p>
             </section>
 
+            {/* Ticker */}
+            <div className={styles.ticker} aria-hidden="true">
+                <div className={styles.tickerTrack}>
+                    {['Our Genesis', 'Breaking Cycles', 'One Girl at a Time', 'Kiburara Community', 'Uganda', 'Empowerment', 'Education', 'Safe Spaces', 'Mental Health', 'Resilience', 'Our Genesis', 'Breaking Cycles', 'One Girl at a Time', 'Kiburara Community', 'Uganda', 'Empowerment', 'Education', 'Safe Spaces', 'Mental Health', 'Resilience'].map((item, i) => (
+                        <span key={i} className={styles.tickerItem}>{item}</span>
+                    ))}
+                </div>
+            </div>
+
             {/* Core Narrative */}
             <section className={styles.contentSection}>
                 <div className={styles.narrativeWrapper}>

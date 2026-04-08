@@ -37,8 +37,17 @@ export default function Contact() {
                 </p>
             </section>
 
+            {/* Ticker */}
+            <div className={styles.ticker} aria-hidden="true">
+                <div className={styles.tickerTrack}>
+                    {['Get In Touch', 'Partner With Us', 'Volunteer', 'Mentorship', 'Sponsorship', 'Advocacy', 'Ibanda District', 'Uganda', 'cangirlriseltd.org', 'African Girl Rise', 'Get In Touch', 'Partner With Us', 'Volunteer', 'Mentorship', 'Sponsorship', 'Advocacy', 'Ibanda District', 'Uganda', 'cangirlriseltd.org', 'African Girl Rise'].map((item, i) => (
+                        <span key={i} className={styles.tickerItem}>{item}</span>
+                    ))}
+                </div>
+            </div>
+
             <section className={styles.contactSection}>
-                <div className={styles.contactGrid}>
+               <div className={styles.contactGrid}>
                     <div className={styles.infoCol}>
                         <h2 className="heading-section">Connect <br /> with <span className="text-gradient">Us</span></h2>
 

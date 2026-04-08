@@ -58,6 +58,15 @@ export default function EventsPage() {
                 </p>
             </section>
 
+            {/* Ticker */}
+            <div className={styles.ticker} aria-hidden="true">
+                <div className={styles.tickerTrack}>
+                    {['Upcoming Events', 'Community Gatherings', 'Workshops', 'Training', 'Programs', 'Girls Empowerment', 'Health Talks', 'Legal Advocacy', 'Mentorship', 'Community Outreach', 'Upcoming Events', 'Community Gatherings', 'Workshops', 'Training', 'Programs', 'Girls Empowerment', 'Health Talks', 'Legal Advocacy', 'Mentorship', 'Community Outreach'].map((item, i) => (
+                        <span key={i} className={styles.tickerItem}>{item}</span>
+                    ))}
+                </div>
+            </div>
+
             {loading ? (
                 <div style={{ textAlign: 'center', padding: '15rem', opacity: 0.5, letterSpacing: '0.2em' }}>DOCUMENTING PROGRESS...</div>
             ) : (

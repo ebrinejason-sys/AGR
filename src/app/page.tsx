@@ -24,21 +24,29 @@ export default function Home() {
   ];
 
   const marqueeRow1 = [
+    "/images/agr-photo-1.jpg",
     "/images/program-1.jpg",
+    "/images/agr-photo-2.jpg",
     "/images/program-2.jpg",
     "/images/about-us.jpg",
+    "/images/agr-photo-3.jpg",
     "/images/program-3.jpg",
     "/images/worthy-dream.jpg",
+    "/images/agr-photo-4.jpg",
     "/images/program-4.jpg",
     "/images/legal-advocacy.jpg",
     "/images/hero-bg.jpg",
   ];
 
   const marqueeRow2 = [
+    "/images/agr-photo-3.jpg",
     "/images/hero-bg.jpg",
+    "/images/agr-photo-1.jpg",
     "/images/about-us.jpg",
+    "/images/agr-photo-4.jpg",
     "/images/program-2.jpg",
     "/images/legal-advocacy.jpg",
+    "/images/agr-photo-2.jpg",
     "/images/program-1.jpg",
     "/images/worthy-dream.jpg",
     "/images/program-4.jpg",

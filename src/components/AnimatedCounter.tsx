@@ -14,12 +14,12 @@ interface AnimatedCounterProps {
 
 export default function AnimatedCounter({
     target,
-    duration = 2500,
+    duration = 1200,
     prefix = "",
     suffix = "",
     separator = true,
     continuous = false,
-    incrementInterval = 3000
+    incrementInterval = 800
 }: AnimatedCounterProps) {
     const [count, setCount] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
@@ -101,7 +101,7 @@ export default function AnimatedCounter({
         // We wait for the duration of the initial animation
         const timeout = setTimeout(() => {
             interval = setInterval(() => {
-                setCount(prev => prev + Math.floor(Math.random() * 2) + 1);
+                setCount(prev => prev + Math.floor(Math.random() * 3) + 1);
             }, incrementInterval);
         }, duration);
 

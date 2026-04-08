@@ -103,3 +103,63 @@
 @media (max-width: 768px) {
   .eventCard { padding: 3rem 2rem; }
 }
+
+/*  Ticker (hero dead space filler)  */
+.ticker {
+  overflow: hidden;
+  width: 100%;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.tickerTrack {
+  display: flex;
+  width: max-content;
+  animation: tickerScroll 38s linear infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tickerTrack { animation: none; }
+}
+.tickerItem {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 2.5rem;
+}
+.tickerItem::after {
+  content: '\00B7';
+  color: var(--color-pink);
+  font-size: 1.5rem;
+  line-height: 0;
+  opacity: 0.5;
+  margin-left: 2.5rem;
+}
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/*  Mobile hero padding fix  */
+@media (max-width: 768px) {
+  .hero {
+    padding: 8rem 6% 4rem;
+  }
+}
+
+/* --- Ticker --- */
+.ticker { overflow: hidden; width: 100%; padding: 1.1rem 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); background: var(--bg-secondary); -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%); }
+.tickerTrack { display: flex; width: max-content; animation: tickerScroll 38s linear infinite; }
+.tickerItem { display: inline-flex; align-items: center; white-space: nowrap; font-size: 0.7rem; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; color: var(--text-muted); padding: 0 2.5rem; }
+.tickerItem::after { content: '\00B7'; color: var(--color-pink); font-size: 1.5rem; line-height: 0; opacity: 0.5; margin-left: 2.5rem; }
+@keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (max-width: 768px) { .hero { padding: 8rem 6% 4rem; } }
+

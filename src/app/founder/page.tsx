@@ -1,16 +1,29 @@
 "use client";
 
+import { useState } from 'react';
 import styles from './page.module.css';
 import Image from 'next/image';
 
 export default function Founder() {
+    const [expanded, setExpanded] = useState(false);
+
     return (
         <div className={styles.container}>
             {/* Editorial Hero */}
             <section className={styles.hero}>
               <p className="subheading reveal">The Visionary</p>
               <h1 className="heading-display reveal">Akatwijuka <span className="text-gradient">Grace</span></h1>
+              <p className={styles.heroTagline}>&ldquo;My parents broke the cycle so I could rise. Now I help other girls do the same.&rdquo;</p>
             </section>
+
+            {/* Ticker */}
+            <div className={styles.ticker} aria-hidden="true">
+                <div className={styles.tickerTrack}>
+                    {['Founder', 'Evelyn Brenda Akankunda', 'Kiburara', 'Uganda Christian University', 'Law Student', 'Youth Advocate', 'African Girl Rise', 'Breaking Cycles', 'Girls Empowerment', 'Vision 2030', 'Founder', 'Evelyn Brenda Akankunda', 'Kiburara', 'Uganda Christian University', 'Law Student', 'Youth Advocate', 'African Girl Rise', 'Breaking Cycles', 'Girls Empowerment', 'Vision 2030'].map((item, i) => (
+                        <span key={i} className={styles.tickerItem}>{item}</span>
+                    ))}
+                </div>
+            </div>
 
             {/* Profile Section */}
             <section className={styles.editorialSection}>
@@ -18,41 +31,81 @@ export default function Founder() {
                 <div className={styles.founderImageFrame}>
                   <Image
                     src="/images/founder.jpg"
-                    alt="Akatwijuka Grace"
+                    alt="Akatwijuka Grace — Founder of African Girl Rise"
                     fill
-                    style={{ objectFit: 'cover' }}
-                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    style={{ objectFit: 'cover', objectPosition: 'top center' }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 45vw"
                     priority
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                   />
+                  <div className={styles.imageOverlay}>
+                    <span className={styles.imageCaption}>Akatwijuka Grace · Founder &amp; Visionary Director</span>
+                  </div>
                 </div>
-                <div className={styles.editorialContent}>
-                  <h2 className="heading-section">Guided by <span className="text-gradient">Resilience</span></h2>
-                  <div className={styles.editorialText}>
-                    <p>I am currently finalizing my legal studies at Uganda Christian University, yet my professional narrative began long before the courtroom. It is rooted in the strategic resilience of my parents, who navigated significant hardship to ensure I could ascend.</p>
-                    <p>My journey is predicated on the conviction that one&apos;s beginning does not dictate their ultimate becoming. Having witnessed the systemic obstacles faced by adolescent girls, I established African Girl Rise as the definitive bridge to their radiant potential.</p>
 
-                    <div style={{ marginTop: '6rem' }}>
-                      <h3 className="serif" style={{ fontSize: '2rem', marginBottom: '2rem' }}>Generational Transformation</h3>
-                      <p>Struggle should not be an inherited legacy. When we invest in a girl&apos;s educational persistence, we are not merely educating an individual; we are architecting a family&apos;s future for generations. My presence is the empirical proof of this transformation.</p>
-                    </div>
+                <div className={styles.editorialContent}>
+                  <h2 className="heading-section">A Girl Whose Parents <span className="text-gradient">Broke the Cycle</span></h2>
+                  <div className={styles.editorialText}>
+                    <p>I grew up in Ibanda District, in the rolling hills of Western Uganda — a place of breathtaking beauty. But beauty does not fill stomachs. Beauty does not pay school fees. Beauty does not protect a girl from the hard realities of poverty.</p>
+
+                    <p>My family was not wealthy. But poverty was not the whole story. The whole story is this: <strong>my parents refused to let their suffering become my inheritance.</strong></p>
+
+                    <p>My mother studied by kerosene lamp when there was kerosene. She walked kilometres on empty stomachs, determined that education would be her ladder out of poverty. She completed her education and made sure my path would be easier than hers. My father had grit, prayer, and an unshakeable belief that tomorrow could be better than today — and he completed his education through sheer stubborn faith.</p>
+
+                    {!expanded && (
+                      <button className={styles.readMoreBtn} onClick={() => setExpanded(true)}>
+                        Read Full Story ↓
+                      </button>
+                    )}
+
+                    {expanded && (
+                      <>
+                        <h3 className={styles.subhead}>The Girls Who Walked Beside Me</h3>
+                        <p>I grew up with five girls who were my sisters in every way but blood — Annet, Grace, Mary, Robinah, and Sylvia. We sat together on broken desks, sharing textbooks with missing pages. We walked the same dusty roads, our bare feet slapping against the red earth. We dreamed under the mango tree of the women we would become.</p>
+
+                        <p>We promised each other we would all make it. But life had different plans. Annet was married at fifteen. Grace dropped out when her father died and relatives did not believe in girl education. Mary stayed home so her brother could continue secondary school. Robinah became pregnant — the teacher who promised to marry her disappeared; the school expelled her. Sylvia was married at seventeen to a man old enough to be her grandfather.</p>
+
+                        <p><strong>And I kept walking.</strong> Why me? Because my parents chose differently. They chose to break the cycle.</p>
+
+                        <h3 className={styles.subhead}>The Path to Law</h3>
+                        <p>I am currently in my fourth year of law studies at Uganda Christian University, pursuing a degree I believe is essential to the work of breaking cycles and transforming communities. I chose law because lasting change requires changing the systems that fail girls in the first place.</p>
+
+                        <p>I want to be the lawyer who stands between a girl and the teacher who would abuse her; who fights for policies allowing pregnant girls to return to school; who challenges discriminatory practices that favour boys over girls. My law degree will serve this initiative. This initiative will serve the community. And the community — one girl at a time — will transform this nation.</p>
+
+                        <h3 className={styles.subhead}>The Vision</h3>
+                        <p>My vision is simple and enormous: I want every girl in Ibanda District — every girl in Uganda — every girl in Africa — to have the chance I had. I want every Annet, every Grace, every Mary, every Robinah, every Sylvia to know that her beginning does not define her becoming.</p>
+
+                        <button className={styles.readMoreBtn} onClick={() => setExpanded(false)}>
+                          Show Less ↑
+                        </button>
+                      </>
+                    )}
                   </div>
 
                   <div className={styles.statsGrid}>
                     <div className={styles.statItem}>
                       <span className={styles.statLabel}>Role</span>
-                      <p className={styles.statValue}>Founder & Executive Director</p>
+                      <p className={styles.statValue}>Founder &amp; Executive Director</p>
                     </div>
                     <div className={styles.statItem}>
                       <span className={styles.statLabel}>Education</span>
-                      <p className={styles.statValue}>LLB, Uganda Christian University</p>
+                      <p className={styles.statValue}>4th Year Law, Uganda Christian University</p>
                     </div>
                     <div className={styles.statItem}>
-                      <span className={styles.statLabel}>Focus</span>
-                      <p className={styles.statValue}>Human Rights & Gender Advocacy</p>
+                      <span className={styles.statLabel}>Initiative</span>
+                      <p className={styles.statValue}>African Girl Rise (Registered 2025)</p>
                     </div>
                     <div className={styles.statItem}>
                       <span className={styles.statLabel}>Impact</span>
-                      <p className={styles.statValue}>Ibanda District, Western Uganda</p>
+                      <p className={styles.statValue}>800+ Girls · Ibanda District, Uganda</p>
+                    </div>
+                    <div className={styles.statItem}>
+                      <span className={styles.statLabel}>WhatsApp</span>
+                      <p className={styles.statValue}>+256 703 727 965</p>
+                    </div>
+                    <div className={styles.statItem}>
+                      <span className={styles.statLabel}>Phone</span>
+                      <p className={styles.statValue}>+256 763 738 733</p>
                     </div>
                   </div>
                 </div>
@@ -62,8 +115,8 @@ export default function Founder() {
             {/* Premium Quote */}
             <section className={styles.statementBox}>
               <div className={styles.statementInner}>
-                <p>&ldquo;I am simply a girl whose parents chose to break the cycle. They did not bequeath hardship; they invested hope. Now, I reach back to ignite that same transformation in others.&rdquo;</p>
-                <div className={styles.signature}>— Akatwijuka Grace</div>
+                <p>&ldquo;I am not special. I am simply a girl whose parents chose to break the cycle. They did not bequeath hardship; they passed on hope. Now I reach back to ignite that same transformation in others.&rdquo;</p>
+                <div className={styles.signature}>— Akatwijuka Grace, Founder &amp; Visionary Director</div>
               </div>
             </section>
         </div>
