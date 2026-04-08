@@ -116,3 +116,21 @@
   .storyCard h2 { font-size: 2rem; }
   .mediaGrid { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 768px) { .storySection { padding: 4rem 6% !important; } }
+
+@media (max-width: 768px) {
+  .storyGrid { padding: 0 6% 5rem; gap: 3rem; }
+  .storyCard { padding: 3rem 2rem; }
+  .storyCard h2 { font-size: 1.8rem; }
+  .mediaGrid { padding: 0 6% 5rem; grid-template-columns: 1fr; }
+  .meta { flex-wrap: wrap; gap: 1rem; }
+}
+
+@media (max-width: 768px) {
+  .storyGrid { padding: 0 6% 5rem; gap: 3rem; }
+  .storyCard { padding: 3rem 2rem; }
+  .storyCard h2 { font-size: 1.8rem; }
+  .mediaGrid { padding: 0 6% 5rem; grid-template-columns: 1fr; }
+  .meta { flex-wrap: wrap; gap: 1rem; }
+}

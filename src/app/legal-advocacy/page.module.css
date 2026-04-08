@@ -134,3 +134,5 @@
 @media (max-width: 768px) {
   .advocacyBox { padding: 4rem 2rem; }
 }
+
+@media (max-width: 768px) { .editorialIntro { padding: 5rem 6%; } .editorialBody { padding: 5rem 6%; } .ctaBox { padding: 5rem 6%; } .premiumGrid { grid-template-columns: 1fr; } .benefitGrid { grid-template-columns: 1fr; } }

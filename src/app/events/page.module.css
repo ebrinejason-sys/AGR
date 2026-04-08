@@ -163,3 +163,5 @@
 @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (max-width: 768px) { .hero { padding: 8rem 6% 4rem; } }
 
+
+@media (max-width: 768px) { .eventSection { padding: 4rem 6%; } .eventGrid { grid-template-columns: 1fr; gap: 2.5rem; } .eventCard { padding: 3rem 2rem; } }
