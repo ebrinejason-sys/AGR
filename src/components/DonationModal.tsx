@@ -38,9 +38,9 @@ export default function DonationModal({ isOpen, onClose, eventId, eventTitle }: 
         : [{ label: '$5',     val: '5'     }, { label: '$20',    val: '20'    }, { label: '$50',     val: '50'    }, { label: '$100',    val: '100'   }];
 
     const infoMap: Record<PaymentMethod, string> = {
-        mobile_money_ug:           'You'll receive a prompt on your Ugandan phone number to confirm payment.',
-        flutterwave_international: 'You'll be redirected to Flutterwave's secure checkout page.',
-        paypal:                    'You'll be redirected to PayPal's secure checkout page.',
+        mobile_money_ug:           "You'll receive a prompt on your Ugandan phone number to confirm payment.",
+        flutterwave_international: "You'll be redirected to Flutterwave's secure checkout page.",
+        paypal:                    "You'll be redirected to PayPal's secure checkout page.",
     };
 
     const selectMethod = (m: PaymentMethod) => {
