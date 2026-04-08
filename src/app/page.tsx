@@ -10,6 +10,41 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 export default function Home() {
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
+  const tickerItems = [
+    "Education Access",
+    "Menstrual Health",
+    "Legal Advocacy",
+    "Rise Sanctuaries",
+    "Mentorship",
+    "Breaking Cycles",
+    "Community Healing",
+    "Girl-Led Futures",
+    "Trauma-Informed Care",
+    "Rights Protection",
+  ];
+
+  const marqueeRow1 = [
+    "/images/program-1.jpg",
+    "/images/program-2.jpg",
+    "/images/about-us.jpg",
+    "/images/program-3.jpg",
+    "/images/worthy-dream.jpg",
+    "/images/program-4.jpg",
+    "/images/legal-advocacy.jpg",
+    "/images/hero-bg.jpg",
+  ];
+
+  const marqueeRow2 = [
+    "/images/hero-bg.jpg",
+    "/images/about-us.jpg",
+    "/images/program-2.jpg",
+    "/images/legal-advocacy.jpg",
+    "/images/program-1.jpg",
+    "/images/worthy-dream.jpg",
+    "/images/program-4.jpg",
+    "/images/program-3.jpg",
+  ];
+
   return (
     <div className={styles.container}>
       {/* ─── Hero Section ─── */}
@@ -39,6 +74,15 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ─── Tag Ticker ─── */}
+      <div className={styles.ticker} aria-hidden="true" role="presentation">
+        <div className={styles.tickerTrack}>
+          {[...tickerItems, ...tickerItems].map((item, i) => (
+            <span key={i} className={styles.tickerItem}>{item}</span>
+          ))}
+        </div>
+      </div>
 
       {/* ─── Story Section ─── */}
       <section className={styles.sectionWrapper}>
@@ -101,6 +145,28 @@ export default function Home() {
               </div>
               <p className={styles.impactTitle}>Success Rate</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Image Marquee ─── */}
+      <section className={styles.marqueeSection} aria-hidden="true" role="presentation">
+        <div className={styles.marqueeRow}>
+          <div className={styles.marqueeTrack}>
+            {[...marqueeRow1, ...marqueeRow1].map((src, i) => (
+              <div key={i} className={styles.marqueeItem}>
+                <Image src={src} alt="" fill sizes="280px" style={{ objectFit: 'cover' }} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={styles.marqueeRow}>
+          <div className={`${styles.marqueeTrack} ${styles.marqueeTrackRight}`}>
+            {[...marqueeRow2, ...marqueeRow2].map((src, i) => (
+              <div key={i} className={styles.marqueeItem}>
+                <Image src={src} alt="" fill sizes="280px" style={{ objectFit: 'cover' }} />
+              </div>
+            ))}
           </div>
         </div>
       </section>
