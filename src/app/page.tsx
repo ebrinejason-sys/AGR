@@ -47,31 +47,40 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      {/* ─── Hero Section ─── */}
-      <section className={styles.hero}>
-        <div className={styles.heroBg} />
-        <div className={styles.heroVisual} />
-        <div className={styles.heroContent}>
-          <p className="subheading reveal">The Era of the Rising Girl</p>
-          <h1 className="heading-display reveal">
-            Where Resilience <br />
+
+      {/* ─── Hero ─── */}
+      <section className={styles.heroSplit}>
+        <div className={styles.heroPanel}>
+          <span className={styles.eyebrow}>African Girl Rise · Uganda</span>
+          <h1 className={styles.heroHeading}>
+            Where Resilience<br />
             <span className="text-gradient">Transforms</span> Destiny.
           </h1>
-          <p className={`${styles.heroDescription} reveal`}>
-            A premier sanctuary dedicated to adolescent girls in Uganda,
-            empowering them to transcend barriers and architect radiant futures.
+          <p className={styles.heroSubtext}>
+            A registered Ugandan non-profit empowering marginalized adolescent girls to transcend barriers,
+            reclaim their futures, and lead with unyielding strength.
           </p>
-          <div className={`${styles.heroButtons} reveal`}>
+          <div className={styles.heroCtas}>
             <button
               onClick={() => setIsDonationModalOpen(true)}
-              className="btn-premium"
+              className={styles.btnPink}
             >
-              <span>Support Her Rise</span>
+              Support Her Rise
             </button>
-            <Link href="/programs" className="btn-feminine">
-              Explore Pathway
+            <Link href="/programs" className={styles.btnGhost}>
+              Explore Programs
             </Link>
           </div>
+        </div>
+        <div className={styles.heroImagePanel}>
+          <Image
+            src="/images/hero-bg.jpg"
+            alt="Adolescent girls in Uganda"
+            fill
+            priority
+            sizes="45vw"
+            style={{ objectFit: 'cover', objectPosition: 'center top' }}
+          />
         </div>
       </section>
 
@@ -84,69 +93,65 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ─── Story Section ─── */}
-      <section className={styles.sectionWrapper}>
-        <div className={styles.splitSection}>
-          <div className={styles.splitText}>
-            <p className="subheading">Our Narrative</p>
-            <h2 className="heading-section">The Intersection of <span className="text-gradient">Reality & Radiance</span></h2>
-            <p>
-              African Girl Rise represents an elite movement of empowerment.
-              We are a registered Ugandan non-profit established to dismantle
-              the structural and systemic cycles of poverty that constrain
-              marginalized adolescent girls.
-            </p>
-            <p>
-              Under the visionary leadership of Akatwijuka Grace, we serve as the
-              strategic bridge for girls to overcome academic and social adversity,
-              graduating as leaders of unyielding strength.
-            </p>
-            <div style={{ marginTop: '4rem' }}>
-              <Link href="/our-story" className="btn-premium">
-                <span>Discover More</span>
-              </Link>
-            </div>
-          </div>
-          <div className={styles.visualFrame}>
+      {/* ─── About ─── */}
+      <section className={styles.aboutWrap}>
+        <div className={styles.aboutGrid}>
+          <div className={styles.aboutImgWrap}>
             <Image
               src="/images/about-us.jpg"
-              alt="Adolescent girl empowerment"
+              alt="Girls empowered through our programs"
               fill
-              style={{ objectFit: 'cover' }}
-              sizes="(max-width: 1200px) 100vw, 50vw"
-              priority
+              sizes="(max-width: 960px) 100vw, 50vw"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
+          </div>
+          <div className={styles.aboutContent}>
+            <span className={styles.eyebrow}>Our Story</span>
+            <h2 className={styles.secTitle}>
+              The Intersection of <span className="text-gradient">Reality &amp; Radiance</span>
+            </h2>
+            <p>
+              African Girl Rise is an elite movement of empowerment — a registered Ugandan non-profit
+              built to dismantle the structural cycles of poverty that constrain marginalized girls.
+            </p>
+            <p>
+              Under the visionary leadership of Akatwijuka Grace, we serve as the strategic bridge
+              for girls to overcome academic and social adversity, graduating as leaders of unyielding strength.
+            </p>
+            <Link href="/our-story" className={styles.textLink}>
+              Read our full story →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ─── Impact Section ─── */}
-      <section className={styles.impactContainer}>
-        <div className={styles.impactInner}>
-          <h2 className="heading-section" style={{ color: 'white', textAlign: 'center' }}>
-            Tangible <span className="text-gradient">Change</span>
-          </h2>
-          <div className={styles.impactGrid}>
-            <div className={styles.impactCard}>
-              <div className={styles.impactValue}>
-                <AnimatedCounter target={56000} suffix="+" continuous={true} incrementInterval={3000} />
-              </div>
-              <p className={styles.impactTitle}>Global Impact Reach</p>
+      {/* ─── Stats ─── */}
+      <section className={styles.statsWrap}>
+        <span className={styles.eyebrow}>Impact</span>
+        <h2 className={styles.secTitle}>Tangible <span className="text-gradient">Change</span></h2>
+        <div className={styles.statsGrid}>
+          <div className={styles.statCard}>
+            <div className={styles.statNum}>
+              <AnimatedCounter target={56000} suffix="+" continuous={true} incrementInterval={3000} />
             </div>
-            <div className={styles.impactCard}>
-              <div className={styles.impactValue}>
-                <AnimatedCounter target={12} suffix="+" />
-              </div>
-              <p className={styles.impactTitle}>Active Sanctuaries</p>
+            <p className={styles.statLabel}>Girls Reached Globally</p>
+          </div>
+          <div className={styles.statCard}>
+            <div className={styles.statNum}>
+              <AnimatedCounter target={12} suffix="+" />
             </div>
-            <div className={styles.impactCard}>
-              <div className={styles.impactValue}>
-                <AnimatedCounter target={100} suffix="%" />
-              </div>
-              <p className={styles.impactTitle}>Success Rate</p>
+            <p className={styles.statLabel}>Active Sanctuaries</p>
+          </div>
+          <div className={styles.statCard}>
+            <div className={styles.statNum}>
+              <AnimatedCounter target={100} suffix="%" />
             </div>
+            <p className={styles.statLabel}>Program Success Rate</p>
           </div>
         </div>
+        <p className={styles.statsNote}>
+          &ldquo;Numbers that represent real lives, real communities, real futures.&rdquo;
+        </p>
       </section>
 
       {/* ─── Image Marquee ─── */}
@@ -171,64 +176,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Foundational Pillars ─── */}
-      <section className={styles.sectionWrapper}>
-        <div style={{ textAlign: 'center', marginBottom: '8rem' }}>
-          <p className="subheading">Strategy</p>
-          <h2 className="heading-section">Foundational <span className="text-gradient">Pillars</span></h2>
+      {/* ─── Pillars ─── */}
+      <section className={styles.pillarsWrap}>
+        <div className={styles.secHeader}>
+          <span className={styles.eyebrow}>How We Work</span>
+          <h2 className={styles.secTitle}>Foundational <span className="text-gradient">Pillars</span></h2>
+          <p className={styles.secDesc}>
+            Three interconnected pathways that together break the cycle — sustainably, measurably, permanently.
+          </p>
         </div>
-
-        <div className={styles.editorialGrid}>
-          <div className={styles.editorialCard}>
-            <span className={styles.editorialIcon}>🧠</span>
+        <div className={styles.pillarsRow}>
+          <div className={styles.pillarItem}>
+            <span className={styles.pillarNum}>01</span>
             <h3>Rise Sanctuaries</h3>
-            <p>Exclusive, trauma-informed environments providing clinical counseling and peer-led connection.</p>
-            <Link href="/programs" className="text-gradient" style={{ fontWeight: '700', fontSize: '0.8rem', letterSpacing: '0.15em' }}>
-              PILLAR 01 →
-            </Link>
+            <p>Trauma-informed safe spaces with clinical counseling, peer support, and mentorship for adolescent girls.</p>
+            <Link href="/programs" className={styles.pillarLnk}>Learn more →</Link>
           </div>
-          <div className={styles.editorialCard}>
-            <span className={styles.editorialIcon}>📚</span>
+          <div className={styles.pillarItem}>
+            <span className={styles.pillarNum}>02</span>
             <h3>Academic Excellence</h3>
-            <p>Strategic mentorship and economic interventions ensuring girls maintain educational persistence.</p>
-            <Link href="/programs" className="text-gradient" style={{ fontWeight: '700', fontSize: '0.8rem', letterSpacing: '0.15em' }}>
-              PILLAR 02 →
-            </Link>
+            <p>Strategic mentorship and economic interventions ensuring girls maintain sustained educational progress.</p>
+            <Link href="/programs" className={styles.pillarLnk}>Learn more →</Link>
           </div>
-          <div className={styles.editorialCard}>
-            <span className={styles.editorialIcon}>⚖️</span>
+          <div className={styles.pillarItem}>
+            <span className={styles.pillarNum}>03</span>
             <h3>Legal Advocacy</h3>
-            <h4 style={{ display: 'none' }}>Rights</h4>
-            <p>High-impact protection of adolescent rights through legal literacy and community-based justice.</p>
-            <Link href="/legal-advocacy" className="text-gradient" style={{ fontWeight: '700', fontSize: '0.8rem', letterSpacing: '0.15em' }}>
-              PILLAR 03 →
-            </Link>
+            <p>High-impact protection of adolescent rights through legal literacy and community-based justice systems.</p>
+            <Link href="/legal-advocacy" className={styles.pillarLnk}>Learn more →</Link>
           </div>
         </div>
       </section>
 
-      {/* ─── Premium Quote ─── */}
-      <section style={{ padding: '15rem 5%', textAlign: 'center', background: 'var(--color-white)' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <h2 className="serif" style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: 'var(--color-purple-deep)', fontStyle: 'italic', fontWeight: '400', lineHeight: '1.4' }}>
-            &ldquo;Every girl carries an innate power to architect her own destiny.
-            We are simply the catalyst that ignites that transformation.&rdquo;
-          </h2>
-          <p className="subheading" style={{ marginTop: '3rem', fontSize: '0.75rem' }}>— Akatwijuka Grace, Founder</p>
+      {/* ─── Quote ─── */}
+      <section className={styles.quoteWrap}>
+        <div className={styles.quoteBox}>
+          <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
+          <p className={styles.quoteBody}>
+            Every girl carries an innate power to architect her own destiny.
+            We are simply the catalyst that ignites that transformation.
+          </p>
+          <span className={styles.quoteBy}>— Akatwijuka Grace, Founder</span>
         </div>
       </section>
 
-      {/* ─── Final CTA ─── */}
-      <section className={styles.ctaBox}>
-        <h2 className="heading-section">Become the <span style={{ color: 'var(--color-lightblue)' }}>Architect</span> of Change</h2>
-        <p>Invest in the next generation of African leaders. Your contribution fuels a legacy of resilience.</p>
-        <div className={styles.heroButtons} style={{ marginTop: '4rem' }}>
-          <button onClick={() => setIsDonationModalOpen(true)} className="btn-premium" style={{ background: 'white', color: 'black' }}>
-            <span>Invest Now</span>
-          </button>
-          <Link href="/contact" className="btn-premium">
-            <span>Volunteer</span>
-          </Link>
+      {/* ─── CTA ─── */}
+      <section className={styles.ctaBand}>
+        <div className={styles.ctaBody}>
+          <span className={styles.ctaEyebrow}>Make a Difference</span>
+          <h2 className={styles.ctaHeading}>Become the Architect of Change</h2>
+          <p className={styles.ctaText}>
+            Invest in the next generation of African leaders. Your contribution fuels a legacy of resilience and transformation.
+          </p>
+          <div className={styles.ctaRow}>
+            <button
+              onClick={() => setIsDonationModalOpen(true)}
+              className={styles.ctaBtnWhite}
+            >
+              Donate Now
+            </button>
+            <Link href="/contact" className={styles.ctaBtnOutline}>
+              Volunteer
+            </Link>
+          </div>
         </div>
       </section>
 

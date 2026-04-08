@@ -31,7 +31,7 @@
 .stayConnectedTitle {
     font-size: 1.5rem;
     font-weight: 700;
-    color: white;
+    color: #ffffff;
     margin-bottom: 0.5rem;
 }
 
@@ -64,11 +64,7 @@
     letter-spacing: 3px;
     margin-bottom: 0.25rem;
     text-transform: uppercase;
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple), var(--color-lightblue));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
+    color: #ffffff;
 }
 
 .brandTagline {

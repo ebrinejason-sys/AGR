@@ -6,7 +6,8 @@
     padding: 1rem 5%;
     padding-top: calc(1rem + env(safe-area-inset-top));
     background: var(--nav-bg);
-    border-bottom: 1px solid rgba(233, 30, 99, 0.12);
+    border-bottom: 1px solid rgba(26, 26, 46, 0.08);
+    box-shadow: 0 1px 12px rgba(26, 26, 46, 0.05);
     position: fixed;
     top: 0;
     left: 0;
@@ -46,13 +47,9 @@
 .brandName {
     font-weight: 800;
     font-size: 0.95rem;
-    letter-spacing: 2.5px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple), var(--color-lightblue));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
+    color: var(--text-color);
 }
 
 .brandNameShort {
@@ -141,11 +138,11 @@
     top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(10, 10, 28, 0.96);
+    background: #ffffff;
     min-width: 180px;
     border-radius: 10px;
-    border: 1px solid rgba(233, 30, 99, 0.18);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.03);
+    border: 1px solid rgba(26, 26, 46, 0.1);
+    box-shadow: 0 8px 32px rgba(26, 26, 46, 0.12), 0 2px 8px rgba(26, 26, 46, 0.06);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
@@ -201,18 +198,17 @@
 
 /* Donate Button */
 .donateBtn {
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    background: var(--color-pink);
     color: white;
     padding: 0.55rem 1.4rem;
-    border-radius: 6px;
+    border-radius: 50px;
     font-weight: 700;
     font-size: 0.78rem;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(233, 30, 99, 0.3);
+    transition: all 0.25s ease;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
 }
 
 @media (hover: hover) {
@@ -226,7 +222,7 @@
 .mobileToggle {
     display: none;
     background: none;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(26, 26, 46, 0.12);
     color: var(--text-color);
     cursor: pointer;
     padding: 0.5rem;
