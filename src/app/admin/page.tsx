@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { Users, Calendar, Image as ImageIcon, BookOpen, PlusCircle, LayoutGrid, FileText, Send } from 'lucide-react';
+import { Users, Calendar, Image as ImageIcon, BookOpen, PlusCircle, LayoutGrid, FileText, Send, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
 import styles from './page.module.css';
 
@@ -10,6 +10,7 @@ type Stats = {
     subscribers: number;
     mediaItems: number;
     publishedStories: number;
+    contacts: number;
 };
 
 export default function AdminOverview() {
@@ -99,6 +100,16 @@ export default function AdminOverview() {
                         <p className={styles.statValue}>{stats ? stats.publishedStories : '—'}</p>
                     </div>
                 </div>
+
+                <div className={styles.statCard}>
+                    <div className={`${styles.statIcon} ${styles.statIconTeal}`}>
+                        <MessageSquare size={24} />
+                    </div>
+                    <div>
+                        <h3>Contact Messages</h3>
+                        <p className={styles.statValue}>{stats ? stats.contacts : '—'}</p>
+                    </div>
+                </div>
             </div>
 
             <div className={styles.panelsGrid}>
@@ -162,6 +173,10 @@ export default function AdminOverview() {
                         <Link href="/admin/subscriptions" className={styles.actionBtn}>
                             <Send size={20} className={styles.actionIcon} />
                             <span>Email Subscribers</span>
+                        </Link>
+                        <Link href="/admin/contacts" className={styles.actionBtn}>
+                            <MessageSquare size={20} className={styles.actionIcon} />
+                            <span>View Messages</span>
                         </Link>
                     </div>
                 </div>

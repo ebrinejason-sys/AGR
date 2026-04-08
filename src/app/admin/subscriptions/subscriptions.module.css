@@ -239,3 +239,63 @@
 .submitBtn:disabled {
     opacity: 0.7;
 }
+
+/* Broadcast button in header */
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.broadcastBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    background: linear-gradient(135deg, #e91e63, #9c27b0);
+    color: #fff;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+}
+
+.broadcastBtn:hover {
+    opacity: 0.88;
+}
+
+.broadcastInfo {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(233, 30, 99, 0.06);
+    border-radius: 8px;
+    border: 1px solid rgba(233, 30, 99, 0.15);
+}
+
+.broadcastSubmitBtn {
+    flex: 1;
+    padding: 0.85rem 1.5rem;
+    background: linear-gradient(135deg, #e91e63, #9c27b0);
+    color: #fff;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.broadcastSubmitBtn:hover:not(:disabled) {
+    opacity: 0.88;
+}
+
+.broadcastSubmitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

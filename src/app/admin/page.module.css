@@ -67,6 +67,11 @@
     color: var(--text-color);
 }
 
+.statIconTeal {
+    background: rgba(0, 150, 136, 0.1);
+    color: var(--color-teal);
+}
+
 .statCard h3 {
     font-size: 0.9rem;
     color: var(--text-muted);

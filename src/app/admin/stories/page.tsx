@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import type { ComponentProps } from 'react';
 import dynamic from 'next/dynamic';
-import { PenTool } from 'lucide-react';
+import { PenTool, Edit2 } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import styles from './stories.module.css';
 import 'react-quill-new/dist/quill.snow.css';
@@ -30,6 +30,9 @@ export default function AdminStories() {
     const [publishing, setPublishing] = useState(false);
     const [stories, setStories] = useState<Story[]>([]);
     const [error, setError] = useState<string | null>(null);
+
+    // Edit state
+    const [editId, setEditId] = useState<string | null>(null);
 
     const fetchStories = async () => {
         try {
@@ -109,10 +112,15 @@ export default function AdminStories() {
         e.preventDefault();
         setPublishing(true);
 
+        const method = editId ? 'PUT' : 'POST';
+        const body = editId
+            ? JSON.stringify({ id: editId, ...formData })
+            : JSON.stringify(formData);
+
         const res = await fetch('/api/admin/stories', {
-            method: 'POST',
+            method,
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
+            body,
         });
 
         if (res.status === 401) {
@@ -122,14 +130,26 @@ export default function AdminStories() {
 
         const data = await res.json();
         if (!res.ok) {
-            alert(data.error || 'Failed to publish story.');
+            alert(data.error || (editId ? 'Failed to update story.' : 'Failed to publish story.'));
             setPublishing(false);
             return;
         }
 
         setPublishing(false);
         setFormData({ title: '', content: '' });
+        setEditId(null);
         await fetchStories();
+    };
+
+    const startEdit = (story: Story) => {
+        setEditId(story.id);
+        setFormData({ title: story.title, content: story.content });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const cancelEdit = () => {
+        setEditId(null);
+        setFormData({ title: '', content: '' });
     };
 
     const deleteStory = async (id: string) => {
@@ -160,7 +180,15 @@ export default function AdminStories() {
             </div>
 
             <div className={styles.composerBox}>
-                <h2><PenTool size={20} className={styles.icon} /> Write a New Story</h2>
+                <h2>
+                    <PenTool size={20} className={styles.icon} />
+                    {editId ? 'Edit Story' : 'Write a New Story'}
+                </h2>
+                {editId && (
+                    <p className={styles.editNotice}>
+                        Editing existing story — save to update it.
+                    </p>
+                )}
                 <form onSubmit={handleSubmit} className={styles.form}>
 
                     <div className={styles.inputGroup}>
@@ -176,7 +204,7 @@ export default function AdminStories() {
 
                     <div className={styles.inputGroup}>
                         <label>Story Content</label>
-                        <div style={{ background: 'var(--bg-color)', color: 'var(--text-color)' }}>
+                        <div className={styles.editorWrapper}>
                             <ReactQuill
                                 theme="snow"
                                 value={formData.content}
@@ -188,8 +216,15 @@ export default function AdminStories() {
                     </div>
 
                     <button type="submit" className={styles.publishBtn} disabled={publishing}>
-                        {publishing ? 'Publishing...' : 'Publish Story'}
+                        {publishing
+                            ? (editId ? 'Saving...' : 'Publishing...')
+                            : (editId ? 'Save Changes' : 'Publish Story')}
                     </button>
+                    {editId && (
+                        <button type="button" onClick={cancelEdit} className={styles.cancelEditBtn}>
+                            Cancel Edit
+                        </button>
+                    )}
                 </form>
             </div>
 
@@ -207,9 +242,14 @@ export default function AdminStories() {
                                 </div>
                                 <div className={styles.storyMeta}>
                                     <span>{formatDate(story.created_at)}</span>
-                                    <button className={styles.deleteBtn} onClick={() => deleteStory(story.id)}>
-                                        Delete
-                                    </button>
+                                    <div className={styles.storyActions}>
+                                        <button className={styles.editBtn} onClick={() => startEdit(story)}>
+                                            <Edit2 size={14} /> Edit
+                                        </button>
+                                        <button className={styles.deleteBtn} onClick={() => deleteStory(story.id)}>
+                                            Delete
+                                        </button>
+                                    </div>
                                 </div>
                             </article>
                         ))}

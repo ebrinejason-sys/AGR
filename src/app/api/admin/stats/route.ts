@@ -13,12 +13,13 @@ export async function GET(request: Request) {
         const supabase = getAdminSupabase();
 
         // Fetch all counts in parallel
-        const [eventsRes, subscribersRes, mediaRes, storiesRes, projectsRes] = await Promise.all([
+        const [eventsRes, subscribersRes, mediaRes, storiesRes, projectsRes, contactsRes] = await Promise.all([
             supabase.from('events').select('id', { count: 'exact', head: true }).eq('status', 'upcoming'),
             supabase.from('subscriptions').select('id', { count: 'exact', head: true }),
             supabase.from('media').select('id', { count: 'exact', head: true }),
             supabase.from('stories').select('id', { count: 'exact', head: true }),
             supabase.from('projects').select('id', { count: 'exact', head: true }),
+            supabase.from('contacts').select('id', { count: 'exact', head: true }),
         ]);
 
         const statsError =
@@ -26,7 +27,8 @@ export async function GET(request: Request) {
             subscribersRes.error ||
             mediaRes.error ||
             storiesRes.error ||
-            projectsRes.error;
+            projectsRes.error ||
+            contactsRes.error;
 
         if (statsError) {
             return NextResponse.json({ error: `Failed to load admin stats: ${statsError.message}` }, { status: 500 });
@@ -38,6 +40,7 @@ export async function GET(request: Request) {
             mediaItems: mediaRes.count ?? 0,
             publishedStories: storiesRes.count ?? 0,
             projects: projectsRes.count ?? 0,
+            contacts: contactsRes.count ?? 0,
         });
     } catch (err) {
         console.error('GET /api/admin/stats error:', err);

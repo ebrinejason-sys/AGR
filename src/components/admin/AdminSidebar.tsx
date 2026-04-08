@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Image as ImageIcon, BookOpen, Calendar, Users, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Image as ImageIcon, BookOpen, Calendar, Users, LogOut, Menu, X, MessageSquare } from 'lucide-react';
 import styles from '../../app/admin/layout.module.css';
 
 export default function AdminSidebar() {
@@ -63,6 +63,10 @@ export default function AdminSidebar() {
                     <Link href="/admin/subscriptions" className={`${styles.navItem} ${pathname === '/admin/subscriptions' ? styles.active : ''}`}>
                         <Users size={20} />
                         <span>Subscribers</span>
+                    </Link>
+                    <Link href="/admin/contacts" className={`${styles.navItem} ${pathname === '/admin/contacts' ? styles.active : ''}`}>
+                        <MessageSquare size={20} />
+                        <span>Messages</span>
                     </Link>
                 </nav>
 

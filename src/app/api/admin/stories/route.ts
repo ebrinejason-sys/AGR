@@ -70,6 +70,43 @@ export async function POST(request: Request) {
     }
 }
 
+export async function PUT(request: Request) {
+    try {
+        const configError = checkSupabaseAdminConfig();
+        if (configError) return configError;
+
+        const { error } = requireAdminSession(request);
+        if (error) return error;
+
+        const body = await request.json();
+        const { id, title, content } = body;
+
+        if (!id || !title || !content) {
+            return NextResponse.json({ error: 'ID, title, and content are required.' }, { status: 400 });
+        }
+
+        const supabase = getAdminSupabase();
+        const { data, error: dbError } = await supabase
+            .from('stories')
+            .update({ title, content })
+            .eq('id', id)
+            .select('*')
+            .single();
+
+        if (dbError) {
+            return NextResponse.json({ error: dbError.message }, { status: 500 });
+        }
+
+        return NextResponse.json({ story: data });
+    } catch (err) {
+        console.error('PUT /api/admin/stories error:', err);
+        return NextResponse.json(
+            { error: err instanceof Error ? err.message : 'Internal server error' },
+            { status: 500 }
+        );
+    }
+}
+
 export async function DELETE(request: Request) {
     try {
         const configError = checkSupabaseAdminConfig();
