@@ -70,6 +70,7 @@ export default function Navbar() {
                     </div>
 
                     <Link href="/events" className={styles.navLink}>Events</Link>
+                    <Link href="/stories" className={styles.navLink}>Stories</Link>
                     <Link href="/contact" className={styles.navLink}>Contact</Link>
                     <button onClick={() => setIsDonationModalOpen(true)} className={styles.donateBtn}>Donate</button>
                 </nav>
@@ -113,6 +114,9 @@ export default function Navbar() {
 
                         <Link href="/events" className={styles.mobileNavLink} onClick={closeMenu}>
                             📅 Events
+                        </Link>
+                        <Link href="/stories" className={styles.mobileNavLink} onClick={closeMenu}>
+                            📚 Stories
                         </Link>
                         <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>
                             📞 Contact

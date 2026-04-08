@@ -85,27 +85,49 @@ export default function Founder() {
                   <div className={styles.statsGrid}>
                     <div className={styles.statItem}>
                       <span className={styles.statLabel}>Role</span>
-                      <p className={styles.statValue}>Founder &amp; Executive Director</p>
+                      <p className={styles.statValue}>Founder &amp; Visionary Director</p>
                     </div>
                     <div className={styles.statItem}>
                       <span className={styles.statLabel}>Education</span>
-                      <p className={styles.statValue}>4th Year Law, Uganda Christian University</p>
+                      <p className={styles.statValue}>4th Year Law Student, Uganda Christian University</p>
                     </div>
                     <div className={styles.statItem}>
                       <span className={styles.statLabel}>Initiative</span>
-                      <p className={styles.statValue}>African Girl Rise (Registered 2025)</p>
+                      <p className={styles.statValue}>African Girl Rise Initiative (Registered 2025)</p>
                     </div>
                     <div className={styles.statItem}>
-                      <span className={styles.statLabel}>Impact</span>
-                      <p className={styles.statValue}>800+ Girls · Ibanda District, Uganda</p>
+                      <span className={styles.statLabel}>Location</span>
+                      <p className={styles.statValue}>Ibanda District, Western Uganda</p>
                     </div>
                     <div className={styles.statItem}>
-                      <span className={styles.statLabel}>WhatsApp</span>
-                      <p className={styles.statValue}>+256 703 727 965</p>
+                      <span className={styles.statLabel}>Girls Reached</span>
+                      <p className={styles.statValue}>800+ through direct programmes</p>
                     </div>
                     <div className={styles.statItem}>
-                      <span className={styles.statLabel}>Phone</span>
-                      <p className={styles.statValue}>+256 763 738 733</p>
+                      <span className={styles.statLabel}>Core Belief</span>
+                      <p className={styles.statValue}>&ldquo;Your beginning does not define your becoming.&rdquo;</p>
+                    </div>
+                    <div className={styles.statItem}>
+                      <span className={styles.statLabel}>Life Motto</span>
+                      <p className={styles.statValue}>&ldquo;Rise. Then reach back.&rdquo;</p>
+                    </div>
+                    <div className={styles.statItem}>
+                      <span className={styles.statLabel}>WhatsApp Only</span>
+                      <p className={styles.statValue}>
+                        <a href="https://wa.me/256703727965" style={{ color: 'var(--color-pink)', textDecoration: 'none' }}>+256 703 727 965</a>
+                      </p>
+                    </div>
+                    <div className={styles.statItem}>
+                      <span className={styles.statLabel}>Calls Only</span>
+                      <p className={styles.statValue}>
+                        <a href="tel:+256763738733" style={{ color: 'var(--color-pink)', textDecoration: 'none' }}>+256 763 738 733</a>
+                      </p>
+                    </div>
+                    <div className={styles.statItem}>
+                      <span className={styles.statLabel}>Email</span>
+                      <p className={styles.statValue}>
+                        <a href="mailto:grace@africangirlrise.org" style={{ color: 'var(--color-pink)', textDecoration: 'none' }}>grace@africangirlrise.org</a>
+                      </p>
                     </div>
                   </div>
                 </div>

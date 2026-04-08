@@ -199,14 +199,206 @@
   .outcomeTableWrapper { overflow-x: auto; }
 }
 
-/*  Mobile: reduce all section padding  */
+/* ===== Program Cards ===== */
+.programsSection {
+  padding: 12rem 5%;
+  background: white;
+}
+
+.programsWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.programCard {
+  border-bottom: 1px solid var(--border-color);
+  padding: 6rem 0;
+}
+
+.programCard:first-of-type {
+  border-top: 1px solid var(--border-color);
+}
+
+.programCardInner {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.programNumber {
+  font-size: 6rem;
+  font-family: var(--font-serif);
+  font-weight: 900;
+  color: var(--color-pink-soft);
+  opacity: 0.25;
+  line-height: 1;
+  padding-top: 0.8rem;
+}
+
+.programBody { flex: 1; }
+
+.programTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  margin-bottom: 0.8rem;
+  color: var(--color-black);
+}
+
+.programTagline {
+  font-style: italic;
+  color: var(--color-pink);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-serif);
+}
+
+.programSummary {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 750px;
+  margin-bottom: 3rem;
+}
+
+.programStatRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem 5rem;
+  margin-bottom: 3rem;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.programStatItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.programStatValue {
+  font-size: 1.9rem;
+  font-family: var(--font-serif);
+  font-weight: 900;
+  color: var(--color-pink);
+}
+
+.programStatLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  font-weight: 700;
+  max-width: 130px;
+  line-height: 1.4;
+}
+
+.programDetail {
+  margin: 3rem 0;
+  padding: 3rem;
+  background: var(--bg-color);
+  border-left: 3px solid var(--color-pink);
+}
+
+.programDetailLine {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.programDetailLine:last-child { margin-bottom: 0; }
+
+.programReadMore {
+  background: none;
+  border: 1px solid var(--color-black);
+  padding: 1rem 2.5rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--color-black);
+  margin-top: 1rem;
+}
+
+.programReadMore:hover {
+  background: var(--color-black);
+  color: white;
+}
+
+/* ===== Pillars Section ===== */
+.pillarsSection {
+  padding: 12rem 5%;
+  background: var(--color-black);
+}
+
+.pillarsWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.pillarItem {
+  padding: 4rem 2.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: border-color 0.3s ease;
+}
+
+.pillarItem:hover { border-color: var(--color-pink); }
+
+.pillarItemNumber {
+  font-size: 3.5rem;
+  font-family: var(--font-serif);
+  font-weight: 900;
+  color: var(--color-pink);
+  opacity: 0.4;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.pillarItemTitle {
+  color: white;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.pillarItemSubtitle {
+  color: var(--color-pink-soft);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.pillarItemQuote {
+  color: rgba(255,255,255,0.45);
+  font-style: italic;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 1100px) {
+  .pillarsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 768px) {
-  .editorialIntro { padding: 5rem 6%; }
-  .realityBanner { padding: 5rem 6%; }
-  .bannerStats { gap: 2rem; }
-  .editorialContent { padding: 5rem 6%; }
-  .ctaEditorial { padding: 5rem 6%; }
-  .premiumGrid { grid-template-columns: 1fr; gap: 2rem; margin-top: 4rem; }
-  .pillarCard { padding: 3rem 2rem; }
-  .outcomeTableWrapper { overflow-x: auto; }
+  .programsSection { padding: 5rem 6%; }
+  .programCardInner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .programNumber { font-size: 3.5rem; }
+  .programStatRow { gap: 2rem 3rem; }
+  .programDetail { padding: 2rem; }
+  .pillarsSection { padding: 5rem 6%; }
+  .pillarsGrid { grid-template-columns: 1fr; gap: 2rem; }
+  .pillarItem { padding: 3rem 2rem; }
 }

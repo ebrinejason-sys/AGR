@@ -107,15 +107,23 @@ export default function Contact() {
 
                         <div className={styles.infoItem}>
                             <span className={styles.infoLabel}>LOCATION</span>
-                            <p className={styles.infoValue}>Kiburara, Ibanda District, Uganda</p>
+                            <p className={styles.infoValue}>Kiburara, Ibanda District,<br />Western Uganda</p>
                         </div>
                         <div className={styles.infoItem}>
                             <span className={styles.infoLabel}>EMAIL</span>
-                            <p className={styles.infoValue}>africangirlriseltd@gmail.com</p>
+                            <a className={styles.infoLink} href="mailto:africangirlriseltd@gmail.com">africangirlriseltd@gmail.com</a>
                         </div>
                         <div className={styles.infoItem}>
-                            <span className={styles.infoLabel}>COMMUNICATION</span>
-                            <p className={styles.infoValue}>WhatsApp: 0703727965</p>
+                            <span className={styles.infoLabel}>WHATSAPP ONLY</span>
+                            <a className={styles.infoLink} href="https://wa.me/256703727965" target="_blank" rel="noopener noreferrer">+256 703 727 965</a>
+                        </div>
+                        <div className={styles.infoItem}>
+                            <span className={styles.infoLabel}>CALLS ONLY</span>
+                            <a className={styles.infoLink} href="tel:+256763738733">+256 763 738 733</a>
+                        </div>
+                        <div className={styles.infoItem}>
+                            <span className={styles.infoLabel}>WEBSITE</span>
+                            <a className={styles.infoLink} href="https://africangirlriseltd.org" target="_blank" rel="noopener noreferrer">africangirlriseltd.org</a>
                         </div>
 
                         <div className={styles.tabDescriptionBox}>
