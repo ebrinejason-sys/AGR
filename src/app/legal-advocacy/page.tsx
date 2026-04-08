@@ -167,9 +167,6 @@ export default function LegalAdvocacy() {
         </div>
     );
 }
-
-
-export default function LegalAdvocacy() {
   return (
     <div className={styles.container}>
       {/* Editorial Hero */}
