@@ -270,3 +270,74 @@
 .replyFullBtn:hover {
     opacity: 0.85;
 }
+
+/* ─── Type badge ─── */
+.typeBadge {
+    display: inline-block;
+    margin-left: 0.6rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    vertical-align: middle;
+}
+
+/* ─── Filter bar ─── */
+.filterBar {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.filterBtn {
+    padding: 0.35rem 0.9rem;
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.filterBtnActive {
+    background: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--text-muted);
+}
+
+/* ─── Extra fields table ─── */
+.extraFields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2rem;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.extraRow {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.extraLabel {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.extraValue {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+

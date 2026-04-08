@@ -69,8 +69,21 @@ CREATE TABLE IF NOT EXISTS public.contacts (
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     message TEXT NOT NULL,
+    type TEXT DEFAULT 'general',
+    extra_fields JSONB DEFAULT '{}',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Safely add new columns if the table already existed
+DO $$
+BEGIN
+    BEGIN
+        ALTER TABLE public.contacts ADD COLUMN type TEXT DEFAULT 'general';
+    EXCEPTION WHEN duplicate_column THEN END;
+    BEGIN
+        ALTER TABLE public.contacts ADD COLUMN extra_fields JSONB DEFAULT '{}';
+    EXCEPTION WHEN duplicate_column THEN END;
+END $$;
 
 -- Set up Row Level Security (RLS) policies 
 -- For this setup we will allow anonymous reads for public data, but require authentication for inserts/updates.

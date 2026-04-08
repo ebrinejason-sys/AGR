@@ -5,12 +5,44 @@ import { Mail, Trash2, Search, RefreshCw, MessageSquare } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import styles from './contacts.module.css';
 
+type ContactType = 'general' | 'mentor' | 'sponsor' | 'donate';
+
 type ContactMessage = {
     id: string;
     name: string;
     email: string;
     message: string;
+    type: ContactType;
+    extra_fields: Record<string, string> | null;
     created_at: string;
+};
+
+const TYPE_LABELS: Record<ContactType, string> = {
+    general: 'General',
+    mentor: 'Mentor',
+    sponsor: 'Sponsor',
+    donate: 'Donate',
+};
+
+const TYPE_COLORS: Record<ContactType, string> = {
+    general: '#6b7280',
+    mentor: '#2563eb',
+    sponsor: '#7c3aed',
+    donate: '#059669',
+};
+
+const EXTRA_FIELD_LABELS: Record<string, string> = {
+    phone: 'Phone',
+    profession: 'Profession',
+    organization: 'Organisation',
+    contributionArea: 'Contribution Area',
+    mentorCapacity: 'Mentoring Capacity',
+    orgName: 'Organisation',
+    contactPerson: 'Contact Person',
+    sponsorType: 'Sponsorship Type',
+    budgetRange: 'Budget Range',
+    donationType: 'Donor Type',
+    donationIntent: 'Area of Giving',
 };
 
 export default function AdminContacts() {
@@ -18,6 +50,7 @@ export default function AdminContacts() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [search, setSearch] = useState('');
+    const [filterType, setFilterType] = useState<ContactType | 'all'>('all');
     const [expanded, setExpanded] = useState<string | null>(null);
     const [deleting, setDeleting] = useState<string | null>(null);
 
@@ -72,6 +105,8 @@ export default function AdminContacts() {
 
     const filtered = contacts.filter(c => {
         const term = search.trim().toLowerCase();
+        const typeMatch = filterType === 'all' || c.type === filterType;
+        if (!typeMatch) return false;
         if (!term) return true;
         return (
             c.name.toLowerCase().includes(term) ||
@@ -90,6 +125,18 @@ export default function AdminContacts() {
                     </p>
                 </div>
                 <div className={styles.headerActions}>
+                    <div className={styles.filterBar}>
+                        {(['all', 'general', 'mentor', 'sponsor', 'donate'] as const).map(t => (
+                            <button
+                                key={t}
+                                className={`${styles.filterBtn} ${filterType === t ? styles.filterBtnActive : ''}`}
+                                style={filterType === t && t !== 'all' ? { borderColor: TYPE_COLORS[t as ContactType], color: TYPE_COLORS[t as ContactType] } : {}}
+                                onClick={() => setFilterType(t)}
+                            >
+                                {t === 'all' ? 'All' : TYPE_LABELS[t as ContactType]}
+                            </button>
+                        ))}
+                    </div>
                     <div className={styles.searchBox}>
                         <Search size={16} className={styles.searchIcon} />
                         <input
@@ -138,7 +185,15 @@ export default function AdminContacts() {
                                     </div>
                                 </div>
                                 <div className={styles.messageMeta}>
-                                    <div className={styles.senderName}>{contact.name}</div>
+                                    <div className={styles.senderName}>
+                                        {contact.name}
+                                        <span
+                                            className={styles.typeBadge}
+                                            style={{ background: TYPE_COLORS[contact.type] || '#6b7280' }}
+                                        >
+                                            {TYPE_LABELS[contact.type] || contact.type}
+                                        </span>
+                                    </div>
                                     <div className={styles.senderEmail}>{contact.email}</div>
                                     <div className={styles.messagePreview}>
                                         {contact.message.slice(0, 80)}
@@ -172,6 +227,18 @@ export default function AdminContacts() {
 
                             {expanded === contact.id && (
                                 <div className={styles.messageBody}>
+                                    {contact.extra_fields && Object.keys(contact.extra_fields).length > 0 && (
+                                        <div className={styles.extraFields}>
+                                            {Object.entries(contact.extra_fields).map(([key, val]) => (
+                                                <div key={key} className={styles.extraRow}>
+                                                    <span className={styles.extraLabel}>
+                                                        {EXTRA_FIELD_LABELS[key] || key}
+                                                    </span>
+                                                    <span className={styles.extraValue}>{val}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                     <p className={styles.fullMessage}>{contact.message}</p>
                                     <a
                                         href={`mailto:${contact.email}?subject=Re: Your message to African Girl Rise`}
