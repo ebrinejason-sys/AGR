@@ -19,7 +19,7 @@ export default function Founder() {
             {/* Ticker */}
             <div className={styles.ticker} aria-hidden="true">
                 <div className={styles.tickerTrack}>
-                    {['Founder', 'Evelyn Brenda Akankunda', 'Kiburara', 'Uganda Christian University', 'Law Student', 'Youth Advocate', 'African Girl Rise', 'Breaking Cycles', 'Girls Empowerment', 'Vision 2030', 'Founder', 'Evelyn Brenda Akankunda', 'Kiburara', 'Uganda Christian University', 'Law Student', 'Youth Advocate', 'African Girl Rise', 'Breaking Cycles', 'Girls Empowerment', 'Vision 2030'].map((item, i) => (
+                    {['Vision', 'Leadership', 'Empowerment', 'Rise', 'Breaking Cycles', 'African Girl Rise', 'One Girl at a Time', 'Uganda', 'Youth Advocacy', 'Safe Spaces', 'Mental Health', 'Education', 'Vision', 'Leadership', 'Empowerment', 'Rise', 'Breaking Cycles', 'African Girl Rise', 'One Girl at a Time', 'Uganda', 'Youth Advocacy', 'Safe Spaces', 'Mental Health', 'Education'].map((item, i) => (
                         <span key={i} className={styles.tickerItem}>{item}</span>
                     ))}
                 </div>
