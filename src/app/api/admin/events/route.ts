@@ -41,7 +41,7 @@ export async function POST(request: Request) {
         if (error) return error;
 
         const body = await request.json();
-        const { title, description, event_date, goal_amount, cover_image, achievements } = body;
+        const { title, description, event_date, goal_amount, cover_image, achievements, location, goal_text, donation_link } = body;
 
         if (!title || !event_date) {
             return NextResponse.json({ error: 'Title and event date are required.' }, { status: 400 });
@@ -64,6 +64,9 @@ export async function POST(request: Request) {
                 status: 'upcoming',
                 cover_image: cover_image || null,
                 achievements: achievements || null,
+                location: location || null,
+                goal_text: goal_text || null,
+                donation_link: donation_link || null,
             })
             .select('*')
             .single();
@@ -91,7 +94,7 @@ export async function PATCH(request: Request) {
         if (error) return error;
 
         const body = await request.json();
-        const { id, status, title, description, event_date, goal_amount, cover_image, achievements } = body;
+        const { id, status, title, description, event_date, goal_amount, cover_image, achievements, location, goal_text, donation_link } = body;
 
         if (!id) {
             return NextResponse.json({ error: 'Event id is required.' }, { status: 400 });
@@ -116,6 +119,9 @@ export async function PATCH(request: Request) {
         }
         if (cover_image !== undefined) updates.cover_image = cover_image;
         if (achievements !== undefined) updates.achievements = achievements;
+        if (location !== undefined) updates.location = location;
+        if (goal_text !== undefined) updates.goal_text = goal_text;
+        if (donation_link !== undefined) updates.donation_link = donation_link;
 
         const supabase = getAdminSupabase();
         const { data, error: dbError } = await supabase

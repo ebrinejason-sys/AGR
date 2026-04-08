@@ -46,11 +46,27 @@ export default function Founder() {
                 <div className={styles.editorialContent}>
                   <h2 className="heading-section">A Girl Whose Parents <span className="text-gradient">Broke the Cycle</span></h2>
                   <div className={styles.editorialText}>
-                    <p>I grew up in Ibanda District, in the rolling hills of Western Uganda — a place of breathtaking beauty. But beauty does not fill stomachs. Beauty does not pay school fees. Beauty does not protect a girl from the hard realities of poverty.</p>
+
+                    {/* Compelling teaser — always visible */}
+                    <p>I grew up in Ibanda District, in the rolling hills of Western Uganda — a place of breathtaking beauty. But beauty does not fill stomachs. Beauty does not pay school fees.</p>
 
                     <p>My family was not wealthy. But poverty was not the whole story. The whole story is this: <strong>my parents refused to let their suffering become my inheritance.</strong></p>
 
-                    <p>My mother studied by kerosene lamp when there was kerosene. She walked kilometres on empty stomachs, determined that education would be her ladder out of poverty. She completed her education and made sure my path would be easier than hers. My father had grit, prayer, and an unshakeable belief that tomorrow could be better than today — and he completed his education through sheer stubborn faith.</p>
+                    {/* Highlighted moments — always visible */}
+                    <div className={styles.highlightBlock}>
+                      <div className={styles.highlightItem}>
+                        <span className={styles.highlightNumber}>Five</span>
+                        <p>I grew up alongside five girls — Annet, Grace, Mary, Robinah, Sylvia — who dreamed with me under the mango tree. Every single one of them left school before finishing. Married off, pushed aside, silenced. <strong>I kept walking. Why me? Because my parents chose differently.</strong></p>
+                      </div>
+                      <div className={styles.highlightItem}>
+                        <span className={styles.highlightNumber}>Law</span>
+                        <p>I chose law because I want to be the lawyer who stands <em>between a girl and the teacher who would abuse her</em> — who fights for policies allowing pregnant girls to return to school, who challenges every system that fails girls.</p>
+                      </div>
+                      <div className={styles.highlightItem}>
+                        <span className={styles.highlightNumber}>Vision</span>
+                        <p>I want every Annet, every Grace, every Mary, every Robinah, every Sylvia across Uganda — across Africa — to know that <strong>her beginning does not define her becoming.</strong></p>
+                      </div>
+                    </div>
 
                     {!expanded && (
                       <button className={styles.readMoreBtn} onClick={() => setExpanded(true)}>
@@ -60,10 +76,13 @@ export default function Founder() {
 
                     {expanded && (
                       <>
-                        <h3 className={styles.subhead}>The Girls Who Walked Beside Me</h3>
-                        <p>I grew up with five girls who were my sisters in every way but blood — Annet, Grace, Mary, Robinah, and Sylvia. We sat together on broken desks, sharing textbooks with missing pages. We walked the same dusty roads, our bare feet slapping against the red earth. We dreamed under the mango tree of the women we would become.</p>
+                        <h3 className={styles.subhead}>Growing Up in Ibanda</h3>
+                        <p>My mother studied by kerosene lamp when there was kerosene. She walked kilometres on empty stomachs, determined that education would be her ladder out of poverty. She completed her education and made sure my path would be easier than hers. My father had grit, prayer, and an unshakeable belief that tomorrow could be better than today — and he completed his education through sheer stubborn faith.</p>
 
-                        <p>We promised each other we would all make it. But life had different plans. Annet was married at fifteen. Grace dropped out when her father died and relatives did not believe in girl education. Mary stayed home so her brother could continue secondary school. Robinah became pregnant — the teacher who promised to marry her disappeared; the school expelled her. Sylvia was married at seventeen to a man old enough to be her grandfather.</p>
+                        <h3 className={styles.subhead}>The Girls Who Walked Beside Me</h3>
+                        <p>We sat together on broken desks, sharing textbooks with missing pages. We walked the same dusty roads, our bare feet slapping against the red earth. We promised each other we would all make it. But life had different plans.</p>
+
+                        <p>Annet was married at fifteen. Grace dropped out when her father died and relatives did not believe in girl education. Mary stayed home so her brother could continue secondary school. Robinah became pregnant — the teacher who promised to marry her disappeared; the school expelled her. Sylvia was married at seventeen to a man old enough to be her grandfather.</p>
 
                         <p><strong>And I kept walking.</strong> Why me? Because my parents chose differently. They chose to break the cycle.</p>
 

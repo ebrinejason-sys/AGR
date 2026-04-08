@@ -9,69 +9,137 @@
 }
 
 .eventSection {
-  padding: 15rem 5%;
+  padding: 8rem 5%;
   background: var(--bg-color);
+}
+
+.sectionHeading {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 4rem;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .eventGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  gap: 4rem;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 3rem;
   max-width: 1400px;
   margin: 0 auto;
 }
 
+/* ---- Event Card ---- */
 .eventCard {
   background: white;
   border: 1px solid var(--border-color);
-  padding: 5rem;
-  transition: all 0.5s ease;
+  overflow: hidden;
+  transition: all 0.4s ease;
   position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
 .eventCard:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
   box-shadow: var(--shadow-premium);
   border-color: var(--color-pink);
 }
 
-.statusBadge {
+.eventCard:focus-visible {
+  outline: 3px solid var(--color-pink);
+  outline-offset: 2px;
+}
+
+/* Cover image on card */
+.eventCover {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.eventCoverOverlay {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
-  font-size: 0.7rem;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.25) 100%);
+}
+.eventCoverPlaceholder {
+  width: 100%;
+  height: 80px;
+  background: var(--bg-secondary);
+}
+
+.eventCardBody {
+  padding: 3rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.statusBadge {
+  font-size: 0.65rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   font-weight: 800;
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+  align-self: flex-start;
+  background: rgba(233, 30, 99, 0.1);
   color: var(--color-pink);
+}
+.statusBadge.completed {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+}
+.statusBadge.cancelled {
+  background: rgba(158, 158, 158, 0.15);
+  color: var(--text-muted);
 }
 
 .eventTitle {
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
 }
 
 .eventDate {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   color: var(--text-muted);
   font-weight: 700;
-  margin-bottom: 3rem;
-  display: block;
+}
+.eventLocation {
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
 .eventDescription {
-  font-size: 1.1rem;
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.6;
   color: var(--text-muted);
-  margin-bottom: 4rem;
+  flex: 1;
 }
 
-.progressContainer {
-  margin-bottom: 4rem;
+.tapHint {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-top: auto;
 }
 
+/* ---- Progress Bar ---- */
 .progressHeader {
   display: flex;
   justify-content: space-between;
@@ -79,7 +147,7 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .progressBar {
@@ -94,17 +162,7 @@
   transition: width 1s ease;
 }
 
-@media (max-width: 1024px) {
-  .eventGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .eventCard { padding: 3rem 2rem; }
-}
-
-/*  Ticker (hero dead space filler)  */
+/* ---- Ticker ---- */
 .ticker {
   overflow: hidden;
   width: 100%;
@@ -148,20 +206,164 @@
   to   { transform: translateX(-50%); }
 }
 
-/*  Mobile hero padding fix  */
-@media (max-width: 768px) {
-  .hero {
-    padding: 8rem 6% 4rem;
-  }
+/* ---- Event Detail Modal ---- */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 4rem 2rem;
 }
 
-/* --- Ticker --- */
-.ticker { overflow: hidden; width: 100%; padding: 1.1rem 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); background: var(--bg-secondary); -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%); }
-.tickerTrack { display: flex; width: max-content; animation: tickerScroll 38s linear infinite; }
-.tickerItem { display: inline-flex; align-items: center; white-space: nowrap; font-size: 0.7rem; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; color: var(--text-muted); padding: 0 2.5rem; }
-.tickerItem::after { content: '\00B7'; color: var(--color-pink); font-size: 1.5rem; line-height: 0; opacity: 0.5; margin-left: 2.5rem; }
-@keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@media (max-width: 768px) { .hero { padding: 8rem 6% 4rem; } }
+.modal {
+  background: white;
+  width: 100%;
+  max-width: 780px;
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+  animation: modalIn 0.3s ease;
+}
 
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-@media (max-width: 768px) { .eventSection { padding: 4rem 6%; } .eventGrid { grid-template-columns: 1fr; gap: 2.5rem; } .eventCard { padding: 3rem 2rem; } }
+.modalClose {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.modalClose:hover { background: rgba(0,0,0,0.75); }
+
+.modalCover {
+  position: relative;
+  width: 100%;
+  height: 320px;
+}
+.modalCoverOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.35) 100%);
+}
+
+.modalBody {
+  padding: 4rem;
+}
+
+.modalTitle {
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.modalMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  margin-top: 1rem;
+}
+
+.modalDescription {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+}
+
+.modalGoal {
+  border-left: 3px solid var(--color-pink);
+  padding: 1.5rem 2rem;
+  background: var(--bg-secondary);
+  margin-bottom: 2.5rem;
+}
+
+.modalGoalLabel {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-bottom: 0.8rem;
+}
+
+.modalGoalText {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.modalAchievements {
+  border-left: 3px solid #4caf50;
+  padding: 1.5rem 2rem;
+  background: rgba(76, 175, 80, 0.05);
+  margin-bottom: 2.5rem;
+}
+.modalAchievements p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.modalCtas {
+  margin-bottom: 3rem;
+}
+
+/* ---- Gallery ---- */
+.modalGallery {
+  margin-top: 3rem;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.galleryItem {
+  position: relative;
+  height: 140px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .hero { padding: 8rem 6% 4rem; }
+  .eventSection { padding: 4rem 6%; }
+  .eventGrid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .modalOverlay { padding: 0; align-items: flex-end; }
+  .modal { max-width: 100%; max-height: 90vh; overflow-y: auto; border-radius: 16px 16px 0 0; }
+  .modalCover { height: 220px; }
+  .modalBody { padding: 2.5rem 2rem; }
+  .modalTitle { font-size: 2rem; }
+  .galleryGrid { grid-template-columns: repeat(2, 1fr); }
+}

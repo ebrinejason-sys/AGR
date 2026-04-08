@@ -107,3 +107,53 @@ export async function POST(request: Request) {
         );
     }
 }
+
+export async function DELETE(request: Request) {
+    try {
+        const configError = checkSupabaseAdminConfig();
+        if (configError) return configError;
+
+        const { error } = requireAdminSession(request);
+        if (error) return error;
+
+        const body = await request.json();
+        const { id } = body;
+
+        if (!id) {
+            return NextResponse.json({ error: 'Media id is required.' }, { status: 400 });
+        }
+
+        const supabase = getAdminSupabase();
+
+        // Get the record first so we can remove the file from storage
+        const { data: record } = await supabase.from('media').select('url').eq('id', id).single();
+
+        if (record?.url) {
+            // Extract the storage path from the public URL
+            const urlParts = record.url.split('/object/public/');
+            if (urlParts.length === 2) {
+                const [bucketAndPath] = urlParts[1].split('?');
+                const slashIdx = bucketAndPath.indexOf('/');
+                if (slashIdx !== -1) {
+                    const bucket = bucketAndPath.slice(0, slashIdx);
+                    const filePath = bucketAndPath.slice(slashIdx + 1);
+                    await supabase.storage.from(bucket).remove([filePath]);
+                }
+            }
+        }
+
+        const { error: dbError } = await supabase.from('media').delete().eq('id', id);
+
+        if (dbError) {
+            return NextResponse.json({ error: dbError.message }, { status: 500 });
+        }
+
+        return NextResponse.json({ success: true });
+    } catch (err) {
+        console.error('DELETE /api/admin/media error:', err);
+        return NextResponse.json(
+            { error: err instanceof Error ? err.message : 'Internal server error' },
+            { status: 500 }
+        );
+    }
+}

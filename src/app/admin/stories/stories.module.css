@@ -206,3 +206,76 @@
     background: var(--bg-color);
     color: var(--text-color);
 }
+
+/* Row layout for title + author */
+.formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+    .formRow { grid-template-columns: 1fr; }
+}
+
+/* Cover image upload button */
+.uploadBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(3, 169, 244, 0.1);
+    color: var(--color-lightblue);
+    border: 1px solid rgba(3, 169, 244, 0.3);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.uploadBtn:hover:not(:disabled) {
+    background: rgba(3, 169, 244, 0.2);
+}
+.uploadBtn:disabled { opacity: 0.6; cursor: default; }
+
+/* Cover image preview */
+.coverPreview {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 0.75rem;
+}
+
+/* Story thumbnail in admin list */
+.storyCard {
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+}
+
+.storyThumb {
+    position: relative;
+    width: 100px;
+    min-height: 100px;
+    flex-shrink: 0;
+}
+
+.storyCardContent {
+    padding: 1rem;
+    flex: 1;
+}
+.storyCardContent h3 {
+    margin-bottom: 0.35rem;
+}
+.storyCardContent p {
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-size: 0.9rem;
+}

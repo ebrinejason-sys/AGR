@@ -24,6 +24,18 @@ BEGIN
     BEGIN
         ALTER TABLE public.events ADD COLUMN achievements TEXT;
     EXCEPTION WHEN duplicate_column THEN END;
+
+    BEGIN
+        ALTER TABLE public.events ADD COLUMN location TEXT;
+    EXCEPTION WHEN duplicate_column THEN END;
+
+    BEGIN
+        ALTER TABLE public.events ADD COLUMN goal_text TEXT;
+    EXCEPTION WHEN duplicate_column THEN END;
+
+    BEGIN
+        ALTER TABLE public.events ADD COLUMN donation_link TEXT;
+    EXCEPTION WHEN duplicate_column THEN END;
 END $$;
 
 -- 2. Media (Gallery) Table

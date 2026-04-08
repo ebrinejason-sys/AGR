@@ -79,6 +79,50 @@
   font-size: 0.9rem;
 }
 
+/* Catchy highlight blocks — always visible on founder page */
+.highlightBlock {
+  margin: 3rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.highlightItem {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.highlightItem p {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.highlightNumber {
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  padding-top: 0.2rem;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .highlightItem {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .highlightNumber {
+    padding-top: 0;
+  }
+}
+
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

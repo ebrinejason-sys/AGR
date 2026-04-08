@@ -43,9 +43,25 @@
 
 .storyCard {
   background: white;
-  padding: 8rem 5rem;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-premium);
+  overflow: hidden;
+}
+
+/* Cover image on story card */
+.storyCover {
+  position: relative;
+  width: 100%;
+  height: 320px;
+}
+.storyCoverOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.25) 100%);
+}
+
+.storyCardInner {
+  padding: 6rem 5rem;
 }
 
 .storyCard h2 {
@@ -71,6 +87,29 @@
   line-height: 1.9;
   color: var(--text-muted);
 }
+
+/* When not expanded, show only a clamped preview */
+.contentClamped {
+  max-height: 18rem;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+.readMoreBtn {
+  margin-top: 2rem;
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  cursor: pointer;
+  padding: 0;
+  display: block;
+}
+.readMoreBtn:hover { text-decoration: underline; }
 
 .mediaGrid {
   max-width: 1500px;
@@ -112,25 +151,11 @@
 }
 
 @media (max-width: 768px) {
-  .storyCard { padding: 4rem 2rem; }
-  .storyCard h2 { font-size: 2rem; }
-  .mediaGrid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 768px) { .storySection { padding: 4rem 6% !important; } }
-
-@media (max-width: 768px) {
+  .hero { padding: 8rem 6% 4rem; }
   .storyGrid { padding: 0 6% 5rem; gap: 3rem; }
-  .storyCard { padding: 3rem 2rem; }
+  .storyCardInner { padding: 3rem 2rem; }
   .storyCard h2 { font-size: 1.8rem; }
-  .mediaGrid { padding: 0 6% 5rem; grid-template-columns: 1fr; }
-  .meta { flex-wrap: wrap; gap: 1rem; }
-}
-
-@media (max-width: 768px) {
-  .storyGrid { padding: 0 6% 5rem; gap: 3rem; }
-  .storyCard { padding: 3rem 2rem; }
-  .storyCard h2 { font-size: 1.8rem; }
+  .storyCover { height: 200px; }
   .mediaGrid { padding: 0 6% 5rem; grid-template-columns: 1fr; }
   .meta { flex-wrap: wrap; gap: 1rem; }
 }

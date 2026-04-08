@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         if (error) return error;
 
         const body = await request.json();
-        const { title, content } = body;
+        const { title, content, image_url, author } = body;
 
         if (!title || !content) {
             return NextResponse.json({ error: 'Title and content are required.' }, { status: 400 });
@@ -51,7 +51,8 @@ export async function POST(request: Request) {
             .insert({
                 title,
                 content,
-                author: session?.email || 'Admin',
+                author: author || session?.email || 'Admin',
+                image_url: image_url || null,
             })
             .select('*')
             .single();
@@ -79,7 +80,7 @@ export async function PUT(request: Request) {
         if (error) return error;
 
         const body = await request.json();
-        const { id, title, content } = body;
+        const { id, title, content, image_url, author } = body;
 
         if (!id || !title || !content) {
             return NextResponse.json({ error: 'ID, title, and content are required.' }, { status: 400 });
@@ -88,7 +89,7 @@ export async function PUT(request: Request) {
         const supabase = getAdminSupabase();
         const { data, error: dbError } = await supabase
             .from('stories')
-            .update({ title, content })
+            .update({ title, content, image_url: image_url ?? null, author: author || undefined })
             .eq('id', id)
             .select('*')
             .single();
