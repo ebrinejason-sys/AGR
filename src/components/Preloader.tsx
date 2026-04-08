@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import styles from './Preloader.module.css';
 
 type PreloaderProps = {
@@ -51,10 +52,10 @@ export default function Preloader({ skip = false }: PreloaderProps) {
             didFinishRef.current = true;
             setFade(true);
             document.body.style.overflow = prevOverflow;
-            hideTimer = window.setTimeout(() => setShow(false), 500);
+            hideTimer = window.setTimeout(() => setShow(false), 600);
         };
 
-        const fallbackTimer = window.setTimeout(finish, 2500);
+        const fallbackTimer = window.setTimeout(finish, 2800);
         window.addEventListener('load', finish);
 
         if (document.readyState === 'complete') {
@@ -72,15 +73,50 @@ export default function Preloader({ skip = false }: PreloaderProps) {
     if (!show) return null;
 
     return (
-        <div className={`${styles.preloader} ${fade ? styles.fadeOut : ''}`}>
-            <div className={styles.heartContainer}>
-                <svg className={styles.heart} viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
-                        c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
-                </svg>
+        <div className={`${styles.preloader} ${fade ? styles.fadeOut : ''}`} aria-hidden="true">
+            <div className={styles.inner}>
+                {/* Spinning ring + logo */}
+                <div className={styles.ringWrap}>
+                    <svg className={styles.ring} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="44" stroke="rgba(233,30,99,0.12)" strokeWidth="3" />
+                        <circle
+                            cx="50" cy="50" r="44"
+                            stroke="url(#ringGrad)"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeDasharray="276.46"
+                            strokeDashoffset="207"
+                        />
+                        <defs>
+                            <linearGradient id="ringGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stopColor="#e91e63" />
+                                <stop offset="100%" stopColor="#9c27b0" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div className={styles.logoBox}>
+                        <Image
+                            src="/logo.png"
+                            alt="African Girl Rise"
+                            width={60}
+                            height={60}
+                            priority
+                            className={styles.logoImg}
+                        />
+                    </div>
+                </div>
+
+                {/* Brand text */}
+                <div className={styles.textWrap}>
+                    <div className={styles.brandName}>AFRICAN GIRL RISE</div>
+                    <div className={styles.tagline}>Breaking cycles. One girl at a time.</div>
+                </div>
             </div>
-            <div className={styles.brandText}>African Girl Rise</div>
-            <div className={styles.slogan}>Empowering African girls to rise</div>
+
+            {/* Progress bar */}
+            <div className={styles.progressTrack}>
+                <div className={styles.progressFill} />
+            </div>
         </div>
     );
 }

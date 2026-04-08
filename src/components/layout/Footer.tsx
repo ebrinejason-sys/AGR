@@ -120,6 +120,11 @@ export default function Footer() {
                     <p className={styles.copyright}>
                         © {new Date().getFullYear()} African Girl Rise Ltd. All rights reserved.
                     </p>
+                    <nav className={styles.legalLinks}>
+                        <Link href="/legal/terms">Terms of Service</Link>
+                        <Link href="/legal/privacy">Privacy Policy</Link>
+                        <Link href="/legal/refund">Refund Policy</Link>
+                    </nav>
                     <p className={styles.mission}>
                         Empowering girls, transforming futures.
                     </p>
