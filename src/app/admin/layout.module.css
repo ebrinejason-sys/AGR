@@ -107,6 +107,23 @@
 .breadcrumbs {
     font-weight: 500;
     color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.breadcrumbOrg {
+    font-weight: 800;
+    color: var(--color-pink);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.breadcrumbSep {
+    color: var(--border-color);
+    font-size: 1rem;
 }
 
 .userProfile {
@@ -115,6 +132,18 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+.adminBadge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border-radius: 100px;
+    background: rgba(233, 30, 99, 0.08);
+    color: var(--color-pink);
+    border: 1px solid rgba(233, 30, 99, 0.2);
 }
 
 .pageContent {

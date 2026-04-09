@@ -648,3 +648,40 @@ html[data-ios="1"][data-runtime-safe="1"] video {
     transition-duration: 0.2s !important;
   }
 }
+
+/* ─── Content display & overflow safety ─── */
+
+/* Prevent long words / headings from being clipped at viewport edges */
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+p, li, span {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Prevent any section from causing horizontal scroll / clipping */
+section, article {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure images never escape their containers */
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Small-phone horizontal padding guard — every page gets at least 16px breathing room */
+@media (max-width: 360px) {
+  .heading-display {
+    font-size: clamp(2rem, 8vw, 3rem);
+    letter-spacing: -0.02em;
+  }
+  .heading-section {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+  }
+}

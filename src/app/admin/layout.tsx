@@ -5,6 +5,16 @@ import { usePathname } from 'next/navigation';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import styles from './layout.module.css';
 
+const PAGE_NAMES: Record<string, string> = {
+    '/admin': 'Overview',
+    '/admin/projects': 'Projects & Programs',
+    '/admin/media': 'Media Library',
+    '/admin/stories': 'Stories',
+    '/admin/events': 'Events',
+    '/admin/subscriptions': 'Subscribers',
+    '/admin/contacts': 'Messages',
+};
+
 export default function AdminLayout({
     children,
 }: {
@@ -48,6 +58,8 @@ export default function AdminLayout({
         return <>{children}</>;
     }
 
+    const pageTitle = PAGE_NAMES[pathname] || 'Dashboard';
+
     return (
         <div className={styles.adminContainer}>
             {/* Interactive Sidebar with Mobile Hamburger */}
@@ -56,8 +68,14 @@ export default function AdminLayout({
             {/* Main Content Area */}
             <main className={styles.mainContent}>
                 <header className={styles.topbar}>
-                    <div className={styles.breadcrumbs}>Admin Dashboard</div>
-                    <div className={styles.userProfile}>Grace Admin</div>
+                    <div className={styles.breadcrumbs}>
+                        <span className={styles.breadcrumbOrg}>AGR</span>
+                        <span className={styles.breadcrumbSep}>/</span>
+                        {pageTitle}
+                    </div>
+                    <div className={styles.userProfile}>
+                        <span className={styles.adminBadge}>Administrator</span>
+                    </div>
                 </header>
 
                 <div className={styles.pageContent}>

@@ -2,12 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-import styles from "./layout.module.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import Preloader from "@/components/Preloader";
 import RuntimeStabilityGuard from "@/components/RuntimeStabilityGuard";
+import LayoutShell from "@/components/layout/LayoutShell";
 import { Analytics } from "@vercel/analytics/next";
 
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
@@ -66,16 +63,9 @@ export default async function RootLayout({
           disableTransitionOnChange={true}
           storageKey="agr-theme"
         >
-          <div className={styles.layoutContainer}>
-            <Preloader skip={isIOSDevice} />
-            <Navbar />
-
-            <main className={styles.mainContent}>
-              {children}
-            </main>
-
-            <Footer />
-          </div>
+          <LayoutShell isIOSDevice={isIOSDevice}>
+            {children}
+          </LayoutShell>
         </ThemeProvider>
         <Analytics />
       </body>
