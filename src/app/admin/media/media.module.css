@@ -165,3 +165,8 @@
     color: var(--color-lightblue) !important;
     font-size: 0.82rem !important;
 }
+@media (max-width: 640px) {
+    .mediaGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+}

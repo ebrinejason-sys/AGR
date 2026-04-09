@@ -341,3 +341,12 @@
     font-weight: 500;
 }
 
+
+@media (max-width: 640px) {
+    .contactCard {
+        padding: 1.25rem;
+    }
+    .extraGrid {
+        grid-template-columns: 1fr;
+    }
+}

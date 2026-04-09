@@ -77,8 +77,8 @@ export const getMissingAdminAuthEnvVars = () => {
 };
 
 export const getAdminCredentials = () => {
-    const email = process.env.ADMIN_LOGIN_EMAIL;
-    const password = process.env.ADMIN_LOGIN_PASSWORD;
+    const email = process.env.ADMIN_LOGIN_EMAIL?.trim();
+    const password = process.env.ADMIN_LOGIN_PASSWORD?.trim();
     if (!email || !password) {
         throw new Error('ADMIN_LOGIN_EMAIL and ADMIN_LOGIN_PASSWORD environment variables are required.');
     }

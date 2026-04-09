@@ -66,6 +66,30 @@
     gap: 1.5rem;
 }
 
+@media (max-width: 640px) {
+    .formRow {
+        grid-template-columns: 1fr;
+    }
+    .formActions {
+        flex-direction: column;
+    }
+    .cancelBtn, .submitBtn {
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+    }
+    .tableCard {
+        font-size: 0.85rem;
+    }
+    .table th, .table td {
+        padding: 0.8rem 1rem;
+    }
+    .actionRow {
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+}
+
 .inputGroup {
     display: flex;
     flex-direction: column;

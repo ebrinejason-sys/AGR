@@ -148,6 +148,7 @@
     font-size: 0.8rem;
     font-weight: 500;
     transition: background-color 0.2s;
+    min-height: 44px;
 }
 
 .deleteBtn:hover {
