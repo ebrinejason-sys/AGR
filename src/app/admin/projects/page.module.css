@@ -2,17 +2,22 @@
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: clamp(1.3rem, 4vw, 2rem);
   font-weight: 700;
   color: var(--text-color);
 }
@@ -328,4 +333,9 @@
     .formRow { grid-template-columns: 1fr; }
     .header { flex-direction: column; align-items: flex-start; gap: 1rem; }
     .btnAdd { width: 100%; justify-content: center; }
+    .container { padding: 1rem; }
+    .tableCard { overflow-x: auto; }
+    .contentCell { max-width: 200px; }
+    .contentCell strong { font-size: 0.95rem; }
+    .table th, .table td { padding: 0.9rem 1rem; font-size: 0.85rem; }
 }

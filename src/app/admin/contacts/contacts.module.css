@@ -1,6 +1,8 @@
 .container {
     width: 100%;
     max-width: 900px;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .header {
@@ -13,7 +15,7 @@
 }
 
 .title {
-    font-size: 2rem;
+    font-size: clamp(1.3rem, 4vw, 2rem);
     font-weight: 700;
     color: var(--text-color);
     margin-bottom: 0.25rem;
