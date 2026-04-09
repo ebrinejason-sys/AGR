@@ -159,3 +159,11 @@
   .mediaGrid { padding: 0 6% 5rem; grid-template-columns: 1fr; }
   .meta { flex-wrap: wrap; gap: 1rem; }
 }
+
+@media (max-width: 480px) {
+  .tabs { gap: 0.5rem; margin: 3rem 0; padding: 0 5%; }
+  .tabBtn { padding: 0.75rem 1.25rem; font-size: 0.7rem; flex: 1; }
+  .storyCard h2 { font-size: 1.4rem; }
+  .storyCardInner { padding: 2rem 1.5rem; }
+  .content { font-size: 1.05rem; }
+}

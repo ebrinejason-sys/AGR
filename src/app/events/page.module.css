@@ -367,3 +367,11 @@
   .modalTitle { font-size: 2rem; }
   .galleryGrid { grid-template-columns: repeat(2, 1fr); }
 }
+
+@media (max-width: 480px) {
+  .sectionHeading { font-size: 1.5rem; }
+  .eventCardBody { padding: 1.75rem; }
+  .eventTitle { font-size: 1.5rem; }
+  .modalTitle { font-size: 1.6rem; }
+  .galleryGrid { grid-template-columns: 1fr; }
+}
