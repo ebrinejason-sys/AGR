@@ -150,15 +150,15 @@ export default function LegalAdvocacy() {
             </section>
 
             {/* Founder's Voice */}
-            <section style={{ padding: '10rem 5%', background: 'var(--bg-color)', textAlign: 'center' }}>
+            <section className={styles.founderVoice}>
                 <div style={{ maxWidth: '900px', margin: '0 auto' }}>
                     <p className="subheading">The Founder&rsquo;s Voice</p>
-                    <blockquote style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)', fontStyle: 'italic', color: 'var(--color-purple-deep)', lineHeight: '1.75', margin: '3rem 0', borderLeft: '4px solid var(--color-pink)', paddingLeft: '3rem', textAlign: 'left' }}>
+                    <blockquote>
                         &ldquo;I watched my friends fall &mdash; one married off too young, another pulled out of school for her brothers to study. The system did not protect them. So I decided to become someone who would. A lawyer stands as a shield between the powerless and a cruel system. I chose law because justice is not given &mdash; it is fought for. And I will fight for every girl who was told her voice doesn&rsquo;t matter.&rdquo;
                     </blockquote>
-                    <p style={{ fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '3rem' }}>— Akatwijuka Grace, Founder &amp; Visionary Director</p>
+                    <p className={styles.attribution}>&mdash; Akatwijuka Grace, Founder &amp; Visionary Director</p>
                     <Link href="/founder" className="btn-premium">
-                        <span>Read Full Story →</span>
+                        <span>Read Full Story &rarr;</span>
                     </Link>
                 </div>
             </section>

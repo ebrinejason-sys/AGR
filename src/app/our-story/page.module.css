@@ -208,12 +208,37 @@
   .ctaGrid { grid-template-columns: 1fr; gap: 2rem; }
 }
 
+.founderVision {
+  padding: 10rem 5%;
+  background: var(--color-black);
+  color: white;
+  text-align: center;
+}
+
+.founderVision blockquote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+  font-style: italic;
+  line-height: 1.75;
+  margin: 3rem auto;
+  opacity: 0.9;
+  max-width: 900px;
+}
+
+.founderVision .attribution {
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 3rem;
+}
+
 @media (max-width: 768px) {
-  .contentSection { padding: 5rem 6%; }
-  .storyGrid { grid-template-columns: 1fr; gap: 3rem; }
-  .highlightQuote { font-size: 1.6rem; padding: 3rem 2rem; }
-  .missionVision { grid-template-columns: 1fr; gap: 2rem; }
-  .beliefCallout { padding: 5rem 6%; }
-  .ctaEditorial { padding: 5rem 6%; }
-  .ctaGrid { grid-template-columns: 1fr; gap: 2rem; }
+  .founderVision {
+    padding: 5rem 6%;
+  }
+  .founderVision blockquote {
+    font-size: 1.1rem;
+  }
 }

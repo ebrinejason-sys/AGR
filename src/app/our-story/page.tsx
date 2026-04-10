@@ -125,15 +125,15 @@ export default function OurStory() {
             </section>
 
             {/* Founder's Vision */}
-            <section style={{ padding: '10rem 5%', background: 'var(--color-black)', color: 'white', textAlign: 'center' }}>
+            <section className={styles.founderVision}>
                 <div style={{ maxWidth: '900px', margin: '0 auto' }}>
                     <p className="subheading">My Vision Is</p>
-                    <blockquote style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)', fontStyle: 'italic', lineHeight: '1.75', margin: '3rem 0', opacity: 0.9 }}>
+                    <blockquote>
                         &ldquo;I put African Girl Rise Initiative in place to break the cycle that stole my friends. To give every girl a safe place to heal, skills to stand on her own, knowledge to protect herself, and leadership to lift others. Because when one girl rises, she reaches back &mdash; and generations change.&rdquo;
                     </blockquote>
-                    <p style={{ fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.6, marginBottom: '3rem' }}>— Akatwijuka Grace, Founder &amp; Visionary Director</p>
+                    <p className={styles.attribution}>&mdash; Akatwijuka Grace, Founder &amp; Visionary Director</p>
                     <Link href="/founder" className="btn-premium" style={{ borderColor: 'white' }}>
-                        <span>Read Full Story →</span>
+                        <span>Read Full Story &rarr;</span>
                     </Link>
                 </div>
             </section>
