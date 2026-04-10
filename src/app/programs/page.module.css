@@ -192,6 +192,7 @@
   .editorialIntro { padding: 5rem 6%; }
   .realityBanner { padding: 5rem 6%; }
   .bannerStats { gap: 2rem; }
+  .bannerStatItem h3 { font-size: 3rem; }
   .editorialContent { padding: 5rem 6%; }
   .ctaEditorial { padding: 5rem 6%; }
   .premiumGrid { grid-template-columns: 1fr; gap: 2rem; margin-top: 4rem; }

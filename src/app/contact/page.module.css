@@ -233,3 +233,11 @@ select.input {
   background-position: right 0.5rem center;
   padding-right: 2rem;
 }
+
+@media (max-width: 480px) {
+  .hero { padding: 7rem 6% 3rem; }
+  .formCard { padding: 2rem 1.25rem; }
+  .radioGroup { flex-wrap: wrap; gap: 0.75rem; }
+  .infoValue, .infoLink { font-size: 1.1rem; }
+  .tabBar { gap: 1rem; }
+}

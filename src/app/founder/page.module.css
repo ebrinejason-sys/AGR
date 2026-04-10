@@ -300,10 +300,9 @@
   .founderImageFrame { height: 420px; }
 }
 
-@media (max-width: 768px) {
-  .editorialSection { padding: 4rem 6%; }
-  .editorialGrid { grid-template-columns: 1fr; gap: 3rem; }
-  .statementBox { padding: 5rem 6%; margin: 3rem 0; }
-  .statsGrid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-  .founderImageFrame { height: 420px; }
+@media (max-width: 480px) {
+  .statsGrid { grid-template-columns: 1fr; gap: 1.25rem; }
+  .editorialText p { font-size: 1.1rem; }
+  .founderImageFrame { height: 280px; }
+  .statementInner p { font-size: 1.4rem; }
 }
