@@ -215,15 +215,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Quote ─── */}
+      {/* ─── Founder Quote ─── */}
       <section className={styles.quoteWrap}>
         <div className={styles.quoteBox}>
           <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
           <p className={styles.quoteBody}>
-            Every girl carries an innate power to architect her own destiny.
-            We are simply the catalyst that ignites that transformation.
+            My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.
           </p>
-          <span className={styles.quoteBy}>— Akatwijuka Grace, Founder</span>
+          <span className={styles.quoteBy}>— Akatwijuka Grace, Founder &amp; Visionary Director</span>
+          <Link href="/founder" className={styles.textLink} style={{ display: 'block', marginTop: '2rem' }}>
+            Read Full Story →
+          </Link>
         </div>
       </section>
 
