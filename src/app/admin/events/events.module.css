@@ -1,6 +1,7 @@
 .container {
-    max-width: 1200px;
+    max-width: 100%;
     width: 100%;
+    min-width: 0;
     box-sizing: border-box;
     overflow-x: hidden;
 }
@@ -265,4 +266,21 @@
     .formRow {
         grid-template-columns: 1fr;
     }
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .createBtn {
+        width: 100%;
+        justify-content: center;
+    }
+    .title { font-size: 1.2rem; }
+    .tableCard { overflow-x: auto; }
+    .table th, .table td { padding: 0.8rem 0.9rem; font-size: 0.82rem; }
+    .actionRow { flex-wrap: wrap; }
+}
+
+@media (max-width: 480px) {
+    .title { font-size: 1.1rem; }
+    .table th, .table td { padding: 0.6rem 0.75rem; font-size: 0.78rem; }
 }

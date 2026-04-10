@@ -1,6 +1,7 @@
 .container {
-    max-width: 1200px;
+    max-width: 100%;
     width: 100%;
+    min-width: 0;
     box-sizing: border-box;
     overflow-x: hidden;
 }
@@ -160,6 +161,14 @@
     .modal {
         padding: 1.25rem;
     }
+}
+
+@media (max-width: 768px) {
+    .header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .searchBox { max-width: 100%; }
+    .title { font-size: 1.2rem; }
+    .tableCard { overflow-x: auto; }
+    .table th, .table td { padding: 0.8rem 0.9rem; font-size: 0.82rem; }
 }
 
 .modal h2 {

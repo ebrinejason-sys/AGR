@@ -13,7 +13,7 @@ export default function Founder() {
             <section className={styles.hero}>
               <p className="subheading reveal">The Visionary</p>
               <h1 className="heading-display reveal">Akatwijuka <span className="text-gradient">Grace</span></h1>
-              <p className={styles.heroTagline}>&ldquo;My parents broke the cycle so I could rise. Now I help other girls do the same.&rdquo;</p>
+              <p className={styles.heroTagline}>&ldquo;My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.&rdquo;</p>
             </section>
 
             {/* Ticker */}
@@ -60,11 +60,11 @@ export default function Founder() {
                       </div>
                       <div className={styles.highlightItem}>
                         <span className={styles.highlightNumber}>Law</span>
-                        <p>I chose law because I want to be the lawyer who stands <em>between a girl and the teacher who would abuse her</em> — who fights for policies allowing pregnant girls to return to school, who challenges every system that fails girls.</p>
+                        <p>I watched my friends fall — one married off too young, another pulled out of school for her brothers to study. <em>The system did not protect them. So I decided to become someone who would.</em> A lawyer stands as a shield between the powerless and a cruel system. I chose law because justice is not given — it is fought for. And I will fight for every girl who was told her voice doesn&rsquo;t matter.</p>
                       </div>
                       <div className={styles.highlightItem}>
                         <span className={styles.highlightNumber}>Vision</span>
-                        <p>I want every Annet, every Grace, every Mary, every Robinah, every Sylvia across Uganda — across Africa — to know that <strong>her beginning does not define her becoming.</strong></p>
+                        <p>I put African Girl Rise Initiative in place to break the cycle that stole my friends. To give every girl a safe place to heal, skills to stand on her own, knowledge to protect herself, and leadership to lift others. <strong>Because when one girl rises, she reaches back — and generations change.</strong></p>
                       </div>
                     </div>
 
