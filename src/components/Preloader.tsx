@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './Preloader.module.css';
 
 type PreloaderProps = {
@@ -147,11 +148,11 @@ export default function Preloader({ skip = false }: PreloaderProps) {
 
             {/* Quick links bar */}
             <div className={styles.quickLinks}>
-                <a href="/" className={styles.quickLink} onClick={handleSkip}>Home</a>
+                <Link href="/" className={styles.quickLink} onClick={handleSkip}>Home</Link>
                 <span className={styles.quickLinkDivider} />
-                <a href="/donate" className={styles.quickLink}>Donate</a>
+                <Link href="/donate" className={styles.quickLink}>Donate</Link>
                 <span className={styles.quickLinkDivider} />
-                <a href="/programs" className={styles.quickLink}>Programs</a>
+                <Link href="/programs" className={styles.quickLink}>Programs</Link>
             </div>
 
             {/* Progress bar */}

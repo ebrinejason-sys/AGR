@@ -23,7 +23,7 @@
     "stripe": "^22.0.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
+    "@eslint/eslintrc": "^3.3.5",
     "@playwright/test": "^1.58.2",
     "@types/node": "^20",
     "@types/react": "^19",
