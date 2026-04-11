@@ -3,9 +3,14 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import styles from './Navbar.module.css';
-import DonationModal from '../DonationModal';
+
+// Dynamically import DonationModal to reduce initial bundle size
+const DonationModal = dynamic(() => import('../DonationModal'), {
+    ssr: false, // Modal is interactive and client-side only
+});
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -130,7 +135,9 @@ export default function Navbar() {
                     </nav>
                 </div>
             </header>
-            <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+            {isDonationModalOpen && (
+                <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+            )}
         </>
     );
 }

@@ -3,7 +3,9 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { formatDate } from '@/lib/utils';
-import DonationModal from '@/components/DonationModal';
+import dynamic from 'next/dynamic';
+
+const DonationModal = dynamic(() => import('@/components/DonationModal'), { ssr: false });
 import styles from './page.module.css';
 
 type GalleryPhoto = {
@@ -36,42 +38,38 @@ export default function EventsPage() {
     const [donationTarget, setDonationTarget] = useState<Event | null>(null);
 
     useEffect(() => {
-        async function fetchEvents() {
+        const fetchEvents = async () => {
             try {
                 const res = await fetch('/api/public/data');
                 const data = await res.json();
-                if (res.ok) {
-                    setEvents(data.events || []);
+                if (data.events) {
+                    setEvents(data.events);
                 }
-            } catch (err) {
-                console.error('Failed to fetch events:', err);
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
-        }
+        };
         fetchEvents();
     }, []);
 
     const upcomingEvents = events.filter(e => e.status === 'upcoming');
     const completedEvents = events.filter(e => e.status === 'completed');
 
-    const openEvent = (evt: Event) => {
-        setSelectedEvent(evt);
-        document.body.style.overflow = 'hidden';
-    };
-    const closeEvent = () => {
-        setSelectedEvent(null);
-        document.body.style.overflow = '';
-    };
+    const openEvent = (evt: Event) => setSelectedEvent(evt);
+    const closeEvent = () => setSelectedEvent(null);
 
     return (
         <div className={styles.container}>
-            {/* Editorial Hero */}
             <section className={styles.hero}>
-                <p className="subheading reveal">Milestones</p>
-                <h1 className="heading-display reveal">Impact <span className="text-gradient">Events</span></h1>
-                <p className="subheading reveal" style={{ fontStyle: 'italic', letterSpacing: '0.1em', marginTop: '2rem' }}>
-                    Strategic milestones documenting our shared progress and the future of her rise.
-                </p>
+                <div className={styles.heroContent}>
+                    <span className={styles.eyebrow}>Our Calendar</span>
+                    <h1 className={styles.pageTitle}>Moments of <span className="text-gradient">Impact</span></h1>
+                    <p className={styles.pageSubtitle}>
+                        Join our mission through community events, workshops, and advocacy drives across Uganda.
+                    </p>
+                </div>
             </section>
 
             {/* Ticker */}
@@ -218,12 +216,14 @@ export default function EventsPage() {
                 </div>
             )}
 
-            <DonationModal
-                isOpen={Boolean(donationTarget)}
-                onClose={() => setDonationTarget(null)}
-                eventId={donationTarget?.id}
-                eventTitle={donationTarget?.title}
-            />
+            {donationTarget && (
+                <DonationModal
+                    isOpen={Boolean(donationTarget)}
+                    onClose={() => setDonationTarget(null)}
+                    eventId={donationTarget?.id}
+                    eventTitle={donationTarget?.title}
+                />
+            )}
         </div>
     );
 }

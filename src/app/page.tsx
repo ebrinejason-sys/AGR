@@ -4,7 +4,9 @@ import { useState } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import DonationModal from "@/components/DonationModal";
+import dynamic from 'next/dynamic';
+
+const DonationModal = dynamic(() => import('@/components/DonationModal'), { ssr: false });
 import AnimatedCounter from "@/components/AnimatedCounter";
 
 export default function Home() {
@@ -251,10 +253,12 @@ export default function Home() {
         </div>
       </section>
 
-      <DonationModal
-        isOpen={isDonationModalOpen}
-        onClose={() => setIsDonationModalOpen(false)}
-      />
+      {isDonationModalOpen && (
+        <DonationModal
+          isOpen={isDonationModalOpen}
+          onClose={() => setIsDonationModalOpen(false)}
+        />
+      )}
     </div>
   );
 }
