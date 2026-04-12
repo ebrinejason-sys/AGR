@@ -79,7 +79,8 @@ export default function TermsOfService() {
           <h2>4. Donations</h2>
           <p>
             All monetary donations made through the Site are processed securely via our
-            third-party payment processors (Paddle and Stripe). By completing a donation you
+            third-party payment processors (Flutterwave for mobile money and MarzPay for card
+            payments). By completing a donation you
             confirm:
           </p>
           <ul>

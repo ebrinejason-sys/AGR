@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getAdminSupabase } from '@/lib/supabase';
 import { requireAdminSession, checkSupabaseAdminConfig } from '@/lib/admin-api';
+import { normalizeMediaUrl, normalizeMediaUrls } from '@/lib/media';
 
 const VALID_PROJECT_STATUSES = new Set(['active', 'draft']);
 
@@ -28,7 +29,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
             return NextResponse.json({ error: 'Project not found' }, { status: 404 });
         }
 
-        return NextResponse.json(data);
+        return NextResponse.json(normalizeMediaUrls(data, ['image_url']));
     } catch (err) {
         console.error('GET /api/admin/projects/[id] error:', err);
         return NextResponse.json(
@@ -53,7 +54,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
         const updates: Record<string, unknown> = {};
         if (title !== undefined) updates.title = title;
         if (description !== undefined) updates.description = description;
-        if (image_url !== undefined) updates.image_url = image_url;
+        if (image_url !== undefined) updates.image_url = normalizeMediaUrl(image_url);
         if (status !== undefined) {
             if (!VALID_PROJECT_STATUSES.has(String(status))) {
                 return NextResponse.json({ error: 'Invalid project status.' }, { status: 400 });
@@ -80,7 +81,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
             return NextResponse.json({ error: dbError.message }, { status: 500 });
         }
 
-        return NextResponse.json(data);
+        return NextResponse.json(normalizeMediaUrls(data, ['image_url']));
     } catch (err) {
         console.error('PUT /api/admin/projects/[id] error:', err);
         return NextResponse.json(

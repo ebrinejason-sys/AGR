@@ -13,16 +13,16 @@ export default function Home() {
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
   const tickerItems = [
-    "Education Access",
-    "Menstrual Health",
-    "Legal Advocacy",
-    "Rise Sanctuaries",
+    "School Support",
     "Mentorship",
-    "Breaking Cycles",
-    "Community Healing",
-    "Girl-Led Futures",
-    "Trauma-Informed Care",
-    "Rights Protection",
+    "Safe Spaces",
+    "Legal Advocacy",
+    "Menstrual Health",
+    "Emergency Support",
+    "Community Outreach",
+    "Girls' Rights",
+    "Case Follow-Up",
+    "Parent Engagement",
   ];
 
   const marqueeRow1 = [
@@ -63,12 +63,13 @@ export default function Home() {
         <div className={styles.heroPanel}>
           <span className={styles.eyebrow}>African Girl Rise · Uganda</span>
           <h1 className={styles.heroHeading}>
-            Where Resilience<br />
-            <span className="text-gradient">Transforms</span> Destiny.
+            Support Girls to<br />
+            Stay in School.
           </h1>
           <p className={styles.heroSubtext}>
-            A registered Ugandan non-profit empowering marginalized adolescent girls to transcend barriers,
-            reclaim their futures, and lead with unyielding strength.
+            African Girl Rise is a registered Ugandan non-profit supporting girls facing poverty,
+            violence, and school dropout risk through mentorship, education support, safe spaces,
+            and legal advocacy.
           </p>
           <div className={styles.heroCtas}>
             <button
@@ -117,19 +118,17 @@ export default function Home() {
           </div>
           <div className={styles.aboutContent}>
             <span className={styles.eyebrow}>Our Story</span>
-            <h2 className={styles.secTitle}>
-              The Intersection of <span className="text-gradient">Reality &amp; Radiance</span>
-            </h2>
+            <h2 className={styles.secTitle}>Built from lived experience</h2>
             <p>
-              African Girl Rise is an elite movement of empowerment — a registered Ugandan non-profit
-              built to dismantle the structural cycles of poverty that constrain marginalized girls.
+              African Girl Rise works with adolescent girls in Uganda who are navigating poverty,
+              violence, interrupted schooling, and limited protection.
             </p>
             <p>
-              Under the visionary leadership of Akatwijuka Grace, we serve as the strategic bridge
-              for girls to overcome academic and social adversity, graduating as leaders of unyielding strength.
+              Led by Akatwijuka Grace, the organisation combines practical support, mentorship, and
+              advocacy so girls can stay in school, stay safe, and plan for a stronger future.
             </p>
             <Link href="/our-story" className={styles.textLink}>
-              Read our full story →
+              Read our story →
             </Link>
           </div>
         </div>
@@ -138,7 +137,7 @@ export default function Home() {
       {/* ─── Stats ─── */}
       <section className={styles.statsWrap}>
         <span className={styles.eyebrow}>Impact</span>
-        <h2 className={styles.secTitle}>Tangible <span className="text-gradient">Change</span></h2>
+        <h2 className={styles.secTitle}>Impact in numbers</h2>
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
             <div className={styles.statNum}>
@@ -160,7 +159,7 @@ export default function Home() {
           </div>
         </div>
         <p className={styles.statsNote}>
-          &ldquo;Numbers that represent real lives, real communities, real futures.&rdquo;
+          Each figure reflects direct support delivered with girls, families, and communities.
         </p>
       </section>
 
@@ -190,28 +189,29 @@ export default function Home() {
       <section className={styles.pillarsWrap}>
         <div className={styles.secHeader}>
           <span className={styles.eyebrow}>How We Work</span>
-          <h2 className={styles.secTitle}>Foundational <span className="text-gradient">Pillars</span></h2>
+          <h2 className={styles.secTitle}>Where support happens</h2>
           <p className={styles.secDesc}>
-            Three interconnected pathways that together break the cycle — sustainably, measurably, permanently.
+            The work focuses on safety, education, and rights protection so girls are not left to
+            navigate crisis alone.
           </p>
         </div>
         <div className={styles.pillarsRow}>
           <div className={styles.pillarItem}>
             <span className={styles.pillarNum}>01</span>
             <h3>Rise Sanctuaries</h3>
-            <p>Trauma-informed safe spaces with clinical counseling, peer support, and mentorship for adolescent girls.</p>
+            <p>Safe spaces where girls can access counseling, peer support, and trusted adult guidance.</p>
             <Link href="/programs" className={styles.pillarLnk}>Learn more →</Link>
           </div>
           <div className={styles.pillarItem}>
             <span className={styles.pillarNum}>02</span>
-            <h3>Academic Excellence</h3>
-            <p>Strategic mentorship and economic interventions ensuring girls maintain sustained educational progress.</p>
+            <h3>Education Support</h3>
+            <p>School retention support, mentorship, and practical help that keeps girls learning.</p>
             <Link href="/programs" className={styles.pillarLnk}>Learn more →</Link>
           </div>
           <div className={styles.pillarItem}>
             <span className={styles.pillarNum}>03</span>
             <h3>Legal Advocacy</h3>
-            <p>High-impact protection of adolescent rights through legal literacy and community-based justice systems.</p>
+            <p>Case support, rights awareness, and community action when girls face abuse or neglect.</p>
             <Link href="/legal-advocacy" className={styles.pillarLnk}>Learn more →</Link>
           </div>
         </div>
@@ -224,9 +224,9 @@ export default function Home() {
           <p className={styles.quoteBody}>
             My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.
           </p>
-          <span className={styles.quoteBy}>— Akatwijuka Grace, Founder &amp; Visionary Director</span>
+          <span className={styles.quoteBy}>— Akatwijuka Grace, Founder</span>
           <Link href="/founder" className={styles.textLink} style={{ display: 'block', marginTop: '2rem' }}>
-            Read Full Story →
+            Read her story →
           </Link>
         </div>
       </section>
@@ -235,9 +235,9 @@ export default function Home() {
       <section className={styles.ctaBand}>
         <div className={styles.ctaBody}>
           <span className={styles.ctaEyebrow}>Make a Difference</span>
-          <h2 className={styles.ctaHeading}>Become the Architect of Change</h2>
+          <h2 className={styles.ctaHeading}>Help fund direct support for girls across Uganda</h2>
           <p className={styles.ctaText}>
-            Invest in the next generation of African leaders. Your contribution fuels a legacy of resilience and transformation.
+            Your donation helps cover school support, emergency response, mentorship, and legal advocacy.
           </p>
           <div className={styles.ctaRow}>
             <button

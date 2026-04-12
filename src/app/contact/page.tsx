@@ -87,7 +87,7 @@ export default function Contact() {
                 <p className="subheading reveal">Engagement</p>
                 <h1 className="heading-display reveal">Contact <span className="text-gradient">Rise</span></h1>
                 <p className="subheading reveal" style={{ fontStyle: 'italic', letterSpacing: '0.1em', marginTop: '2rem' }}>
-                  Connect with our visionary team and join the architectural movement of change.
+                                    Reach our team for mentorship, sponsorship, partnership, or general enquiries.
                 </p>
             </section>
 
@@ -310,8 +310,8 @@ export default function Contact() {
                                 <span>{status === 'loading' ? 'SENDING...' : 'SEND MESSAGE'}</span>
                             </button>
 
-                            {status === 'success' && <p style={{ marginTop: '2rem', color: 'var(--color-pink)', fontWeight: '700', fontSize: '0.75rem', letterSpacing: '0.1em' }}>MESSAGE DELIVERED SUCCESSFULLY.</p>}
-                            {status === 'error' && <p style={{ marginTop: '2rem', color: 'red', fontWeight: '700', fontSize: '0.75rem', letterSpacing: '0.1em' }}>AN ERROR OCCURRED. PLEASE RETRY.</p>}
+                            {status === 'success' && <p style={{ marginTop: '1.25rem', color: 'var(--color-pink)', fontWeight: '700', fontSize: '0.82rem' }}>Message sent successfully.</p>}
+                            {status === 'error' && <p style={{ marginTop: '1.25rem', color: '#d64545', fontWeight: '700', fontSize: '0.82rem' }}>Something went wrong. Please try again.</p>}
                         </form>
                     </div>
                 </div>

@@ -50,7 +50,6 @@ export default async function RootLayout({
       lang="en"
       className={`antialiased ${inter.variable} ${playfair.variable}`}
       data-ios={isIOSDevice ? "1" : undefined}
-      data-runtime-safe={isIOSDevice ? "1" : undefined}
       suppressHydrationWarning
     >
       <body>

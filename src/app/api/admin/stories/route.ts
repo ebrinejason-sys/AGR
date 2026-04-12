@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getAdminSupabase } from '@/lib/supabase';
 import { requireAdminSession, checkSupabaseAdminConfig } from '@/lib/admin-api';
+import { normalizeMediaUrl, normalizeMediaUrls, normalizeRichTextMediaUrls } from '@/lib/media';
 
 export async function GET(request: Request) {
     try {
@@ -20,7 +21,12 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: dbError.message }, { status: 500 });
         }
 
-        return NextResponse.json({ stories: data || [] });
+        return NextResponse.json({
+            stories: (data || []).map((story) => ({
+                ...normalizeMediaUrls(story, ['image_url']),
+                content: normalizeRichTextMediaUrls(story.content),
+            }))
+        });
     } catch (err) {
         console.error('GET /api/admin/stories error:', err);
         return NextResponse.json(
@@ -50,9 +56,9 @@ export async function POST(request: Request) {
             .from('stories')
             .insert({
                 title,
-                content,
+                content: normalizeRichTextMediaUrls(content),
                 author: author || session?.email || 'Admin',
-                image_url: image_url || null,
+                image_url: normalizeMediaUrl(image_url) || null,
             })
             .select('*')
             .single();
@@ -61,7 +67,12 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: dbError.message }, { status: 500 });
         }
 
-        return NextResponse.json({ story: data }, { status: 201 });
+        return NextResponse.json({
+            story: {
+                ...normalizeMediaUrls(data, ['image_url']),
+                content: normalizeRichTextMediaUrls(data.content),
+            }
+        }, { status: 201 });
     } catch (err) {
         console.error('POST /api/admin/stories error:', err);
         return NextResponse.json(
@@ -89,7 +100,12 @@ export async function PUT(request: Request) {
         const supabase = getAdminSupabase();
         const { data, error: dbError } = await supabase
             .from('stories')
-            .update({ title, content, image_url: image_url ?? null, author: author || undefined })
+            .update({
+                title,
+                content: normalizeRichTextMediaUrls(content),
+                image_url: normalizeMediaUrl(image_url) ?? null,
+                author: author || undefined,
+            })
             .eq('id', id)
             .select('*')
             .single();
@@ -98,7 +114,12 @@ export async function PUT(request: Request) {
             return NextResponse.json({ error: dbError.message }, { status: 500 });
         }
 
-        return NextResponse.json({ story: data });
+        return NextResponse.json({
+            story: {
+                ...normalizeMediaUrls(data, ['image_url']),
+                content: normalizeRichTextMediaUrls(data.content),
+            }
+        });
     } catch (err) {
         console.error('PUT /api/admin/stories error:', err);
         return NextResponse.json(

@@ -1,242 +1,504 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import styles from './DonationModal.module.css';
+import type { DonationMethod, DonationProvider } from '@/lib/marzpay';
 
 type DonationModalProps = {
-    isOpen: boolean;
-    onClose: () => void;
-    eventId?: string;
-    eventTitle?: string;
+  isOpen: boolean;
+  onClose: () => void;
+  eventId?: string;
+  eventTitle?: string;
 };
 
-type DonationCurrency = 'UGX' | 'USD' | 'EUR' | 'GBP';
-type PaymentMethod = 'mobile_money_ug' | 'flutterwave_international' | 'paypal';
+type MobileMoneyNetwork = 'MTN' | 'Airtel';
 
-const METHODS: { id: PaymentMethod; icon: string; name: string; desc: string }[] = [
-    { id: 'mobile_money_ug',          icon: '📱', name: 'Uganda Mobile Money',           desc: 'MTN MoMo / Airtel Money (UGX)' },
-    { id: 'flutterwave_international', icon: '💳', name: 'International Card / Transfer', desc: 'Visa, Mastercard, Bank Transfer' },
-    { id: 'paypal',                   icon: '🅿️', name: 'PayPal',                        desc: 'Secure PayPal checkout' },
+type DonationApiResponse = {
+  authorizationUrl?: string;
+  error?: string;
+  provider?: DonationProvider;
+  redirectUrl?: string;
+  reference?: string;
+  status?: string;
+  transactionId?: string;
+};
+
+const QUICK_AMOUNTS = ['10000', '25000', '50000', '100000', '250000', '500000'];
+const MIN_AMOUNT = 500;
+const PENDING_DONATION_STORAGE_KEY = 'agr.pendingDonation';
+
+const MOBILE_MONEY_NETWORKS: Array<{
+  helper: string;
+  label: string;
+  value: MobileMoneyNetwork;
+}> = [
+  {
+    helper: 'For MTN Uganda mobile money numbers.',
+    label: 'MTN MoMo',
+    value: 'MTN',
+  },
+  {
+    helper: 'For Airtel Money numbers in Uganda.',
+    label: 'Airtel Money',
+    value: 'Airtel',
+  },
 ];
 
-const STEP_LABELS = ['Method', 'Amount', 'Confirm'];
+const METHOD_OPTIONS: Array<{
+  description: string;
+  helper: string;
+  label: string;
+  provider: string;
+  value: DonationMethod;
+}> = [
+  {
+    description: 'Use the phone number below to receive an MTN MoMo or Airtel Money prompt.',
+    helper: 'Approval happens on your phone after you continue.',
+    label: 'Mobile Money',
+    provider: 'Flutterwave',
+    value: 'mobile_money',
+  },
+  {
+    description: 'Pay with Visa, Mastercard, or another supported card on MarzPay.',
+    helper: 'Card details are entered on MarzPay after you continue.',
+    label: 'Card',
+    provider: 'MarzPay',
+    value: 'card',
+  },
+];
 
-export default function DonationModal({ isOpen, onClose, eventId, eventTitle }: DonationModalProps) {
-    const [step, setStep] = useState<1 | 2 | 3>(1);
-    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null);
-    const [currency, setCurrency]           = useState<DonationCurrency>('UGX');
-    const [amount, setAmount]               = useState('');
-    const [name, setName]                   = useState('');
-    const [email, setEmail]                 = useState('');
-    const [phone, setPhone]                 = useState('');
-    const [loading, setLoading]             = useState(false);
-
-    if (!isOpen) return null;
-
-    const quickAmounts = currency === 'UGX'
-        ? [{ label: '10,000', val: '10000' }, { label: '50,000', val: '50000' }, { label: '100,000', val: '100000' }, { label: '250,000', val: '250000' }]
-        : [{ label: '$5',     val: '5'     }, { label: '$20',    val: '20'    }, { label: '$50',     val: '50'    }, { label: '$100',    val: '100'   }];
-
-    const infoMap: Record<PaymentMethod, string> = {
-        mobile_money_ug:           "You'll receive a prompt on your Ugandan phone number to confirm payment.",
-        flutterwave_international: "You'll be redirected to Flutterwave's secure checkout page.",
-        paypal:                    "You'll be redirected to PayPal's secure checkout page.",
-    };
-
-    const selectMethod = (m: PaymentMethod) => {
-        setPaymentMethod(m);
-        setCurrency(m === 'mobile_money_ug' ? 'UGX' : 'USD');
-        setStep(2);
-    };
-
-    const goToConfirm = () => {
-        if (!amount || Number(amount) <= 0) { alert('Please enter a valid amount.'); return; }
-        if (!name.trim())  { alert('Please enter your name.'); return; }
-        if (!email.trim()) { alert('Please enter your email.'); return; }
-        if (paymentMethod === 'mobile_money_ug' && !phone.trim()) { alert('Please enter your phone number.'); return; }
-        setStep(3);
-    };
-
-    const handleDonate = async () => {
-        if (!paymentMethod) return;
-        try {
-            setLoading(true);
-            const res = await fetch('/api/donate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ amount, email, name, currency, phoneNumber: phone || undefined, eventId, paymentMethod }),
-            });
-            const data = await res.json();
-            if (data.paymentUrl)  { window.location.href = data.paymentUrl;  return; }
-            if (data.paypalUrl)   { window.location.href = data.paypalUrl;   return; }
-            alert(data.error || 'Payment initialization failed. Please try again.');
-        } catch {
-            alert('A network error occurred. Please try again.');
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const copyLink = async () => {
-        const url = `${window.location.origin}/pay`;
-        try { await navigator.clipboard.writeText(url); alert('Payment link copied!'); }
-        catch { prompt('Copy this link:', url); }
-    };
-
-    const handleClose = () => { setStep(1); setPaymentMethod(null); setAmount(''); setName(''); setEmail(''); setPhone(''); onClose(); };
-
-    const currencyOptions: DonationCurrency[] = ['USD', 'EUR', 'GBP'];
-
-    return (
-        <div className={styles.modalOverlay} onClick={handleClose}>
-            <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
-
-                {/* Banner */}
-                <div className={styles.modalBanner}>
-                    <div className={styles.modalBannerTop}>
-                        <div>
-                            <h2 className={styles.modalTitle}>{eventTitle ? `Donate — ${eventTitle}` : 'Make a Donation'}</h2>
-                            <p className={styles.modalSubtitle}>Every contribution transforms a girl&apos;s future</p>
-                        </div>
-                        <button className={styles.modalClose} onClick={handleClose} aria-label="Close">×</button>
-                    </div>
-
-                    {/* Step dots */}
-                    <div className={styles.stepBar}>
-                        {STEP_LABELS.map((_, i) => (
-                            <div key={i} className={`${styles.stepDot} ${step > i ? styles.active : ''}`} />
-                        ))}
-                    </div>
-                    <p className={styles.stepLabel}>Step {step} of 3 — {STEP_LABELS[step - 1]}</p>
-                </div>
-
-                {/* Body */}
-                <div className={styles.modalBody}>
-
-                    {/* ─── Step 1: Choose method ─── */}
-                    {step === 1 && (
-                        <>
-                            <span className={styles.sectionLabel}>Choose payment method</span>
-                            <div className={styles.methodGrid}>
-                                {METHODS.map((m) => (
-                                    <button key={m.id} className={styles.methodCard} onClick={() => selectMethod(m.id)}>
-                                        <span className={styles.methodIcon}>{m.icon}</span>
-                                        <span className={styles.methodInfo}>
-                                            <span className={styles.methodName}>{m.name}</span>
-                                            <span className={styles.methodDesc}>{m.desc}</span>
-                                        </span>
-                                        <span className={styles.methodArrow}>›</span>
-                                    </button>
-                                ))}
-                            </div>
-
-                            <div className={styles.shareRow}>
-                                <button className={styles.shareLink} onClick={copyLink}>📋 Copy shareable payment link</button>
-                            </div>
-
-                            <button className={styles.btnCancel} onClick={handleClose}>Cancel</button>
-                        </>
-                    )}
-
-                    {/* ─── Step 2: Amount + details ─── */}
-                    {step === 2 && paymentMethod && (
-                        <>
-                            {/* Currency tabs (not for mobile money) */}
-                            {paymentMethod !== 'mobile_money_ug' && (
-                                <>
-                                    <span className={styles.sectionLabel}>Currency</span>
-                                    <div className={styles.currencyTabs}>
-                                        {currencyOptions.map((c) => (
-                                            <button
-                                                key={c}
-                                                className={`${styles.currencyTab} ${currency === c ? styles.activeTab : ''}`}
-                                                onClick={() => setCurrency(c)}
-                                            >{c}</button>
-                                        ))}
-                                    </div>
-                                </>
-                            )}
-
-                            <span className={styles.sectionLabel}>Quick amounts</span>
-                            <div className={styles.quickAmounts}>
-                                {quickAmounts.map((q) => (
-                                    <button
-                                        key={q.val}
-                                        className={`${styles.quickAmountBtn} ${amount === q.val ? styles.selectedAmt : ''}`}
-                                        onClick={() => setAmount(q.val)}
-                                    >{q.label}</button>
-                                ))}
-                            </div>
-
-                            <span className={styles.sectionLabel}>Or enter amount ({currency})</span>
-                            <input
-                                className={styles.input}
-                                type="number"
-                                placeholder={currency === 'UGX' ? 'e.g. 50000' : 'e.g. 25'}
-                                value={amount}
-                                onChange={(e) => setAmount(e.target.value)}
-                                min={currency === 'UGX' ? '1000' : '1'}
-                                step="any"
-                            />
-
-                            <span className={styles.sectionLabel}>Your details</span>
-                            <input className={styles.input} type="text"  placeholder="Full Name"  value={name}  onChange={(e) => setName(e.target.value)}  required />
-                            <input className={styles.input} type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                            {paymentMethod === 'mobile_money_ug' && (
-                                <input className={styles.input} type="tel" placeholder="Phone (e.g. 256703727965)" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-                            )}
-
-                            <p className={styles.infoNote}>{infoMap[paymentMethod]}</p>
-
-                            <div className={styles.btnRow}>
-                                <button className={styles.btnBack} onClick={() => setStep(1)}>← Back</button>
-                                <button className={styles.btnSubmit} onClick={goToConfirm}>Review Donation →</button>
-                            </div>
-                            <button className={styles.btnCancel} onClick={handleClose}>Cancel</button>
-                        </>
-                    )}
-
-                    {/* ─── Step 3: Confirm ─── */}
-                    {step === 3 && paymentMethod && (
-                        <>
-                            <span className={styles.sectionLabel}>Confirm your donation</span>
-                            <div className={styles.summaryBox}>
-                                <div className={styles.summaryRow}>
-                                    <span className={styles.summaryLabel}>Method</span>
-                                    <span className={styles.summaryValue}>{METHODS.find(m => m.id === paymentMethod)?.name}</span>
-                                </div>
-                                <div className={styles.summaryRow}>
-                                    <span className={styles.summaryLabel}>Name</span>
-                                    <span className={styles.summaryValue}>{name}</span>
-                                </div>
-                                <div className={styles.summaryRow}>
-                                    <span className={styles.summaryLabel}>Email</span>
-                                    <span className={styles.summaryValue}>{email}</span>
-                                </div>
-                                {phone && (
-                                    <div className={styles.summaryRow}>
-                                        <span className={styles.summaryLabel}>Phone</span>
-                                        <span className={styles.summaryValue}>{phone}</span>
-                                    </div>
-                                )}
-                                <div className={styles.summaryRow}>
-                                    <span className={styles.summaryLabel}>Amount</span>
-                                    <span className={`${styles.summaryValue} ${styles.summaryTotal}`}>{currency} {Number(amount).toLocaleString()}</span>
-                                </div>
-                            </div>
-
-                            <div className={styles.btnRow}>
-                                <button className={styles.btnBack} onClick={() => setStep(2)} disabled={loading}>← Edit</button>
-                                <button className={styles.btnSubmit} onClick={handleDonate} disabled={loading}>
-                                    {loading ? 'Processing…' : '💝 Donate Now'}
-                                </button>
-                            </div>
-                            <button className={styles.btnCancel} onClick={handleClose} disabled={loading}>Cancel</button>
-                        </>
-                    )}
-                </div>
-            </div>
-        </div>
-    );
+function formatUgx(amount: string): string {
+  const value = Number(amount);
+  return Number.isFinite(value) && value > 0 ? `UGX ${value.toLocaleString()}` : 'Enter an amount';
 }
 
+function getSummaryNote(method: DonationMethod, network: MobileMoneyNetwork | ''): string {
+  return method === 'mobile_money'
+    ? network
+      ? `We will use Flutterwave to send an approval request to your ${network} line.`
+      : 'We will use Flutterwave to send a mobile money approval request to your phone.'
+    : 'We will open MarzPay so you can complete the card payment there.';
+}
+
+function persistPendingCheckout(checkout: DonationApiResponse) {
+  if (typeof window === 'undefined' || !checkout.provider) {
+    return;
+  }
+
+  try {
+    window.sessionStorage.setItem(
+      PENDING_DONATION_STORAGE_KEY,
+      JSON.stringify({
+        authorizationUrl: typeof checkout.authorizationUrl === 'string' ? checkout.authorizationUrl : null,
+        provider: checkout.provider,
+        reference: typeof checkout.reference === 'string' ? checkout.reference : null,
+        status: typeof checkout.status === 'string' && checkout.status.trim() ? checkout.status.trim() : 'processing',
+        transactionId: typeof checkout.transactionId === 'string' ? checkout.transactionId : null,
+      })
+    );
+  } catch {
+    // Ignore storage failures and continue with checkout.
+  }
+}
+
+export default function DonationModal({ isOpen, onClose, eventId, eventTitle }: DonationModalProps) {
+  const titleId = useId();
+  const descriptionId = useId();
+  const [method, setMethod] = useState<DonationMethod>('mobile_money');
+  const [mobileMoneyNetwork, setMobileMoneyNetwork] = useState<MobileMoneyNetwork | ''>('');
+  const [amount, setAmount] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const selectedMethod = METHOD_OPTIONS.find((option) => option.value === method) ?? METHOD_OPTIONS[0];
+  const amountLabel = formatUgx(amount);
+
+  const resetForm = () => {
+    setMethod('mobile_money');
+    setMobileMoneyNetwork('');
+    setAmount('');
+    setName('');
+    setEmail('');
+    setPhone('');
+    setLoading(false);
+    setError('');
+  };
+
+  const handleClose = () => {
+    if (loading) {
+      return;
+    }
+
+    resetForm();
+    onClose();
+  };
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || loading) {
+        return;
+      }
+
+      resetForm();
+      onClose();
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, loading, onClose]);
+
+  const validate = () => {
+    const parsedAmount = Number(amount);
+
+    if (!amount.trim() || Number.isNaN(parsedAmount)) {
+      return 'Enter a valid donation amount in UGX.';
+    }
+
+    if (parsedAmount < MIN_AMOUNT) {
+      return `Minimum amount is UGX ${MIN_AMOUNT.toLocaleString()}.`;
+    }
+
+    if (!email.trim()) {
+      return 'Email address is required so we can send a donation confirmation.';
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      return 'Enter a valid email address.';
+    }
+
+    if (method === 'mobile_money' && !phone.trim()) {
+      return 'Enter the phone number that should receive the mobile money prompt.';
+    }
+
+    if (method === 'mobile_money' && !mobileMoneyNetwork) {
+      return 'Select the mobile money network that should receive the prompt.';
+    }
+
+    return null;
+  };
+
+  const handleCheckout = async () => {
+    const validationError = validate();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError('');
+
+      const response = await fetch('/api/donate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount,
+          currency: 'UGX',
+          email: email.trim() || undefined,
+          method,
+          mobileMoneyNetwork: method === 'mobile_money' ? mobileMoneyNetwork : undefined,
+          name: name.trim() || undefined,
+          phoneNumber: phone.trim() || undefined,
+          eventId,
+        }),
+      });
+
+      const data = (await response.json().catch(() => null)) as DonationApiResponse | null;
+      if (!response.ok || !data?.redirectUrl) {
+        setError(data?.error || 'Unable to start the secure checkout right now.');
+        return;
+      }
+
+      persistPendingCheckout(data);
+      window.location.assign(data.redirectUrl as string);
+    } catch {
+      setError('A network error occurred while starting checkout. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className={styles.modalOverlay} onClick={handleClose}>
+      <section
+        className={styles.modalCard}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className={styles.heroShell}>
+          <div className={styles.heroPanel}>
+            <span className={styles.kicker}>Donate in UGX</span>
+            <h2 id={titleId} className={styles.modalTitle}>
+              {eventTitle ? `Donate to ${eventTitle}` : 'Make a donation'}
+            </h2>
+            <p id={descriptionId} className={styles.modalSubtitle}>
+              Choose how you want to give. Mobile money payments go through Flutterwave, card payments go
+              through MarzPay, and we email a receipt after checkout.
+            </p>
+          </div>
+
+          <div className={styles.providerRail}>
+            <div className={styles.providerRailItem}>
+              <span className={styles.providerRailLabel}>Mobile Money</span>
+              <strong>Flutterwave</strong>
+            </div>
+            <div className={styles.providerRailItem}>
+              <span className={styles.providerRailLabel}>Card Checkout</span>
+              <strong>MarzPay</strong>
+            </div>
+          </div>
+
+          <button type="button" className={styles.modalClose} onClick={handleClose} aria-label="Close donation modal">
+            ×
+          </button>
+        </div>
+
+        <div className={styles.modalBody}>
+          <div className={styles.section}>
+            <div className={styles.sectionHeading}>
+              <span className={styles.sectionLabel}>Payment method</span>
+              <span className={styles.sectionHint}>You can switch routes before continuing.</span>
+            </div>
+
+            <div className={styles.methodGrid}>
+              {METHOD_OPTIONS.map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  className={`${styles.methodCard} ${method === option.value ? styles.methodCardActive : ''}`}
+                  onClick={() => {
+                    setMethod(option.value);
+                    setError('');
+                  }}
+                >
+                  <div className={styles.methodHeader}>
+                    <strong className={styles.methodTitle}>{option.label}</strong>
+                    <span className={styles.methodBadge}>{option.provider}</span>
+                  </div>
+                  <p className={styles.methodDescription}>{option.description}</p>
+                  <span className={styles.methodHelper}>{option.helper}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.section}>
+            <div className={styles.sectionHeading}>
+              <span className={styles.sectionLabel}>Amount</span>
+              <span className={styles.sectionHint}>All donations are collected in Ugandan shillings.</span>
+            </div>
+
+            <div className={styles.amountGrid}>
+              {QUICK_AMOUNTS.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={`${styles.amountChip} ${amount === item ? styles.amountChipActive : ''}`}
+                  onClick={() => {
+                    setAmount(item);
+                    setError('');
+                  }}
+                >
+                  UGX {Number(item).toLocaleString()}
+                </button>
+              ))}
+            </div>
+
+            <div className={styles.fieldRow}>
+              <label className={styles.field}>
+                <span className={styles.fieldLabel}>Donation Amount</span>
+                <input
+                  className={styles.input}
+                  type="number"
+                  min={String(MIN_AMOUNT)}
+                  step="1"
+                  value={amount}
+                  onChange={(event) => {
+                    setAmount(event.target.value);
+                    setError('');
+                  }}
+                  placeholder="e.g. 50,000"
+                />
+              </label>
+
+              {method === 'mobile_money' ? (
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>
+                    Mobile Network
+                    <span className={styles.requiredMark}>Required</span>
+                  </span>
+                  <select
+                    className={`${styles.input} ${styles.selectInput}`}
+                    value={mobileMoneyNetwork}
+                    onChange={(event) => {
+                      setMobileMoneyNetwork(event.target.value as MobileMoneyNetwork | '');
+                      setError('');
+                    }}
+                  >
+                    <option value="">Select network</option>
+                    {MOBILE_MONEY_NETWORKS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  {mobileMoneyNetwork ? (
+                    <span className={styles.fieldInfoText}>
+                      {MOBILE_MONEY_NETWORKS.find((option) => option.value === mobileMoneyNetwork)?.helper}
+                    </span>
+                  ) : null}
+                </label>
+              ) : (
+                <div className={`${styles.field} ${styles.fieldInfoCard}`}>
+                  <span className={styles.fieldLabel}>Card Checkout</span>
+                  <p className={styles.fieldInfoText}>You will enter your card details on MarzPay after you continue.</p>
+                </div>
+              )}
+
+              {method === 'mobile_money' ? (
+                <label className={`${styles.field} ${styles.fieldFullWidth}`}>
+                  <span className={styles.fieldLabel}>
+                    Phone Number
+                    <span className={styles.requiredMark}>Required</span>
+                  </span>
+                  <input
+                    className={styles.input}
+                    type="tel"
+                    value={phone}
+                    onChange={(event) => {
+                      setPhone(event.target.value);
+                      setError('');
+                    }}
+                    placeholder="+2567XXXXXXXX or 07XXXXXXXX"
+                  />
+                </label>
+              ) : null}
+            </div>
+          </div>
+
+          <div className={styles.section}>
+            <div className={styles.sectionHeading}>
+              <span className={styles.sectionLabel}>Your details</span>
+              <span className={styles.sectionHint}>We only use this for the receipt and donation follow-up.</span>
+            </div>
+
+            <div className={styles.fieldRow}>
+              <label className={styles.field}>
+                <span className={styles.fieldLabel}>
+                  Email Address
+                  <span className={styles.requiredMark}>Required</span>
+                </span>
+                <input
+                  className={styles.input}
+                  type="email"
+                  value={email}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                    setError('');
+                  }}
+                  placeholder="name@example.com"
+                />
+              </label>
+
+              <label className={styles.field}>
+                <span className={styles.fieldLabel}>
+                  Full Name
+                  <span className={styles.optionalMark}>Optional</span>
+                </span>
+                <input
+                  className={styles.input}
+                  type="text"
+                  value={name}
+                  onChange={(event) => {
+                    setName(event.target.value);
+                    setError('');
+                  }}
+                  placeholder="Your name"
+                />
+              </label>
+            </div>
+          </div>
+
+          <div className={styles.footerPanel}>
+            <div className={styles.summaryCard}>
+              <span className={styles.summaryLabel}>Review</span>
+              <div className={styles.summaryGrid}>
+                <div className={styles.summaryRow}>
+                  <span>Method</span>
+                  <strong>{selectedMethod.label}</strong>
+                </div>
+                <div className={styles.summaryRow}>
+                  <span>Provider</span>
+                  <strong>{selectedMethod.provider}</strong>
+                </div>
+                {method === 'mobile_money' ? (
+                  <div className={styles.summaryRow}>
+                    <span>Network</span>
+                    <strong>{mobileMoneyNetwork || 'Select a network'}</strong>
+                  </div>
+                ) : null}
+                <div className={styles.summaryRow}>
+                  <span>Amount</span>
+                  <strong>{amountLabel}</strong>
+                </div>
+                {eventTitle ? (
+                  <div className={styles.summaryRow}>
+                    <span>For</span>
+                    <strong>{eventTitle}</strong>
+                  </div>
+                ) : null}
+              </div>
+              <p className={styles.summaryNote}>{getSummaryNote(method, mobileMoneyNetwork)}</p>
+            </div>
+
+            <div className={styles.trustCard}>
+              <span className={styles.summaryLabel}>Before you continue</span>
+              <ul className={styles.trustList}>
+                <li>Your receipt goes to the email address you enter.</li>
+                <li>All donations are charged in UGX.</li>
+                <li>
+                  {method === 'mobile_money'
+                    ? 'Use the same phone number and network that are registered for the wallet you want to debit.'
+                    : 'MarzPay handles the card checkout page.'}
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {error ? <div className={styles.errorBox} role="alert">{error}</div> : null}
+
+          <div className={styles.actionRow}>
+            <button type="button" className={styles.secondaryButton} onClick={handleClose} disabled={loading}>
+              Close
+            </button>
+            <button type="button" className={styles.primaryButton} onClick={handleCheckout} disabled={loading}>
+              {loading
+                ? 'Preparing Checkout...'
+                : method === 'mobile_money'
+                  ? 'Continue with Flutterwave'
+                  : 'Continue with MarzPay'}
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

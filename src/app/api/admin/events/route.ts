@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getAdminSupabase } from '@/lib/supabase';
 import { requireAdminSession, checkSupabaseAdminConfig } from '@/lib/admin-api';
+import { normalizeMediaUrl, normalizeMediaUrls } from '@/lib/media';
 
 const VALID_EVENT_STATUSES = new Set(['upcoming', 'completed', 'cancelled']);
 
@@ -22,7 +23,9 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: dbError.message }, { status: 500 });
         }
 
-        return NextResponse.json({ events: data || [] });
+        return NextResponse.json({
+            events: (data || []).map((event) => normalizeMediaUrls(event, ['cover_image']))
+        });
     } catch (err) {
         console.error('GET /api/admin/events error:', err);
         return NextResponse.json(
@@ -62,7 +65,7 @@ export async function POST(request: Request) {
                 goal_amount: goal,
                 current_amount: 0,
                 status: 'upcoming',
-                cover_image: cover_image || null,
+                cover_image: normalizeMediaUrl(cover_image) || null,
                 achievements: achievements || null,
                 location: location || null,
                 goal_text: goal_text || null,
@@ -75,7 +78,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: dbError.message }, { status: 500 });
         }
 
-        return NextResponse.json({ event: data }, { status: 201 });
+        return NextResponse.json({ event: normalizeMediaUrls(data, ['cover_image']) }, { status: 201 });
     } catch (err) {
         console.error('POST /api/admin/events error:', err);
         return NextResponse.json(
@@ -117,7 +120,7 @@ export async function PATCH(request: Request) {
             }
             updates.goal_amount = goal;
         }
-        if (cover_image !== undefined) updates.cover_image = cover_image;
+        if (cover_image !== undefined) updates.cover_image = normalizeMediaUrl(cover_image);
         if (achievements !== undefined) updates.achievements = achievements;
         if (location !== undefined) updates.location = location;
         if (goal_text !== undefined) updates.goal_text = goal_text;
@@ -135,7 +138,7 @@ export async function PATCH(request: Request) {
             return NextResponse.json({ error: dbError.message }, { status: 500 });
         }
 
-        return NextResponse.json({ event: data });
+        return NextResponse.json({ event: normalizeMediaUrls(data, ['cover_image']) });
     } catch (err) {
         console.error('PATCH /api/admin/events error:', err);
         return NextResponse.json(

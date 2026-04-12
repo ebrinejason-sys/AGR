@@ -165,6 +165,10 @@
     line-height: 1.6;
 }
 
+.relatedLinks {
+    margin-top: 0.5rem;
+}
+
 .contactBlock a {
     color: #e91e63;
     font-weight: 500;

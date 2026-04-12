@@ -29,7 +29,7 @@ export default function Footer() {
             }
 
             setStatus('success');
-            setMessage(data.message || 'You\'re subscribed!');
+            setMessage(data.message || 'You are subscribed.');
             setEmail('');
         } catch {
             setStatus('error');
@@ -45,7 +45,7 @@ export default function Footer() {
                 <div className={styles.stayConnectedSection}>
                     <div className={styles.stayConnectedContent}>
                         <h4 className={styles.stayConnectedTitle}>Stay Connected</h4>
-                        <p className={styles.stayConnectedDesc}>Stay connected:</p>
+                        <p className={styles.stayConnectedDesc}>Get occasional updates on programs, events, and ways to help.</p>
                         <form className={styles.subscribeForm} onSubmit={handleSubscribe}>
                             <div className={styles.inputRow}>
                                 <input
@@ -61,7 +61,7 @@ export default function Footer() {
                                     className={styles.subscribeBtn}
                                     disabled={status === 'loading'}
                                 >
-                                    {status === 'loading' ? '⏳' : 'Join'}
+                                    {status === 'loading' ? 'Sending...' : 'Subscribe'}
                                 </button>
                             </div>
                             {status === 'success' && <p className={styles.successMsg}>{message}</p>}
@@ -79,10 +79,10 @@ export default function Footer() {
                         <nav className={styles.linksList}>
                             <Link href="/our-story">Who We Are</Link>
                             <Link href="/founder">Founder</Link>
-                            <Link href="/stories">Gallery</Link>
+                            <Link href="/stories">Stories</Link>
                         </nav>
 
-                        <div style={{ marginBottom: '1.5rem' }}></div>
+                        <div className={styles.sectionSpacer}></div>
 
                         <h4 className={styles.columnTitle}>Programs</h4>
                         <nav className={styles.linksList}>
@@ -94,10 +94,10 @@ export default function Footer() {
 
                     {/* Column 2: Brand & Contact */}
                     <div className={styles.brandColumn}>
-                        <div style={{ marginBottom: '1.5rem' }}>
+                        <div className={styles.brandBlock}>
                             <h4 className={styles.brandName}>AFRICAN GIRL RISE</h4>
                             <p className={styles.brandTagline}>
-                                Empowering girls, transforming futures.
+                                Support for girls facing barriers in Uganda.
                             </p>
                         </div>
 
@@ -126,7 +126,7 @@ export default function Footer() {
                         <Link href="/legal/refund">Refund Policy</Link>
                     </nav>
                     <p className={styles.mission}>
-                        Empowering girls, transforming futures.
+                        Education, safety, and advocacy for girls.
                     </p>
                 </div>
             </div>

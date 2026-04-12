@@ -403,3 +403,165 @@
   .pillarsGrid { grid-template-columns: 1fr; gap: 2rem; }
   .pillarItem { padding: 3rem 2rem; }
 }
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 13rem 5% 5rem;
+  background: linear-gradient(180deg, var(--surface-rose) 0%, #ffffff 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -5rem;
+  right: -4rem;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  background: rgba(0, 188, 212, 0.09);
+  filter: blur(14px);
+}
+
+.ticker {
+  display: none;
+}
+
+.programsSection {
+  padding: 5.5rem 5% 6rem;
+  background: transparent;
+}
+
+.programCard {
+  border-bottom: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.programCard:first-of-type {
+  border-top: none;
+}
+
+.programCardInner {
+  gap: 2.5rem;
+  padding: 2.5rem;
+  border-radius: 32px;
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.programCard:hover .programCardInner {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+  border-color: rgba(233, 30, 99, 0.2);
+}
+
+.programNumber {
+  font-size: 4.4rem;
+  opacity: 0.55;
+  padding-top: 0.4rem;
+}
+
+.programTagline {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  opacity: 0.78;
+}
+
+.programSummary {
+  font-size: 1.03rem;
+}
+
+.programStatRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0;
+  border-top: none;
+  border-bottom: none;
+}
+
+.programStatItem {
+  padding: 1.25rem;
+  border-radius: 20px;
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  background: linear-gradient(180deg, var(--surface-rose) 0%, #ffffff 100%);
+}
+
+.programStatLabel {
+  max-width: none;
+}
+
+.programDetail {
+  margin: 2rem 0 0;
+  padding: 1.5rem;
+  background: #fffafc;
+  border: 1px solid rgba(233, 30, 99, 0.12);
+  border-radius: 24px;
+}
+
+.programReadMore {
+  border: 1px solid rgba(26, 26, 46, 0.14);
+  padding: 0.95rem 1.45rem;
+  letter-spacing: 0.14em;
+  border-radius: 999px;
+}
+
+.programReadMore:hover {
+  background: var(--color-pink);
+  border-color: var(--color-pink);
+  color: white;
+}
+
+.pillarsSection {
+  padding: 6rem 5%;
+  background: linear-gradient(135deg, #1f2545 0%, #40375f 46%, #7a2556 100%);
+}
+
+.pillarsGrid {
+  gap: 1.5rem;
+}
+
+.pillarItem {
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 24px;
+  background: rgba(255,255,255,0.06);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.pillarItem:hover {
+  border-color: rgba(255,255,255,0.24);
+  transform: translateY(-4px);
+}
+
+.realityBanner {
+  padding: 6rem 5%;
+  background: linear-gradient(180deg, var(--surface-rose) 0%, #ffffff 100%);
+  color: var(--text-color);
+}
+
+.bannerStatItem h3 {
+  color: var(--color-pink);
+}
+
+.bannerStatItem p {
+  letter-spacing: 0.18em;
+  opacity: 0.7;
+  color: var(--text-muted);
+}
+
+.ctaEditorial {
+  padding: 6rem 5%;
+  background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+}
+
+@media (max-width: 768px) {
+  .programStatRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}

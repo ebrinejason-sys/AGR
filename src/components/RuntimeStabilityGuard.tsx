@@ -15,6 +15,14 @@ function getIOSVersion(userAgent: string): string | null {
   return `${major}.${minor}.${patch}`;
 }
 
+function getIOSMajorVersion(userAgent: string): number | null {
+  const version = getIOSVersion(userAgent);
+  if (!version) return null;
+
+  const major = Number(version.split(".")[0]);
+  return Number.isFinite(major) ? major : null;
+}
+
 function getIOSDeviceFamily(userAgent: string): "iphone" | "ipad" | "ipod" | "ios" {
   if (/iPad/i.test(userAgent)) return "ipad";
   if (/iPhone/i.test(userAgent)) return "iphone";
@@ -53,9 +61,11 @@ export default function RuntimeStabilityGuard() {
     const hasLowMemory = typeof nav.deviceMemory === "number" && nav.deviceMemory <= 2;
     const isLegacyWebView = /OS 1[2-5]_\d|Version\/1[0-5]\./i.test(ua);
     const iosVersion = isIOS ? getIOSVersion(ua) : null;
+    const iosMajorVersion = isIOS ? getIOSMajorVersion(ua) : null;
     const deviceFamily = isIOS ? getIOSDeviceFamily(ua) : null;
+    const isOlderIOS = typeof iosMajorVersion === "number" && iosMajorVersion <= 15;
 
-    const shouldUseSafeMode = isIOS || reducedMotion || hasLowMemory || isLegacyWebView;
+    const shouldUseSafeMode = reducedMotion || hasLowMemory || isLegacyWebView || isOlderIOS;
 
     if (isIOS) {
       html.setAttribute("data-ios", "1");
@@ -63,6 +73,8 @@ export default function RuntimeStabilityGuard() {
 
     if (shouldUseSafeMode) {
       html.setAttribute("data-runtime-safe", "1");
+    } else {
+      html.removeAttribute("data-runtime-safe");
     }
 
     let errorCount = 0;
@@ -110,6 +122,7 @@ export default function RuntimeStabilityGuard() {
         reducedMotion,
         hasLowMemory,
         isLegacyWebView,
+        isOlderIOS,
         timestamp: Date.now(),
       });
     }

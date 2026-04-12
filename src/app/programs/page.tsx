@@ -134,10 +134,10 @@ export default function Programs() {
         <div className={styles.container}>
             {/* Editorial Hero */}
             <section className={styles.hero}>
-                <p className="subheading reveal">Our Impact Strategies</p>
+                                <p className="subheading reveal">Our Programs</p>
                 <h1 className="heading-display reveal">Core <span className="text-gradient">Programs</span></h1>
                 <p className="subheading reveal" style={{ fontStyle: 'italic', letterSpacing: '0.1em', marginTop: '2rem' }}>
-                  Empowering Girls to Transcend Background and Architect Brighter Futures.
+                                    Long-term support that helps girls stay safe, stay in school, and build for the future.
                 </p>
             </section>
 
@@ -157,7 +157,7 @@ export default function Programs() {
                         <p className="subheading">Five Pathways</p>
                         <h2 className="heading-section">Programs That <span className="text-gradient">Transform</span></h2>
                         <p style={{ maxWidth: '700px', margin: '2rem auto 0', color: 'var(--text-muted)', fontSize: '1.15rem', lineHeight: '1.8' }}>
-                            Each programme addresses a distinct barrier that keeps girls from rising. Together, they form a complete system of support — from healing to leadership.
+                            Each programme responds to a barrier that places girls at risk. Together, they create connected support across recovery, education, health, leadership, and long-term opportunity.
                         </p>
                     </div>
 
@@ -204,7 +204,7 @@ export default function Programs() {
                         <p className="subheading" style={{ color: 'rgba(255,255,255,0.5)' }}>Our Framework</p>
                         <h2 className="heading-section" style={{ color: 'white' }}>Four <span className="text-gradient">Pillars</span> of Rise</h2>
                         <p style={{ maxWidth: '700px', margin: '2rem auto 0', color: 'rgba(255,255,255,0.5)', fontSize: '1.1rem', lineHeight: '1.8' }}>
-                            The philosophical infrastructure behind every programme we run.
+                            The framework behind how we support girls, families, and schools.
                         </p>
                     </div>
                     <div className={styles.pillarsGrid}>
@@ -238,16 +238,16 @@ export default function Programs() {
 
             {/* CTA */}
             <section className={styles.ctaEditorial}>
-                <h2 className="heading-section">Invest in a <span style={{ color: 'var(--color-lightblue)' }}>Girl Who Will Rise</span></h2>
+                <h2 className="heading-section">Invest in a <span style={{ color: 'var(--color-lightblue)' }}>Girl&apos;s Future</span></h2>
                 <p style={{ fontSize: '1.3rem', fontFamily: 'var(--font-serif)', fontStyle: 'italic', marginBottom: '4rem', opacity: 0.85 }}>
-                    This is not charity. This is multiplication. One girl, given a chance, transforms generations.
+                    Your support helps fund practical care, school retention, and pathways for girls to lead with confidence.
                 </p>
                 <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                     <Link href="/donate" className="btn-premium" style={{ background: 'white', color: 'black' }}>
-                        <span>Donate Now</span>
+                        <span>Donate</span>
                     </Link>
                     <Link href="/contact" className="btn-premium" style={{ borderColor: 'white' }}>
-                        <span>Partner With Us</span>
+                        <span>Partner with us</span>
                     </Link>
                 </div>
             </section>

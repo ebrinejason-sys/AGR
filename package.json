@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "node --max-old-space-size=4096 ./node_modules/next/dist/bin/next build --turbopack",
     "start": "next start",
     "lint": "eslint"
   },
@@ -19,8 +19,7 @@
     "react-dom": "19.1.0",
     "react-quill-new": "^3.8.3",
     "resend": "^6.9.3",
-    "ssh2": "^1.17.0",
-    "stripe": "^22.0.0"
+    "ssh2": "^1.17.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",

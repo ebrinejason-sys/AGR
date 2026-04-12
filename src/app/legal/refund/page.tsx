@@ -95,7 +95,7 @@ export default function RefundPolicy() {
             </li>
             <li>
               Managing your subscription through the link in your donation confirmation email
-              (powered by Paddle).
+              or by contacting our team directly for payment support.
             </li>
           </ul>
           <p>
@@ -126,10 +126,10 @@ export default function RefundPolicy() {
 
           <h2>5. Payment Processors</h2>
           <p>
-            Payments on this site are processed by <strong>Paddle</strong> (for subscriptions and
-            recurring donations) and <strong>Stripe</strong> (for one-time donations). Refunds
-            initiated by African Girl Rise are issued through the respective processor. Paddle
-            and Stripe&apos;s own terms and conditions also apply to your transaction.
+            Payments on this site are processed through <strong>Flutterwave</strong> for mobile
+            money donations and <strong>MarzPay</strong> for card donations. Refunds initiated by
+            African Girl Rise are issued back through the original payment route, and each
+            processor&apos;s own terms and conditions also apply to your transaction.
           </p>
 
           <h2>6. Non-Monetary Contributions</h2>
@@ -156,7 +156,7 @@ export default function RefundPolicy() {
               </a>
             </p>
             <p>WhatsApp / Phone: +256 703 727 965</p>
-            <p style={{ marginTop: "0.5rem" }}>
+            <p className={styles.relatedLinks}>
               Also see our{" "}
               <Link href="/legal/terms">Terms of Service</Link> and{" "}
               <Link href="/legal/privacy">Privacy Policy</Link>.

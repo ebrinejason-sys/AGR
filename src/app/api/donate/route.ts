@@ -1,207 +1,145 @@
 import { NextResponse } from 'next/server';
 import { rateLimit, getIP } from '@/lib/rate-limit';
+import { initializeFlutterwaveMobileMoneyCheckout } from '@/lib/flutterwave';
+import {
+  initializeMarzPayCheckout,
+  type DonationCurrency,
+  type DonationMethod,
+} from '@/lib/marzpay';
 
-type DonationCurrency = 'UGX' | 'USD' | 'EUR' | 'GBP';
-type PaymentMethod = 'mobile_money_ug' | 'flutterwave_international' | 'paypal';
+const VALID_CURRENCIES: DonationCurrency[] = ['UGX'];
+const VALID_METHODS: DonationMethod[] = ['mobile_money', 'card'];
+const MIN_AMOUNT = 500;
+const MAX_AMOUNT = 10_000_000;
 
-const VALID_CURRENCIES: DonationCurrency[] = ['UGX', 'USD', 'EUR', 'GBP'];
+function resolveBaseUrl(req: Request): string {
+  const configuredBaseUrl = process.env.NEXT_PUBLIC_BASE_URL?.trim();
+  if (configuredBaseUrl) {
+    return configuredBaseUrl.replace(/\/+$/, '');
+  }
 
-const MIN_AMOUNT_BY_CURRENCY: Record<DonationCurrency, number> = {
-    UGX: 1000,
-    USD: 5,
-    EUR: 5,
-    GBP: 5,
-};
+  const originHeader = req.headers.get('origin')?.trim();
+  if (originHeader) {
+    return originHeader.replace(/\/+$/, '');
+  }
 
-const getPayPalDonateUrl = (params: {
-    businessEmail: string;
-    amount: number;
-    currency: Exclude<DonationCurrency, 'UGX'>;
-    donorName?: string;
-    eventId?: string;
-}) => {
-    const url = new URL('https://www.paypal.com/donate');
-    url.searchParams.set('business', params.businessEmail);
-    url.searchParams.set('currency_code', params.currency);
-    url.searchParams.set('amount', String(params.amount));
-    if (params.donorName) {
-        url.searchParams.set('item_name', `Donation from ${params.donorName}`);
-    }
-    if (params.eventId) {
-        url.searchParams.set('item_number', params.eventId);
-    }
-    return url.toString();
-};
+  return new URL(req.url).origin.replace(/\/+$/, '');
+}
+
+function isValidEmailAddress(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
 
 export async function POST(req: Request) {
-    try {
-        const ip = getIP(req);
-        // Limit donation attempts (5 requests per hour)
-        const { isLimited, response } = rateLimit(ip, 5, 60 * 60 * 1000);
-        if (isLimited) return response;
+  try {
+    const ip = getIP(req);
+    const { isLimited, response } = rateLimit(ip, 5, 60 * 60 * 1000);
+    if (isLimited) return response;
 
-        const body = await req.json();
-        const { amount, email, name, eventId, currency = 'UGX', phoneNumber, paymentMethod } = body as {
-            amount: number | string;
-            email: string;
-            name?: string;
-            eventId?: string;
-            currency?: DonationCurrency;
-            phoneNumber?: string;
-            paymentMethod?: PaymentMethod;
-        };
+    const body = await req.json();
+    const {
+      amount,
+      email,
+      name,
+      eventId,
+      currency = 'UGX',
+      method = 'mobile_money',
+      phoneNumber,
+      mobileMoneyNetwork,
+    } = body as {
+      amount: number | string;
+      email?: string;
+      name?: string;
+      eventId?: string;
+      currency?: DonationCurrency;
+      method?: DonationMethod;
+      phoneNumber?: string;
+      mobileMoneyNetwork?: string;
+    };
 
-        if (email && String(email).length > 255) {
-            return NextResponse.json({ error: 'Email too long' }, { status: 400 });
-        }
-        if (name && String(name).length > 255) {
-            return NextResponse.json({ error: 'Name too long' }, { status: 400 });
-        }
-        if (phoneNumber && String(phoneNumber).length > 20) {
-            return NextResponse.json({ error: 'Phone number too long' }, { status: 400 });
-        }
-
-        const parsedAmount = Number(amount);
-        if (!VALID_CURRENCIES.includes(currency)) {
-            return NextResponse.json({ error: 'Invalid currency. Use UGX, USD, EUR, or GBP.' }, { status: 400 });
-        }
-
-        const minAmount = MIN_AMOUNT_BY_CURRENCY[currency];
-        if (!parsedAmount || Number.isNaN(parsedAmount) || parsedAmount < minAmount || !email) {
-            return NextResponse.json({ error: `Missing required fields or amount below minimum (${currency} ${minAmount})` }, { status: 400 });
-        }
-
-        if (paymentMethod && !['mobile_money_ug', 'flutterwave_international', 'paypal'].includes(paymentMethod)) {
-            return NextResponse.json({ error: 'Invalid payment method selected.' }, { status: 400 });
-        }
-
-        // For UGX mobile money, phone number is required
-        if (currency === 'UGX' && !phoneNumber) {
-            return NextResponse.json({ error: 'Phone number required for Mobile Money payments' }, { status: 400 });
-        }
-
-        const appBaseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://africangirlriseltd.org';
-        const successUrl = `${appBaseUrl}/events?donation=success`;
-        const paypalBusinessEmail = process.env.PAYPAL_BUSINESS_EMAIL || 'africangirlriseltd@gmail.com';
-
-        if (paymentMethod === 'mobile_money_ug' && currency !== 'UGX') {
-            return NextResponse.json({ error: 'Mobile Money payments only support UGX.' }, { status: 400 });
-        }
-
-        if (paymentMethod === 'flutterwave_international' && currency === 'UGX') {
-            return NextResponse.json({ error: 'Select USD, EUR, or GBP for international checkout.' }, { status: 400 });
-        }
-
-        if (paymentMethod === 'paypal') {
-            if (currency === 'UGX') {
-                return NextResponse.json({ error: 'PayPal fallback currently supports USD, EUR, and GBP only.' }, { status: 400 });
-            }
-
-            return NextResponse.json({
-                paymentUrl: getPayPalDonateUrl({
-                    businessEmail: paypalBusinessEmail,
-                    amount: parsedAmount,
-                    currency,
-                    donorName: name,
-                    eventId,
-                }),
-                provider: 'paypal',
-            });
-        }
-
-        const secretKey = process.env.FLUTTERWAVE_SECRET_KEY;
-
-        if (!secretKey) {
-            if (currency !== 'UGX') {
-                return NextResponse.json(
-                    {
-                        error: 'Flutterwave is not configured for international checkout.',
-                        code: 'FLUTTERWAVE_NOT_CONFIGURED',
-                        paypalUrl: getPayPalDonateUrl({
-                            businessEmail: paypalBusinessEmail,
-                            amount: parsedAmount,
-                            currency,
-                            donorName: name,
-                            eventId,
-                        }),
-                    },
-                    { status: 503 }
-                );
-            }
-            return NextResponse.json({ error: 'Payment service not configured. Set FLUTTERWAVE_SECRET_KEY in environment variables.' }, { status: 503 });
-        }
-
-        const paymentConfigByCurrency: Record<string, { payment_options: string; country?: string }> = {
-            UGX: {
-                payment_options: 'mobilemoneyuganda',
-                country: 'UG',
-            },
-            USD: {
-                payment_options: 'card,banktransfer',
-            },
-            EUR: {
-                payment_options: 'card,banktransfer',
-            },
-            GBP: {
-                payment_options: 'card,banktransfer',
-            },
-        };
-
-        const payload: Record<string, unknown> = {
-            tx_ref: `agr_${Date.now()}_${eventId || 'gen'}`,
-            amount: parsedAmount,
-            currency: currency,
-            redirect_url: successUrl,
-            customer: {
-                email,
-                name: name || 'Anonymous Donor',
-                phonenumber: phoneNumber || undefined
-            },
-            customizations: {
-                title: 'African Girl Rise',
-                description: 'Donation to break the cycle of poverty',
-                logo: 'https://africangirlriseltd.org/logo.png'
-            },
-            ...paymentConfigByCurrency[currency]
-        };
-
-        const fwResponse = await fetch('https://api.flutterwave.com/v3/payments', {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${secretKey}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-        });
-
-        const data = await fwResponse.json();
-        const paymentUrl = data?.data?.link;
-
-        if (!fwResponse.ok || data.status !== 'success' || !paymentUrl) {
-            console.error('Flutterwave V3 API Error:', data);
-            if (currency !== 'UGX') {
-                return NextResponse.json(
-                    {
-                        error: 'Flutterwave initialization failed for international payment. Redirecting to PayPal fallback.',
-                        code: 'FLUTTERWAVE_INIT_FAILED',
-                        paypalUrl: getPayPalDonateUrl({
-                            businessEmail: paypalBusinessEmail,
-                            amount: parsedAmount,
-                            currency,
-                            donorName: name,
-                            eventId,
-                        }),
-                    },
-                    { status: 502 }
-                );
-            }
-            return NextResponse.json({ error: 'Payment initialization failed', details: data }, { status: 500 });
-        }
-
-        return NextResponse.json({ paymentUrl, provider: 'flutterwave' });
-
-    } catch (error) {
-        console.error('Donation API Error:', error);
-        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    if (email && String(email).length > 255) {
+      return NextResponse.json({ error: 'Email too long.' }, { status: 400 });
     }
+
+    if (name && String(name).length > 255) {
+      return NextResponse.json({ error: 'Name too long.' }, { status: 400 });
+    }
+
+    if (phoneNumber && String(phoneNumber).length > 32) {
+      return NextResponse.json({ error: 'Phone number too long.' }, { status: 400 });
+    }
+
+    if (mobileMoneyNetwork && String(mobileMoneyNetwork).length > 32) {
+      return NextResponse.json({ error: 'Mobile money network value is too long.' }, { status: 400 });
+    }
+
+    const parsedAmount = Number(amount);
+    if (!VALID_CURRENCIES.includes(currency)) {
+      return NextResponse.json({ error: 'Invalid currency. Donations are processed in UGX.' }, { status: 400 });
+    }
+
+    if (!VALID_METHODS.includes(method)) {
+      return NextResponse.json({ error: 'Invalid donation method. Use mobile_money or card.' }, { status: 400 });
+    }
+
+    if (!parsedAmount || Number.isNaN(parsedAmount) || parsedAmount < MIN_AMOUNT || parsedAmount > MAX_AMOUNT) {
+      return NextResponse.json(
+        { error: `Donation amount must be between UGX ${MIN_AMOUNT.toLocaleString()} and UGX ${MAX_AMOUNT.toLocaleString()}.` },
+        { status: 400 }
+      );
+    }
+
+    const normalizedEmail = email?.trim();
+    if (!normalizedEmail) {
+      return NextResponse.json({ error: 'Email address is required.' }, { status: 400 });
+    }
+
+    if (!isValidEmailAddress(normalizedEmail)) {
+      return NextResponse.json({ error: 'Enter a valid email address.' }, { status: 400 });
+    }
+
+    if (method === 'mobile_money' && !phoneNumber?.trim()) {
+      return NextResponse.json({ error: 'Phone number is required for mobile money donations.' }, { status: 400 });
+    }
+
+    if (method === 'mobile_money' && !mobileMoneyNetwork?.trim()) {
+      return NextResponse.json({ error: 'Select the mobile money network for this donation.' }, { status: 400 });
+    }
+
+    const appBaseUrl = resolveBaseUrl(req);
+    const normalizedName = name?.trim() || undefined;
+
+    const checkout =
+      method === 'mobile_money'
+        ? await initializeFlutterwaveMobileMoneyCheckout({
+            amount: parsedAmount,
+            currency,
+            email: normalizedEmail,
+            eventId,
+            name: normalizedName,
+            network: mobileMoneyNetwork?.trim(),
+            phoneNumber: phoneNumber?.trim() || '',
+            redirectUrl: `${appBaseUrl}/pay?provider=flutterwave`,
+          })
+        : await initializeMarzPayCheckout({
+            amount: parsedAmount,
+            currency,
+            email: normalizedEmail,
+            name: normalizedName,
+            eventId,
+            callbackUrl: `${appBaseUrl}/api/marzpay/callback?provider=marzpay`,
+          });
+
+    return NextResponse.json(checkout);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Internal server error';
+    const status = /not configured/i.test(message)
+      ? 503
+      : /required|valid|select|maximum|minimum|phone number|network/i.test(message)
+        ? 400
+        : 502;
+
+    console.error('Donation API Error:', error);
+    return NextResponse.json({ error: message }, { status });
+  }
 }

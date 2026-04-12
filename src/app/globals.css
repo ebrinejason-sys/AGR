@@ -13,6 +13,7 @@
   --color-yellow: #ffeb3b;
 
   --color-pink-light: rgba(233, 30, 99, 0.08);
+  --color-pink-soft: rgba(233, 30, 99, 0.18);
   --color-purple-light: rgba(156, 39, 176, 0.08);
   --color-teal-light: rgba(0, 150, 136, 0.08);
   --color-orange-light: rgba(255, 152, 0, 0.08);
@@ -21,12 +22,22 @@
 
   --bg-color: #ffffff;
   --bg-secondary: #f8f5ff;
+  --surface-cream: #fffdfa;
+  --surface-rose: #fff7fb;
+  --surface-blue: #f3f9ff;
+  --surface-elevated: rgba(255, 255, 255, 0.86);
   --text-color: #1a1a2e;
   --text-muted: #6b6b8a;
   --border-color: rgba(26, 26, 46, 0.1);
   --border-accent: rgba(233, 30, 99, 0.18);
   --card-bg: #ffffff;
   --card-hover-bg: #f8f5ff;
+  --shadow-soft: 0 14px 40px rgba(26, 26, 46, 0.07);
+  --shadow-medium: 0 22px 56px rgba(26, 26, 46, 0.11);
+  --shadow-premium: 0 28px 70px rgba(26, 26, 46, 0.12);
+  --gradient-dramatic: linear-gradient(135deg, #1f2545 0%, #6c2959 52%, #e91e63 100%);
+  --radius-lg: 24px;
+  --radius-xl: 32px;
 
   --nav-bg: rgba(255, 255, 255, 0.96);
   --nav-hover-bg: rgba(233, 30, 99, 0.06);
@@ -72,6 +83,10 @@ body {
   padding-bottom: max(env(safe-area-inset-bottom), 0px);
   padding-left: max(env(safe-area-inset-left), 0px);
   padding-right: max(env(safe-area-inset-right), 0px);
+  background:
+    radial-gradient(circle at top left, rgba(233, 30, 99, 0.06), transparent 28%),
+    radial-gradient(circle at top right, rgba(0, 188, 212, 0.08), transparent 24%),
+    linear-gradient(180deg, #fffdfa 0%, #ffffff 22%, #fff7fb 100%);
 }
 
 /* Prevent zoom on inputs in iOS */
@@ -119,6 +134,11 @@ img {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+::selection {
+  background: rgba(233, 30, 99, 0.16);
+  color: var(--text-color);
 }
 
 button {
@@ -464,8 +484,6 @@ html[data-runtime-safe="1"] *::before,
 html[data-runtime-safe="1"] *::after {
   animation: none !important;
   transition: none !important;
-  transform: none !important;
-  will-change: auto !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
@@ -475,7 +493,7 @@ html[data-runtime-safe="1"] video {
   height: auto;
 }
 
-/* iOS safe mode (set server-side) keeps rendering conservative from first paint. */
+/* iOS safe mode is applied client-side after capability checks. */
 html[data-ios="1"][data-runtime-safe="1"] body {
   background-attachment: scroll;
 }

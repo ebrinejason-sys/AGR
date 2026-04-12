@@ -63,7 +63,8 @@ export default function PrivacyPolicy() {
             <li>
               <strong>Payment information</strong> — when you make a donation. Payment details
               (card numbers, billing address) are handled entirely by our payment processors
-              (Paddle and Stripe) and are never stored on our servers.
+              (currently Flutterwave for mobile money and MarzPay for card payments) and are never
+              stored on our servers.
             </li>
           </ul>
 
@@ -101,11 +102,10 @@ export default function PrivacyPolicy() {
               and newsletters.
             </li>
             <li>
-              <strong>Paddle</strong> — payment processing and subscription management for
-              recurring donations.
+              <strong>Flutterwave</strong> — hosted mobile money checkout and payment processing.
             </li>
             <li>
-              <strong>Stripe</strong> — payment processing for one-time donations.
+              <strong>MarzPay</strong> — hosted card checkout and payment processing.
             </li>
           </ul>
           <p>

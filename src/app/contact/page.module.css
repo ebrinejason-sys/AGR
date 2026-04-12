@@ -3,30 +3,63 @@
 }
 
 .hero {
-  padding: 12rem 5% 8rem;
+  position: relative;
+  overflow: hidden;
+  padding: 13rem 5% 5rem;
   text-align: center;
-  background: white;
+  background: linear-gradient(180deg, var(--surface-rose) 0%, #ffffff 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -5rem;
+  left: -5rem;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  background: rgba(233, 30, 99, 0.1);
+  filter: blur(16px);
 }
 
 .contactSection {
-  padding: 8rem 5%;
-  background: var(--bg-color);
+  padding: 5.5rem 5% 7rem;
+  background: transparent;
 }
 
 .contactGrid {
-  max-width: 1400px;
+  max-width: 1180px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 10rem;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.infoCol {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 8rem;
+  padding: 2.5rem;
+  border-radius: 32px;
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow-soft);
 }
 
 .infoCol h2 {
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 .infoItem {
-  margin-bottom: 4rem;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid rgba(26, 26, 46, 0.08);
+}
+
+.infoItem:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .infoLabel {
@@ -40,12 +73,13 @@
 }
 
 .infoValue {
-  font-size: 1.3rem;
+  font-size: 1.05rem;
   font-weight: 600;
+  line-height: 1.7;
 }
 
 .infoLink {
-  font-size: 1.3rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--color-black);
   text-decoration: none;
@@ -57,71 +91,74 @@
 }
 
 .formCard {
-  background: white;
-  padding: 6rem;
-  box-shadow: var(--shadow-premium);
+  background: rgba(255, 255, 255, 0.94);
+  padding: 2.5rem;
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  border-radius: 32px;
+  box-shadow: var(--shadow-medium);
 }
 
 .tabBar {
   display: flex;
-  gap: 2rem;
-  margin-bottom: 4rem;
-  border-bottom: 1px solid var(--border-color);
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  border-bottom: none;
+  flex-wrap: wrap;
 }
 
 .tab {
-  background: none;
-  border: none;
-  padding: 1.5rem 0;
-  font-size: 0.75rem;
+  background: #ffffff;
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  padding: 0.9rem 1rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   font-weight: 700;
   cursor: pointer;
   color: var(--text-muted);
   position: relative;
+  border-radius: 999px;
 }
 
 .tabActive {
   color: var(--color-black);
+  border-color: rgba(233, 30, 99, 0.16);
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(0, 188, 212, 0.08));
 }
 
 .tabActive::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--color-black);
+  display: none;
 }
 
 .inputGroup {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .inputLabel {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
   display: block;
+  color: var(--text-muted);
 }
 
 .input {
   width: 100%;
-  padding: 1.2rem 0;
-  border: none;
-  border-bottom: 1px solid var(--border-color);
-  background: none;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(26, 26, 46, 0.1);
+  border-radius: 18px;
+  background: var(--surface-cream);
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .input:focus {
-  border-bottom-color: var(--color-pink);
+  border-color: rgba(233, 30, 99, 0.28);
+  box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.08);
+  background: #ffffff;
 }
 
 .radioGroup {
@@ -145,14 +182,7 @@
 
 /*  Ticker (hero dead space filler)  */
 .ticker {
-  overflow: hidden;
-  width: 100%;
-  padding: 1.1rem 0;
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
-  background: var(--bg-secondary);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  display: none;
 }
 .tickerTrack {
   display: flex;
@@ -201,16 +231,17 @@
 
 /* Tab description box in info column */
 .tabDescriptionBox {
-  margin-top: 4rem;
-  padding: 2rem;
-  border-left: 3px solid var(--color-pink);
-  background: var(--bg-secondary);
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  border-radius: 24px;
+  background: linear-gradient(180deg, var(--surface-rose) 0%, #ffffff 100%);
 }
 .tabDescriptionText {
   font-size: 0.95rem;
   line-height: 1.7;
   color: var(--text-muted);
-  font-style: italic;
+  font-style: normal;
 }
 
 /* Select styling */
@@ -240,4 +271,5 @@ select.input {
   .radioGroup { flex-wrap: wrap; gap: 0.75rem; }
   .infoValue, .infoLink { font-size: 1.1rem; }
   .tabBar { gap: 1rem; }
+  .infoCol { padding: 1.5rem; }
 }

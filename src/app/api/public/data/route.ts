@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getAdminSupabase } from '@/lib/supabase';
+import { normalizeMediaUrls, normalizeRichTextMediaUrls } from '@/lib/media';
 
 export async function GET() {
     try {
@@ -22,14 +23,17 @@ export async function GET() {
         }
 
         const events = (eventsRes.data || []).map(ev => ({
-            ...ev,
-            gallery: galleryByEvent[ev.id] || [],
+            ...normalizeMediaUrls(ev, ['cover_image']),
+            gallery: (galleryByEvent[ev.id] || []).map((photo) => normalizeMediaUrls(photo, ['url'])),
         }));
 
         return NextResponse.json({
-            stories: storiesRes.data || [],
-            media: mediaRes.data || [],
-            projects: projectsRes.data || [],
+            stories: (storiesRes.data || []).map((story) => ({
+                ...normalizeMediaUrls(story, ['image_url']),
+                content: normalizeRichTextMediaUrls(story.content),
+            })),
+            media: (mediaRes.data || []).map((item) => normalizeMediaUrls(item, ['url'])),
+            projects: (projectsRes.data || []).map((project) => normalizeMediaUrls(project, ['image_url'])),
             events,
         });
     } catch (err) {

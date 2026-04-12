@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getAdminSupabase } from '@/lib/supabase';
 import { requireAdminSession, checkSupabaseAdminConfig } from '@/lib/admin-api';
+import { normalizeMediaUrl, normalizeMediaUrls } from '@/lib/media';
 
 const VALID_PROJECT_STATUSES = new Set(['active', 'draft']);
 
@@ -22,7 +23,9 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: dbError.message }, { status: 500 });
         }
 
-        return NextResponse.json({ projects: data || [] });
+        return NextResponse.json({
+            projects: (data || []).map((project) => normalizeMediaUrls(project, ['image_url']))
+        });
     } catch (err) {
         console.error('GET /api/admin/projects error:', err);
         return NextResponse.json(
@@ -62,7 +65,7 @@ export async function POST(request: Request) {
             .insert({
                 title,
                 description: description || null,
-                image_url: image_url || null,
+                image_url: normalizeMediaUrl(image_url) || null,
                 status: status || 'draft',
                 pillar_number: parsedPillar,
             })
@@ -73,7 +76,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: dbError.message }, { status: 500 });
         }
 
-        return NextResponse.json({ project: data }, { status: 201 });
+        return NextResponse.json({ project: normalizeMediaUrls(data, ['image_url']) }, { status: 201 });
     } catch (err) {
         console.error('POST /api/admin/projects error:', err);
         return NextResponse.json(

@@ -14,13 +14,6 @@ type Story = {
     created_at: string;
 };
 
-type Media = {
-    id: string;
-    url: string;
-    type: 'image' | 'video';
-    description: string;
-};
-
 const MOCK_STORIES: Story[] = [
     {
         id: 'mock-1',
@@ -35,21 +28,6 @@ const MOCK_STORIES: Story[] = [
         content: '<p>Having a mentor who looks like me and has walked my path made all the difference in my academic journey. I realised my beginning does not define my becoming.</p>',
         author: 'Grace A.',
         created_at: new Date().toISOString(),
-    }
-];
-
-const MOCK_MEDIA: Media[] = [
-    {
-        id: 'mock-m1',
-        url: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800&auto=format&fit=crop',
-        type: 'image',
-        description: 'Empowerment through collective strength.',
-    },
-    {
-        id: 'mock-m2',
-        url: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800&auto=format&fit=crop',
-        type: 'image',
-        description: 'Community outreach in marginalised districts.',
     }
 ];
 
@@ -116,7 +94,7 @@ export default function StoriesPage() {
             </section>
 
             {loading ? (
-                <div style={{ textAlign: 'center', padding: '10rem 5%', color: 'var(--text-muted)' }}>
+                <div className={styles.loadingState}>
                     Loading stories…
                 </div>
             ) : (

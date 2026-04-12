@@ -31,6 +31,11 @@ type Event = {
     gallery?: GalleryPhoto[];
 };
 
+function getProgressPercent(event: Event): number {
+    if (!event.goal_amount) return 0;
+    return Math.min(Math.round((event.current_amount / event.goal_amount) * 100), 100);
+}
+
 export default function EventsPage() {
     const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
@@ -82,7 +87,7 @@ export default function EventsPage() {
             </div>
 
             {loading ? (
-                <div style={{ textAlign: 'center', padding: '15rem', opacity: 0.5, letterSpacing: '0.2em' }}>DOCUMENTING PROGRESS...</div>
+                <div className={styles.loadingState}>Loading events…</div>
             ) : (
                 <section className={styles.eventSection}>
 
@@ -101,7 +106,7 @@ export default function EventsPage() {
                     {/* Completed */}
                     {completedEvents.length > 0 && (
                         <>
-                            <h2 className={styles.sectionHeading} style={{ marginTop: '8rem' }}>Completed Events</h2>
+                            <h2 className={`${styles.sectionHeading} ${styles.completedHeading}`}>Completed Events</h2>
                             <div className={styles.eventGrid}>
                                 {completedEvents.map((evt) => (
                                     <EventCard key={evt.id} evt={evt} onClick={() => openEvent(evt)} />
@@ -111,8 +116,8 @@ export default function EventsPage() {
                     )}
 
                     {events.length === 0 && (
-                        <div style={{ textAlign: 'center', padding: '10rem 0', opacity: 0.5 }}>
-                            <p style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}>No events yet — check back soon.</p>
+                        <div className={styles.emptyState}>
+                            <p className={styles.emptyText}>No events yet — check back soon.</p>
                         </div>
                     )}
                 </section>
@@ -151,6 +156,11 @@ export default function EventsPage() {
                             {/* Target / Goal */}
                             {(selectedEvent.goal_amount > 0 || selectedEvent.goal_text) && (
                                 <div className={styles.modalGoal}>
+                                    {(() => {
+                                        const progressPercent = getProgressPercent(selectedEvent);
+
+                                        return (
+                                            <>
                                     <span className={styles.modalGoalLabel}>TARGET</span>
                                     {selectedEvent.goal_text && (
                                         <p className={styles.modalGoalText}>{selectedEvent.goal_text}</p>
@@ -159,13 +169,14 @@ export default function EventsPage() {
                                         <>
                                             <div className={styles.progressHeader}>
                                                 <span>Goal: {Number(selectedEvent.goal_amount).toLocaleString()} UGX</span>
-                                                <span>{Math.min(Math.round((selectedEvent.current_amount / selectedEvent.goal_amount) * 100), 100)}% REACHED</span>
+                                                <span>{progressPercent}% REACHED</span>
                                             </div>
-                                            <div className={styles.progressBar}>
-                                                <div className={styles.progressFill} style={{ width: `${Math.min(Math.round((selectedEvent.current_amount / selectedEvent.goal_amount) * 100), 100)}%` }} />
-                                            </div>
+                                            <progress className={styles.progressBar} value={progressPercent} max={100} />
                                         </>
                                     )}
+                                            </>
+                                        );
+                                    })()}
                                 </div>
                             )}
 
@@ -180,15 +191,9 @@ export default function EventsPage() {
                             {/* CTA buttons */}
                             {selectedEvent.status !== 'completed' && (
                                 <div className={styles.modalCtas}>
-                                    {selectedEvent.donation_link ? (
-                                        <a href={selectedEvent.donation_link} target="_blank" rel="noopener noreferrer" className="btn-premium">
-                                            <span>Support This Event</span>
-                                        </a>
-                                    ) : (
-                                        <button className="btn-premium" onClick={() => { closeEvent(); setDonationTarget(selectedEvent); }}>
-                                            <span>Donate to Event</span>
-                                        </button>
-                                    )}
+                                    <button className="btn-premium" onClick={() => { closeEvent(); setDonationTarget(selectedEvent); }}>
+                                        <span>Donate to Event</span>
+                                    </button>
                                 </div>
                             )}
 

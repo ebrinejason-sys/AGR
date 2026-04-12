@@ -11,18 +11,18 @@ export default function DonatePage() {
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
-        <p className="subheading reveal">Philanthropy</p>
-        <h1 className="heading-display reveal">Support <span className="text-gradient">Her Rise</span></h1>
+        <p className="subheading reveal">Donate</p>
+        <h1 className="heading-display reveal">Make a donation</h1>
         <p className={styles.subtitle}>
-          Utilize our secure gateway to invest in transformative programs. Your partnership
-          dismantles barriers and architects legacies of resilience across Uganda.
+          Use mobile money through Flutterwave or card through MarzPay. Donations support school
+          retention, safe spaces, mentorship, and legal advocacy for girls in Uganda.
         </p>
         <div className={styles.actions}>
           <button className="btn-premium" onClick={() => setIsOpen(true)}>
-            <span>Secure Contribution</span>
+            <span>Open donation form</span>
           </button>
           <Link href="/events" className={styles.secondaryBtn}>
-            <span>View Impact Events</span>
+            <span>See upcoming events</span>
           </Link>
         </div>
       </div>

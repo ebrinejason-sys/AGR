@@ -92,17 +92,17 @@ export default function Navbar() {
                 <div className={`${styles.mobileNav} ${isOpen ? styles.open : ''}`}>
                     <nav className={styles.mobileNavLinks}>
                         <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>
-                            🏠 Home
+                            Home
                         </Link>
 
                         {/* Mobile About Section */}
                         <div className={styles.mobileSection}>
-                            <div className={styles.mobileSectionTitle}>About Us</div>
+                            <div className={styles.mobileSectionTitle}>About</div>
                             <Link href="/our-story" className={styles.mobileNavLink} onClick={closeMenu}>
-                                📖 Who We Are
+                                Who We Are
                             </Link>
                             <Link href="/founder" className={styles.mobileNavLink} onClick={closeMenu}>
-                                👩‍💼 Founder
+                                Founder
                             </Link>
                         </div>
 
@@ -110,26 +110,26 @@ export default function Navbar() {
                         <div className={styles.mobileSection}>
                             <div className={styles.mobileSectionTitle}>Programs</div>
                             <Link href="/programs" className={styles.mobileNavLink} onClick={closeMenu}>
-                                🎯 Core Programs
+                                Core Programs
                             </Link>
                             <Link href="/legal-advocacy" className={styles.mobileNavLink} onClick={closeMenu}>
-                                ⚖️ Legal Advocacy
+                                Legal Advocacy
                             </Link>
                         </div>
 
                         <Link href="/events" className={styles.mobileNavLink} onClick={closeMenu}>
-                            📅 Events
+                            Events
                         </Link>
                         <Link href="/stories" className={styles.mobileNavLink} onClick={closeMenu}>
-                            📚 Stories
+                            Stories
                         </Link>
                         <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>
-                            📞 Contact
+                            Contact
                         </Link>
 
                         <div className={styles.mobileDonateContainer}>
                             <button onClick={() => { setIsDonationModalOpen(true); closeMenu(); }} className={styles.mobileDonateBtn}>
-                                💝 Donate Now
+                                Donate
                             </button>
                         </div>
                     </nav>

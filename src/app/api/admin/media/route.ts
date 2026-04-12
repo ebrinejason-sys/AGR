@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getAdminSupabase } from '@/lib/supabase';
 import { requireAdminSession, checkSupabaseAdminConfig } from '@/lib/admin-api';
+import { getMediaBucketName, normalizeMediaUrl, normalizeMediaUrls } from '@/lib/media';
 
 const sanitizeFileName = (fileName: string) => fileName.replace(/[^a-zA-Z0-9._-]/g, '-');
 
@@ -22,7 +23,9 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: dbError.message }, { status: 500 });
         }
 
-        return NextResponse.json({ media: data || [] });
+        return NextResponse.json({
+            media: (data || []).map((item) => normalizeMediaUrls(item, ['url']))
+        });
     } catch (err) {
         console.error('GET /api/admin/media error:', err);
         return NextResponse.json(
@@ -54,7 +57,7 @@ export async function POST(request: Request) {
         }
 
         // Ensure bucket name is correct, fall back to "media"
-        const bucket = process.env.SUPABASE_MEDIA_BUCKET || 'media';
+        const bucket = getMediaBucketName();
         const fileName = `${Date.now()}-${sanitizeFileName(file.name)}`;
         const filePath = `uploads/${fileName}`;
 
@@ -75,7 +78,12 @@ export async function POST(request: Request) {
 
         // 2. Get Public URL
         const { data: publicData } = supabase.storage.from(bucket).getPublicUrl(filePath);
-        const url = publicData.publicUrl;
+        const url = normalizeMediaUrl(publicData.publicUrl);
+
+        if (!url) {
+            await supabase.storage.from(bucket).remove([filePath]);
+            return NextResponse.json({ error: 'Unable to generate a valid public URL for the uploaded file.' }, { status: 500 });
+        }
 
         // 3. Insert into Database
         const mediaType = file.type.startsWith('image/') ? 'image' : 'video';
@@ -98,7 +106,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: `Database insert failed: ${dbError.message}. Storage has been cleaned up.` }, { status: 500 });
         }
 
-        return NextResponse.json({ media: data }, { status: 201 });
+        return NextResponse.json({ media: normalizeMediaUrls(data, ['url']) }, { status: 201 });
     } catch (err) {
         console.error('POST /api/admin/media error:', err);
         return NextResponse.json(
@@ -128,9 +136,11 @@ export async function DELETE(request: Request) {
         // Get the record first so we can remove the file from storage
         const { data: record } = await supabase.from('media').select('url').eq('id', id).single();
 
-        if (record?.url) {
+        const normalizedUrl = normalizeMediaUrl(record?.url);
+
+        if (normalizedUrl) {
             // Extract the storage path from the public URL
-            const urlParts = record.url.split('/object/public/');
+            const urlParts = normalizedUrl.split('/object/public/');
             if (urlParts.length === 2) {
                 const [bucketAndPath] = urlParts[1].split('?');
                 const slashIdx = bucketAndPath.indexOf('/');

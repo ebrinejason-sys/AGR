@@ -3,52 +3,128 @@
 }
 
 .hero {
-  padding: 12rem 5% 8rem;
+  position: relative;
+  overflow: hidden;
+  padding: 13rem 5% 5.5rem;
   text-align: center;
-  background: white;
+  background: linear-gradient(180deg, var(--surface-rose) 0%, #ffffff 100%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  bottom: -8rem;
+  left: -8rem;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  background: rgba(233, 30, 99, 0.08);
+  filter: blur(12px);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  border-radius: 32px;
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow-soft);
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 0.85rem;
+  color: var(--color-pink);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.pageTitle {
+  margin: 0;
+  color: var(--text-color);
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+}
+
+.pageSubtitle {
+  max-width: 36rem;
+  margin: 1rem auto 0;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
 }
 
 .eventSection {
-  padding: 8rem 5%;
-  background: var(--bg-color);
+  padding: 5.5rem 5% 7rem;
+  background: transparent;
+}
+
+.loadingState,
+.emptyState {
+  padding: 6rem 5%;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.loadingState {
+  letter-spacing: 0.2em;
+}
+
+.emptyText {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .sectionHeading {
-  font-size: 2rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 3vw, 2.7rem);
   font-weight: 800;
   letter-spacing: -0.02em;
-  margin-bottom: 4rem;
-  max-width: 1400px;
+  margin-bottom: 2.5rem;
+  max-width: 1180px;
   margin-left: auto;
   margin-right: auto;
-  padding-bottom: 1.5rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-color);
+}
+
+.completedHeading {
+  margin-top: 5rem;
 }
 
 .eventGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-  gap: 3rem;
-  max-width: 1400px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1180px;
   margin: 0 auto;
 }
 
 /* ---- Event Card ---- */
 .eventCard {
-  background: white;
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  border-radius: 28px;
   overflow: hidden;
-  transition: all 0.4s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-soft);
 }
 
 .eventCard:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-premium);
-  border-color: var(--color-pink);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+  border-color: rgba(233, 30, 99, 0.2);
 }
 
 .eventCard:focus-visible {
@@ -66,21 +142,37 @@
 }
 .eventCoverOverlay {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.25) 100%);
 }
 .eventCoverPlaceholder {
   width: 100%;
-  height: 80px;
-  background: var(--bg-secondary);
+  height: 220px;
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.14), rgba(0, 188, 212, 0.12));
+  position: relative;
+}
+
+.eventCoverPlaceholder::after {
+  content: 'Event image';
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1rem;
+  color: rgba(26, 26, 46, 0.45);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .eventCardBody {
-  padding: 3rem;
+  padding: 2rem;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.75rem;
 }
 
 .statusBadge {
@@ -104,7 +196,8 @@
 }
 
 .eventTitle {
-  font-size: 2rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -124,16 +217,16 @@
 }
 
 .eventDescription {
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 0.98rem;
+  line-height: 1.72;
   color: var(--text-muted);
   flex: 1;
 }
 
 .tapHint {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-pink);
   margin-top: auto;
@@ -151,27 +244,31 @@
 }
 
 .progressBar {
-  height: 2px;
-  background: var(--border-color);
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
   width: 100%;
+  overflow: hidden;
+  border: none;
+  border-radius: 999px;
+  background: var(--border-color);
 }
 
-.progressFill {
-  height: 100%;
-  background: var(--color-pink);
-  transition: width 1s ease;
+.progressBar::-webkit-progress-bar {
+  background: var(--border-color);
+}
+
+.progressBar::-webkit-progress-value {
+  background: linear-gradient(90deg, var(--color-pink), var(--color-purple));
+}
+
+.progressBar::-moz-progress-bar {
+  background: linear-gradient(90deg, var(--color-pink), var(--color-purple));
 }
 
 /* ---- Ticker ---- */
 .ticker {
-  overflow: hidden;
-  width: 100%;
-  padding: 1.1rem 0;
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
-  background: var(--bg-secondary);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  display: none;
 }
 .tickerTrack {
   display: flex;
@@ -209,8 +306,11 @@
 /* ---- Event Detail Modal ---- */
 .modalOverlay {
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(26, 26, 46, 0.42);
   z-index: 1000;
   display: flex;
   align-items: flex-start;
@@ -227,6 +327,8 @@
   margin: auto;
   overflow: hidden;
   animation: modalIn 0.3s ease;
+  border-radius: 30px;
+  box-shadow: var(--shadow-medium);
 }
 
 @keyframes modalIn {
@@ -262,16 +364,20 @@
 }
 .modalCoverOverlay {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.35) 100%);
 }
 
 .modalBody {
-  padding: 4rem;
+  padding: 3rem;
 }
 
 .modalTitle {
-  font-size: 2.8rem;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 2.8rem);
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: -0.03em;
@@ -352,7 +458,7 @@
   position: relative;
   height: 140px;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 18px;
 }
 
 /* ---- Responsive ---- */
@@ -366,6 +472,7 @@
   .modalBody { padding: 2.5rem 2rem; }
   .modalTitle { font-size: 2rem; }
   .galleryGrid { grid-template-columns: repeat(2, 1fr); }
+  .heroContent { padding: 2rem 1.25rem; }
 }
 
 @media (max-width: 480px) {

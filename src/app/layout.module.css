@@ -5,7 +5,7 @@
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
-  padding-top: calc(70px + env(safe-area-inset-top));
+  padding-top: calc(108px + env(safe-area-inset-top));
   overflow-x: hidden;
 }
 

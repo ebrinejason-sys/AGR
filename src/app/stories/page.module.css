@@ -3,9 +3,23 @@
 }
 
 .hero {
-  padding: 12rem 5% 8rem;
+  position: relative;
+  overflow: hidden;
+  padding: 13rem 5% 5rem;
   text-align: center;
-  background: white;
+  background: linear-gradient(180deg, var(--surface-blue) 0%, #ffffff 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -6rem;
+  right: -4rem;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  background: rgba(233, 30, 99, 0.08);
+  filter: blur(14px);
 }
 
 .tabs {
@@ -34,57 +48,69 @@
 }
 
 .storyGrid {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 0 5% 15rem;
+  padding: 0 5% 7rem;
   display: grid;
-  gap: 10rem;
+  gap: 3rem;
 }
 
 .storyCard {
-  background: white;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-premium);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  box-shadow: var(--shadow-soft);
   overflow: hidden;
+  border-radius: 32px;
 }
 
 /* Cover image on story card */
 .storyCover {
   position: relative;
   width: 100%;
-  height: 320px;
+  height: 280px;
 }
 .storyCoverOverlay {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.25) 100%);
 }
 
+.loadingState {
+  padding: 6rem 5%;
+  text-align: center;
+  color: var(--text-muted);
+}
+
 .storyCardInner {
-  padding: 6rem 5rem;
+  padding: 3rem;
 }
 
 .storyCard h2 {
-  font-size: 2.8rem;
-  margin-bottom: 2.5rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.08;
+  margin-bottom: 1.5rem;
 }
 
 .meta {
   display: flex;
-  gap: 2.5rem;
-  margin-bottom: 4rem;
-  font-size: 0.8rem;
+  gap: 0.9rem 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
   color: var(--color-pink);
   font-weight: 700;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1.5rem;
+  padding-bottom: 1.2rem;
+  flex-wrap: wrap;
 }
 
 .content {
-  font-size: 1.25rem;
-  line-height: 1.9;
+  font-size: 1.05rem;
+  line-height: 1.85;
   color: var(--text-muted);
 }
 
@@ -92,17 +118,17 @@
 .contentClamped {
   max-height: 18rem;
   overflow: hidden;
-  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
 
 .readMoreBtn {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   background: none;
   border: none;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 800;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-pink);
   cursor: pointer;
@@ -153,7 +179,7 @@
 @media (max-width: 768px) {
   .hero { padding: 8rem 6% 4rem; }
   .storyGrid { padding: 0 6% 5rem; gap: 3rem; }
-  .storyCardInner { padding: 3rem 2rem; }
+  .storyCardInner { padding: 2.4rem 1.75rem; }
   .storyCard h2 { font-size: 1.8rem; }
   .storyCover { height: 200px; }
   .mediaGrid { padding: 0 6% 5rem; grid-template-columns: 1fr; }
