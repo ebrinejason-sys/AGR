@@ -12,47 +12,30 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 export default function Home() {
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
-  const tickerItems = [
-    "School Support",
-    "Mentorship",
-    "Safe Spaces",
-    "Legal Advocacy",
-    "Menstrual Health",
-    "Emergency Support",
-    "Community Outreach",
-    "Girls' Rights",
-    "Case Follow-Up",
-    "Parent Engagement",
-  ];
-
   const marqueeRow1 = [
+    "/images/programs/rise-brothers/rise-brothers-1.jpg",
     "/images/agr-photo-1.jpg",
     "/images/program-1.jpg",
+    "/images/programs/rise-brothers/rise-brothers-2.jpg",
     "/images/agr-photo-2.jpg",
     "/images/program-2.jpg",
     "/images/about-us.jpg",
+    "/images/programs/rise-brothers/rise-brothers-3.jpg",
     "/images/agr-photo-3.jpg",
     "/images/program-3.jpg",
-    "/images/worthy-dream.jpg",
-    "/images/agr-photo-4.jpg",
-    "/images/program-4.jpg",
-    "/images/legal-advocacy.jpg",
-    "/images/hero-bg.jpg",
   ];
 
   const marqueeRow2 = [
-    "/images/agr-photo-3.jpg",
+    "/images/programs/rise-brothers/rise-brothers-4.jpg",
+    "/images/worthy-dream.jpg",
+    "/images/agr-photo-4.jpg",
+    "/images/program-4.jpg",
+    "/images/legal-advocacy.jpg",
     "/images/hero-bg.jpg",
+    "/images/programs/rise-brothers/rise-brothers-1.jpg",
     "/images/agr-photo-1.jpg",
     "/images/about-us.jpg",
-    "/images/agr-photo-4.jpg",
-    "/images/program-2.jpg",
-    "/images/legal-advocacy.jpg",
-    "/images/agr-photo-2.jpg",
-    "/images/program-1.jpg",
-    "/images/worthy-dream.jpg",
-    "/images/program-4.jpg",
-    "/images/program-3.jpg",
+    "/images/programs/rise-brothers/rise-brothers-2.jpg",
   ];
 
   return (
@@ -95,14 +78,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Tag Ticker ─── */}
-      <div className={styles.ticker} aria-hidden="true" role="presentation">
-        <div className={styles.tickerTrack}>
-          {[...tickerItems, ...tickerItems].map((item, i) => (
-            <span key={i} className={styles.tickerItem}>{item}</span>
-          ))}
+      {/* ─── Image Marquee ─── */}
+      <section className={styles.marqueeSection} aria-hidden="true" role="presentation">
+        <div className={styles.marqueeRow}>
+          <div className={styles.marqueeTrack}>
+            {[...marqueeRow1, ...marqueeRow1].map((src, i) => (
+              <div key={i} className={styles.marqueeItem}>
+                <Image src={src} alt="" fill sizes="400px" style={{ objectFit: 'cover' }} />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+        <div className={styles.marqueeRow}>
+          <div className={`${styles.marqueeTrack} ${styles.marqueeTrackRight}`}>
+            {[...marqueeRow2, ...marqueeRow2].map((src, i) => (
+              <div key={i} className={styles.marqueeItem}>
+                <Image src={src} alt="" fill sizes="400px" style={{ objectFit: 'cover' }} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ─── About ─── */}
       <section className={styles.aboutWrap}>
@@ -161,28 +157,6 @@ export default function Home() {
         <p className={styles.statsNote}>
           Each figure reflects direct support delivered with girls, families, and communities.
         </p>
-      </section>
-
-      {/* ─── Image Marquee ─── */}
-      <section className={styles.marqueeSection} aria-hidden="true" role="presentation">
-        <div className={styles.marqueeRow}>
-          <div className={styles.marqueeTrack}>
-            {[...marqueeRow1, ...marqueeRow1].map((src, i) => (
-              <div key={i} className={styles.marqueeItem}>
-                <Image src={src} alt="" fill sizes="280px" style={{ objectFit: 'cover' }} />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className={styles.marqueeRow}>
-          <div className={`${styles.marqueeTrack} ${styles.marqueeTrackRight}`}>
-            {[...marqueeRow2, ...marqueeRow2].map((src, i) => (
-              <div key={i} className={styles.marqueeItem}>
-                <Image src={src} alt="" fill sizes="280px" style={{ objectFit: 'cover' }} />
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* ─── Pillars ─── */}

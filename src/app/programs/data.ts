@@ -33,6 +33,13 @@ export const CORE_PROGRAMS = [
         description: "Bridging education to opportunity through career exposure tours, university preparation, vocational linkages, mentorship, and internship placements.",
         pillar_number: 2,
         status: "active",
+    },
+    {
+        id: "rise-brothers",
+        title: "Rise Brothers Program",
+        description: "Engaging boys as allies in gender equality through mental health support, emotional literacy, and life skills to break cycles of toxic masculinity.",
+        pillar_number: 1,
+        status: "active",
     }
 ];
 
