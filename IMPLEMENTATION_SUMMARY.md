@@ -269,7 +269,7 @@ npm run build
 ## 🚀 Deployment Notes
 
 ### Required Services
-1. **Vercel/Netlify/cPanel** - Next.js hosting with Node.js runtime
+1. **Vercel/cPanel** - Next.js hosting with Node.js runtime
 2. **Supabase** - PostgreSQL database + file storage
 3. **Resend** - Email delivery (OTP + contact forms)
 4. **Flutterwave** - Payment processing
