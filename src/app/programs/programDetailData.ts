@@ -36,6 +36,117 @@ export interface StoryBlock {
     paragraphs: string[];
 }
 
+const RISE_BROTHERS: ProgramDetail = {
+    id: "rise-brothers",
+    type: "program",
+    title: "Rise Brothers Program",
+    heroSubtitle: "Building Allies, Breaking Cycles",
+    philosophy: {
+        quote: "Strong boys support strong girls. Together, we rise.",
+        paragraphs: [
+            "At African Girl Rise, we believe that sustainable change requires everyone – not just girls and women, but boys and men too. When boys understand the struggles girls face, they become protectors instead of bystanders.",
+            "When boys learn to manage their own emotions, they break the cycle of toxic masculinity. When boys are equipped with skills and empathy, they rise alongside their sisters.",
+        ],
+    },
+    sections: [
+        {
+            title: "Program Objectives",
+            paragraphs: ["Our goal is to transform boys into active partners in the movement for gender equality."],
+            subsections: [
+                {
+                    title: "Educate",
+                    paragraphs: ["Teach boys about gender equality, consent, and girls rights."],
+                },
+                {
+                    title: "Empower",
+                    paragraphs: ["Give boys skills to manage their own mental health and emotions."],
+                },
+                {
+                    title: "Engage",
+                    paragraphs: ["Turn boys into active allies who stand up against abuse and discrimination."],
+                },
+                {
+                    title: "Equip",
+                    paragraphs: ["Provide practical life skills (sewing, hygiene, entrepreneurship) so boys can be self-sufficient and supportive."],
+                },
+            ],
+        },
+        {
+            title: "Program Components",
+            subsections: [
+                {
+                    title: "1. Mental Health & Emotional Literacy",
+                    paragraphs: [
+                        "Boys are often told to be strong, not cry, man up. This silence destroys them. We create safe spaces where boys can talk about their feelings without shame, learn that vulnerability is not weakness, and recognize signs of distress in themselves and peers.",
+                    ],
+                    impact: ["Healthier boys who become healthier men."],
+                },
+                {
+                    title: "2. Gender Equality & Allyship Workshops",
+                    paragraphs: [
+                        "We teach boys why girls miss school during periods, what consent means in age-appropriate language, how to recognize and interrupt abusive behavior, and why early marriage and defilement are crimes.",
+                    ],
+                    impact: ["Boys who protect, not harm."],
+                },
+                {
+                    title: "3. Pad-Making & Menstrual Health Education",
+                    paragraphs: [
+                        "Yes, boys can learn to make pads too. When boys understand how pads work and why girls need them, they stop teasing girls and can help sisters or friends in need.",
+                    ],
+                    impact: ["Normalizing periods. Ending the stigma."],
+                },
+                {
+                    title: "4. Life Skills for Self-Sufficiency",
+                    paragraphs: [
+                        "Just like girls, boys need practical skills: soap-making, tailoring, basic repairs, financial literacy, and household management – breaking the idea that these are womens work.",
+                    ],
+                    impact: ["Boys who can care for themselves and contribute to their families."],
+                },
+                {
+                    title: "5. Peer Advocacy Network",
+                    paragraphs: [
+                        "We train Rise Brothers Advocates who educate other boys, identify peers in distress, and lead school campaigns against bullying and gender-based violence.",
+                    ],
+                    impact: ["A student-led safety net."],
+                },
+                {
+                    title: "6. Joint Activities with Rise Girls",
+                    paragraphs: [
+                        "Some sessions bring Rise Brothers and Rise Girls together for mixed mental health circles, pad-making workshops, and community projects like tree planting.",
+                    ],
+                    impact: ["Building mutual respect and partnership from a young age."],
+                },
+            ],
+        },
+        {
+            title: "Program Structure",
+            paragraphs: ["The program is delivered through a mix of regular circles and intensive training."],
+            subsections: [
+                { title: "Weekly", paragraphs: ["Boys-only mental health circles (1 hour)"] },
+                { title: "Bi-weekly", paragraphs: ["Allyship and gender equality workshops (1 hour)"] },
+                { title: "Monthly", paragraphs: ["Joint sessions with Rise Girls (2 hours)"] },
+                { title: "Termly", paragraphs: ["Life skills training (Full day)"] },
+                { title: "Annually", paragraphs: ["Rise Brothers Summit – leadership and advocacy training (Weekend)"] },
+            ],
+        },
+    ],
+    impactTable: {
+        title: "Expected Impact",
+        rows: [
+            { before: "Boys tease girls about periods", after: "Boys support girls and defend them" },
+            { before: "Boys bully weaker peers", after: "Boys intervene when they see bullying" },
+            { before: "Boys are silent about their feelings", after: "Boys seek help and support each other" },
+            { before: "Boys believe household work is for girls", after: "Boys cook, clean, sew without shame" },
+            { before: "Boys grow into men who perpetuate abuse", after: "Boys become men who protect and advocate" },
+        ],
+    },
+    closing: [
+        "We cannot empower girls in isolation. Boys grow up to be fathers, husbands, teachers, police officers, judges.",
+        "If we change boys today, we change the system tomorrow.",
+        "A boy who learns empathy will raise daughters who are free. A boy who learns skills will never be trapped by toxic masculinity. A boy who becomes an ally will break cycles for generations.",
+    ],
+};
+
 export interface ProgramDetail {
     id: string;
     type: "program" | "pillar";
@@ -974,4 +1085,5 @@ export const PROGRAM_DETAIL_MAP: Record<string, ProgramDetail> = {
     "healing-the-ground": HEALING_THE_GROUND,
     "building-the-ladder": BUILDING_THE_LADDER,
     "reaching-new-altitudes": REACHING_NEW_ALTITUDES,
+    "rise-brothers": RISE_BROTHERS,
 };
