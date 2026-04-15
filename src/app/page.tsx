@@ -15,12 +15,12 @@ export default function Home() {
   const marqueeRow1 = [
     "/images/programs/rise-brothers/rise-brothers-1.jpg",
     "/images/agr-photo-1.jpg",
+    "/images/programs/rise-brothers/rise-brothers-3.jpg",
     "/images/program-1.jpg",
-    "/images/programs/rise-brothers/rise-brothers-2.jpg",
     "/images/agr-photo-2.jpg",
     "/images/program-2.jpg",
+    "/images/programs/rise-brothers/rise-brothers-2.jpg",
     "/images/about-us.jpg",
-    "/images/programs/rise-brothers/rise-brothers-3.jpg",
     "/images/agr-photo-3.jpg",
     "/images/program-3.jpg",
   ];
@@ -29,13 +29,13 @@ export default function Home() {
     "/images/programs/rise-brothers/rise-brothers-4.jpg",
     "/images/worthy-dream.jpg",
     "/images/agr-photo-4.jpg",
+    "/images/programs/rise-brothers/rise-brothers-1.jpg",
     "/images/program-4.jpg",
     "/images/legal-advocacy.jpg",
     "/images/hero-bg.jpg",
-    "/images/programs/rise-brothers/rise-brothers-1.jpg",
+    "/images/programs/rise-brothers/rise-brothers-2.jpg",
     "/images/agr-photo-1.jpg",
     "/images/about-us.jpg",
-    "/images/programs/rise-brothers/rise-brothers-2.jpg",
   ];
 
   return (
