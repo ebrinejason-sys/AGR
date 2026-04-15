@@ -36,26 +36,47 @@ export interface StoryBlock {
     paragraphs: string[];
 }
 
+export interface ProgramDetail {
+    id: string;
+    type: "program" | "pillar";
+    title: string;
+    heroSubtitle: string;
+    philosophy: {
+        quote: string;
+        paragraphs: string[];
+    };
+    sections: Section[];
+    impactTable?: {
+        title: string;
+        rows: ImpactRow[];
+    };
+    stats?: StatItem[];
+    story?: StoryBlock;
+    byTheNumbers?: string[];
+    donationTiers?: { amount: string; description: string }[];
+    closing: string[];
+}
+
 const RISE_BROTHERS: ProgramDetail = {
     id: "rise-brothers",
     type: "program",
-    title: "Rise Brothers Program",
+    title: "Rise Brothers",
     heroSubtitle: "Building Allies, Breaking Cycles",
     philosophy: {
         quote: "Strong boys support strong girls. Together, we rise.",
         paragraphs: [
             "At African Girl Rise, we believe that sustainable change requires everyone – not just girls and women, but boys and men too. When boys understand the struggles girls face, they become protectors instead of bystanders.",
             "When boys learn to manage their own emotions, they break the cycle of toxic masculinity. When boys are equipped with skills and empathy, they rise alongside their sisters.",
+            "That is why we are introducing the Rise Brothers Program.",
         ],
     },
     sections: [
         {
             title: "Program Objectives",
-            paragraphs: ["Our goal is to transform boys into active partners in the movement for gender equality."],
             subsections: [
                 {
                     title: "Educate",
-                    paragraphs: ["Teach boys about gender equality, consent, and girls rights."],
+                    paragraphs: ["Teach boys about gender equality, consent, and girls' rights."],
                 },
                 {
                     title: "Empower",
@@ -75,58 +96,118 @@ const RISE_BROTHERS: ProgramDetail = {
             title: "Program Components",
             subsections: [
                 {
-                    title: "1. Mental Health & Emotional Literacy",
+                    title: "Mental Health & Emotional Literacy",
                     paragraphs: [
-                        "Boys are often told to be strong, not cry, man up. This silence destroys them. We create safe spaces where boys can talk about their feelings without shame, learn that vulnerability is not weakness, and recognize signs of distress in themselves and peers.",
+                        "Boys are often told to \"be strong,\" \"not cry,\" \"man up.\" This silence destroys them. We create safe spaces where boys can:",
+                    ],
+                    bullets: [
+                        "Talk about their feelings without shame",
+                        "Learn that vulnerability is not weakness",
+                        "Recognize signs of depression, anxiety, and trauma in themselves and peers",
+                        "Know where to seek help",
                     ],
                     impact: ["Healthier boys who become healthier men."],
                 },
                 {
-                    title: "2. Gender Equality & Allyship Workshops",
+                    title: "Gender Equality & Allyship Workshops",
                     paragraphs: [
-                        "We teach boys why girls miss school during periods, what consent means in age-appropriate language, how to recognize and interrupt abusive behavior, and why early marriage and defilement are crimes.",
+                        "We teach boys:",
+                    ],
+                    bullets: [
+                        "Why girls miss school during their periods (and how to support them)",
+                        "What consent means (in age-appropriate language)",
+                        "How to recognize and interrupt abusive behavior among peers",
+                        "Why early marriage and defilement are crimes",
+                        "How to be an active ally – speaking up when they see harassment",
                     ],
                     impact: ["Boys who protect, not harm."],
                 },
                 {
-                    title: "3. Pad-Making & Menstrual Health Education",
+                    title: "Pad-Making & Menstrual Health Education",
                     paragraphs: [
-                        "Yes, boys can learn to make pads too. When boys understand how pads work and why girls need them, they stop teasing girls and can help sisters or friends in need.",
+                        "Yes, boys can learn to make pads too. When boys understand how pads work and why girls need them:",
                     ],
-                    impact: ["Normalizing periods. Ending the stigma."],
+                    bullets: [
+                        "They stop teasing girls about periods",
+                        "They can help sisters or friends in need",
+                        "They grow up without shame around menstruation",
+                    ],
+                    impact: ["Activity: Boys and girls make pads together in joint workshops.", "Impact: Normalizing periods. Ending the stigma."],
                 },
                 {
-                    title: "4. Life Skills for Self-Sufficiency",
+                    title: "Life Skills for Self-Sufficiency",
                     paragraphs: [
-                        "Just like girls, boys need practical skills: soap-making, tailoring, basic repairs, financial literacy, and household management – breaking the idea that these are womens work.",
+                        "Just like girls, boys need practical skills:",
                     ],
-                    impact: ["Boys who can care for themselves and contribute to their families."],
+                    bullets: [
+                        "Soap-making, tailoring, basic repairs",
+                        "Financial literacy and entrepreneurship",
+                        "Cooking and household management (breaking the idea that these are \"women's work\")",
+                    ],
+                    impact: ["Impact: Boys who can care for themselves and contribute to their families."],
                 },
                 {
-                    title: "5. Peer Advocacy Network",
+                    title: "Peer Advocacy Network",
                     paragraphs: [
-                        "We train Rise Brothers Advocates who educate other boys, identify peers in distress, and lead school campaigns against bullying and gender-based violence.",
+                        "We train selected boys as Rise Brothers Advocates who:",
                     ],
-                    impact: ["A student-led safety net."],
+                    bullets: [
+                        "Educate other boys about gender equality",
+                        "Identify peers who may be experiencing abuse or distress",
+                        "Refer girls and boys to appropriate help (counselors, teachers, authorities)",
+                        "Lead school campaigns against bullying and GBV",
+                    ],
+                    impact: ["Impact: A student-led safety net."],
                 },
                 {
-                    title: "6. Joint Activities with Rise Girls",
+                    title: "Joint Activities with Girls",
                     paragraphs: [
-                        "Some sessions bring Rise Brothers and Rise Girls together for mixed mental health circles, pad-making workshops, and community projects like tree planting.",
+                        "Some sessions bring Rise Brothers and Rise Girls together:",
                     ],
-                    impact: ["Building mutual respect and partnership from a young age."],
+                    bullets: [
+                        "Mixed mental health circles – understanding each other's struggles",
+                        "Pad-making workshops – boys helping girls, asking questions, learning",
+                        "Community projects – boys and girls working side by side (tree planting, clean-ups)",
+                        "Debates and discussions – topics like \"What does real strength look like?\"",
+                    ],
+                    impact: ["Impact: Building mutual respect and partnership from a young age."],
                 },
             ],
         },
         {
             title: "Program Structure",
-            paragraphs: ["The program is delivered through a mix of regular circles and intensive training."],
             subsections: [
-                { title: "Weekly", paragraphs: ["Boys-only mental health circles (1 hour)"] },
-                { title: "Bi-weekly", paragraphs: ["Allyship and gender equality workshops (1 hour)"] },
-                { title: "Monthly", paragraphs: ["Joint sessions with Rise Girls (2 hours)"] },
-                { title: "Termly", paragraphs: ["Life skills training (Full day)"] },
-                { title: "Annually", paragraphs: ["Rise Brothers Summit – leadership and advocacy training (Weekend)"] },
+                {
+                    title: "Weekly",
+                    paragraphs: ["Boys-only mental health circles (1 hour)"],
+                },
+                {
+                    title: "Bi-weekly",
+                    paragraphs: ["Allyship and gender equality workshops (1 hour)"],
+                },
+                {
+                    title: "Monthly",
+                    paragraphs: ["Joint sessions with Rise Girls (2 hours)"],
+                },
+                {
+                    title: "Termly",
+                    paragraphs: ["Life skills training (soap-making, tailoring, etc.) (Full day)"],
+                },
+                {
+                    title: "Annually",
+                    paragraphs: ["Rise Brothers Summit – leadership and advocacy training (Weekend)"],
+                },
+            ],
+        },
+        {
+            title: "Rise Brothers Graduate With",
+            checkmarks: [
+                "Certificate of completion",
+                "Deep understanding of gender equality and consent",
+                "Practical life skills (soap-making, basic sewing, financial literacy)",
+                "Mental health first aid knowledge",
+                "Membership in the Rise Brothers alumni network",
+                "Commitment to be an ally for life",
             ],
         },
     ],
@@ -141,112 +222,78 @@ const RISE_BROTHERS: ProgramDetail = {
         ],
     },
     closing: [
-        "We cannot empower girls in isolation. Boys grow up to be fathers, husbands, teachers, police officers, judges.",
-        "If we change boys today, we change the system tomorrow.",
+        "We cannot empower girls in isolation. Boys grow up to be fathers, husbands, teachers, police officers, judges. If we change boys today, we change the system tomorrow.",
         "A boy who learns empathy will raise daughters who are free. A boy who learns skills will never be trapped by toxic masculinity. A boy who becomes an ally will break cycles for generations.",
+        "African Girl Rise Initiative: \"Your beginning does not define your becoming.\"",
     ],
 };
-
-export interface ProgramDetail {
-    id: string;
-    type: "program" | "pillar";
-    title: string;
-    heroSubtitle: string;
-    philosophy?: { quote: string; paragraphs: string[] };
-    sections: Section[];
-    impactTable?: { title: string; rows: ImpactRow[] };
-    byTheNumbers?: string[];
-    story?: StoryBlock;
-    closing?: string[];
-    donationTiers?: { amount: string; description: string }[];
-}
-
-/* =================================================================
-   CORE PROGRAMS
-   ================================================================= */
 
 const RISE_ROOMS: ProgramDetail = {
     id: "rise-rooms",
     type: "program",
     title: "The Rise Room Initiative",
-    heroSubtitle: "A sanctuary. A lifeline. A place where silence can finally break.",
+    heroSubtitle: "Safe Spaces for Healing",
     philosophy: {
-        quote: "You cannot climb when you are bleeding. First, you must heal.",
+        quote: "A girl who is safe in her own mind can be safe anywhere.",
         paragraphs: [
-            "A Rise Room is a safe space — a dedicated room within a partner school where girls can come to heal, speak freely, and find support.",
-            "It is not a classroom. There are no desks, no chalkboards, no pressure to perform. Instead, there are cushions, soft lighting, calming colors, and a circle of chairs where everyone sits as equals.",
+            "We believe that healing is the first step to rising. You cannot ask a girl to focus on algebra when she is carrying the weight of trauma, hunger, or fear.",
+            "The Rise Room is our answer. It is a dedicated, school-based sanctuary where girls find the safety, support, and resources they need to heal and thrive.",
         ],
     },
     sections: [
         {
-            title: "Why Rise Rooms Exist",
+            title: "What is a Rise Room?",
             paragraphs: [
-                "In Ibanda District, girls carry weights no child should carry:",
+                "A Rise Room is more than just a physical space. It is a ecosystem of support designed specifically for the adolescent girl.",
             ],
             bullets: [
-                "Trauma from losing parents",
-                "Grief from watching siblings go hungry",
-                "Shame from abuse they did not cause",
-                "Anxiety about being married off or dropping out",
-                "Exhaustion from carrying adult responsibilities",
+                "A sanctuary from the pressures of poverty and the risks of violence.",
+                "A hub where mental health meets physical wellness.",
+                "A bridge between the school, the home, and the legal system.",
             ],
+        },
+        {
+            title: "Key Components",
             subsections: [
                 {
-                    title: "",
+                    title: "1. Mental Health & Counseling",
                     paragraphs: [
-                        "And they carry it all alone. In our communities, girls are taught to be strong, to endure, to suffer in silence.",
-                        "Rise Rooms exist to say: You are not alone. Your feelings matter. You deserve to heal.",
+                        "Every Rise Room is staffed by or connected to trained counselors who understand adolescent trauma.",
+                    ],
+                    bullets: [
+                        "One-on-one counseling sessions",
+                        "Peer support circles (The \"Rise Sisters\" model)",
+                        "Art and music therapy for trauma expression",
+                    ],
+                },
+                {
+                    title: "2. The Education Drive",
+                    paragraphs: [
+                        "We eliminate the physical barriers that keep girls out of class.",
+                    ],
+                    bullets: [
+                        "Provision of high-quality reusable sanitary pads",
+                        "Emergency school supplies (books, pens, uniforms)",
+                        "Hygiene kits and soap",
+                    ],
+                },
+                {
+                    title: "3. Mentorship & Life Skills",
+                    paragraphs: [
+                        "Safe spaces for learning things the classroom doesn't always teach.",
+                    ],
+                    bullets: [
+                        "Financial literacy and saving workshops",
+                        "Reproductive health and rights education",
+                        "Public speaking and leadership development",
                     ],
                 },
             ],
         },
-        {
-            title: "What Happens Inside a Rise Room",
-            subsections: [
-                {
-                    title: "Individual Counseling",
-                    paragraphs: ["One-on-one sessions with trained counselors"],
-                },
-                {
-                    title: "Group Circles",
-                    paragraphs: ["Girls discover they are not alone in their struggles"],
-                },
-                {
-                    title: "Peer Support",
-                    paragraphs: ["Older girls trained to listen and guide"],
-                },
-                {
-                    title: "Art Therapy",
-                    paragraphs: ["Drawing, writing, creating to express what words cannot"],
-                },
-                {
-                    title: "Quiet Space",
-                    paragraphs: ["Sometimes a girl just needs to rest"],
-                },
-            ],
-        },
-    ],
-    impactTable: {
-        title: "The Impact",
-        rows: [
-            { before: "85% felt alone in their struggles", after: "75% know they are not alone" },
-            { before: "20% could express their feelings", after: "75% can speak about their pain" },
-            { before: "10% knew where to seek help", after: "90% know where to turn" },
-            { before: "62% school attendance", after: "92% attendance" },
-        ],
-    },
-    byTheNumbers: [
-        "15 Rise Rooms established in schools across Ibanda District",
-        "800+ girls reached",
-        "42 peer counselors trained",
-        "92% school retention among girls who use Rise Rooms",
     ],
     closing: [
-        "A Rise Room Is Not Just a Room. It is:",
-        "A place where trauma meets healing",
-        "A place where silence finds voice",
-        "A place where girls discover they are not alone",
-        "A place where rising begins",
+        "In a Rise Room, a girl is not a victim. She is not a statistic. She is a sister, a student, and a rising leader.",
+        "When we heal the ground, the girl can finally grow.",
     ],
 };
 
@@ -254,433 +301,235 @@ const ACADEMIC_RESCUE: ProgramDetail = {
     id: "academic-rescue",
     type: "program",
     title: "Academic Rescue Program",
-    heroSubtitle: "Removing obstacles so no girl has to leave school.",
+    heroSubtitle: "Closing the Gap",
     philosophy: {
-        quote: "No girl should leave school because the world made it too hard to stay.",
+        quote: "Education is the only ladder strong enough to reach across poverty.",
         paragraphs: [
-            "Every day in Ibanda District, girls drop out of school. Not because they are lazy. Not because they lack intelligence. Not because they don't want to learn.",
-            "They drop out because the world puts obstacle after obstacle in their path. The Academic Rescue Program exists to remove those obstacles — one girl at a time.",
+            "Dropout is not a choice for most girls in Uganda; it is a consequence. It is the consequence of being unable to afford a pen, or being too ashamed to go to school during a period.",
+            "The Academic Rescue Program is designed to catch girls before they fall, and lift them back up if they already have.",
         ],
     },
     sections: [
         {
-            title: "The Reality We Address",
-            paragraphs: [
-                "In Uganda, 4 in 10 girls drop out before completing secondary school. They drop out because:",
-            ],
-            bullets: [
-                "Uniforms wear out and cannot be replaced",
-                "Exercise books run out and there is no money for more",
-                "Sanitary pads are a luxury they cannot afford",
-                "Exam fees come due and their families cannot pay",
-                "They become pregnant and schools expel them",
-                "They are needed at home to care for younger siblings",
-            ],
+            title: "How We Rescue",
             subsections: [
                 {
-                    title: "",
+                    title: "1. The Education Drive Support",
                     paragraphs: [
-                        "These are not failures of effort. These are failures of circumstance.",
+                        "We provide the essentials that ensure school attendance is not a luxury.",
                     ],
-                },
-            ],
-        },
-        {
-            title: "What We Do",
-            paragraphs: [
-                "The Academic Rescue Program keeps girls in school by addressing the practical barriers that push them out:",
-            ],
-            subsections: [
-                {
-                    title: "1. Uniforms and Shoes",
-                    paragraphs: [
-                        "A girl in a torn uniform is sent home. A girl without shoes is mocked. We provide complete uniforms and shoes so every girl can walk into school with dignity.",
+                    bullets: [
+                        "Sanitary pad distribution to end period poverty",
+                        "Scholastic materials support",
+                        "Payment of critical school fees for girls at high risk of dropout",
                     ],
                 },
                 {
-                    title: "2. Scholastic Materials",
+                    title: "2. Tutoring & Academic Support",
                     paragraphs: [
-                        "Exercise books, pens, pencils, geometry sets, textbooks. When a girl has the tools to learn, she can focus on learning — not on what she lacks.",
+                        "Poverty often means missed days. We help girls catch up.",
+                    ],
+                    bullets: [
+                        "After-school literacy and numeracy circles",
+                        "Exam preparation support for P7, S4, and S6 candidates",
+                        "Peer tutoring networks where older girls help younger ones",
                     ],
                 },
                 {
-                    title: "3. Sanitary Pads",
+                    title: "3. STEM for Girls",
                     paragraphs: [
-                        "1 in 10 girls misses school during her period. We provide reusable pad kits and training so no girl ever misses class again.",
+                        "We break the myth that science and technology are not for girls.",
                     ],
-                },
-                {
-                    title: "4. Exam Fees",
-                    paragraphs: [
-                        "When national exams approach, many girls cannot afford the fees. We cover them so no girl is barred from sitting for her future.",
-                    ],
-                },
-                {
-                    title: "5. Emergency Support",
-                    paragraphs: [
-                        "When a crisis hits — a parent dies, a harvest fails, a family is displaced — we provide immediate support to keep the girl in school.",
-                    ],
-                },
-                {
-                    title: "6. Tutoring and Remedial Classes",
-                    paragraphs: [
-                        "For girls who have fallen behind due to absences or trauma, we provide after-school tutoring and exam preparation to help them catch up.",
+                    bullets: [
+                        "Basic computer literacy workshops",
+                        "Introduction to coding and digital tools",
+                        "Science-based mentorship with female professionals",
                     ],
                 },
             ],
         },
     ],
-    impactTable: {
-        title: "The Difference It Makes",
-        rows: [
-            { before: "Girl worried about torn uniform", after: "Girl walks tall, ready to learn" },
-            { before: "Girl shares one book with five others", after: "Girl has her own materials" },
-            { before: "Girl misses a week of school each month", after: "Girl attends every single day" },
-            { before: "Girl cannot afford exam fees", after: "Girl sits for her exams" },
-            { before: "Girl falls behind and gives up", after: "Girl catches up and believes again" },
-        ],
-    },
-    byTheNumbers: [
-        "92% of girls in our program stay in school — compared to 60% nationally",
+    closing: [
+        "A girl in school is a girl with a future. A girl with a future is a girl who cannot be easily exploited.",
+        "Rescue the education, and you rescue the life.",
     ],
 };
 
 const LEADERSHIP_LIFE_SKILLS: ProgramDetail = {
     id: "leadership-life-skills",
     type: "program",
-    title: "Leadership & Life Skills Program",
-    heroSubtitle: "Equipping girls to stand on their own, lead, and lift others.",
+    title: "Leadership & Life Skills",
+    heroSubtitle: "Building the Inner Strength",
     philosophy: {
-        quote: "A girl who can provide for herself will never be trapped. A girl who can lead will change the world.",
+        quote: "Your beginning does not define your becoming.",
         paragraphs: [
-            "Healing gives a girl back her voice. Education keeps her in school. But leadership and life skills give her something more: the ability to stand on her own, to earn her own money, to make her own decisions, and to lift others as she rises.",
+            "We do not just want girls to survive; we want them to lead. Leadership starts with the self—having the confidence to speak, the skills to earn, and the wisdom to plan.",
+            "Our Leadership & Life Skills curriculum is the toolkit every girl needs to build her own future.",
         ],
     },
     sections: [
         {
-            title: "Life Skills Training — What Girls Learn",
-            subsections: [
-                { title: "Reusable Pad Making", paragraphs: ["Never miss school again. Never be ashamed."] },
-                { title: "Liquid Soap Making", paragraphs: ["Hygiene for family. Income from selling."] },
-                { title: "Vaseline & Body Lotion", paragraphs: ["Skin care on a budget. Products to sell."] },
-                { title: "Tailoring & Repairs", paragraphs: ["Mend uniforms. Make clothes. Earn income."] },
-                { title: "Notebook Making", paragraphs: ["Always have books for class. Sell to others."] },
-                { title: "Financial Literacy", paragraphs: ["Save money. Track profits. Grow businesses."] },
-                { title: "Entrepreneurship", paragraphs: ["Turn skills into income. Become self-sufficient."] },
-            ],
-        },
-        {
-            title: "The Enterprise Group Model",
-            paragraphs: [
-                "Girls form small groups (5–10 members) to:",
-            ],
-            checkmarks: [
-                "Buy materials in bulk (cheaper together)",
-                "Make products together (faster together)",
-                "Sell at markets, schools, and events (stronger together)",
-                "Save money together (village savings model)",
-                "Support each other through challenges (sisterhood)",
-            ],
+            title: "Curriculum Pillars",
             subsections: [
                 {
-                    title: "Example: \"Rise Sisters\"",
+                    title: "1. Financial Literacy & Entrepreneurship",
                     paragraphs: [
-                        "The \"Rise Sisters\" group makes soap, lotion, and pads together. Each girl earns 10,000–20,000 UGX per month — enough for school supplies and helping family.",
+                        "Financial independence is the greatest protection against abuse.",
+                    ],
+                    bullets: [
+                        "Basic bookkeeping and saving strategies",
+                        "Micro-enterprise development (making liquid soap, crafts)",
+                        "Village Savings and Loan Association (VSLA) models for older girls",
                     ],
                 },
-            ],
-        },
-        {
-            title: "Leadership Development",
-            subsections: [
-                { title: "Stage 1: Discovery", paragraphs: ["Girls identify problems in their community"] },
-                { title: "Stage 2: Planning", paragraphs: ["They design solutions and make a plan"] },
-                { title: "Stage 3: Action", paragraphs: ["They lead projects that create change"] },
-                { title: "Stage 4: Reflection", paragraphs: ["They learn from successes and challenges"] },
-                { title: "Stage 5: Mentoring", paragraphs: ["They teach younger girls to do the same"] },
-            ],
-        },
-        {
-            title: "Community Projects Led by Girls",
-            paragraphs: ["Girls in our program have:"],
-            bullets: [
-                "Taught 50 primary school girls to make reusable pads",
-                "Started a \"youth helping elders\" program fetching water for grandmothers",
-                "Organized community legal awareness sessions",
-                "Planted 200 trees in their villages",
-                "Created a \"buddy system\" to protect younger students from bullying",
-            ],
-            subsections: [
                 {
-                    title: "",
+                    title: "2. Public Speaking & Advocacy",
                     paragraphs: [
-                        "A girl who has led one project will lead again. A girl who has changed one thing will try to change more.",
+                        "A girl who can find her voice can change her world.",
+                    ],
+                    bullets: [
+                        "Debate and public speaking workshops",
+                        "Self-advocacy: Learning how to say 'No' and how to ask for help",
+                        "Community leadership projects",
                     ],
                 },
-            ],
-        },
-        {
-            title: "The Ripple Effect",
-            paragraphs: [
-                "One girl learns to make soap.",
-                "She teaches her mother. Mother saves money. She teaches her sister. Sister starts a business. She teaches her friend. Friend earns her own income. She teaches her daughter someday. The cycle continues.",
-                "This is not charity. This is multiplication.",
+                {
+                    title: "3. Digital Citizenship",
+                    paragraphs: [
+                        "Preparing girls for a digital world while keeping them safe online.",
+                    ],
+                    bullets: [
+                        "Safe social media usage",
+                        "Using digital tools for research and learning",
+                        "Digital storytelling",
+                    ],
+                },
             ],
         },
     ],
     closing: [
-        "Every girl who completes our program pledges: \"I will reach back. I will mentor at least one girl each year. I will prove that her beginning does not define her becoming.\"",
+        "A leader is not someone who stands above. A leader is someone who rises and reaches back.",
+        "We are building a generation of girls who reach back.",
     ],
 };
 
 const HEALTH_WELLNESS: ProgramDetail = {
     id: "health-wellness",
     type: "program",
-    title: "Health & Wellness Program",
-    heroSubtitle: "Because a girl who is sick, hungry, or ashamed cannot rise.",
+    title: "Health & Wellness",
+    heroSubtitle: "Total Body & Mind Care",
     philosophy: {
-        quote: "A healthy girl is a rising girl.",
+        quote: "A healthy girl is a powerful girl.",
         paragraphs: [
-            "At African Girl Rise, we understand that a girl cannot learn, cannot lead, cannot dream — if her body is failing her. Health is not a luxury. It is the foundation upon which everything else is built.",
-            "We address the whole girl: her physical health, her menstrual health, her nutrition, and her access to healthcare.",
+            "Health is not just the absence of disease; it is the presence of dignity. For adolescent girls, health includes understanding their bodies, managing their cycles with pride, and knowing their reproductive rights.",
         ],
     },
     sections: [
         {
-            title: "The Reality We Address",
-            paragraphs: [
-                "In Ibanda District, girls face daily health challenges that keep them from school and from thriving:",
-            ],
-            bullets: [
-                "1 in 10 girls misses school during her period because she has no sanitary pads",
-                "Malnutrition affects concentration, energy, and growth",
-                "Infections go untreated because clinics are far and money is scarce",
-                "Pregnancy ends education for thousands of girls each year",
-                "HIV and sexual health risks are high, but knowledge is low",
-                "Stigma around menstruation and reproductive health keeps girls silent and suffering",
-            ],
-            subsections: [
-                { title: "", paragraphs: ["These are not small problems. They are barriers that steal futures."] },
-            ],
-        },
-        {
-            title: "What We Do",
+            title: "Our Health Focus",
             subsections: [
                 {
-                    title: "1. Menstrual Health Management",
-                    quote: "No girl should miss school because of her period.",
+                    title: "1. Menstrual Health Management (MHM)",
                     paragraphs: [
-                        "We tackle period poverty through reusable pad training, pad distribution, and menstrual health education.",
+                        "Period shame is one of the biggest drivers of school dropout. We end it.",
                     ],
                     bullets: [
-                        "Every girl learns to make her own reusable pads (lasts 6–12 months)",
-                        "Starter kits for girls who cannot afford materials",
-                        "Girls learn about their bodies without shame",
-                        "Breaking the silence around menstruation",
-                    ],
-                    impact: [
-                        "Girls who never miss school again",
-                        "Girls who feel confident instead of ashamed",
-                        "Girls who can teach their mothers and sisters",
+                        "Reusable pad-making workshops (skill-building + utility)",
+                        "Reproductive system education",
+                        "Destigmatization campaigns in schools",
                     ],
                 },
                 {
-                    title: "2. Nutrition and Food Security",
-                    quote: "A hungry girl cannot learn.",
+                    title: "2. Sexual & Reproductive Health & Rights (SRHR)",
                     paragraphs: [
-                        "We address nutrition through school meal support, nutrition education, and growing small vegetable gardens at home.",
+                        "Knowledge is protection. We provide age-appropriate, rights-based health education.",
                     ],
-                    impact: [
-                        "Girls who can concentrate in class",
-                        "Girls with energy to learn and play",
-                        "Girls who grow into strong women",
-                    ],
-                },
-                {
-                    title: "3. Sexual and Reproductive Health Education",
-                    quote: "Knowledge is protection.",
                     bullets: [
-                        "Understanding puberty and body changes",
-                        "Contraception and family planning",
-                        "Preventing HIV and STIs",
-                        "Consent and healthy relationships",
-                        "Dangers of early pregnancy",
-                        "Where to access health services",
-                    ],
-                    impact: [
-                        "Girls who can make informed choices",
-                        "Girls who know how to protect themselves",
-                        "Girls who avoid early pregnancy and stay in school",
+                        "Prevention of early pregnancy and STIs",
+                        "Understanding consent and bodily autonomy",
+                        "Access to health referrals and youth-friendly services",
                     ],
                 },
                 {
-                    title: "4. Access to Healthcare",
-                    quote: "No girl should suffer because help is too far or too expensive.",
-                    bullets: [
-                        "Local health centers and clinics",
-                        "HIV testing and counseling services",
-                        "Family planning services",
-                        "Antenatal care for pregnant girls",
-                        "Emergency medical support",
-                    ],
-                    impact: [
-                        "Girls who get treatment when they are sick",
-                        "Girls who know where to go for help",
-                    ],
-                },
-                {
-                    title: "5. Physical Wellness",
-                    quote: "Strong bodies, strong minds.",
-                    bullets: [
-                        "Sports and recreation activities",
-                        "Basic exercise and movement",
-                        "Understanding the connection between physical and mental health",
-                        "Rest and sleep education",
-                    ],
-                    impact: [
-                        "Girls who feel strong in their bodies",
-                        "Girls who understand self-care",
-                    ],
-                },
-                {
-                    title: "6. Mental Health Integration",
-                    quote: "You cannot separate the body from the mind.",
+                    title: "3. Nutrition & Self-Care",
                     paragraphs: [
-                        "Our Health and Wellness Program works hand-in-hand with our Healing the Ground pillar. Health issues often cause or worsen mental distress, and mental distress affects physical health. We address both, always, together.",
+                        "Strong bodies support strong minds.",
                     ],
-                    impact: [
-                        "Holistic healing. Whole girls. Complete wellness.",
+                    bullets: [
+                        "Nutrition workshops for families",
+                        "Stress management and self-care techniques",
+                        "Personal hygiene education",
                     ],
                 },
             ],
         },
+    ],
+    closing: [
+        "When a girl understands her body, she understands her power.",
+        "Health is the foundation of every rise.",
     ],
 };
 
 const FUTURE_PATHWAYS: ProgramDetail = {
     id: "future-pathways",
     type: "program",
-    title: "Future Pathways Program",
-    heroSubtitle: "Bridging the gap between dreaming and doing.",
+    title: "Future Pathways",
+    heroSubtitle: "Connecting Dreams to Reality",
     philosophy: {
-        quote: "A girl with a vision for her future will never settle for less.",
+        quote: "You cannot become what you cannot imagine.",
         paragraphs: [
-            "Healing gives her back her voice. Education keeps her in school. Skills make her self-sufficient. Leadership teaches her to guide others.",
-            "But none of it matters if she cannot see where she is going. The Future Pathways Program ensures that every girl leaves African Girl Rise with a clear vision for her future — and a concrete plan to get there.",
+            "Many of the girls we work with have never met a female doctor, lawyer, or business owner. Their dreams are often limited by what they see in their immediate surroundings.",
+            "Future Pathways expands their horizons, showing them that their potential is limitless.",
         ],
     },
     sections: [
         {
-            title: "The Reality We Address",
-            paragraphs: [
-                "In Ibanda District, girls grow up surrounded by limited examples of what they can become. They rarely see female doctors, lawyers, engineers, business owners, or leaders.",
-                "You cannot become what you cannot imagine. Many girls have dreams, but they do not know how to reach them. The Future Pathways Program bridges that gap.",
-            ],
-        },
-        {
-            title: "What We Do",
+            title: "Pathways to Success",
             subsections: [
                 {
-                    title: "1. Career Exposure",
-                    quote: "Show her what is possible, and she will believe it is possible for her.",
-                    bullets: [
-                        "Career Days: Professionals visit our girls to share their journeys",
-                        "Exposure Tours: Visits to universities and vocational institutes",
-                        "Job Shadowing: Selected girls spend a day with a professional",
-                    ],
-                    impact: [
-                        "Girls who know what is possible",
-                        "Girls who can picture themselves in careers they never knew existed",
-                    ],
-                },
-                {
-                    title: "2. Mentorship",
-                    quote: "Every girl needs someone who has walked the path before her.",
-                    bullets: [
-                        "Professional Mentors: Women in careers our girls dream of",
-                        "Near-Peer Mentors: Slightly older girls who recently completed our program",
-                        "Lifetime Connection: Mentors commit to long-term relationships",
-                    ],
-                    impact: [
-                        "Girls with guides",
-                        "Girls who know someone believes in their future",
-                    ],
-                },
-                {
-                    title: "3. University and Vocational Preparation",
-                    quote: "The path to higher education should be clear, not confusing.",
-                    bullets: [
-                        "Subject guidance: What subjects lead to which careers",
-                        "Application support: Personal statements and interview prep",
-                        "Education Drive connections: Identifying and supporting applications",
-                        "Exam preparation: Intensive support for national exams",
-                    ],
-                    impact: [
-                        "Girls who know how to apply",
-                        "Girls who can access higher education",
-                    ],
-                },
-                {
-                    title: "4. Vocational Training Pathways",
-                    quote: "Not every girl wants university. Every girl deserves a skill.",
-                    bullets: [
-                        "Tailoring and Fashion Design",
-                        "Catering and Hotel Management",
-                        "Hairdressing and Cosmetology",
-                        "Agriculture and Animal Husbandry",
-                        "Construction and Carpentry",
-                        "Information Technology",
-                    ],
-                    impact: [
-                        "Girls with marketable skills",
-                        "Girls who can earn from day one",
-                    ],
-                },
-                {
-                    title: "5. The \"My Rise Plan\" Process",
-                    quote: "A dream without a plan is just a wish.",
+                    title: "1. Career Exposure & Mentorship",
                     paragraphs: [
-                        "Every girl creates her own \"My Rise Plan\" — a personalized roadmap for her future:",
+                        "We connect girls with professionals who have already walked the path.",
                     ],
                     bullets: [
-                        "Step 1: Vision — Where do I want to be in 5 years? 10 years?",
-                        "Step 2: Goals — What education and skills do I need?",
-                        "Step 3: Timeline — When will I complete each step?",
-                        "Step 4: Resources — What do I already have? What do I still need?",
-                        "Step 5: Review — How will I track my progress?",
-                    ],
-                    impact: [
-                        "Girls with clarity and direction",
-                        "Girls who can see the path ahead",
+                        "Career days with female professionals",
+                        "Field trips to universities and workplaces",
+                        "One-on-one mentorship matching",
                     ],
                 },
                 {
-                    title: "6. Alumni Network",
-                    quote: "She rises. She reaches back. The cycle continues.",
-                    bullets: [
-                        "Ongoing mentorship opportunities",
-                        "Access to job and training opportunities",
-                        "Connection to a sisterhood that lasts forever",
-                        "Mentor at least one current girl each year",
+                    title: "2. Vocational Linkages",
+                    paragraphs: [
+                        "For girls who cannot continue with formal academics, we provide a different ladder.",
                     ],
-                    impact: [
-                        "A self-sustaining cycle of rising and reaching back",
+                    bullets: [
+                        "Partnerships with vocational training centers",
+                        "Apprenticeship placements in tailoring, catering, and hair-dressing",
+                        "Startup support for small businesses",
+                    ],
+                },
+                {
+                    title: "3. Higher Education Guidance",
+                    paragraphs: [
+                        "Supporting the transition from secondary school to the world beyond.",
+                    ],
+                    bullets: [
+                        "University application support",
+                        "Scholarship opportunity tracking",
+                        "Bridge-to-university mentorship",
                     ],
                 },
             ],
         },
     ],
-    byTheNumbers: [
-        "200+ girls participated in career exposure events",
-        "50+ professionals connected as mentors",
-        "100+ girls supported with application and Education Drive guidance",
-        "15 girls currently in university or vocational training",
-        "40% of alumni actively mentoring current participants",
+    closing: [
+        "A dream without a path is just a wish. We provide the map.",
+        "From the village to the world—there is no limit to where they can go.",
     ],
 };
 
 /* =================================================================
-   PILLARS
+   PILLARS DATA
    ================================================================= */
 
 const HEALING_THE_GROUND: ProgramDetail = {
@@ -689,112 +538,82 @@ const HEALING_THE_GROUND: ProgramDetail = {
     title: "Healing the Ground",
     heroSubtitle: "Mental Health & Trauma Recovery",
     philosophy: {
-        quote: "You cannot climb when you are bleeding.",
+        quote: "You cannot rise from broken ground.",
         paragraphs: [
-            "This is the truth at the heart of everything we do at African Girl Rise. Before a girl can learn, before she can lead, before she can rise — she must first heal.",
-            "In Ibanda District and across Uganda, girls carry weights no child should carry. They carry the trauma of losing parents. They carry the grief of watching siblings go hungry. They carry the shame of abuse they did not cause.",
-            "And they carry it all in silence. Because in our communities, girls are taught to be strong. They are taught to endure. They are taught that their pain is private. We are changing that.",
+            "Most girls in our communities are navigating silent crises. They have survived abuse, lived through extreme poverty, and carried the weight of adult responsibilities since childhood.",
+            "If we don't address the trauma, any other support is temporary. Healing the Ground is about making sure a girl's foundation is strong enough to hold her future.",
         ],
     },
     sections: [
         {
+            title: "Why \"The Ground\"?",
+            paragraphs: [
+                "In our agricultural communities, everyone knows that a seed won't grow in hard, rocky, or poisoned soil. You must till the land, remove the rocks, and nourish the earth first.",
+                "Trauma is the 'poisoned soil'. Healing is the 'tilling'.",
+            ],
+        },
+        {
             title: "What We Do: Healing the Ground",
             subsections: [
                 {
-                    title: "1. Rise Rooms — Safe Spaces for Healing",
+                    title: "1. Safe Space Sanctuaries (Rise Rooms)",
                     paragraphs: [
-                        "At the heart of Healing the Ground are our Rise Rooms — dedicated, confidential spaces within partner schools where girls can come exactly as they are.",
-                        "A Rise Room is not a classroom. Instead, there are cushions, soft lighting, calming colors, and a circle of chairs where everyone sits as equals.",
+                        "We establish dedicated physical rooms in schools where a girl can go just to 'be'. No judgment, no noise, no fear.",
                     ],
                     bullets: [
-                        "Speak without fear of judgment",
-                        "Cry without being told to stop",
-                        "Sit in silence if she has no words yet",
-                        "Draw, write, or create to express what she cannot say",
-                        "Simply rest, for the first time in perhaps years",
+                        "Equipped with comfortable seating, art supplies, and calming resources",
+                        "Staffed by trained peer supporters and adult counselors",
+                        "Open for both scheduled therapy and emergency retreat",
                     ],
                 },
                 {
-                    title: "2. Professional Counseling",
+                    title: "2. Trauma-Informed Counseling",
                     paragraphs: [
-                        "We provide trained counselors who visit partner schools regularly:",
+                        "Standard counseling doesn't always work for deep-seated community trauma. We use specialized approaches:",
                     ],
                     bullets: [
-                        "Individual Counseling: One-on-one sessions with trauma-informed care",
-                        "Group Counseling: Girls come together and discover they are not alone",
-                        "Crisis Intervention: Immediate support and referral for girls in acute distress",
+                        "Narrative Therapy: Helping girls reclaim their story",
+                        "Cognitive Behavioral Tools: Managing triggers and anxiety",
+                        "Play and Art Therapy: For when words are too hard to find",
                     ],
                 },
                 {
-                    title: "3. Peer Support Circles",
+                    title: "3. Peer Support Circles (Rise Sisters)",
                     paragraphs: [
-                        "We train senior girls as Peer Counselors — young women who learn to listen, validate, and guide their peers toward help. Because sometimes, the first person a girl tells is her friend.",
+                        "The most powerful healer for a girl is often another girl who understands.",
                     ],
                     bullets: [
-                        "Listen without judgment",
-                        "Recognize signs of distress",
-                        "Maintain confidentiality",
-                        "Know when and how to refer to professional help",
-                        "Create a culture of openness and support",
-                    ],
-                    impact: [
-                        "42 peer counselors trained to date, each a lifeline for the girls around them",
+                        "Weekly small-group circles led by trained older girls",
+                        "A curriculum of shared vulnerability and resilience-building",
+                        "Creating a 'sisterhood safety net' that exists outside the meetings",
                     ],
                 },
                 {
-                    title: "4. Mental Health Awareness",
-                    bullets: [
-                        "School-wide Mental Health Assemblies: Normalizing conversations about feelings and well-being",
-                        "Teacher Training: Equipping teachers to recognize and respond to trauma with compassion",
-                        "Community Dialogues: Engaging parents, elders, and leaders to break stigma",
-                    ],
-                },
-                {
-                    title: "5. Expressive Healing",
+                    title: "4. Crisis Response & Stabilization",
                     paragraphs: [
-                        "Not every girl can speak her pain. Some need other ways to express what is inside:",
+                        "When a girl is in immediate danger (abuse, homelessness, acute distress), we act immediately.",
                     ],
                     bullets: [
-                        "Art Therapy: Drawing, painting, and collage",
-                        "Journaling: Private notebooks for free writing",
-                        "Dance and Movement: Using the body to release what words cannot hold",
-                        "Music: Singing together, listening to healing music, even writing songs",
-                    ],
-                },
-                {
-                    title: "6. Referral and Follow-Up",
-                    paragraphs: [
-                        "Some girls need more support than we can provide within our Rise Rooms. We maintain a network of clinical psychologists, health centers, child protection services, and legal aid.",
-                        "We do not abandon a girl when her needs exceed our capacity. We walk with her to the next level of care, and we follow up to ensure she receives it.",
+                        "Emergency counseling and safe-placement support",
+                        "Legal and medical referrals",
+                        "Family mediation where safe and appropriate",
                     ],
                 },
             ],
         },
     ],
     impactTable: {
-        title: "The Impact of Healing the Ground",
+        title: "The Impact of Healing",
         rows: [
-            { before: "85% feel alone in their struggles", after: "25% feel alone (75% healed)" },
-            { before: "20% can name and express their feelings", after: "75% can express their feelings" },
-            { before: "10% know where to seek help", after: "90% know where to seek help" },
-            { before: "62% school attendance", after: "92% school attendance" },
-        ],
-    },
-    story: {
-        title: "A Story of Healing",
-        paragraphs: [
-            "Brenda came to our Rise Room unable to speak. Not because she was shy. Because trauma had stolen her voice.",
-            "Her mother had died. Her father drank. She was caring for younger brothers alone, waking at 4 a.m., falling asleep in class, carrying weights no child should carry.",
-            "She came to our Rise Room every week. She sat in silence for six weeks.",
-            "And then, one day, she whispered: \"No one has ever said they're glad I'm here.\"",
-            "That whisper became words. Those words became healing. That healing became strength.",
-            "Today, Brenda is in nursing school. And every holiday, she returns to Ibanda to sit in that same Rise Room — now on the other side of the circle.",
-            "She tells the girls: \"I was you. I was so tired I thought I couldn't continue. But someone held space for me until I could hold myself. Now I am holding space for you.\"",
+            { before: "80% feel alone in their struggles", after: "15% feel alone" },
+            { before: "60% experience frequent trauma triggers", after: "25% (with tools to manage them)" },
+            { before: "10% have a trusted adult to talk to", after: "95% have a trusted adult" },
+            { before: "Low self-worth and agency", after: "High sense of 'Becoming'" },
         ],
     },
     closing: [
-        "Healing is not separate from education. It is the prerequisite for education.",
-        "That is why Healing the Ground is the first pillar of African Girl Rise. It is not the only thing we do — but nothing else we do can succeed without it.",
+        "Healing is not a one-time event; it is a lifestyle.",
+        "When a girl heals, her family heals. When a family heals, a village rises.",
     ],
 };
 
@@ -804,94 +623,81 @@ const BUILDING_THE_LADDER: ProgramDetail = {
     title: "Building the Ladder",
     heroSubtitle: "Practical Skills for Self-Sufficiency",
     philosophy: {
-        quote: "You cannot rise without rungs to hold.",
+        quote: "Rising requires tangible steps.",
         paragraphs: [
-            "At African Girl Rise, we believe that healing is essential — but healing alone is not enough. A girl who has begun to heal must also have practical tools to build her future.",
-            "We do not give girls fish. We teach them to fish — and to make their own nets.",
+            "Hope alone cannot pay school fees. Empathy alone cannot buy a sanitary pad. For a girl to stay in school and stay safe, she needs tools.",
+            "Building the Ladder is about providing the practical, hands-on resources and skills that make education possible and independence reachable.",
         ],
     },
     sections: [
         {
-            title: "The Reality We Address",
+            title: "What Is The \"Ladder\"?",
             paragraphs: [
-                "In Ibanda District, families struggle to afford basic necessities. Soap is a luxury. Vaseline is a treat. Sanitary pads are out of reach for most.",
-                "Poverty is expensive. It forces families to buy things they could make themselves — if only they knew how. We are changing that.",
+                "The ladder is made of two things: Scholastic Support (what she needs to stay in school) and Economic Skills (what she needs to stand on her own).",
             ],
         },
         {
-            title: "Our Response: Skills, Not Handouts",
-            paragraphs: [
-                "We do not give girls money. We do not create dependency. We equip them with skills so they never need to depend on anyone.",
-            ],
-            checkmarks: [
-                "The ability to make her own sanitary pads",
-                "The ability to make her own soap",
-                "The ability to make her own Vaseline and lotion",
-                "The ability to repair her own clothes",
-                "The ability to earn her own money",
-                "The ability to teach these skills to others",
-            ],
-        },
-        {
-            title: "What We Teach",
+            title: "What We Do: Building the Ladder",
             subsections: [
                 {
-                    title: "1. Reusable Sanitary Pad Making",
+                    title: "1. The Education Drive Support",
                     paragraphs: [
-                        "1 in 10 girls in Uganda misses school during her period. A girl who can make her own pads will never miss school again.",
+                        "We remove the small barriers that cause big dropouts.",
                     ],
                     bullets: [
-                        "High-quality, comfortable reusable pads",
-                        "Sourcing and cutting locally available materials",
-                        "Sewing techniques for durability",
-                        "Proper washing and drying to prevent infection",
-                        "Pads that last 6–12 months",
+                        "Reusable sanitary pad kits for every girl",
+                        "Basic scholastic materials (books, pens, mathematical sets)",
+                        "Support for girls at risk of being sent home for missing supplies",
                     ],
                 },
                 {
-                    title: "2. Liquid Soap Making",
+                    title: "2. Menstrual Health Management (MHM) Training",
                     paragraphs: [
-                        "Soap is essential for hygiene, but many families cannot afford enough. A girl who can make her own soap will never be without cleanliness.",
+                        "We don't just give pads; we teach girls how to make them.",
                     ],
                     bullets: [
-                        "Making liquid soap from simple, affordable ingredients",
-                        "Safety in handling chemicals",
-                        "Mixing ratios and quality control",
-                        "Cost calculation and pricing for sale",
+                        "Sewing and maintenance of high-quality reusable pads",
+                        "Biological education to end period shame",
+                        "Teaching girls to train others, creating a ripple effect",
                     ],
                 },
                 {
-                    title: "3. Vaseline/Petroleum Jelly Making",
+                    title: "3. Academic Rescue Centers",
                     paragraphs: [
-                        "Commercial Vaseline is expensive. A girl who can make her own will never have dry, cracked skin.",
+                        "School isn't just about attending; it's about succeeding.",
+                    ],
+                    bullets: [
+                        "Holiday revision camps for candidate classes",
+                        "Weekend literacy and numeracy support",
+                        "Digital literacy training in basic computer skills",
                     ],
                 },
                 {
-                    title: "4. Body Lotion Making",
+                    title: "4. Liquid Soap & Detergent Making",
                     paragraphs: [
-                        "A girl who can make her own lotion will never feel less than. Affordable self-care, dignity, and an income-generating skill.",
+                        "A simple, high-demand skill that generates immediate income.",
                     ],
                 },
                 {
-                    title: "5. Hair Care Products",
+                    title: "5. Hairdressing & Braiding",
                     paragraphs: [
-                        "Making simple hair oils and conditioners using natural ingredients like coconut oil, shea butter, and herbs.",
+                        "Training in professional styles to enable girls to work within their communities.",
                     ],
                 },
                 {
-                    title: "6. Tailoring and Basic Repairs",
+                    title: "6. Tailoring and Fabric Arts",
                     paragraphs: [
-                        "A torn uniform can lead to being sent home from school. A girl who can mend her own clothes will never be sent home.",
+                        "From basic repairs to making clothes—a lifelong trade.",
                     ],
                 },
                 {
-                    title: "7. Basic Bookbinding and Notebook Making",
+                    title: "7. Vaseline and Lotion Production",
                     paragraphs: [
-                        "Exercise books are expensive. A girl who can make her own notebooks will never run out of pages.",
+                        "Teaching girls to create personal care products for use and sale.",
                     ],
                 },
                 {
-                    title: "8. Entrepreneurship and Financial Literacy",
+                    title: "8. Financial Literacy & Bookkeeping",
                     paragraphs: [
                         "A girl who can sell what she makes will never be trapped. We teach cost calculation, pricing, bookkeeping, saving strategies, and customer service.",
                     ],
