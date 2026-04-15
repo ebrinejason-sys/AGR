@@ -285,8 +285,6 @@
   padding: 4rem 0;
   background: #ffffff;
 }
-  display: none;
-}
 
 .marqueeSection::before,
 .marqueeSection::after {
