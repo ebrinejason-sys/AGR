@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import styles from './Navbar.module.css';
 
 // Dynamically import DonationModal to reduce initial bundle size
@@ -70,6 +71,7 @@ export default function Navbar() {
                         </button>
                         <div className={styles.dropdownContent}>
                             <Link href="/programs" className={styles.dropdownLink}>Core Programs</Link>
+                            <Link href="/programs/rise-brothers" className={styles.dropdownLink}>Rise Brothers</Link>
                             <Link href="/legal-advocacy" className={styles.dropdownLink}>Legal Advocacy</Link>
                         </div>
                     </div>
@@ -77,7 +79,12 @@ export default function Navbar() {
                     <Link href="/events" className={styles.navLink}>Events</Link>
                     <Link href="/stories" className={styles.navLink}>Stories</Link>
                     <Link href="/contact" className={styles.navLink}>Contact</Link>
-                    <button onClick={() => setIsDonationModalOpen(true)} className={styles.donateBtn}>Donate</button>
+                    <div className={styles.navActions}>
+                        <div className={styles.themeToggleWrap}>
+                            <ThemeToggle />
+                        </div>
+                        <button onClick={() => setIsDonationModalOpen(true)} className={styles.donateBtn}>Donate</button>
+                    </div>
                 </nav>
 
                 {/* Mobile Menu Toggle */}
@@ -112,6 +119,9 @@ export default function Navbar() {
                             <Link href="/programs" className={styles.mobileNavLink} onClick={closeMenu}>
                                 Core Programs
                             </Link>
+                            <Link href="/programs/rise-brothers" className={styles.mobileNavLink} onClick={closeMenu}>
+                                Rise Brothers
+                            </Link>
                             <Link href="/legal-advocacy" className={styles.mobileNavLink} onClick={closeMenu}>
                                 Legal Advocacy
                             </Link>
@@ -126,6 +136,13 @@ export default function Navbar() {
                         <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>
                             Contact
                         </Link>
+
+                        <div className={styles.mobileUtilityRow}>
+                            <span className={styles.mobileUtilityLabel}>Appearance</span>
+                            <div className={styles.themeToggleWrap}>
+                                <ThemeToggle />
+                            </div>
+                        </div>
 
                         <div className={styles.mobileDonateContainer}>
                             <button onClick={() => { setIsDonationModalOpen(true); closeMenu(); }} className={styles.mobileDonateBtn}>

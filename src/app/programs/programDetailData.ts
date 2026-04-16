@@ -528,6 +528,185 @@ const FUTURE_PATHWAYS: ProgramDetail = {
     ],
 };
 
+    const RISE_BROTHERS: ProgramDetail = {
+        id: "rise-brothers",
+        type: "program",
+        title: "Rise Brothers",
+        heroSubtitle: "Building allies, breaking cycles, and helping boys rise alongside girls.",
+        philosophy: {
+            quote: "Strong boys support strong girls. Together, we rise.",
+            paragraphs: [
+                "At African Girl Rise, we believe sustainable change requires everyone — not just girls and women, but boys and men too.",
+                "When boys understand the struggles girls face, they become protectors instead of bystanders. When boys learn to manage their own emotions, they break the cycle of toxic masculinity. When boys are equipped with empathy and practical skills, they rise alongside their sisters.",
+            ],
+        },
+        sections: [
+            {
+                title: "Program Objectives",
+                subsections: [
+                    {
+                        title: "Educate",
+                        paragraphs: [
+                            "Teach boys about gender equality, consent, and girls' rights so they understand the realities girls face and the role they can play in changing them.",
+                        ],
+                    },
+                    {
+                        title: "Empower",
+                        paragraphs: [
+                            "Give boys the language and tools to manage their own mental health, emotions, and pressure without shame.",
+                        ],
+                    },
+                    {
+                        title: "Engage",
+                        paragraphs: [
+                            "Turn boys into active allies who stand up against abuse, harassment, discrimination, and silence.",
+                        ],
+                    },
+                    {
+                        title: "Equip",
+                        paragraphs: [
+                            "Provide practical life skills such as sewing, hygiene, entrepreneurship, and household care so boys can be self-sufficient and supportive.",
+                        ],
+                    },
+                ],
+            },
+            {
+                title: "Program Components",
+                subsections: [
+                    {
+                        title: "1. Mental Health and Emotional Literacy",
+                        paragraphs: [
+                            "Boys are often told to be strong, not cry, and man up. This silence destroys them. Rise Brothers creates safe spaces where boys can talk about their feelings without shame.",
+                        ],
+                        bullets: [
+                            "Learn that vulnerability is not weakness",
+                            "Recognize signs of depression, anxiety, and trauma in themselves and peers",
+                            "Know where to seek help when they need support",
+                        ],
+                        impact: [
+                            "Healthier boys who become healthier men",
+                        ],
+                    },
+                    {
+                        title: "2. Gender Equality and Allyship Workshops",
+                        paragraphs: [
+                            "We teach boys why girls miss school during their periods, what consent means in age-appropriate language, and how to recognize and interrupt abusive behavior among peers.",
+                        ],
+                        bullets: [
+                            "Understand why early marriage and defilement are crimes",
+                            "Practice speaking up when they witness harassment or harm",
+                            "Learn to be active allies instead of passive observers",
+                        ],
+                        impact: [
+                            "Boys who protect, not harm",
+                        ],
+                    },
+                    {
+                        title: "3. Pad-Making and Menstrual Health Education",
+                        paragraphs: [
+                            "Yes, boys can learn to make pads too. When boys understand how pads work and why girls need them, they stop teasing girls and grow up without shame around menstruation.",
+                        ],
+                        bullets: [
+                            "Help sisters or friends in need",
+                            "Join girls in joint pad-making workshops",
+                            "Normalize periods and end stigma in school spaces",
+                        ],
+                        impact: [
+                            "Normalizing periods and ending the stigma",
+                        ],
+                    },
+                    {
+                        title: "4. Life Skills for Self-Sufficiency",
+                        paragraphs: [
+                            "Just like girls, boys need practical skills they can use in daily life and for income generation.",
+                        ],
+                        bullets: [
+                            "Soap-making, tailoring, and basic repairs",
+                            "Financial literacy and entrepreneurship",
+                            "Cooking and household management to break the idea that care work is women's work",
+                        ],
+                        impact: [
+                            "Boys who can care for themselves and contribute to their families",
+                        ],
+                    },
+                    {
+                        title: "5. Peer Advocacy Network",
+                        paragraphs: [
+                            "Selected boys are trained as Rise Brothers Advocates who become a student-led safety net within their schools and communities.",
+                        ],
+                        bullets: [
+                            "Educate other boys about gender equality",
+                            "Identify peers who may be experiencing abuse or distress",
+                            "Refer girls and boys to counselors, teachers, authorities, or other help",
+                            "Lead school campaigns against bullying and gender-based violence",
+                        ],
+                        impact: [
+                            "A student-led safety net",
+                        ],
+                    },
+                    {
+                        title: "6. Joint Activities with Girls",
+                        paragraphs: [
+                            "Some sessions bring Rise Brothers and Rise Girls together so both groups can understand each other's struggles and work side by side.",
+                        ],
+                        bullets: [
+                            "Mixed mental health circles",
+                            "Pad-making workshops with questions, learning, and cooperation",
+                            "Community projects such as tree planting and clean-ups",
+                            "Debates on what real strength and partnership look like",
+                        ],
+                        impact: [
+                            "Building mutual respect and partnership from a young age",
+                        ],
+                    },
+                ],
+            },
+            {
+                title: "Program Structure",
+                bullets: [
+                    "Weekly — Boys-only mental health circles (1 hour)",
+                    "Bi-weekly — Allyship and gender equality workshops (1 hour)",
+                    "Monthly — Joint sessions with Rise Girls (2 hours)",
+                    "Termly — Life skills training such as soap-making, tailoring, and practical care work (full day)",
+                    "Annually — Rise Brothers Summit for leadership and advocacy training (weekend)",
+                ],
+            },
+            {
+                title: "What Rise Brothers Graduates With",
+                checkmarks: [
+                    "Certificate of completion",
+                    "Deep understanding of gender equality and consent",
+                    "Practical life skills including soap-making, basic sewing, and financial literacy",
+                    "Mental health first aid knowledge",
+                    "Membership in the Rise Brothers alumni network",
+                    "A commitment to be an ally for life",
+                ],
+            },
+            {
+                title: "Why This Matters for African Girl Rise",
+                paragraphs: [
+                    "We cannot empower girls in isolation. Boys grow up to be fathers, husbands, teachers, police officers, and judges. If we change boys today, we change the system tomorrow.",
+                    "A boy who learns empathy will raise daughters who are free. A boy who learns skills will never be trapped by toxic masculinity. A boy who becomes an ally will break cycles for generations.",
+                ],
+            },
+        ],
+        impactTable: {
+            title: "Expected Impact",
+            rows: [
+                { before: "Boys tease girls about periods", after: "Boys support girls and defend them" },
+                { before: "Boys bully weaker peers", after: "Boys intervene when they see bullying" },
+                { before: "Boys are silent about their feelings", after: "Boys seek help and support each other" },
+                { before: "Boys believe household work is for girls", after: "Boys cook, clean, and sew without shame" },
+                { before: "Boys grow into men who perpetuate abuse", after: "Boys become men who protect and advocate" },
+            ],
+        },
+        closing: [
+            "Rise Brothers is about building a generation of boys who know that care, courage, empathy, and accountability belong to them too.",
+            "When boys rise alongside girls, families change. Schools change. Communities change.",
+            "Your beginning does not define your becoming.",
+        ],
+    };
+
 /* =================================================================
    PILLARS DATA
    ================================================================= */
@@ -888,6 +1067,7 @@ export const PROGRAM_DETAIL_MAP: Record<string, ProgramDetail> = {
     "leadership-life-skills": LEADERSHIP_LIFE_SKILLS,
     "health-wellness": HEALTH_WELLNESS,
     "future-pathways": FUTURE_PATHWAYS,
+    "rise-brothers": RISE_BROTHERS,
     "healing-the-ground": HEALING_THE_GROUND,
     "building-the-ladder": BUILDING_THE_LADDER,
     "reaching-new-altitudes": REACHING_NEW_ALTITUDES,

@@ -51,12 +51,13 @@ export default function SuggestionTicker() {
 
     // Default keywords if path not explicitly mapped
     const items = PAGE_KEYWORDS[pathname] || PAGE_KEYWORDS['/'];
+    const tickerItems = [...items, ...items];
 
     return (
         <div className={styles.ticker} aria-hidden="true">
             <div className={styles.tickerTrack}>
-                {[...items, ...items, ...items].map((item, i) => (
-                    <span key={i} className={styles.tickerItem}>{item}</span>
+                {tickerItems.map((item, index) => (
+                    <span key={`${item}-${index}`} className={styles.tickerItem}>{item}</span>
                 ))}
             </div>
         </div>

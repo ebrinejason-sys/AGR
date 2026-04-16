@@ -16,6 +16,7 @@ export default function LayoutShell({
 }) {
     const pathname = usePathname();
     const isAdmin = pathname?.startsWith('/admin');
+    const showSuggestionTicker = pathname !== '/' && !isIOSDevice;
 
     // Admin routes get a completely standalone layout — no site nav, footer, or preloader
     if (isAdmin) {
@@ -26,7 +27,7 @@ export default function LayoutShell({
         <div className={styles.layoutContainer}>
             <Preloader skip={isIOSDevice} />
             <Navbar />
-            <SuggestionTicker />
+            {showSuggestionTicker ? <SuggestionTicker /> : null}
             <main className={styles.mainContent}>
                 {children}
             </main>

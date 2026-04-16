@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { formatDate } from '@/lib/utils';
 import dynamic from 'next/dynamic';
@@ -41,6 +42,15 @@ export default function EventsPage() {
     const [loading, setLoading] = useState(true);
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
     const [donationTarget, setDonationTarget] = useState<Event | null>(null);
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+
+        return () => {
+            setIsMounted(false);
+        };
+    }, []);
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -123,103 +133,17 @@ export default function EventsPage() {
                 </section>
             )}
 
-            {/* Event Detail Modal */}
-            {selectedEvent && (
-                <div className={styles.modalOverlay} onClick={closeEvent}>
-                    <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-                        <button className={styles.modalClose} onClick={closeEvent} aria-label="Close">×</button>
-
-                        {selectedEvent.cover_image && (
-                            <div className={styles.modalCover}>
-                                <Image
-                                    src={selectedEvent.cover_image}
-                                    alt={selectedEvent.title}
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                    sizes="(max-width: 768px) 100vw, 800px"
-                                />
-                                <div className={styles.modalCoverOverlay} />
-                            </div>
-                        )}
-
-                        <div className={styles.modalBody}>
-                            <span className={`${styles.statusBadge} ${styles[selectedEvent.status]}`}>{selectedEvent.status}</span>
-                            <h2 className={styles.modalTitle}>{selectedEvent.title}</h2>
-
-                            <div className={styles.modalMeta}>
-                                <span>📅 {formatDate(selectedEvent.event_date)}</span>
-                                {selectedEvent.location && <span>📍 {selectedEvent.location}</span>}
-                            </div>
-
-                            <p className={styles.modalDescription}>{selectedEvent.description}</p>
-
-                            {/* Target / Goal */}
-                            {(selectedEvent.goal_amount > 0 || selectedEvent.goal_text) && (
-                                <div className={styles.modalGoal}>
-                                    {(() => {
-                                        const progressPercent = getProgressPercent(selectedEvent);
-
-                                        return (
-                                            <>
-                                    <span className={styles.modalGoalLabel}>TARGET</span>
-                                    {selectedEvent.goal_text && (
-                                        <p className={styles.modalGoalText}>{selectedEvent.goal_text}</p>
-                                    )}
-                                    {selectedEvent.goal_amount > 0 && (
-                                        <>
-                                            <div className={styles.progressHeader}>
-                                                <span>Goal: {Number(selectedEvent.goal_amount).toLocaleString()} UGX</span>
-                                                <span>{progressPercent}% REACHED</span>
-                                            </div>
-                                            <progress className={styles.progressBar} value={progressPercent} max={100} />
-                                        </>
-                                    )}
-                                            </>
-                                        );
-                                    })()}
-                                </div>
-                            )}
-
-                            {/* Achievements for completed */}
-                            {selectedEvent.status === 'completed' && selectedEvent.achievements && (
-                                <div className={styles.modalAchievements}>
-                                    <span className={styles.modalGoalLabel}>WHAT WE ACHIEVED</span>
-                                    <p>{selectedEvent.achievements}</p>
-                                </div>
-                            )}
-
-                            {/* CTA buttons */}
-                            {selectedEvent.status !== 'completed' && (
-                                <div className={styles.modalCtas}>
-                                    <button className="btn-premium" onClick={() => { closeEvent(); setDonationTarget(selectedEvent); }}>
-                                        <span>Donate to Event</span>
-                                    </button>
-                                </div>
-                            )}
-
-                            {/* Gallery for completed events */}
-                            {selectedEvent.status === 'completed' && selectedEvent.gallery && selectedEvent.gallery.length > 0 && (
-                                <div className={styles.modalGallery}>
-                                    <span className={styles.modalGoalLabel}>EVENT GALLERY</span>
-                                    <div className={styles.galleryGrid}>
-                                        {selectedEvent.gallery.map(photo => (
-                                            <div key={photo.id} className={styles.galleryItem}>
-                                                <Image
-                                                    src={photo.url}
-                                                    alt={photo.description || selectedEvent.title}
-                                                    fill
-                                                    style={{ objectFit: 'cover' }}
-                                                    sizes="(max-width: 768px) 50vw, 200px"
-                                                />
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            )}
+            {isMounted ? createPortal(
+                <EventDetailModal
+                    event={selectedEvent}
+                    onClose={closeEvent}
+                    onDonate={(event) => {
+                        closeEvent();
+                        setDonationTarget(event);
+                    }}
+                />,
+                document.body
+            ) : null}
 
             {donationTarget && (
                 <DonationModal
@@ -258,6 +182,126 @@ function EventCard({ evt, onClick }: { evt: Event; onClick: () => void }) {
                 {evt.location && <span className={styles.eventLocation}>📍 {evt.location}</span>}
                 <p className={styles.eventDescription}>{evt.description.slice(0, 140)}{evt.description.length > 140 ? '…' : ''}</p>
                 <span className={styles.tapHint}>Tap to view details →</span>
+            </div>
+        </div>
+    );
+}
+
+function EventDetailModal({
+    event,
+    onClose,
+    onDonate,
+}: {
+    event: Event | null;
+    onClose: () => void;
+    onDonate: (event: Event) => void;
+}) {
+    useEffect(() => {
+        if (!event) {
+            return;
+        }
+
+        const previousOverflow = document.body.style.overflow;
+        const handleEscape = (keyboardEvent: KeyboardEvent) => {
+            if (keyboardEvent.key === 'Escape') {
+                onClose();
+            }
+        };
+
+        document.body.style.overflow = 'hidden';
+        window.addEventListener('keydown', handleEscape);
+
+        return () => {
+            document.body.style.overflow = previousOverflow;
+            window.removeEventListener('keydown', handleEscape);
+        };
+    }, [event, onClose]);
+
+    if (!event) {
+        return null;
+    }
+
+    const progressPercent = getProgressPercent(event);
+
+    return (
+        <div className={styles.modalOverlay} onClick={onClose}>
+            <div className={styles.modal} onClick={(clickEvent) => clickEvent.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby={`event-title-${event.id}`}>
+                <button className={styles.modalClose} onClick={onClose} aria-label="Close">×</button>
+
+                {event.cover_image && (
+                    <div className={styles.modalCover}>
+                        <Image
+                            src={event.cover_image}
+                            alt={event.title}
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            sizes="(max-width: 768px) 100vw, 800px"
+                        />
+                        <div className={styles.modalCoverOverlay} />
+                    </div>
+                )}
+
+                <div className={styles.modalBody}>
+                    <span className={`${styles.statusBadge} ${styles[event.status]}`}>{event.status}</span>
+                    <h2 id={`event-title-${event.id}`} className={styles.modalTitle}>{event.title}</h2>
+
+                    <div className={styles.modalMeta}>
+                        <span>📅 {formatDate(event.event_date)}</span>
+                        {event.location && <span>📍 {event.location}</span>}
+                    </div>
+
+                    <p className={styles.modalDescription}>{event.description}</p>
+
+                    {(event.goal_amount > 0 || event.goal_text) && (
+                        <div className={styles.modalGoal}>
+                            <span className={styles.modalGoalLabel}>TARGET</span>
+                            {event.goal_text ? <p className={styles.modalGoalText}>{event.goal_text}</p> : null}
+                            {event.goal_amount > 0 ? (
+                                <>
+                                    <div className={styles.progressHeader}>
+                                        <span>Goal: {Number(event.goal_amount).toLocaleString()} UGX</span>
+                                        <span>{progressPercent}% REACHED</span>
+                                    </div>
+                                    <progress className={styles.progressBar} value={progressPercent} max={100} />
+                                </>
+                            ) : null}
+                        </div>
+                    )}
+
+                    {event.status === 'completed' && event.achievements ? (
+                        <div className={styles.modalAchievements}>
+                            <span className={styles.modalGoalLabel}>WHAT WE ACHIEVED</span>
+                            <p>{event.achievements}</p>
+                        </div>
+                    ) : null}
+
+                    {event.status !== 'completed' ? (
+                        <div className={styles.modalCtas}>
+                            <button className="btn-premium" onClick={() => onDonate(event)}>
+                                <span>Donate to Event</span>
+                            </button>
+                        </div>
+                    ) : null}
+
+                    {event.status === 'completed' && event.gallery && event.gallery.length > 0 ? (
+                        <div className={styles.modalGallery}>
+                            <span className={styles.modalGoalLabel}>EVENT GALLERY</span>
+                            <div className={styles.galleryGrid}>
+                                {event.gallery.map((photo) => (
+                                    <div key={photo.id} className={styles.galleryItem}>
+                                        <Image
+                                            src={photo.url}
+                                            alt={photo.description || event.title}
+                                            fill
+                                            style={{ objectFit: 'cover' }}
+                                            sizes="(max-width: 768px) 50vw, 200px"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ) : null}
+                </div>
             </div>
         </div>
     );

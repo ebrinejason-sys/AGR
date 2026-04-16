@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useState } from 'react';
+import { createPortal } from 'react-dom';
 import styles from './DonationModal.module.css';
 import type { DonationMethod, DonationProvider } from '@/lib/marzpay';
 
@@ -112,9 +113,18 @@ export default function DonationModal({ isOpen, onClose, eventId, eventTitle }: 
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
 
   const selectedMethod = METHOD_OPTIONS.find((option) => option.value === method) ?? METHOD_OPTIONS[0];
   const amountLabel = formatUgx(amount);
+
+  useEffect(() => {
+    setIsMounted(true);
+
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
 
   const resetForm = () => {
     setMethod('mobile_money');
@@ -231,9 +241,9 @@ export default function DonationModal({ isOpen, onClose, eventId, eventTitle }: 
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen || !isMounted) return null;
 
-  return (
+  return createPortal(
     <div className={styles.modalOverlay} onClick={handleClose}>
       <section
         className={styles.modalCard}
@@ -499,6 +509,7 @@ export default function DonationModal({ isOpen, onClose, eventId, eventTitle }: 
           </div>
         </div>
       </section>
-    </div>
+    </div>,
+    document.body
   );
 }

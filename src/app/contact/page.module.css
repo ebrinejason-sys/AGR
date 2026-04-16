@@ -273,3 +273,69 @@ select.input {
   .tabBar { gap: 1rem; }
   .infoCol { padding: 1.5rem; }
 }
+
+:global(html[data-ios="1"]) .ticker,
+:global(html[data-runtime-safe="1"]) .ticker {
+  display: none;
+}
+
+:global(html[data-ios="1"]) .tickerTrack,
+:global(html[data-runtime-safe="1"]) .tickerTrack {
+  animation: none;
+  transform: none;
+}
+
+.heroLead {
+  margin-top: 2rem;
+  font-style: italic;
+  letter-spacing: 0.1em;
+}
+
+.fullWidthButton {
+  width: 100%;
+}
+
+.statusSuccess,
+.statusError {
+  margin-top: 1.25rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.statusSuccess {
+  color: var(--color-pink);
+}
+
+.statusError {
+  color: #d64545;
+}
+
+:global([data-theme="dark"]) .hero {
+  background: linear-gradient(180deg, #10192b 0%, var(--bg-color) 100%);
+}
+
+:global([data-theme="dark"]) .infoCol,
+:global([data-theme="dark"]) .formCard,
+:global([data-theme="dark"]) .tab,
+:global([data-theme="dark"]) .tabDescriptionBox {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+:global([data-theme="dark"]) .infoCol {
+  background: var(--surface-elevated);
+}
+
+:global([data-theme="dark"]) .tabActive {
+  color: var(--text-color);
+}
+
+:global(html[data-ios="1"]) .hero::before,
+:global(html[data-runtime-safe="1"]) .hero::before {
+  display: none;
+}
+
+:global(html[data-ios="1"]) .infoCol,
+:global(html[data-runtime-safe="1"]) .infoCol {
+  position: static;
+}

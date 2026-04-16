@@ -5,7 +5,7 @@
     right: 0;
     bottom: 0;
     z-index: 999999;
-    background: #ffffff;
+    background: var(--bg-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -155,7 +155,7 @@
     font-size: 0.72rem;
     font-weight: 400;
     letter-spacing: 0.06em;
-    color: #6b6b8a;
+    color: var(--text-muted);
     animation: fadeInDelay 0.7s ease-out 0.55s both;
 }
 
@@ -196,7 +196,7 @@
     font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.06em;
-    color: #6b6b8a;
+    color: var(--text-muted);
     text-decoration: none;
     padding: 0.3rem 0.8rem;
     border-radius: 50px;
@@ -211,7 +211,7 @@
     display: inline-block;
     width: 1px;
     height: 12px;
-    background: rgba(107, 107, 138, 0.3);
+    background: var(--border-color);
 }
 
 /* ─── Progress Bar ─── */
@@ -221,7 +221,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: rgba(233, 30, 99, 0.1);
+    background: rgba(233, 30, 99, 0.14);
 }
 
 .progressFill {

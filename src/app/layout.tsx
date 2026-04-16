@@ -44,12 +44,14 @@ export default async function RootLayout({
 }>) {
   const ua = (await headers()).get("user-agent") || "";
   const isIOSDevice = /iPad|iPhone|iPod|CriOS|FxiOS/i.test(ua);
+  const shouldUseRuntimeSafe = isIOSDevice;
 
   return (
     <html
       lang="en"
       className={`antialiased ${inter.variable} ${playfair.variable}`}
       data-ios={isIOSDevice ? "1" : undefined}
+      data-runtime-safe={shouldUseRuntimeSafe ? "1" : undefined}
       suppressHydrationWarning
     >
       <body>
@@ -57,8 +59,9 @@ export default async function RootLayout({
         <ThemeProvider
           attribute="data-theme"
           defaultTheme="light"
-          themes={["light"]}
+          themes={["light", "dark"]}
           enableSystem={false}
+          enableColorScheme
           disableTransitionOnChange={true}
           storageKey="agr-theme"
         >
@@ -66,7 +69,7 @@ export default async function RootLayout({
             {children}
           </LayoutShell>
         </ThemeProvider>
-        <Analytics />
+        {!isIOSDevice ? <Analytics /> : null}
       </body>
     </html>
   );

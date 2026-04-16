@@ -242,3 +242,246 @@
     font-size: 1.1rem;
   }
 }
+
+:global(html[data-ios="1"]) .ticker,
+:global(html[data-runtime-safe="1"]) .ticker {
+  display: none;
+}
+
+:global(html[data-ios="1"]) .tickerTrack,
+:global(html[data-runtime-safe="1"]) .tickerTrack {
+  animation: none;
+  transform: none;
+}
+
+.hero {
+  background: linear-gradient(180deg, var(--surface-rose) 0%, var(--bg-color) 100%);
+}
+
+.contentSection {
+  padding: 7rem 5%;
+  background: var(--bg-color);
+}
+
+.contentSectionAlt {
+  background: var(--surface-muted);
+}
+
+.storyGrid {
+  gap: 6rem;
+  margin-bottom: 6rem;
+}
+
+.storyTextStack p {
+  margin-bottom: 0;
+}
+
+.storyOffset {
+  margin-top: 2rem;
+}
+
+.sectionIntro {
+  max-width: 860px;
+  margin: 0 auto 4rem;
+  text-align: center;
+}
+
+.sectionLead {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+
+.missionVision {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 0;
+}
+
+.challengeCard {
+  padding: 2.25rem;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--color-pink);
+  border-radius: 24px;
+  background: var(--card-bg);
+  box-shadow: var(--shadow-soft);
+}
+
+.challengeCard h3 {
+  margin-top: 0.9rem;
+  color: var(--text-color);
+  font-size: 1.45rem;
+}
+
+.challengeCardPurple {
+  border-left-color: var(--color-purple);
+}
+
+.challengeCardBlue {
+  border-left-color: var(--color-lightblue);
+}
+
+.challengeText {
+  margin-top: 1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.highlightQuote {
+  color: var(--text-color);
+}
+
+.bodyCopyLarge {
+  margin-top: 3rem;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.bodyCopyTight {
+  margin-top: 2rem;
+}
+
+.missionList {
+  margin-top: 2rem;
+  padding-left: 1.5rem;
+  color: var(--text-muted);
+  line-height: 2.2;
+}
+
+.coreBeliefPanel {
+  margin-top: 7rem;
+  padding: 5rem 3rem;
+  border: 1px solid var(--border-color);
+  border-radius: 32px;
+  background: var(--card-bg);
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+}
+
+.coreBeliefHeading {
+  margin-top: 1rem;
+}
+
+.coreBeliefCopy {
+  max-width: 700px;
+  margin: 3rem auto 0;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.coreBeliefQuote {
+  margin-top: 2rem;
+  color: var(--color-pink);
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-style: italic;
+}
+
+.founderVisionInner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.founderVisionButton {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.ctaEditorial {
+  padding: 7rem 5%;
+  background: var(--bg-color);
+}
+
+.ctaLead {
+  max-width: 650px;
+  margin: 2rem auto 4rem;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.ctaGrid {
+  gap: 1.5rem;
+}
+
+.ctaCard {
+  padding: 3rem 2.25rem;
+  border-radius: 28px;
+  background: var(--card-bg);
+  box-shadow: var(--shadow-soft);
+}
+
+.ctaCard h3 {
+  color: var(--text-color);
+}
+
+.beliefCallout {
+  background: var(--gradient-dramatic);
+}
+
+.beliefCallout h2 {
+  color: #ffffff;
+}
+
+:global([data-theme="dark"]) .hero {
+  background: linear-gradient(180deg, #10192b 0%, var(--bg-color) 100%);
+}
+
+:global([data-theme="dark"]) .ctaEditorial {
+  background: var(--surface-muted);
+}
+
+:global([data-theme="dark"]) .challengeCard,
+:global([data-theme="dark"]) .coreBeliefPanel,
+:global([data-theme="dark"]) .ctaCard {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-soft);
+}
+
+:global([data-theme="dark"]) .founderVisionButton {
+  border-color: rgba(255, 255, 255, 0.26);
+}
+
+:global(html[data-ios="1"]) .highlightQuote::before,
+:global(html[data-runtime-safe="1"]) .highlightQuote::before {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .missionVision,
+  .ctaGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .contentSection,
+  .ctaEditorial,
+  .founderVision,
+  .beliefCallout {
+    padding: 5rem 6%;
+  }
+
+  .sectionIntro,
+  .storyGrid {
+    margin-bottom: 3rem;
+  }
+
+  .coreBeliefPanel {
+    margin-top: 4rem;
+    padding: 3rem 1.5rem;
+  }
+
+  .ctaLead {
+    margin-bottom: 3rem;
+  }
+
+  .missionVision,
+  .ctaGrid {
+    grid-template-columns: 1fr;
+  }
+}

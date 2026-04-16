@@ -1,64 +1,159 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
+import styles from "./page.module.css";
 
-const DonationModal = dynamic(() => import('@/components/DonationModal'), { ssr: false });
-import AnimatedCounter from "@/components/AnimatedCounter";
+const DonationModal = dynamic(() => import("@/components/DonationModal"), { ssr: false });
+
+const heroSummaryItems = [
+  "Protect girls early and practically.",
+  "Keep girls learning with dignity.",
+  "Equip boys to become allies.",
+  "Pursue safety, referrals, and justice.",
+] as const;
+
+const impactCards = [
+  {
+    caption: "Direct support delivered through outreach, mentoring, education support, and community protection.",
+    label: "Girls reached",
+    value: "56,000+",
+  },
+  {
+    caption: "Trusted spaces and school-linked support points where girls can find guidance, safety, and follow-up care.",
+    label: "Active sanctuaries",
+    value: "12+",
+  },
+  {
+    caption: "Girls drop out before Form 4 nationally. Our work is designed to interrupt that pattern early.",
+    label: "National dropout reality",
+    value: "4 in 10",
+  },
+] as const;
+
+const programCards = [
+  {
+    description:
+      "School-linked safe spaces where girls can access counselling, peer support, menstrual health guidance, and trusted adult follow-up.",
+    href: "/programs/rise-rooms",
+    hrefLabel: "Explore Rise Rooms",
+    number: "01",
+    tags: ["Counselling", "Peer support", "Follow-up"],
+    title: "Rise Sanctuaries",
+  },
+  {
+    description:
+      "School retention support, scholastic materials, exam readiness, and practical help that keeps girls learning with dignity.",
+    href: "/programs/academic-rescue",
+    hrefLabel: "See education support",
+    number: "02",
+    tags: ["School fees", "Supplies", "Tutoring"],
+    title: "Education Support",
+  },
+  {
+    description:
+      "Rights awareness, case management, community referrals, and direct advocacy when girls face abuse, neglect, or exclusion.",
+    href: "/legal-advocacy",
+    hrefLabel: "View legal advocacy",
+    number: "03",
+    tags: ["Rights literacy", "Case referrals", "Protection"],
+    title: "Legal Advocacy",
+  },
+  {
+    description:
+      "Rise Brothers helps boys understand what girls face, manage their own emotions, and become active allies instead of silent bystanders.",
+    href: "/programs/rise-brothers",
+    hrefLabel: "Explore Rise Brothers",
+    number: "04",
+    tags: ["Allyship", "Mental health", "Shared responsibility"],
+    title: "Rise Brothers",
+  },
+] as const;
+
+const supportFlow = [
+  {
+    step: "01",
+    text: "Teachers, caregivers, and community partners flag attendance gaps, abuse risk, grief, or material needs before they harden into dropout.",
+    title: "Identify risk early",
+  },
+  {
+    step: "02",
+    text: "We respond with counselling, supplies, mentoring, school support, and referrals based on what will stabilise the girl quickly.",
+    title: "Stabilise the girl",
+  },
+  {
+    step: "03",
+    text: "We work with boys, families, and legal systems too, so girls are not sent back into the same silence that harmed them.",
+    title: "Shift the environment",
+  },
+] as const;
+
+const galleryMoments = [
+  {
+    label: "School support in action",
+    src: "/images/hero-bg.jpg",
+  },
+  {
+    label: "Girls building confidence together",
+    src: "/images/about-us.jpg",
+  },
+  {
+    label: "Rise Brothers allyship sessions",
+    src: "/images/programs/rise-brothers/rise-brothers-3.jpg",
+  },
+  {
+    label: "Community-led care",
+    src: "/images/agr-photo-2.jpg",
+  },
+  {
+    label: "Protection and advocacy work",
+    src: "/images/legal-advocacy.jpg",
+  },
+  {
+    label: "Practical learning and mentoring",
+    src: "/images/program-3.jpg",
+  },
+] as const;
 
 export default function Home() {
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
-  const marqueeRow1 = [
-    "/images/programs/rise-brothers/rise-brothers-1.jpg",
-    "/images/agr-photo-1.jpg",
-    "/images/programs/rise-brothers/rise-brothers-3.jpg",
-    "/images/program-1.jpg",
-    "/images/agr-photo-2.jpg",
-    "/images/program-2.jpg",
-    "/images/programs/rise-brothers/rise-brothers-2.jpg",
-    "/images/about-us.jpg",
-    "/images/agr-photo-3.jpg",
-    "/images/program-3.jpg",
-  ];
-
-  const marqueeRow2 = [
-    "/images/programs/rise-brothers/rise-brothers-4.jpg",
-    "/images/worthy-dream.jpg",
-    "/images/agr-photo-4.jpg",
-    "/images/programs/rise-brothers/rise-brothers-1.jpg",
-    "/images/program-4.jpg",
-    "/images/legal-advocacy.jpg",
-    "/images/hero-bg.jpg",
-    "/images/programs/rise-brothers/rise-brothers-2.jpg",
-    "/images/agr-photo-1.jpg",
-    "/images/about-us.jpg",
-  ];
-
   return (
     <div className={styles.container}>
-
-      {/* ─── Hero ─── */}
       <section className={styles.heroSplit}>
         <div className={styles.heroPanel}>
+          <div className={styles.welcomePill}>
+            <Image
+              src="/logo.png"
+              alt="African Girl Rise logo"
+              width={40}
+              height={40}
+              sizes="40px"
+              className={styles.welcomeLogo}
+            />
+            <div>
+              <span className={styles.welcomeLabel}>Welcome to African Girl Rise</span>
+              <p className={styles.welcomeMeta}>A Ugandan organisation delivering practical support that keeps girls safe, learning, and protected.</p>
+            </div>
+          </div>
+
           <span className={styles.eyebrow}>African Girl Rise · Uganda</span>
-          <h1 className={styles.heroHeading}>
-            Support Girls to<br />
-            Stay in School.
-          </h1>
+          <h1 className={styles.heroHeading}>Help girls stay safe, stay in school, and build a stronger future.</h1>
           <p className={styles.heroSubtext}>
-            African Girl Rise is a registered Ugandan non-profit supporting girls facing poverty,
-            violence, and school dropout risk through mentorship, education support, safe spaces,
-            and legal advocacy.
+            African Girl Rise combines counselling, school retention support, allyship programming, and legal advocacy so
+            donors and partners can fund a response that is practical, local, and measurable.
           </p>
+
+          <div className={styles.heroPoints}>
+            <span className={styles.heroPoint}>School retention support</span>
+            <span className={styles.heroPoint}>Safe sanctuaries and counseling</span>
+            <span className={styles.heroPoint}>Legal advocacy and protection</span>
+          </div>
+
           <div className={styles.heroCtas}>
-            <button
-              onClick={() => setIsDonationModalOpen(true)}
-              className={styles.btnPink}
-            >
+            <button onClick={() => setIsDonationModalOpen(true)} className={styles.btnPink}>
               Support Her Rise
             </button>
             <Link href="/programs" className={styles.btnGhost}>
@@ -66,158 +161,202 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <div className={styles.heroImagePanel}>
-          <Image
-            src="/images/hero-bg.jpg"
-            alt="Adolescent girls in Uganda"
-            fill
-            priority
-            sizes="45vw"
-            style={{ objectFit: 'cover', objectPosition: 'center top' }}
-          />
-        </div>
-      </section>
 
-      {/* ─── Image Marquee ─── */}
-      <section className={styles.marqueeSection} aria-hidden="true" role="presentation">
-        <div className={styles.marqueeRow}>
-          <div className={styles.marqueeTrack}>
-            {[...marqueeRow1, ...marqueeRow1].map((src, i) => (
-              <div key={i} className={styles.marqueeItem}>
-                <Image src={src} alt="" fill sizes="400px" style={{ objectFit: 'cover' }} />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className={styles.marqueeRow}>
-          <div className={`${styles.marqueeTrack} ${styles.marqueeTrackRight}`}>
-            {[...marqueeRow2, ...marqueeRow2].map((src, i) => (
-              <div key={i} className={styles.marqueeItem}>
-                <Image src={src} alt="" fill sizes="400px" style={{ objectFit: 'cover' }} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── About ─── */}
-      <section className={styles.aboutWrap}>
-        <div className={styles.aboutGrid}>
-          <div className={styles.aboutImgWrap}>
+        <div className={styles.heroVisualPanel}>
+          <div className={styles.heroImagePanel}>
             <Image
-              src="/images/about-us.jpg"
-              alt="Girls empowered through our programs"
+              src="/images/hero-bg.jpg"
+              alt="Adolescent girls in Uganda"
               fill
-              sizes="(max-width: 960px) 100vw, 50vw"
-              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              priority
+              sizes="(max-width: 1024px) 100vw, 42vw"
+              style={{ objectFit: "cover", objectPosition: "center top" }}
             />
           </div>
-          <div className={styles.aboutContent}>
-            <span className={styles.eyebrow}>Our Story</span>
-            <h2 className={styles.secTitle}>Built from lived experience</h2>
-            <p>
-              African Girl Rise works with adolescent girls in Uganda who are navigating poverty,
-              violence, interrupted schooling, and limited protection.
+
+          <aside className={styles.heroSummaryCard}>
+            <span className={styles.summaryEyebrow}>Welcome</span>
+            <h2 className={styles.summaryTitle}>What your support makes possible.</h2>
+            <p className={styles.summaryText}>
+              Every contribution helps us stabilise girls early, keep them learning, and change the environment around
+              them through protection, allyship, and community follow-up.
             </p>
-            <p>
-              Led by Akatwijuka Grace, the organisation combines practical support, mentorship, and
-              advocacy so girls can stay in school, stay safe, and plan for a stronger future.
+            <ul className={styles.summaryList}>
+              {heroSummaryItems.map((item) => (
+                <li key={item} className={styles.summaryItem}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section className={styles.overviewSection}>
+        <div className={styles.overviewGrid}>
+          <article className={styles.leadCard}>
+            <span className={styles.leadLabel}>Built from lived experience</span>
+            <h2 className={styles.secTitle}>The response is built around what moves a girl from crisis to momentum.</h2>
+            <p className={styles.leadText}>
+              Girls first need stability and safety. Then they need support to remain in school. Then the environment
+              around them has to change so the gains hold.
+            </p>
+            <p className={styles.leadText}>
+              That is why African Girl Rise combines direct support, legal protection, and allyship programmes instead of
+              isolated activities that donors cannot easily trace to outcomes.
             </p>
             <Link href="/our-story" className={styles.textLink}>
               Read our story →
             </Link>
+          </article>
+
+          <div className={styles.contextGrid}>
+            {impactCards.map((item) => (
+              <article key={item.label} className={styles.contextCard}>
+                <span className={styles.contextValue}>{item.value}</span>
+                <h3 className={styles.contextLabel}>{item.label}</h3>
+                <p className={styles.contextCaption}>{item.caption}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ─── Stats ─── */}
-      <section className={styles.statsWrap}>
-        <span className={styles.eyebrow}>Impact</span>
-        <h2 className={styles.secTitle}>Impact in numbers</h2>
-        <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <div className={styles.statNum}>
-              <AnimatedCounter target={56000} suffix="+" continuous={true} incrementInterval={3000} />
-            </div>
-            <p className={styles.statLabel}>Girls Reached Globally</p>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNum}>
-              <AnimatedCounter target={12} suffix="+" />
-            </div>
-            <p className={styles.statLabel}>Active Sanctuaries</p>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNum}>
-              <AnimatedCounter target={100} suffix="%" />
-            </div>
-            <p className={styles.statLabel}>Program Success Rate</p>
-          </div>
-        </div>
-        <p className={styles.statsNote}>
-          Each figure reflects direct support delivered with girls, families, and communities.
-        </p>
-      </section>
-
-      {/* ─── Pillars ─── */}
-      <section className={styles.pillarsWrap}>
+      <section className={styles.programsSection}>
         <div className={styles.secHeader}>
-          <span className={styles.eyebrow}>How We Work</span>
-          <h2 className={styles.secTitle}>Where support happens</h2>
+          <span className={styles.eyebrow}>Core Program Pathways</span>
+          <h2 className={styles.secTitle}>Four clear pathways organise the work girls and communities actually receive.</h2>
           <p className={styles.secDesc}>
-            The work focuses on safety, education, and rights protection so girls are not left to
-            navigate crisis alone.
+            Rise Brothers sits inside the main programme structure because lasting change requires both direct support for
+            girls and change around them.
           </p>
         </div>
-        <div className={styles.pillarsRow}>
-          <div className={styles.pillarItem}>
-            <span className={styles.pillarNum}>01</span>
-            <h3>Rise Sanctuaries</h3>
-            <p>Safe spaces where girls can access counseling, peer support, and trusted adult guidance.</p>
-            <Link href="/programs" className={styles.pillarLnk}>Learn more →</Link>
+
+        <div className={styles.programGrid}>
+          {programCards.map((item) => (
+            <article key={item.title} className={styles.programCard}>
+              <div className={styles.programHeader}>
+                <span className={styles.programNumber}>{item.number}</span>
+                <span className={styles.programEyebrow}>Pathway</span>
+              </div>
+              <h3 className={styles.programTitle}>{item.title}</h3>
+              <p className={styles.programBody}>{item.description}</p>
+              <div className={styles.programTags}>
+                {item.tags.map((tag) => (
+                  <span key={tag} className={styles.programTag}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <Link href={item.href} className={styles.programLink}>
+                {item.hrefLabel} →
+              </Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.flowSection}>
+        <div className={styles.flowGrid}>
+          <div className={styles.flowIntro}>
+            <span className={styles.eyebrow}>What Support Looks Like</span>
+            <h2 className={styles.secTitle}>Support moves from urgent response to long-term change.</h2>
+            <p className={styles.secDesc}>
+              Every girl may enter at a different point, but the model is designed to move from immediate support to
+              durable change.
+            </p>
+            <Link href="/programs" className={styles.textLink}>
+              See all programmes →
+            </Link>
           </div>
-          <div className={styles.pillarItem}>
-            <span className={styles.pillarNum}>02</span>
-            <h3>Education Support</h3>
-            <p>School retention support, mentorship, and practical help that keeps girls learning.</p>
-            <Link href="/programs" className={styles.pillarLnk}>Learn more →</Link>
-          </div>
-          <div className={styles.pillarItem}>
-            <span className={styles.pillarNum}>03</span>
-            <h3>Legal Advocacy</h3>
-            <p>Case support, rights awareness, and community action when girls face abuse or neglect.</p>
-            <Link href="/legal-advocacy" className={styles.pillarLnk}>Learn more →</Link>
+
+          <div className={styles.flowSteps}>
+            {supportFlow.map((item) => (
+              <article key={item.step} className={styles.flowCard}>
+                <span className={styles.flowStep}>{item.step}</span>
+                <h3 className={styles.flowTitle}>{item.title}</h3>
+                <p className={styles.flowText}>{item.text}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ─── Founder Quote ─── */}
+      <section className={styles.marqueeSection}>
+        <div className={styles.secHeader}>
+          <span className={styles.eyebrow}>Moments From The Work</span>
+          <h2 className={styles.secTitle}>A calmer gallery that shows the work without visual clutter.</h2>
+          <p className={styles.secDesc}>
+            The marquee is now simpler, slower, and more consistent so it reads as documentation instead of noise.
+          </p>
+        </div>
+
+        <div className={styles.marqueeFrame}>
+          <div className={styles.marqueeRow}>
+            <div className={styles.marqueeTrack}>
+              {[...galleryMoments, ...galleryMoments].map((item, index) => {
+                const isRepeatedItem = index >= galleryMoments.length;
+
+                if (isRepeatedItem) {
+                  return (
+                    <figure key={`${item.src}-${index}`} className={styles.marqueeCard} aria-hidden="true">
+                      <div className={styles.marqueeMedia}>
+                        <Image
+                          src={item.src}
+                          alt=""
+                          fill
+                          sizes="(max-width: 640px) 72vw, (max-width: 1024px) 32vw, 22vw"
+                          style={{ objectFit: "cover" }}
+                        />
+                      </div>
+                    </figure>
+                  );
+                }
+
+                return (
+                  <figure key={`${item.src}-${index}`} className={styles.marqueeCard}>
+                    <div className={styles.marqueeMedia}>
+                      <Image
+                        src={item.src}
+                        alt={item.label}
+                        fill
+                        sizes="(max-width: 640px) 72vw, (max-width: 1024px) 32vw, 22vw"
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                    <figcaption className={styles.marqueeCaption}>{item.label}</figcaption>
+                  </figure>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className={styles.quoteWrap}>
         <div className={styles.quoteBox}>
-          <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
+          <span className={styles.quoteMark} aria-hidden="true">
+            &ldquo;
+          </span>
           <p className={styles.quoteBody}>
             My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.
           </p>
           <span className={styles.quoteBy}>— Akatwijuka Grace, Founder</span>
-          <Link href="/founder" className={styles.textLink} style={{ display: 'block', marginTop: '2rem' }}>
+          <Link href="/founder" className={styles.textLink}>
             Read her story →
           </Link>
         </div>
       </section>
 
-      {/* ─── CTA ─── */}
       <section className={styles.ctaBand}>
         <div className={styles.ctaBody}>
-          <span className={styles.ctaEyebrow}>Make a Difference</span>
-          <h2 className={styles.ctaHeading}>Help fund direct support for girls across Uganda</h2>
+          <span className={styles.eyebrow}>Make A Difference</span>
+          <h2 className={styles.ctaHeading}>Help fund direct support for girls across Uganda.</h2>
           <p className={styles.ctaText}>
             Your donation helps cover school support, emergency response, mentorship, and legal advocacy.
           </p>
           <div className={styles.ctaRow}>
-            <button
-              onClick={() => setIsDonationModalOpen(true)}
-              className={styles.ctaBtnWhite}
-            >
+            <button onClick={() => setIsDonationModalOpen(true)} className={styles.ctaBtnWhite}>
               Donate Now
             </button>
             <Link href="/contact" className={styles.ctaBtnOutline}>
@@ -227,12 +366,9 @@ export default function Home() {
         </div>
       </section>
 
-      {isDonationModalOpen && (
-        <DonationModal
-          isOpen={isDonationModalOpen}
-          onClose={() => setIsDonationModalOpen(false)}
-        />
-      )}
+      {isDonationModalOpen ? (
+        <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+      ) : null}
     </div>
   );
 }

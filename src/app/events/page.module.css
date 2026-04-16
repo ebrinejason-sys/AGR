@@ -482,3 +482,47 @@
   .modalTitle { font-size: 1.6rem; }
   .galleryGrid { grid-template-columns: 1fr; }
 }
+
+:global(html[data-ios="1"]) .ticker,
+:global(html[data-runtime-safe="1"]) .ticker {
+  display: none;
+}
+
+:global(html[data-ios="1"]) .tickerTrack,
+:global(html[data-runtime-safe="1"]) .tickerTrack {
+  animation: none;
+  transform: none;
+}
+
+:global([data-theme="dark"]) .hero {
+  background: linear-gradient(180deg, #10192b 0%, var(--bg-color) 100%);
+}
+
+:global([data-theme="dark"]) .heroContent,
+:global([data-theme="dark"]) .eventCard,
+:global([data-theme="dark"]) .modal {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+:global([data-theme="dark"]) .heroContent {
+  background: var(--surface-elevated);
+}
+
+:global([data-theme="dark"]) .modalGoal {
+  background: var(--surface-muted);
+}
+
+:global([data-theme="dark"]) .modalAchievements {
+  background: rgba(74, 222, 128, 0.08);
+}
+
+:global(html[data-ios="1"]) .hero::before,
+:global(html[data-runtime-safe="1"]) .hero::before {
+  display: none;
+}
+
+:global(html[data-ios="1"]) .modal,
+:global(html[data-runtime-safe="1"]) .modal {
+  animation: none;
+}

@@ -306,3 +306,46 @@
   .founderImageFrame { height: 280px; }
   .statementInner p { font-size: 1.4rem; }
 }
+
+:global(html[data-ios="1"]) .ticker,
+:global(html[data-runtime-safe="1"]) .ticker {
+  display: none;
+}
+
+:global(html[data-ios="1"]) .tickerTrack,
+:global(html[data-runtime-safe="1"]) .tickerTrack {
+  animation: none;
+  transform: none;
+}
+
+.founderImage {
+  object-fit: cover;
+  object-position: top center;
+}
+
+.contactLink {
+  color: var(--color-pink);
+  text-decoration: none;
+}
+
+.hero {
+  background: linear-gradient(180deg, var(--surface-rose) 0%, var(--bg-color) 100%);
+}
+
+:global([data-theme="dark"]) .hero {
+  background: linear-gradient(180deg, #10192b 0%, var(--bg-color) 100%);
+}
+
+:global([data-theme="dark"]) .founderImageFrame {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+:global([data-theme="dark"]) .statementBox {
+  background: var(--gradient-dramatic);
+}
+
+:global(html[data-ios="1"]) .founderImageFrame::after,
+:global(html[data-runtime-safe="1"]) .founderImageFrame::after {
+  display: none;
+}

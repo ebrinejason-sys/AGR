@@ -72,10 +72,10 @@ export default async function ProgramDetailPage({
 
     if (!detail) {
         return (
-            <div className={styles.container} style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ textAlign: 'center' }}>
+            <div className={`${styles.container} ${styles.notFoundState}`}>
+                <div className={styles.notFoundInner}>
                     <h2>Program not found</h2>
-                    <Link href="/programs" className={styles.btnBack} style={{ marginTop: '1rem', display: 'inline-flex' }}>← Back to Programs</Link>
+                    <Link href="/programs" className={`${styles.btnBack} ${styles.notFoundBack}`}>← Back to Programs</Link>
                 </div>
             </div>
         );

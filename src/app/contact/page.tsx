@@ -53,6 +53,7 @@ export default function Contact() {
 
     const set = (field: keyof FormFields) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
         setFormData(prev => ({ ...prev, [field]: e.target.value }));
+    const fieldId = (field: keyof FormFields) => `${activeTab}-${field}`;
 
     const handleTabChange = (tab: ContactType) => {
         setActiveTab(tab);
@@ -86,7 +87,7 @@ export default function Contact() {
             <section className={styles.hero}>
                 <p className="subheading reveal">Engagement</p>
                 <h1 className="heading-display reveal">Contact <span className="text-gradient">Rise</span></h1>
-                <p className="subheading reveal" style={{ fontStyle: 'italic', letterSpacing: '0.1em', marginTop: '2rem' }}>
+                <p className={`${styles.heroLead} subheading reveal`}>
                                     Reach our team for mentorship, sponsorship, partnership, or general enquiries.
                 </p>
             </section>
@@ -149,16 +150,16 @@ export default function Contact() {
                             {activeTab === 'general' && (
                                 <>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>FULL NAME</label>
-                                        <input type="text" className={styles.input} required value={formData.name} onChange={set('name')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('name')}>FULL NAME</label>
+                                        <input id={fieldId('name')} type="text" className={styles.input} required value={formData.name} onChange={set('name')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>EMAIL ADDRESS</label>
-                                        <input type="email" className={styles.input} required value={formData.email} onChange={set('email')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('email')}>EMAIL ADDRESS</label>
+                                        <input id={fieldId('email')} type="email" className={styles.input} required value={formData.email} onChange={set('email')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>MESSAGE</label>
-                                        <textarea rows={4} className={styles.input} required value={formData.message} onChange={set('message')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('message')}>MESSAGE</label>
+                                        <textarea id={fieldId('message')} rows={4} className={styles.input} required value={formData.message} onChange={set('message')} />
                                     </div>
                                 </>
                             )}
@@ -167,28 +168,28 @@ export default function Contact() {
                             {activeTab === 'mentor' && (
                                 <>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>FULL NAME</label>
-                                        <input type="text" className={styles.input} required value={formData.name} onChange={set('name')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('name')}>FULL NAME</label>
+                                        <input id={fieldId('name')} type="text" className={styles.input} required value={formData.name} onChange={set('name')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>EMAIL ADDRESS</label>
-                                        <input type="email" className={styles.input} required value={formData.email} onChange={set('email')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('email')}>EMAIL ADDRESS</label>
+                                        <input id={fieldId('email')} type="email" className={styles.input} required value={formData.email} onChange={set('email')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>PHONE (OPTIONAL)</label>
-                                        <input type="tel" className={styles.input} value={formData.phone} onChange={set('phone')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('phone')}>PHONE (OPTIONAL)</label>
+                                        <input id={fieldId('phone')} type="tel" className={styles.input} value={formData.phone} onChange={set('phone')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>PROFESSION / AREA OF EXPERTISE</label>
-                                        <input type="text" className={styles.input} required placeholder="e.g. Software Engineer, Nurse, Educator" value={formData.profession} onChange={set('profession')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('profession')}>PROFESSION / AREA OF EXPERTISE</label>
+                                        <input id={fieldId('profession')} type="text" className={styles.input} required placeholder="e.g. Software Engineer, Nurse, Educator" value={formData.profession} onChange={set('profession')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>ORGANISATION / INSTITUTION</label>
-                                        <input type="text" className={styles.input} value={formData.organization} onChange={set('organization')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('organization')}>ORGANISATION / INSTITUTION</label>
+                                        <input id={fieldId('organization')} type="text" className={styles.input} value={formData.organization} onChange={set('organization')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>HOW WOULD YOU LIKE TO CONTRIBUTE?</label>
-                                        <select className={styles.input} required value={formData.contributionArea} onChange={set('contributionArea')}>
+                                        <label className={styles.inputLabel} htmlFor={fieldId('contributionArea')}>HOW WOULD YOU LIKE TO CONTRIBUTE?</label>
+                                        <select id={fieldId('contributionArea')} className={styles.input} required value={formData.contributionArea} onChange={set('contributionArea')}>
                                             <option value="">Select an area</option>
                                             <option value="Career Guidance">Career Guidance</option>
                                             <option value="Academic Support">Academic Support</option>
@@ -200,8 +201,8 @@ export default function Contact() {
                                         </select>
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>MENTORING CAPACITY PER YEAR</label>
-                                        <select className={styles.input} required value={formData.mentorCapacity} onChange={set('mentorCapacity')}>
+                                        <label className={styles.inputLabel} htmlFor={fieldId('mentorCapacity')}>MENTORING CAPACITY PER YEAR</label>
+                                        <select id={fieldId('mentorCapacity')} className={styles.input} required value={formData.mentorCapacity} onChange={set('mentorCapacity')}>
                                             <option value="">Select capacity</option>
                                             <option value="1-2 mentees">1–2 mentees</option>
                                             <option value="3-5 mentees">3–5 mentees</option>
@@ -210,8 +211,8 @@ export default function Contact() {
                                         </select>
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>ADDITIONAL NOTES</label>
-                                        <textarea rows={3} className={styles.input} value={formData.message} onChange={set('message')} placeholder="Tell us more about your mentoring goals or availability" />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('message')}>ADDITIONAL NOTES</label>
+                                        <textarea id={fieldId('message')} rows={3} className={styles.input} value={formData.message} onChange={set('message')} placeholder="Tell us more about your mentoring goals or availability" />
                                     </div>
                                 </>
                             )}
@@ -220,24 +221,24 @@ export default function Contact() {
                             {activeTab === 'sponsor' && (
                                 <>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>ORGANISATION NAME</label>
-                                        <input type="text" className={styles.input} required value={formData.orgName} onChange={set('orgName')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('orgName')}>ORGANISATION NAME</label>
+                                        <input id={fieldId('orgName')} type="text" className={styles.input} required value={formData.orgName} onChange={set('orgName')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>CONTACT PERSON</label>
-                                        <input type="text" className={styles.input} required value={formData.contactPerson} onChange={set('contactPerson')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('contactPerson')}>CONTACT PERSON</label>
+                                        <input id={fieldId('contactPerson')} type="text" className={styles.input} required value={formData.contactPerson} onChange={set('contactPerson')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>EMAIL ADDRESS</label>
-                                        <input type="email" className={styles.input} required value={formData.email} onChange={set('email')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('email')}>EMAIL ADDRESS</label>
+                                        <input id={fieldId('email')} type="email" className={styles.input} required value={formData.email} onChange={set('email')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>PHONE (OPTIONAL)</label>
-                                        <input type="tel" className={styles.input} value={formData.phone} onChange={set('phone')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('phone')}>PHONE (OPTIONAL)</label>
+                                        <input id={fieldId('phone')} type="tel" className={styles.input} value={formData.phone} onChange={set('phone')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>SPONSORSHIP TYPE</label>
-                                        <select className={styles.input} required value={formData.sponsorType} onChange={set('sponsorType')}>
+                                        <label className={styles.inputLabel} htmlFor={fieldId('sponsorType')}>SPONSORSHIP TYPE</label>
+                                        <select id={fieldId('sponsorType')} className={styles.input} required value={formData.sponsorType} onChange={set('sponsorType')}>
                                             <option value="">Select type</option>
                                             <option value="Monetary Donation">Monetary Donation</option>
                                             <option value="In-Kind Support">In-Kind Support</option>
@@ -246,8 +247,8 @@ export default function Contact() {
                                         </select>
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>BUDGET RANGE (USD)</label>
-                                        <select className={styles.input} required value={formData.budgetRange} onChange={set('budgetRange')}>
+                                        <label className={styles.inputLabel} htmlFor={fieldId('budgetRange')}>BUDGET RANGE (USD)</label>
+                                        <select id={fieldId('budgetRange')} className={styles.input} required value={formData.budgetRange} onChange={set('budgetRange')}>
                                             <option value="">Select range</option>
                                             <option value="Under $500">Under $500</option>
                                             <option value="$500 – $2,000">$500 – $2,000</option>
@@ -257,8 +258,8 @@ export default function Contact() {
                                         </select>
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>MESSAGE / PROPOSAL</label>
-                                        <textarea rows={4} className={styles.input} required value={formData.message} onChange={set('message')} placeholder="Tell us about your sponsorship goals or programmes you'd like to fund" />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('message')}>MESSAGE / PROPOSAL</label>
+                                        <textarea id={fieldId('message')} rows={4} className={styles.input} required value={formData.message} onChange={set('message')} placeholder="Tell us about your sponsorship goals or programmes you'd like to fund" />
                                     </div>
                                 </>
                             )}
@@ -267,20 +268,20 @@ export default function Contact() {
                             {activeTab === 'donate' && (
                                 <>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>FULL NAME / ORGANISATION</label>
-                                        <input type="text" className={styles.input} required value={formData.name} onChange={set('name')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('name')}>FULL NAME / ORGANISATION</label>
+                                        <input id={fieldId('name')} type="text" className={styles.input} required value={formData.name} onChange={set('name')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>EMAIL ADDRESS</label>
-                                        <input type="email" className={styles.input} required value={formData.email} onChange={set('email')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('email')}>EMAIL ADDRESS</label>
+                                        <input id={fieldId('email')} type="email" className={styles.input} required value={formData.email} onChange={set('email')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>PHONE (OPTIONAL)</label>
-                                        <input type="tel" className={styles.input} value={formData.phone} onChange={set('phone')} />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('phone')}>PHONE (OPTIONAL)</label>
+                                        <input id={fieldId('phone')} type="tel" className={styles.input} value={formData.phone} onChange={set('phone')} />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>DONOR TYPE</label>
-                                        <select className={styles.input} required value={formData.donationType} onChange={set('donationType')}>
+                                        <label className={styles.inputLabel} htmlFor={fieldId('donationType')}>DONOR TYPE</label>
+                                        <select id={fieldId('donationType')} className={styles.input} required value={formData.donationType} onChange={set('donationType')}>
                                             <option value="">Select type</option>
                                             <option value="Individual">Individual</option>
                                             <option value="Corporate / Organisation">Corporate / Organisation</option>
@@ -289,8 +290,8 @@ export default function Contact() {
                                         </select>
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>AREA OF GIVING</label>
-                                        <select className={styles.input} required value={formData.donationIntent} onChange={set('donationIntent')}>
+                                        <label className={styles.inputLabel} htmlFor={fieldId('donationIntent')}>AREA OF GIVING</label>
+                                        <select id={fieldId('donationIntent')} className={styles.input} required value={formData.donationIntent} onChange={set('donationIntent')}>
                                             <option value="">Select area</option>
                                             <option value="School Fees for Girls">School Fees for Girls</option>
                                             <option value="Community Programmes">Community Programmes</option>
@@ -300,18 +301,18 @@ export default function Contact() {
                                         </select>
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label className={styles.inputLabel}>MESSAGE</label>
-                                        <textarea rows={4} className={styles.input} required value={formData.message} onChange={set('message')} placeholder="Share your intention or any questions about giving" />
+                                        <label className={styles.inputLabel} htmlFor={fieldId('message')}>MESSAGE</label>
+                                        <textarea id={fieldId('message')} rows={4} className={styles.input} required value={formData.message} onChange={set('message')} placeholder="Share your intention or any questions about giving" />
                                     </div>
                                 </>
                             )}
 
-                            <button type="submit" className="btn-premium" style={{ width: '100%' }} disabled={status === 'loading'}>
+                            <button type="submit" className={`btn-premium ${styles.fullWidthButton}`} disabled={status === 'loading'}>
                                 <span>{status === 'loading' ? 'SENDING...' : 'SEND MESSAGE'}</span>
                             </button>
 
-                            {status === 'success' && <p style={{ marginTop: '1.25rem', color: 'var(--color-pink)', fontWeight: '700', fontSize: '0.82rem' }}>Message sent successfully.</p>}
-                            {status === 'error' && <p style={{ marginTop: '1.25rem', color: '#d64545', fontWeight: '700', fontSize: '0.82rem' }}>Something went wrong. Please try again.</p>}
+                            {status === 'success' && <p className={styles.statusSuccess}>Message sent successfully.</p>}
+                            {status === 'error' && <p className={styles.statusError}>Something went wrong. Please try again.</p>}
                         </form>
                     </div>
                 </div>

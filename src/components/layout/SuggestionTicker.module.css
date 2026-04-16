@@ -11,7 +11,7 @@
 .tickerTrack {
     display: flex;
     width: max-content;
-    animation: tickerScroll 40s linear infinite;
+    animation: tickerScroll 52s linear infinite;
     will-change: transform;
 }
 
@@ -43,6 +43,16 @@
     to {
         transform: translateX(-33.33%);
     }
+}
+
+:global(html[data-runtime-safe="1"]) .ticker {
+    display: none;
+}
+
+:global(html[data-runtime-safe="1"]) .tickerTrack {
+    animation: none;
+    transform: none;
+    will-change: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {

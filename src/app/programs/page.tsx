@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const PROGRAMS = [
     {
-        id: 'rise-room',
+        id: 'rise-rooms',
         number: '01',
         title: 'The Rise Room Initiative',
         tagline: 'A sanctuary. A lifeline. A place where silence can finally break.',
@@ -28,6 +28,7 @@ const PROGRAMS = [
             '• Quiet Space — sometimes a girl simply needs to rest',
             'Before Rise Rooms, 85% of girls reported feeling completely alone in their struggles. After, 75% know they are not alone. School attendance rose from 62% to 92%.',
         ],
+        href: '/programs/rise-rooms',
     },
     {
         id: 'academic-rescue',
@@ -51,6 +52,7 @@ const PROGRAMS = [
             '6. Tutoring & Remedial Classes — After-school tutoring and exam preparation for girls who have fallen behind due to absences or trauma.',
             '92% of girls in our programme stay in school — compared to 60% nationally.',
         ],
+        href: '/programs/academic-rescue',
     },
     {
         id: 'leadership-life-skills',
@@ -72,6 +74,7 @@ const PROGRAMS = [
             'Leadership Development: Girls move through five stages — Discovery, Planning, Action, Reflection, and Mentoring. Every girl who completes the programme designs a community project and pledges to mentor at least one girl each year.',
             'The Alumni Promise: "I will reach back. I will mentor at least one girl each year. I will prove that her beginning does not define her becoming."',
         ],
+        href: '/programs/leadership-life-skills',
     },
     {
         id: 'health-wellness',
@@ -94,6 +97,7 @@ const PROGRAMS = [
             '5. Physical Wellness — Sports, recreation, basic exercise, understanding the connection between physical and mental health, and rest education.',
             '6. Mental Health Integration — Health & Wellness works hand-in-hand with our Rise Rooms pillar. Holistic healing. Whole girls. Complete wellness.',
         ],
+        href: '/programs/health-wellness',
     },
     {
         id: 'future-pathways',
@@ -116,6 +120,27 @@ const PROGRAMS = [
             '5. The "My Rise Plan" — Every girl creates a personalised roadmap: Where do I want to be in 5 years? What education and skills do I need? What steps will I take, and when? Who can help me?',
             '6. Rise Alumni Network — Graduates join a lifelong community, mentor current girls, access job and training opportunities, and carry the motto: "Rise. Then reach back. Always."',
         ],
+        href: '/programs/future-pathways',
+    },
+    {
+        id: 'rise-brothers',
+        number: '06',
+        title: 'Rise Brothers',
+        tagline: 'Strong boys support strong girls. Together, we rise.',
+        summary: 'Rise Brothers is the boys-focused allyship programme at African Girl Rise. It teaches boys to understand what girls face, manage their own emotions in healthy ways, and become protectors, peers, and advocates who help break harmful cycles early.',
+        stats: [
+            { value: 'Weekly', label: 'Mental health circles' },
+            { value: 'Bi-weekly', label: 'Allyship workshops' },
+            { value: 'Monthly', label: 'Joint sessions with girls' },
+            { value: 'Annual', label: 'Rise Brothers Summit' },
+        ],
+        detail: [
+            'We cannot empower girls in isolation. Boys grow into the fathers, husbands, teachers, police officers, and judges who shape the systems girls must navigate later.',
+            'Rise Brothers teaches emotional literacy, gender equality, consent, menstrual health understanding, peer accountability, and practical life skills that build self-sufficiency.',
+            'Boys learn to speak about their feelings without shame, interrupt bullying and abuse, help with pad-making workshops, and reject the idea that care work is only for women.',
+            'Graduates leave with a certificate, mental health first aid knowledge, practical skills, and a lifelong commitment to stand beside girls as allies.',
+        ],
+        href: '/programs/rise-brothers',
     },
 ];
 
@@ -134,17 +159,17 @@ export default function Programs() {
         <div className={styles.container}>
             {/* Editorial Hero */}
             <section className={styles.hero}>
-                                <p className="subheading reveal">Our Programs</p>
+                <p className="subheading reveal">Our Programs</p>
                 <h1 className="heading-display reveal">Core <span className="text-gradient">Programs</span></h1>
-                <p className="subheading reveal" style={{ fontStyle: 'italic', letterSpacing: '0.1em', marginTop: '2rem' }}>
-                                    Long-term support that helps girls stay safe, stay in school, and build for the future.
+                <p className={`subheading reveal ${styles.heroLead}`}>
+                    Long-term support that helps girls stay safe, stay in school, and build for the future.
                 </p>
             </section>
 
             {/* Ticker */}
             <div className={styles.ticker} aria-hidden="true">
                 <div className={styles.tickerTrack}>
-                    {['Rise Room', 'Academic Rescue', 'Life Skills', 'Health & Wellness', 'Future Pathways', 'Leadership', 'Mentorship', 'Community', 'Resilience', 'Empowerment', 'Rise Room', 'Academic Rescue', 'Life Skills', 'Health & Wellness', 'Future Pathways', 'Leadership', 'Mentorship', 'Community', 'Resilience', 'Empowerment'].map((item, i) => (
+                    {['Rise Room', 'Academic Rescue', 'Life Skills', 'Health & Wellness', 'Future Pathways', 'Rise Brothers', 'Leadership', 'Mentorship', 'Community', 'Allyship', 'Rise Room', 'Academic Rescue', 'Life Skills', 'Health & Wellness', 'Future Pathways', 'Rise Brothers', 'Leadership', 'Mentorship', 'Community', 'Allyship'].map((item, i) => (
                         <span key={i} className={styles.tickerItem}>{item}</span>
                     ))}
                 </div>
@@ -153,16 +178,17 @@ export default function Programs() {
             {/* Programs List */}
             <section className={styles.programsSection}>
                 <div className={styles.programsWrapper}>
-                    <div style={{ textAlign: 'center', marginBottom: '8rem' }}>
-                        <p className="subheading">Five Pathways</p>
+                    <div className={styles.sectionIntro}>
+                        <p className="subheading">Six Pathways</p>
                         <h2 className="heading-section">Programs That <span className="text-gradient">Transform</span></h2>
-                        <p style={{ maxWidth: '700px', margin: '2rem auto 0', color: 'var(--text-muted)', fontSize: '1.15rem', lineHeight: '1.8' }}>
-                            Each programme responds to a barrier that places girls at risk. Together, they create connected support across recovery, education, health, leadership, and long-term opportunity.
+                        <p className={styles.sectionIntroCopy}>
+                            Each programme responds to a barrier that places girls at risk while also reshaping the communities around them. Together, they create connected support across recovery, education, health, leadership, allyship, and long-term opportunity.
                         </p>
                     </div>
 
                     {PROGRAMS.map(program => (
                         <div key={program.id} className={styles.programCard}>
+                            <div id={program.id} className={styles.programAnchor} aria-hidden="true" />
                             <div className={styles.programCardInner}>
                                 <span className={styles.programNumber}>{program.number}</span>
                                 <div className={styles.programBody}>
@@ -187,9 +213,14 @@ export default function Programs() {
                                         </div>
                                     )}
 
-                                    <button className={styles.programReadMore} onClick={() => toggle(program.id)}>
-                                        {expandedId === program.id ? 'Show Less ↑' : 'Read More ↓'}
-                                    </button>
+                                    <div className={styles.programActionRow}>
+                                        <button className={styles.programReadMore} onClick={() => toggle(program.id)}>
+                                            {expandedId === program.id ? 'Show Less ↑' : 'Read More ↓'}
+                                        </button>
+                                        <Link href={program.href} className={styles.programExploreLink}>
+                                            Full Program →
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -200,10 +231,10 @@ export default function Programs() {
             {/* Four Pillars */}
             <section className={styles.pillarsSection}>
                 <div className={styles.pillarsWrapper}>
-                    <div style={{ textAlign: 'center', marginBottom: '8rem' }}>
-                        <p className="subheading" style={{ color: 'rgba(255,255,255,0.5)' }}>Our Framework</p>
-                        <h2 className="heading-section" style={{ color: 'white' }}>Four <span className="text-gradient">Pillars</span> of Rise</h2>
-                        <p style={{ maxWidth: '700px', margin: '2rem auto 0', color: 'rgba(255,255,255,0.5)', fontSize: '1.1rem', lineHeight: '1.8' }}>
+                    <div className={styles.pillarsIntro}>
+                        <p className={`subheading ${styles.pillarsEyebrow}`}>Our Framework</p>
+                        <h2 className={`heading-section ${styles.pillarsHeading}`}>Four <span className="text-gradient">Pillars</span> of Rise</h2>
+                        <p className={styles.pillarsDescription}>
                             The framework behind how we support girls, families, and schools.
                         </p>
                     </div>
@@ -217,8 +248,8 @@ export default function Programs() {
                             </div>
                         ))}
                     </div>
-                    <div style={{ textAlign: 'center', marginTop: '6rem' }}>
-                        <Link href="/legal-advocacy" style={{ color: 'var(--color-pink)', fontSize: '0.85rem', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: '700' }}>
+                    <div className={styles.pillarsFooter}>
+                        <Link href="/legal-advocacy" className={styles.pillarsLink}>
                             Explore Legal Advocacy (Pillar 4) →
                         </Link>
                     </div>
@@ -227,7 +258,7 @@ export default function Programs() {
 
             {/* Impact Banner */}
             <section className={styles.realityBanner}>
-                <h2 className="heading-section" style={{ color: 'white' }}>The <span className="text-gradient">Impact</span> in Numbers</h2>
+                <h2 className={`heading-section ${styles.impactHeading}`}>The <span className="text-gradient">Impact</span> in Numbers</h2>
                 <div className={styles.bannerStats}>
                     <div className={styles.bannerStatItem}><h3>800+</h3><p>Girls Directly Reached</p></div>
                     <div className={styles.bannerStatItem}><h3>92%</h3><p>School Retention Rate</p></div>
@@ -238,15 +269,15 @@ export default function Programs() {
 
             {/* CTA */}
             <section className={styles.ctaEditorial}>
-                <h2 className="heading-section">Invest in a <span style={{ color: 'var(--color-lightblue)' }}>Girl&apos;s Future</span></h2>
-                <p style={{ fontSize: '1.3rem', fontFamily: 'var(--font-serif)', fontStyle: 'italic', marginBottom: '4rem', opacity: 0.85 }}>
+                <h2 className="heading-section">Invest in a <span className={styles.ctaAccent}>Girl&apos;s Future</span></h2>
+                <p className={styles.ctaCopy}>
                     Your support helps fund practical care, school retention, and pathways for girls to lead with confidence.
                 </p>
-                <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                    <Link href="/donate" className="btn-premium" style={{ background: 'white', color: 'black' }}>
+                <div className={styles.ctaActions}>
+                    <Link href="/donate" className={`btn-premium ${styles.ctaPrimary}`}>
                         <span>Donate</span>
                     </Link>
-                    <Link href="/contact" className="btn-premium" style={{ borderColor: 'white' }}>
+                    <Link href="/contact" className={`btn-premium ${styles.ctaSecondary}`}>
                         <span>Partner with us</span>
                     </Link>
                 </div>

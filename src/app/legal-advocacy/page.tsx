@@ -63,10 +63,10 @@ export default function LegalAdvocacy() {
             <section className={styles.hero}>
                 <p className="subheading reveal">Protection &amp; Justice</p>
                 <h1 className="heading-display reveal">Knowing Your <span className="text-gradient">Rights</span></h1>
-                <p className="subheading reveal" style={{ marginTop: '2rem', fontStyle: 'italic', letterSpacing: '0.1em' }}>
+                <p className={`${styles.heroLead} subheading reveal`}>
                     Your Rights. Your Power. Your Protection.
                 </p>
-                <p className="subheading reveal" style={{ marginTop: '1rem', letterSpacing: '0.05em' }}>
+                <p className={`${styles.heroSupportText} subheading reveal`}>
                     No girl should suffer in silence. No woman should be abused without recourse.
                 </p>
             </section>
@@ -74,10 +74,10 @@ export default function LegalAdvocacy() {
             {/* Reality */}
             <section className={styles.editorialIntro}>
                 <div className={styles.introContainer}>
-                    <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+                    <div className={styles.introLeadWrap}>
                         <p className="subheading">The Reality</p>
                         <h2 className="heading-section">A Silence <span className="text-gradient">Broken</span></h2>
-                        <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: '1.8', marginTop: '2rem' }}>
+                        <p className={styles.introLead}>
                             In Uganda, countless girls and women suffer abuse — physical, emotional, sexual — without knowing they have rights. Without knowing where to turn. Without knowing that the law exists to protect them.
                         </p>
                     </div>
@@ -113,7 +113,7 @@ export default function LegalAdvocacy() {
 
             {/* Initiatives */}
             <section className={styles.editorialBody}>
-                <div style={{ textAlign: 'center', marginBottom: '8rem' }}>
+                <div className={styles.sectionIntro}>
                     <p className="subheading">Strategy</p>
                     <h2 className="heading-section">Legal Literacy. Legal Protection. <span className="text-gradient">Legal Empowerment.</span></h2>
                 </div>
@@ -123,9 +123,9 @@ export default function LegalAdvocacy() {
                         <p className="subheading">Initiative {init.number}</p>
                         <h3 className="serif">{init.title}</h3>
                         <p>{init.description}</p>
-                        <ul style={{ marginTop: '2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', listStyle: 'none', padding: 0 }}>
+                        <ul className={styles.initiativeList}>
                             {init.items.map((item, i) => (
-                                <li key={i} style={{ borderLeft: '2px solid var(--color-pink)', paddingLeft: '1.5rem', fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+                                <li key={i} className={styles.initiativeListItem}>
                                     {item}
                                 </li>
                             ))}
@@ -151,7 +151,7 @@ export default function LegalAdvocacy() {
 
             {/* Founder's Voice */}
             <section className={styles.founderVoice}>
-                <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                <div className={styles.founderVoiceInner}>
                     <p className="subheading">The Founder&rsquo;s Voice</p>
                     <blockquote>
                         &ldquo;I watched my friends fall &mdash; one married off too young, another pulled out of school for her brothers to study. The system did not protect them. So I decided to become someone who would. A lawyer stands as a shield between the powerless and a cruel system. I chose law because justice is not given &mdash; it is fought for. And I will fight for every girl who was told her voice doesn&rsquo;t matter.&rdquo;
@@ -165,15 +165,15 @@ export default function LegalAdvocacy() {
 
             {/* CTA */}
             <section className={styles.ctaBox}>
-                <h2 className="heading-section" style={{ color: 'white' }}>Advocate for <span className="text-gradient">Justice</span></h2>
-                <p style={{ fontSize: '1.4rem', fontFamily: 'var(--font-serif)', opacity: 0.8, marginBottom: '5rem', fontStyle: 'italic' }}>
+                <h2 className={`${styles.ctaHeading} heading-section`}>Advocate for <span className="text-gradient">Justice</span></h2>
+                <p className={styles.ctaLead}>
                     Your contribution ensures that no girl in our community has to suffer in silence.
                 </p>
-                <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                    <Link href="/donate" className="btn-premium" style={{ background: 'white', color: 'black' }}>
+                <div className={styles.ctaActions}>
+                    <Link href="/donate" className={`btn-premium ${styles.ctaPrimary}`}>
                         <span>Support Legal Rights</span>
                     </Link>
-                    <Link href="/contact" className="btn-premium" style={{ borderColor: 'white' }}>
+                    <Link href="/contact" className={`btn-premium ${styles.ctaSecondary}`}>
                         <span>Contact Our Team</span>
                     </Link>
                 </div>

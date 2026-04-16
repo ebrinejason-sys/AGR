@@ -411,6 +411,12 @@
   background: linear-gradient(180deg, var(--surface-rose) 0%, #ffffff 100%);
 }
 
+.heroLead {
+  margin-top: 2rem;
+  font-style: italic;
+  letter-spacing: 0.1em;
+}
+
 .hero::before {
   content: '';
   position: absolute;
@@ -432,10 +438,34 @@
   background: transparent;
 }
 
+.sectionIntro,
+.pillarsIntro {
+  margin-bottom: 8rem;
+  text-align: center;
+}
+
+.sectionIntroCopy,
+.pillarsDescription {
+  max-width: 700px;
+  margin: 2rem auto 0;
+  line-height: 1.8;
+}
+
+.sectionIntroCopy {
+  color: var(--text-muted);
+  font-size: 1.15rem;
+}
+
 .programCard {
   border-bottom: none;
   padding: 0;
   margin-bottom: 1.5rem;
+}
+
+.programAnchor {
+  position: relative;
+  top: -8rem;
+  visibility: hidden;
 }
 
 .programCard:first-of-type {
@@ -510,7 +540,39 @@
   border-radius: 999px;
 }
 
+.programActionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.programExploreLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0.95rem 1.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(233, 30, 99, 0.16);
+  background: rgba(233, 30, 99, 0.08);
+  color: var(--color-pink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
 .programReadMore:hover {
+  background: var(--color-pink);
+  border-color: var(--color-pink);
+  color: white;
+}
+
+.programExploreLink:hover {
   background: var(--color-pink);
   border-color: var(--color-pink);
   color: white;
@@ -519,6 +581,34 @@
 .pillarsSection {
   padding: 6rem 5%;
   background: linear-gradient(135deg, #1f2545 0%, #40375f 46%, #7a2556 100%);
+}
+
+.pillarsEyebrow,
+.pillarsDescription {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.pillarsHeading,
+.impactHeading {
+  color: white;
+}
+
+.pillarsDescription {
+  font-size: 1.1rem;
+}
+
+.pillarsFooter {
+  margin-top: 6rem;
+  text-align: center;
+}
+
+.pillarsLink {
+  color: var(--color-pink);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .pillarsGrid {
@@ -559,9 +649,91 @@
   background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
 }
 
+.ctaAccent {
+  color: var(--color-lightblue);
+}
+
+.ctaCopy {
+  margin-bottom: 4rem;
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.ctaPrimary {
+  background: white;
+  color: black;
+}
+
+.ctaSecondary {
+  border-color: white;
+}
+
 @media (max-width: 768px) {
   .programStatRow {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
   }
+}
+
+:global(html[data-ios="1"]) .ticker,
+:global(html[data-runtime-safe="1"]) .ticker {
+  display: none;
+}
+
+:global(html[data-ios="1"]) .tickerTrack,
+:global(html[data-runtime-safe="1"]) .tickerTrack {
+  animation: none;
+  transform: none;
+}
+
+:global([data-theme="dark"]) .hero {
+  background: linear-gradient(180deg, #10192b 0%, var(--bg-color) 100%);
+}
+
+:global([data-theme="dark"]) .programCardInner,
+:global([data-theme="dark"]) .programStatItem,
+:global([data-theme="dark"]) .programDetail {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+:global([data-theme="dark"]) .programReadMore {
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+:global([data-theme="dark"]) .realityBanner {
+  background: linear-gradient(180deg, var(--surface-muted) 0%, var(--bg-color) 100%);
+}
+
+:global([data-theme="dark"]) .ctaPrimary {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+:global([data-theme="dark"]) .ctaSecondary {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.ctaPrimary:hover {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.ctaSecondary:hover {
+  color: #ffffff;
+}
+
+:global(html[data-ios="1"]) .hero::before,
+:global(html[data-runtime-safe="1"]) .hero::before {
+  display: none;
 }

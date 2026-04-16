@@ -176,3 +176,145 @@
     font-size: 1.1rem;
   }
 }
+
+.hero {
+  background: linear-gradient(180deg, var(--surface-rose) 0%, var(--bg-color) 100%);
+}
+
+.heroLead {
+  margin-top: 2rem;
+  font-style: italic;
+  letter-spacing: 0.1em;
+}
+
+.heroSupportText {
+  margin-top: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.introLeadWrap {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.introLead {
+  margin-top: 2rem;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  line-height: 1.8;
+}
+
+.sectionIntro {
+  margin-bottom: 6rem;
+  text-align: center;
+}
+
+.initiativeList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.initiativeListItem {
+  border-left: 2px solid var(--color-pink);
+  padding-left: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.founderVoiceInner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ctaHeading {
+  color: #ffffff;
+}
+
+.ctaLead {
+  margin-bottom: 5rem;
+  font-size: 1.4rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.ctaActions {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaPrimary {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.ctaSecondary {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.ctaPrimary:hover {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.ctaSecondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.truthCard,
+.advocacyBox {
+  border-radius: 28px;
+}
+
+:global([data-theme="dark"]) .hero {
+  background: linear-gradient(180deg, #10192b 0%, var(--bg-color) 100%);
+}
+
+:global([data-theme="dark"]) .truthCard,
+:global([data-theme="dark"]) .advocacyBox {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-soft);
+}
+
+:global([data-theme="dark"]) .advocacyBox::after {
+  border-color: rgba(255, 94, 138, 0.14);
+}
+
+:global([data-theme="dark"]) .founderVoice blockquote {
+  color: var(--text-color);
+}
+
+:global(html[data-ios="1"]) .truthCard:hover,
+:global(html[data-runtime-safe="1"]) .truthCard:hover,
+:global(html[data-ios="1"]) .advocacyBox::after,
+:global(html[data-runtime-safe="1"]) .advocacyBox::after {
+  transform: none;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sectionIntro {
+    margin-bottom: 4rem;
+  }
+
+  .ctaLead {
+    margin-bottom: 3rem;
+    font-size: 1.15rem;
+  }
+
+  .ctaActions {
+    gap: 1rem;
+  }
+}

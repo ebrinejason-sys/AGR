@@ -33,7 +33,7 @@ export default function Founder() {
                     src="/images/founder.jpg"
                     alt="Akatwijuka Grace — Founder of African Girl Rise"
                     fill
-                    style={{ objectFit: 'cover', objectPosition: 'top center' }}
+                    className={styles.founderImage}
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 45vw"
                     priority
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -133,19 +133,19 @@ export default function Founder() {
                     <div className={styles.statItem}>
                       <span className={styles.statLabel}>WhatsApp Only</span>
                       <p className={styles.statValue}>
-                        <a href="https://wa.me/256703727965" style={{ color: 'var(--color-pink)', textDecoration: 'none' }}>+256 703 727 965</a>
+                        <a href="https://wa.me/256703727965" className={styles.contactLink}>+256 703 727 965</a>
                       </p>
                     </div>
                     <div className={styles.statItem}>
                       <span className={styles.statLabel}>Calls Only</span>
                       <p className={styles.statValue}>
-                        <a href="tel:+256763738733" style={{ color: 'var(--color-pink)', textDecoration: 'none' }}>+256 763 738 733</a>
+                        <a href="tel:+256763738733" className={styles.contactLink}>+256 763 738 733</a>
                       </p>
                     </div>
                     <div className={styles.statItem}>
                       <span className={styles.statLabel}>Email</span>
                       <p className={styles.statValue}>
-                        <a href="mailto:grace@africangirlrise.org" style={{ color: 'var(--color-pink)', textDecoration: 'none' }}>grace@africangirlrise.org</a>
+                        <a href="mailto:grace@africangirlrise.org" className={styles.contactLink}>grace@africangirlrise.org</a>
                       </p>
                     </div>
                   </div>

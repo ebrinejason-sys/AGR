@@ -193,3 +193,25 @@
   .storyCardInner { padding: 2rem 1.5rem; }
   .content { font-size: 1.05rem; }
 }
+
+:global([data-theme="dark"]) .hero {
+  background: linear-gradient(180deg, #0d1f33 0%, var(--bg-color) 100%);
+}
+
+:global([data-theme="dark"]) .tabBtn,
+:global([data-theme="dark"]) .storyCard,
+:global([data-theme="dark"]) .mediaItem {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+:global([data-theme="dark"]) .tabBtn.active {
+  background: var(--text-color);
+  color: var(--bg-color);
+  border-color: var(--text-color);
+}
+
+:global(html[data-ios="1"]) .hero::before,
+:global(html[data-runtime-safe="1"]) .hero::before {
+  display: none;
+}

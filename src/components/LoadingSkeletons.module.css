@@ -27,6 +27,35 @@
   width: 100%;
 }
 
+.lineHeroLarge {
+  width: 40%;
+  height: 3rem;
+}
+
+.lineHeroMedium {
+  width: 60%;
+  height: 2rem;
+  margin-top: 1rem;
+}
+
+.lineHeroSmall {
+  width: 50%;
+  height: 1.2rem;
+  margin-top: 1rem;
+}
+
+.buttonRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.buttonLine {
+  width: 150px;
+  height: 3rem;
+}
+
 .skeletonLine {
   height: 1rem;
   background: linear-gradient(90deg, var(--bg-color) 25%, rgba(255, 255, 255, 0.1) 50%, var(--bg-color) 75%);
@@ -43,9 +72,39 @@
   border: 1px solid var(--border-color);
 }
 
+.cardTitle {
+  width: 80%;
+  height: 1.5rem;
+}
+
+.cardText {
+  width: 100%;
+  height: 1rem;
+  margin-top: 1rem;
+}
+
+.cardTextShort {
+  width: 90%;
+  height: 1rem;
+  margin-top: 0.5rem;
+}
+
 .sectionSkeleton {
   padding: 3rem 5%;
   background: var(--bg-color);
+}
+
+.sectionTitle {
+  width: 50%;
+  height: 2.5rem;
+  margin: 0 auto;
+}
+
+.sectionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
 @keyframes skeleton-loading {
