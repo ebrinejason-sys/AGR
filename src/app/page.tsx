@@ -108,8 +108,8 @@ const galleryMoments = [
     src: "/images/agr-photo-2.jpg",
   },
   {
-    label: "Protection and advocacy work",
-    src: "/images/legal-advocacy.jpg",
+    label: "Community empowerment and support",
+    src: "/images/agr-photo-4.jpg",
   },
   {
     label: "Practical learning and mentoring",
@@ -140,7 +140,7 @@ export default function Home() {
           </div>
 
           <span className={styles.eyebrow}>African Girl Rise · Uganda</span>
-          <h1 className={styles.heroHeading}>Help girls stay safe, stay in school, and build a stronger future.</h1>
+          <h1 className={styles.heroHeading}>Empowering girls to stay safe, stay in school, and build a stronger future.</h1>
           <p className={styles.heroSubtext}>
             African Girl Rise combines counselling, school retention support, allyship programming, and legal advocacy so
             donors and partners can fund a response that is practical, local, and measurable.

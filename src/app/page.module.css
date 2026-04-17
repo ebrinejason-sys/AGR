@@ -5,7 +5,7 @@
 .heroSplit {
   display: grid;
   grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-  min-height: clamp(680px, 84vh, 920px);
+  min-height: clamp(680px, 84vh, 920px); min-height: clamp(680px, 84dvh, 920px);
   background: linear-gradient(180deg, #fffefe 0%, #fff8fb 100%);
 }
 
@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 4rem 10% 4rem 12%;
+  padding: 5rem 10% 5rem 12%;
 }
 
 .welcomePill {

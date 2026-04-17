@@ -16,8 +16,7 @@
 .modalCard {
   width: 100%;
   max-width: 680px;
-  max-height: calc(100vh - 3rem);
-  max-height: calc(100dvh - 3rem);
+  max-height: calc(100vh - 3rem); max-height: calc(100dvh - 3rem);
   overflow-y: auto;
   border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 24px;
@@ -470,8 +469,7 @@
   }
 
   .modalCard {
-    max-height: calc(100vh - 0.5rem);
-    max-height: calc(100dvh - 0.5rem);
+    max-height: calc(100vh - 0.5rem); max-height: calc(100dvh - 0.5rem);
     border-radius: 24px 24px 0 0;
   }
 
