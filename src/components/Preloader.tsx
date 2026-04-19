@@ -15,15 +15,12 @@ type NetworkInformationLike = {
 };
 
 export default function Preloader({ skip = false }: PreloaderProps) {
-    const [show, setShow] = useState(true);
+    // Initialise directly from the prop so the heavy animated DOM is never
+    // injected into the page when skip=true (iOS / safe-mode), avoiding a
+    // one-frame flash of the complex SVG that can spike GPU memory on iOS.
+    const [show, setShow] = useState(!skip);
     const [fade, setFade] = useState(false);
     const didFinishRef = useRef(false);
-
-    useEffect(() => {
-        if (skip) {
-            setShow(false);
-        }
-    }, [skip]);
 
     useEffect(() => {
         if (skip) return;

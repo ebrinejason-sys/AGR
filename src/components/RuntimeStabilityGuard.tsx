@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 const ERROR_THRESHOLD = 3;
 
@@ -52,7 +52,12 @@ function isIOSDevice(userAgent: string, platform: string, maxTouchPoints: number
 }
 
 export default function RuntimeStabilityGuard() {
-  useEffect(() => {
+  // ── Phase 1: set data-ios / data-runtime-safe BEFORE the first paint ──────
+  // useLayoutEffect fires synchronously after DOM mutations but before the
+  // browser paints.  This means iPadOS 13+ devices (which spoof as "MacIntel"
+  // and are missed by the server-side UA check) get the safe-mode attributes
+  // applied before any animated content is ever visible.
+  useLayoutEffect(() => {
     const html = document.documentElement;
     const ua = navigator.userAgent;
     const nav = navigator as Navigator & { deviceMemory?: number };
@@ -60,9 +65,7 @@ export default function RuntimeStabilityGuard() {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const hasLowMemory = typeof nav.deviceMemory === "number" && nav.deviceMemory <= 2;
     const isLegacyWebView = /OS 1[2-5]_\d|Version\/1[0-5]\./i.test(ua);
-    const iosVersion = isIOS ? getIOSVersion(ua) : null;
     const iosMajorVersion = isIOS ? getIOSMajorVersion(ua) : null;
-    const deviceFamily = isIOS ? getIOSDeviceFamily(ua) : null;
     const isOlderIOS = typeof iosMajorVersion === "number" && iosMajorVersion <= 15;
     const serverSafeMode = html.getAttribute("data-runtime-safe") === "1";
 
@@ -77,6 +80,21 @@ export default function RuntimeStabilityGuard() {
     } else {
       html.removeAttribute("data-runtime-safe");
     }
+  }, []);
+
+  // ── Phase 2: telemetry + runtime error tracking (non-visual, after paint) ─
+  useEffect(() => {
+    const html = document.documentElement;
+    const ua = navigator.userAgent;
+    const isIOS = isIOSDevice(ua, navigator.platform, navigator.maxTouchPoints || 0);
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const hasLowMemory = typeof nav.deviceMemory === "number" && nav.deviceMemory <= 2;
+    const isLegacyWebView = /OS 1[2-5]_\d|Version\/1[0-5]\./i.test(ua);
+    const iosVersion = isIOS ? getIOSVersion(ua) : null;
+    const iosMajorVersion = isIOS ? getIOSMajorVersion(ua) : null;
+    const deviceFamily = isIOS ? getIOSDeviceFamily(ua) : null;
+    const isOlderIOS = typeof iosMajorVersion === "number" && iosMajorVersion <= 15;
 
     let errorCount = 0;
     try {
