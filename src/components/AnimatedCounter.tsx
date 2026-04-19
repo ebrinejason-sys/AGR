@@ -60,6 +60,13 @@ export default function AnimatedCounter({
     useEffect(() => {
         if (!isVisible) return;
 
+        // SAFE MODE CHECK: Bypass all animations on iOS / low memory devices
+        const isSafeMode = document.documentElement.getAttribute('data-runtime-safe') === '1';
+        if (isSafeMode) {
+            setCount(target);
+            return;
+        }
+
         let startTimestamp: number | null = null;
         let animationFrame: number;
 
@@ -94,6 +101,10 @@ export default function AnimatedCounter({
 
     useEffect(() => {
         if (!isVisible || !continuous) return;
+
+        // SAFE MODE CHECK: No continuous background rendering on iOS
+        const isSafeMode = document.documentElement.getAttribute('data-runtime-safe') === '1';
+        if (isSafeMode) return;
 
         let interval: NodeJS.Timeout;
 
