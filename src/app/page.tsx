@@ -1,12 +1,14 @@
-"use client";
+// Server Component — no "use client" directive.
+// Interactive pieces (DonationModal triggers) are isolated in thin client
+// wrappers (HeroCTAButtons, CTADonateButton) so iOS Safari gets a fully
+// server-rendered HTML payload on first load.
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import styles from "./page.module.css";
+import HeroCTAButtons from "./HeroCTAButtons";
+import CTADonateButton from "./CTADonateButton";
 
-const DonationModal = dynamic(() => import("@/components/DonationModal"), { ssr: false });
 
 const heroSummaryItems = [
   "Protect girls early and practically.",
@@ -118,8 +120,6 @@ const galleryMoments = [
 ] as const;
 
 export default function Home() {
-  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
-
   return (
     <div className={styles.container}>
       <section className={styles.heroSplit}>
@@ -152,14 +152,8 @@ export default function Home() {
             <span className={styles.heroPoint}>Legal advocacy and protection</span>
           </div>
 
-          <div className={styles.heroCtas}>
-            <button onClick={() => setIsDonationModalOpen(true)} className={styles.btnPink}>
-              Support Her Rise
-            </button>
-            <Link href="/programs" className={styles.btnGhost}>
-              Explore Programs
-            </Link>
-          </div>
+          {/* Client island — owns the hero CTAs row (donate + explore) */}
+          <HeroCTAButtons />
         </div>
 
         <div className={styles.heroVisualPanel}>
@@ -356,19 +350,14 @@ export default function Home() {
             Your donation helps cover school support, emergency response, mentorship, and legal advocacy.
           </p>
           <div className={styles.ctaRow}>
-            <button onClick={() => setIsDonationModalOpen(true)} className={styles.ctaBtnWhite}>
-              Donate Now
-            </button>
+            {/* Client island — owns the bottom donate modal */}
+            <CTADonateButton />
             <Link href="/contact" className={styles.ctaBtnOutline}>
               Volunteer
             </Link>
           </div>
         </div>
       </section>
-
-      {isDonationModalOpen ? (
-        <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
-      ) : null}
     </div>
   );
 }

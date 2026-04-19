@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
+
 
 const ERROR_THRESHOLD = 3;
 
@@ -52,12 +53,12 @@ function isIOSDevice(userAgent: string, platform: string, maxTouchPoints: number
 }
 
 export default function RuntimeStabilityGuard() {
-  // ── Phase 1: set data-ios / data-runtime-safe BEFORE the first paint ──────
-  // useLayoutEffect fires synchronously after DOM mutations but before the
-  // browser paints.  This means iPadOS 13+ devices (which spoof as "MacIntel"
-  // and are missed by the server-side UA check) get the safe-mode attributes
-  // applied before any animated content is ever visible.
-  useLayoutEffect(() => {
+  // ── Phase 1: set data-ios / data-runtime-safe client-side ───────────────────
+  // useEffect is used (not useLayoutEffect) to avoid the React SSR warning and
+  // the iOS rendering race. The server already sets data-runtime-safe for UA-
+  // matched iOS requests in layout.tsx. This effect handles the iPadOS 13+ case
+  // (platform === "MacIntel" + maxTouchPoints > 1) that the server UA misses.
+  useEffect(() => {
     const html = document.documentElement;
     const ua = navigator.userAgent;
     const nav = navigator as Navigator & { deviceMemory?: number };

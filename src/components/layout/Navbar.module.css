@@ -415,7 +415,6 @@
     }
 }
 
-/* Enhanced mobile menu styles */
 @media (max-width: 768px) {
     .mobileNav {
         padding: 1.5rem;
@@ -441,7 +440,8 @@
         gap: 0.75rem;
         padding: 0.875rem 1rem;
         border-radius: 8px;
-        transition: all 0.2s ease;
+        /* No transition: all — keep to color only to avoid iOS GPU spikes */
+        transition: color 0.2s ease, background-color 0.2s ease;
         min-height: 44px;
         /* iOS touch target */
         font-size: 1rem;
@@ -449,14 +449,19 @@
         border: 1px solid var(--border-color);
     }
 
-    .mobileNavLink:hover {
-        background: var(--hover-bg);
-        transform: translateX(4px);
-    }
+    /* Transforms on active/hover must be desktop-only (hover:hover guard).
+       On iOS, :active fires on every tap. transform on :active causes a
+       per-tap compositor relayer that spikes GPU memory and can crash. */
+    @media (hover: hover) {
+        .mobileNavLink:hover {
+            background: var(--hover-bg);
+            transform: translateX(4px);
+        }
 
-    .mobileNavLink:active {
-        background: var(--active-bg);
-        transform: translateX(2px);
+        .mobileNavLink:active {
+            background: var(--active-bg);
+            transform: translateX(2px);
+        }
     }
 
     .mobileDonateContainer {
@@ -476,20 +481,22 @@
         color: #ffffff !important;
         border: none;
         cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
         box-shadow: 0 4px 18px rgba(233, 30, 99, 0.45);
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
-    .mobileDonateBtn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(255, 107, 129, 0.4);
-    }
+    @media (hover: hover) {
+        .mobileDonateBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 129, 0.4);
+        }
 
-    .mobileDonateBtn:active {
-        transform: translateY(0);
-        box-shadow: 0 2px 8px rgba(255, 107, 129, 0.3);
+        .mobileDonateBtn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(255, 107, 129, 0.3);
+        }
     }
 }
 
@@ -536,18 +543,25 @@
     }
 }
 
-.header {
-    gap: 1.5rem;
-    padding: 0.95rem 1.4rem;
-    background: rgba(255, 255, 255, 0.84);
-    border: 1px solid rgba(26, 26, 46, 0.08);
-    border-bottom: 1px solid rgba(26, 26, 46, 0.08);
-    box-shadow: var(--shadow-soft);
-    top: calc(0.75rem + env(safe-area-inset-top));
-    left: 50%;
-    width: min(1180px, calc(100% - 1rem));
-    transform: translateX(-50%);
-    border-radius: 999px;
+/* Floating pill navbar — desktop only (>= 769px).
+   NEVER apply transform: translateX on a position:fixed element on mobile/iOS.
+   It forces a compositor layer reallocation on every repaint and is a
+   confirmed iOS Safari crash trigger. On mobile we fall back to a
+   full-width bar anchored to left:0 with no transform. */
+@media (min-width: 769px) {
+    .header {
+        gap: 1.5rem;
+        padding: 0.95rem 1.4rem;
+        background: rgba(255, 255, 255, 0.84);
+        border: 1px solid rgba(26, 26, 46, 0.08);
+        border-bottom: 1px solid rgba(26, 26, 46, 0.08);
+        box-shadow: var(--shadow-soft);
+        top: calc(0.75rem + env(safe-area-inset-top));
+        left: 50%;
+        width: min(1180px, calc(100% - 1rem));
+        transform: translateX(-50%);
+        border-radius: 999px;
+    }
 }
 
 .brandName {
@@ -640,10 +654,14 @@
         justify-content: center;
     }
 
+    /* Reset the pill-nav geometry for mobile — no transform on position:fixed */
     .header {
+        left: 0;
+        transform: none;
         width: calc(100% - 0.75rem);
         padding: 0.75rem 1rem;
         top: calc(0.45rem + env(safe-area-inset-top));
+        border-radius: 18px;
     }
 }
 

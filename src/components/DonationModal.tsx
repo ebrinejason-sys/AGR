@@ -151,7 +151,6 @@ export default function DonationModal({ isOpen, onClose, eventId, eventTitle }: 
       return;
     }
 
-    const previousOverflow = document.body.style.overflow;
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key !== 'Escape' || loading) {
         return;
@@ -161,11 +160,20 @@ export default function DonationModal({ isOpen, onClose, eventId, eventTitle }: 
       onClose();
     };
 
-    document.body.style.overflow = 'hidden';
+    // iOS-safe scroll lock.
+    // overflow:hidden on body does NOT stop scrolling on iOS Safari.
+    // The correct approach is to record scrollY, switch body to
+    // position:fixed (which freezes the page), then restore on close.
+    const scrollY = window.scrollY;
+    const prevStyle = document.body.getAttribute('style') || '';
+    document.body.style.cssText = `position: fixed; width: 100%; top: -${scrollY}px; overflow-y: scroll;`;
+
     window.addEventListener('keydown', handleEscape);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      // Restore body and scroll position
+      document.body.setAttribute('style', prevStyle);
+      window.scrollTo(0, scrollY);
       window.removeEventListener('keydown', handleEscape);
     };
   }, [isOpen, loading, onClose]);
