@@ -1,144 +1,100 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import dynamic from "next/dynamic";
 import styles from "./page.module.css";
 
 const DonationModal = dynamic(() => import("@/components/DonationModal"), { ssr: false });
 
 const heroSummaryItems = [
-  "Protect girls early and practically.",
-  "Keep girls learning with dignity.",
-  "Equip boys to become allies.",
-  "Pursue safety, referrals, and justice.",
-] as const;
+  "Safe housing & resettlement",
+  "Legal representation",
+  "Medical & counseling services",
+  "Education drives",
+];
 
 const impactCards = [
   {
-    caption: "Direct support delivered through outreach, mentoring, education support, and community protection.",
-    label: "Girls reached",
-    value: "56,000+",
+    value: "2,500+",
+    label: "Girls Supported",
+    caption: "Direct support including education and safe housing.",
   },
   {
-    caption: "Trusted spaces and school-linked support points where girls can find guidance, safety, and follow-up care.",
-    label: "Active sanctuaries",
-    value: "12+",
+    value: "150+",
+    label: "Communities Reached",
+    caption: "Spreading awareness and building allyship networks.",
   },
-  {
-    caption: "Girls drop out before Form 4 nationally. Our work is designed to interrupt that pattern early.",
-    label: "National dropout reality",
-    value: "4 in 10",
-  },
-] as const;
+];
 
 const programCards = [
   {
-    description:
-      "School-linked safe spaces where girls can access counselling, peer support, menstrual health guidance, and trusted adult follow-up.",
-    href: "/programs/rise-rooms",
-    hrefLabel: "Explore Rise Rooms",
     number: "01",
-    tags: ["Counselling", "Peer support", "Follow-up"],
-    title: "Rise Sanctuaries",
+    title: "School Retention Support",
+    description: "Covering school fees, supplies, and mentorship to keep girls in classrooms.",
+    tags: ["Education", "Mentorship"],
+    href: "/programs",
+    hrefLabel: "Learn more",
   },
   {
-    description:
-      "School retention support, scholastic materials, exam readiness, and practical help that keeps girls learning with dignity.",
-    href: "/programs/academic-rescue",
-    hrefLabel: "See education support",
     number: "02",
-    tags: ["School fees", "Supplies", "Tutoring"],
-    title: "Education Support",
+    title: "Safe Sanctuaries",
+    description: "Emergency housing and psychological support for girls in immediate crisis.",
+    tags: ["Protection", "Counseling"],
+    href: "/programs",
+    hrefLabel: "Learn more",
   },
   {
-    description:
-      "Rights awareness, case management, community referrals, and direct advocacy when girls face abuse, neglect, or exclusion.",
-    href: "/legal-advocacy",
-    hrefLabel: "View legal advocacy",
     number: "03",
-    tags: ["Rights literacy", "Case referrals", "Protection"],
-    title: "Legal Advocacy",
+    title: "Rise Brothers",
+    description: "Engaging boys and men to become allies in protecting girls' rights.",
+    tags: ["Allyship", "Change"],
+    href: "/programs",
+    hrefLabel: "Learn more",
   },
   {
-    description:
-      "Rise Brothers helps boys understand what girls face, manage their own emotions, and become active allies instead of silent bystanders.",
-    href: "/programs/rise-brothers",
-    hrefLabel: "Explore Rise Brothers",
     number: "04",
-    tags: ["Allyship", "Mental health", "Shared responsibility"],
-    title: "Rise Brothers",
+    title: "Legal Advocacy",
+    description: "Providing legal representation and ensuring justice for victims of abuse.",
+    tags: ["Justice", "Advocacy"],
+    href: "/programs",
+    hrefLabel: "Learn more",
   },
-] as const;
+];
 
 const supportFlow = [
   {
-    step: "01",
-    text: "Teachers, caregivers, and community partners flag attendance gaps, abuse risk, grief, or material needs before they harden into dropout.",
-    title: "Identify risk early",
+    step: "Step 1",
+    title: "Stabilisation",
+    text: "Crisis response, emergency care, and safe relocation if needed.",
   },
   {
-    step: "02",
-    text: "We respond with counselling, supplies, mentoring, school support, and referrals based on what will stabilise the girl quickly.",
-    title: "Stabilise the girl",
+    step: "Step 2",
+    title: "Integration",
+    text: "Back-to-school support, legal follow-up, and family mediation.",
   },
   {
-    step: "03",
-    text: "We work with boys, families, and legal systems too, so girls are not sent back into the same silence that harmed them.",
-    title: "Shift the environment",
+    step: "Step 3",
+    title: "Sustainability",
+    text: "Vocational training, economic empowerment, and community allyship.",
   },
-] as const;
+];
 
 const galleryMoments = [
-  {
-    label: "School support in action",
-    src: "/images/hero-bg.jpg",
-  },
-  {
-    label: "Girls building confidence together",
-    src: "/images/about-us.jpg",
-  },
-  {
-    label: "Rise Brothers allyship sessions",
-    src: "/images/programs/rise-brothers/rise-brothers-3.jpg",
-  },
-  {
-    label: "Community-led care",
-    src: "/images/agr-photo-2.jpg",
-  },
-  {
-    label: "Protection and advocacy work",
-    src: "/images/legal-advocacy.jpg",
-  },
-  {
-    label: "Practical learning and mentoring",
-    src: "/images/program-3.jpg",
-  },
-] as const;
+  { src: "/images/agr-photo-1.jpg", label: "Community Outreach" },
+  { src: "/images/agr-photo-2.jpg", label: "Mentorship Session" },
+  { src: "/images/agr-photo-3.jpg", label: "Skills Training" },
+  { src: "/images/agr-photo-4.jpg", label: "Safe Sanctuary" },
+];
 
-export default function Home() {
+export default function HomePage() {
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.homeContainer}>
       <section className={styles.heroSplit}>
         <div className={styles.heroPanel}>
-          <div className={styles.welcomePill}>
-            <Image
-              src="/logo.png"
-              alt="African Girl Rise logo"
-              width={40}
-              height={40}
-              sizes="40px"
-              className={styles.welcomeLogo}
-            />
-            <div>
-              <span className={styles.welcomeLabel}>Welcome to African Girl Rise</span>
-              <p className={styles.welcomeMeta}>A Ugandan organisation delivering practical support that keeps girls safe, learning, and protected.</p>
-            </div>
-          </div>
-
           <span className={styles.eyebrow}>African Girl Rise · Uganda</span>
           <h1 className={styles.heroHeading}>Help girls stay safe, stay in school, and build a stronger future.</h1>
           <p className={styles.heroSubtext}>
@@ -169,7 +125,7 @@ export default function Home() {
               alt="Adolescent girls in Uganda"
               fill
               priority
-              sizes="(max-width: 1024px) 100vw, 42vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 42vw"
               style={{ objectFit: "cover", objectPosition: "center top" }}
             />
           </div>

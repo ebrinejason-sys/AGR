@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import DonationModal from "@/components/DonationModal";
+import dynamic from "next/dynamic";
 import styles from "./page.module.css";
+
+const DonationModal = dynamic(() => import("@/components/DonationModal"), { ssr: false });
 
 export default function DonatePage() {
   const [isOpen, setIsOpen] = useState(true);

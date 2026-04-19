@@ -1,21 +1,25 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import DonationModal from '@/components/DonationModal';
+import dynamic from 'next/dynamic';
 import styles from './page.module.css';
 
-type CheckoutState = {
+const DonationModal = dynamic(() => import('@/components/DonationModal'), { ssr: false });
+
+const PENDING_DONATION_STORAGE_KEY = 'agr_pending_donation';
+
+type CheckoutStatus = 'processing' | 'completed' | 'failed' | 'cancelled' | 'sandbox' | string;
+
+interface CheckoutState {
   authorizationUrl: string | null;
   provider: string | null;
   reference: string | null;
-  status: string | null;
+  status: CheckoutStatus | null;
   transactionId: string | null;
-};
+}
 
-const PENDING_DONATION_STORAGE_KEY = 'agr.pendingDonation';
-
-function normalizeStatus(status: string | null): string | null {
+function normalizeStatus(status: string | null): CheckoutStatus | null {
   if (!status) {
     return null;
   }
@@ -105,7 +109,7 @@ function clearStoredCheckout() {
   }
 }
 
-export default function PayPage() {
+function PayContent() {
   const searchParams = useSearchParams();
   const providerParam = searchParams.get('provider')?.trim().toLowerCase() || null;
   const statusParam = normalizeStatus(searchParams.get('status'));
@@ -323,5 +327,13 @@ export default function PayPage() {
       </div>
       <DonationModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </div>
+  );
+}
+
+export default function PayPage() {
+  return (
+    <Suspense fallback={null}>
+      <PayContent />
+    </Suspense>
   );
 }

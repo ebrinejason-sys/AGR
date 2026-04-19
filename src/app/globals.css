@@ -99,62 +99,27 @@
   --shadow-premium: 0 32px 76px rgba(2, 6, 23, 0.48);
   --gradient-dramatic: linear-gradient(135deg, #0f172a 0%, #1d2842 46%, #ff5e8a 100%);
 
-  --nav-bg: rgba(8, 17, 31, 0.9);
-  --nav-hover-bg: rgba(255, 94, 138, 0.08);
-  --footer-bg-color: #020617;
-
-  --gradient-pink-purple: linear-gradient(135deg, #ff5e8a, #c084fc);
-  --gradient-teal-blue: linear-gradient(135deg, #2dd4bf, #38bdf8);
-  --gradient-orange-yellow: linear-gradient(135deg, #fb923c, #fde047);
-  --gradient-green-teal: linear-gradient(135deg, #4ade80, #2dd4bf);
-  --gradient-indigo-purple: linear-gradient(135deg, #818cf8, #c084fc);
-  --gradient-hero: linear-gradient(135deg, #ff5e8a 0%, #c084fc 52%, #38bdf8 100%);
-
   color-scheme: dark;
 }
 
-* {
+/* Base Resets */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
-/* Base styles */
 html,
 body {
-  max-width: 100vw;
-  min-height: 100vh;
-  min-height: 100dvh;
-  overflow-x: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
   background: var(--bg-color);
   color: var(--text-color);
-  font-family: var(--font-sans);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* iOS Safe Areas & Specifics */
-body {
-  padding-top: max(env(safe-area-inset-top), 0px);
-  padding-bottom: max(env(safe-area-inset-bottom), 0px);
-  padding-left: max(env(safe-area-inset-left), 0px);
-  padding-right: max(env(safe-area-inset-right), 0px);
-  background:
-    radial-gradient(circle at top left, rgba(233, 30, 99, 0.06), transparent 28%),
-    radial-gradient(circle at top right, rgba(0, 188, 212, 0.08), transparent 24%),
-    linear-gradient(180deg, var(--surface-cream) 0%, var(--bg-color) 22%, var(--surface-rose) 100%);
-}
-
-/* Prevent zoom on inputs in iOS */
-input,
-textarea,
-select {
-  font-size: 16px;
-  -webkit-appearance: none;
-  appearance: none;
 }
 
 /* Base resets for iOS touch rendering */
@@ -200,43 +165,39 @@ a {
   color: var(--text-color);
 }
 
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: inherit;
+.secHeader {
+  text-align: center;
+  max-width: 48rem;
+  margin: 0 auto 3.5rem;
 }
 
-/* Base utility classes for typography */
-.heading-xl {
+.secTitle {
   font-family: var(--font-serif);
-  font-size: 2.5rem;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2.25rem, 4vw, 3rem);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  line-height: 1.1;
   color: var(--text-color);
+  margin-top: 1rem;
 }
 
-.heading-lg {
-  font-family: var(--font-serif);
-  font-size: 2rem; /* Fallback for older iOS */
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  line-height: 1.15;
-  color: var(--text-color);
+.secDesc {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-top: 1.25rem;
 }
 
-.text-gradient {
-  background: linear-gradient(135deg, var(--color-pink), var(--color-purple), var(--color-lightblue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+.eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-pink);
 }
 
 /* Button Styles */
-.btn-primary {
+.btn-premium, .btn-primary {
   background: var(--color-pink);
   color: white;
   padding: 0.8rem 2rem;
@@ -251,7 +212,7 @@ button {
 }
 
 @media (hover: hover) {
-  .btn-primary:hover {
+  .btn-premium:hover, .btn-primary:hover {
     background: #c2185b;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(233, 30, 99, 0.28);
@@ -545,6 +506,9 @@ html[data-runtime-safe="1"] *::after {
   transition: none !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  will-change: auto !important;
 }
 
 html[data-runtime-safe="1"] video {

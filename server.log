@@ -2,13 +2,16 @@
 > african-girl-rise@0.1.0 start
 > next start
 
-⨯ Failed to start server
-Error: listen EADDRINUSE: address already in use :::3000
-    at <unknown> (Error: listen EADDRINUSE: address already in use :::3000)
-    at new Promise (<anonymous>) {
-  code: 'EADDRINUSE',
-  errno: -98,
-  syscall: 'listen',
-  address: '::',
-  port: 3000
-}
+▲ Next.js 16.1.6
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+
+✓ Starting...
+⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+✓ Ready in 755ms
+[telemetry][ios] {"source":"runtime_stability_guard","event":"boot","iosVersion":"15.0.0","deviceFamily":"iphone","runtimeSafe":true,"pathname":"/","errorCount":0,"reducedMotion":false,"hasLowMemory":false,"isLegacyWebView":false,"timestamp":1776608393667,"serverTimestamp":1776608393822}
+[telemetry][ios] {"source":"runtime_stability_guard","event":"boot","iosVersion":"15.0.0","deviceFamily":"iphone","runtimeSafe":true,"pathname":"/donate","errorCount":0,"reducedMotion":false,"hasLowMemory":false,"isLegacyWebView":false,"timestamp":1776608397329,"serverTimestamp":1776608397340}
+[telemetry][ios] {"source":"runtime_stability_guard","event":"boot","iosVersion":"15.0.0","deviceFamily":"iphone","runtimeSafe":true,"pathname":"/pay","errorCount":0,"reducedMotion":false,"hasLowMemory":false,"isLegacyWebView":false,"timestamp":1776608399788,"serverTimestamp":1776608399796}
+[telemetry][ios] {"source":"runtime_stability_guard","event":"boot","iosVersion":"15.0.0","deviceFamily":"iphone","runtimeSafe":true,"pathname":"/","errorCount":0,"reducedMotion":false,"hasLowMemory":false,"isLegacyWebView":false,"timestamp":1776608527805,"serverTimestamp":1776608527819}
+[telemetry][ios] {"source":"runtime_stability_guard","event":"boot","iosVersion":"15.0.0","deviceFamily":"iphone","runtimeSafe":true,"pathname":"/","errorCount":0,"reducedMotion":false,"hasLowMemory":false,"isLegacyWebView":false,"timestamp":1776608576395,"serverTimestamp":1776608576404}
+[telemetry][ios] {"source":"runtime_stability_guard","event":"boot","iosVersion":"15.0.0","deviceFamily":"iphone","runtimeSafe":true,"pathname":"/","errorCount":0,"reducedMotion":false,"hasLowMemory":false,"isLegacyWebView":false,"timestamp":1776608604246,"serverTimestamp":1776608604254}
