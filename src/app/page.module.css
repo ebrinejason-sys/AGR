@@ -590,6 +590,11 @@
   }
 }
 
+:global(html[data-ios="1"]) .marqueeMedia,
+:global(html[data-runtime-safe="1"]) .marqueeMedia {
+  transform: none;
+}
+
 :global(html[data-ios="1"]) .marqueeTrack,
 :global(html[data-runtime-safe="1"]) .marqueeTrack {
   animation: none;

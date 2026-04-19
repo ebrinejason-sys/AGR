@@ -128,8 +128,7 @@ export default function AnimatedCounter({
             className="animated-counter"
             style={{
                 display: 'inline-block',
-                fontVariantNumeric: 'tabular-nums', // Prevents number shifting
-                transition: 'all 0.3s ease'
+                fontVariantNumeric: 'tabular-nums',
             }}
         >
             {prefix}{formatNumber(count)}{suffix}

@@ -20,18 +20,18 @@ export default function Navbar() {
     // Close menu when route changes (on mobile)
     const closeMenu = () => setIsOpen(false);
 
-    // Prevent scrolling when menu is open.
-    // Only run when the menu is actually open — never set an inline overflow
-    // when closed, or it will override the stylesheet's overflow-x: hidden on
-    // body and break iOS horizontal-scroll protection on every page load.
+    // iOS-safe scroll lock: overflow:hidden on body is ignored by iOS Safari.
+    // Record scrollY, switch body to position:fixed, restore on close.
     useEffect(() => {
         if (!isOpen) return;
 
-        document.body.style.overflow = 'hidden';
+        const scrollY = window.scrollY;
+        const prevStyle = document.body.getAttribute('style') || '';
+        document.body.style.cssText = `position: fixed; width: 100%; top: -${scrollY}px; overflow-y: scroll;`;
 
         return () => {
-            // Remove the inline style so the stylesheet rule takes over again.
-            document.body.style.overflow = '';
+            document.body.setAttribute('style', prevStyle);
+            window.scrollTo(0, scrollY);
         };
     }, [isOpen]);
 
