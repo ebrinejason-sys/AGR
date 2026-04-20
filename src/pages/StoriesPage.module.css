@@ -1,217 +1,130 @@
+/* ══════════════════════════════════════
+   STORIES PAGE — Full-bleed Testimonials
+══════════════════════════════════════ */
+
 .container {
-  width: 100%;
+  background: #0f172a;
+  min-height: 100vh;
 }
 
-.hero {
-  position: relative;
-  overflow: hidden;
-  padding: 13rem 5% 5rem;
-  text-align: center;
-  background: linear-gradient(180deg, var(--surface-blue) 0%, #ffffff 100%);
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -6rem;
-  right: -4rem;
-  width: 16rem;
-  height: 16rem;
-  border-radius: 50%;
-  background: rgba(233, 30, 99, 0.08);
-  filter: blur(14px);
-}
-
-.tabs {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin: 6rem 0;
-}
-
-.tabBtn {
-  padding: 1rem 3rem;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  font-weight: 700;
-  border: 1px solid var(--border-color);
-  background: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.tabBtn.active {
-  background: var(--color-black);
-  color: white;
-  border-color: var(--color-black);
-}
-
+/* ── Story grid ── */
 .storyGrid {
-  max-width: 1100px;
+  padding: 5rem 8% 8rem;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 0 5% 7rem;
   display: grid;
-  gap: 3rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 }
 
+/* ── Story card ── */
 .storyCard {
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(26, 26, 46, 0.08);
-  box-shadow: var(--shadow-soft);
+  background: #1e293b;
+  border-radius: 28px;
   overflow: hidden;
-  border-radius: 32px;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
 }
 
-/* Cover image on story card */
-.storyCover {
-  position: relative;
-  width: 100%;
-  height: 280px;
+.storyCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4);
 }
+
+.storyCover {
+  aspect-ratio: 16/9;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
 .storyCoverOverlay {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.25) 100%);
-}
-
-.loadingState {
-  padding: 6rem 5%;
-  text-align: center;
-  color: var(--text-muted);
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.5));
 }
 
 .storyCardInner {
-  padding: 3rem;
+  padding: 2rem;
 }
 
-.storyCard h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.08;
-  margin-bottom: 1.5rem;
+.storyCardInner h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-weight: 800;
+  color: #f1f5f9;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
 }
 
 .meta {
   display: flex;
-  gap: 0.9rem 1.5rem;
-  margin-bottom: 2rem;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--color-pink);
-  font-weight: 700;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1.2rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+}
+
+.meta span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.3);
 }
 
 .content {
-  font-size: 1.05rem;
-  line-height: 1.85;
-  color: var(--text-muted);
+  font-size: 0.93rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.65);
 }
 
-/* When not expanded, show only a clamped preview */
+.content p {
+  margin-bottom: 0.8rem;
+}
+
+.content p:last-child {
+  margin-bottom: 0;
+}
+
 .contentClamped {
-  max-height: 18rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
 
 .readMoreBtn {
-  margin-top: 1.5rem;
   background: none;
   border: none;
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-pink);
+  color: #e91e63;
+  font-size: 0.82rem;
+  font-weight: 700;
   cursor: pointer;
-  padding: 0;
-  display: block;
-}
-.readMoreBtn:hover { text-decoration: underline; }
-
-.mediaGrid {
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 0 5% 15rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-  gap: 2rem;
+  padding: 0.6rem 0 0;
+  letter-spacing: 0.3px;
+  transition: opacity 0.2s;
+  font-family: inherit;
 }
 
-.mediaItem {
-  background: white;
-  border: 1px solid var(--border-color);
-  transition: all 0.4s ease;
+.readMoreBtn:hover {
+  opacity: 0.75;
 }
 
-.mediaItem:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-premium);
+/* ── States ── */
+.loadingState {
+  text-align: center;
+  padding: 8rem 5%;
+  color: rgba(255,255,255,0.3);
+  font-size: 0.95rem;
+  font-weight: 600;
+  grid-column: 1 / -1;
 }
 
-.mediaPreviewWrapper {
-  height: 400px;
-  position: relative;
-}
-
-.mediaPreview {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.mediaCaption {
-  padding: 2.5rem;
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  font-family: var(--font-serif);
-  font-style: italic;
-}
-
-@media (max-width: 768px) {
-  .hero { padding: 8rem 6% 4rem; }
-  .storyGrid { padding: 0 6% 5rem; gap: 3rem; }
-  .storyCardInner { padding: 2.4rem 1.75rem; }
-  .storyCard h2 { font-size: 1.8rem; }
-  .storyCover { height: 200px; }
-  .mediaGrid { padding: 0 6% 5rem; grid-template-columns: 1fr; }
-  .meta { flex-wrap: wrap; gap: 1rem; }
-}
-
-@media (max-width: 480px) {
-  .tabs { gap: 0.5rem; margin: 3rem 0; padding: 0 5%; }
-  .tabBtn { padding: 0.75rem 1.25rem; font-size: 0.7rem; flex: 1; }
-  .storyCard h2 { font-size: 1.4rem; }
-  .storyCardInner { padding: 2rem 1.5rem; }
-  .content { font-size: 1.05rem; }
-}
-
-:global([data-theme="dark"]) .hero {
-  background: linear-gradient(180deg, #0d1f33 0%, var(--bg-color) 100%);
-}
-
-:global([data-theme="dark"]) .tabBtn,
-:global([data-theme="dark"]) .storyCard,
-:global([data-theme="dark"]) .mediaItem {
-  background: var(--card-bg);
-  border-color: var(--border-color);
-}
-
-:global([data-theme="dark"]) .tabBtn.active {
-  background: var(--text-color);
-  color: var(--bg-color);
-  border-color: var(--text-color);
-}
-
-:global(html[data-ios="1"]) .hero::before,
-:global(html[data-runtime-safe="1"]) .hero::before {
-  display: none;
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .storyGrid {
+    grid-template-columns: 1fr;
+    padding: 4rem 5% 6rem;
+  }
 }

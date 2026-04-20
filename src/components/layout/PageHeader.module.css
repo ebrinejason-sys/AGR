@@ -1,0 +1,81 @@
+/* ══════════════════════════════════════
+   PAGE HEADER — Shared dark hero band
+══════════════════════════════════════ */
+
+.pageHeader {
+  position: relative;
+  padding: 9rem 8% 5.5rem;
+  background: #0f172a;
+  overflow: hidden;
+  isolation: isolate;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.pageHeaderInner {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #e91e63;
+  margin-bottom: 1rem;
+}
+
+.pageTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0 0 1.2rem;
+}
+
+.pageSubtitle {
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.7;
+  color: rgba(255,255,255,0.55);
+  max-width: 560px;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Ambient orbs */
+.pageHeaderDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.decorOrb1 {
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 55%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(233,30,99,0.08) 0%, transparent 65%);
+  border-radius: 50%;
+}
+
+.decorOrb2 {
+  position: absolute;
+  bottom: -60%;
+  left: -5%;
+  width: 40%;
+  height: 180%;
+  background: radial-gradient(ellipse, rgba(0,188,212,0.05) 0%, transparent 65%);
+  border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .pageHeader {
+    padding: 8rem 5% 4rem;
+  }
+}

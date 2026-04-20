@@ -42,7 +42,6 @@ export default function Navbar() {
                     />
                     <div className={styles.brandWrapper}>
                         <span className={styles.brandName}>AFRICAN GIRL RISE</span>
-                        <span className={styles.brandSub}>Empowering girls since 2018</span>
                         <span className={styles.brandNameShort}>AGR</span>
                     </div>
                 </Link>

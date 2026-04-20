@@ -4,20 +4,57 @@ import FounderStoryText from './FounderStoryText';
 export default function FounderPage() {
     return (
         <div className={styles.container}>
+
+            {/* ── Cinematic full-bleed hero ── */}
             <section className={styles.hero}>
-                <p className="subheading reveal">The Visionary</p>
-                <h1 className="heading-display reveal">Akatwijuka <span className="text-gradient">Grace</span></h1>
-                <p className={styles.heroTagline}>&ldquo;My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.&rdquo;</p>
+                <div className={styles.heroImage}>
+                    <img
+                        src="/images/founder.jpg"
+                        alt="Akatwijuka Grace — Founder of African Girl Rise"
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                    />
+                    <div className={styles.heroImageOverlay} />
+                </div>
+
+                <div className={styles.heroContent}>
+                    <span className={styles.heroPill}>The Visionary</span>
+                    <h1 className={styles.heroName}>
+                        Akatwijuka<br />
+                        <span>Grace</span>
+                    </h1>
+                    <p className={styles.heroRole}>Founder &amp; Visionary Director · African Girl Rise</p>
+                    <p className={styles.heroTagline}>
+                        &ldquo;My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.&rdquo;
+                    </p>
+                </div>
             </section>
 
+            {/* ── Bio strip ── */}
+            <div className={styles.bioStrip}>
+                <div className={styles.bioItem}>
+                    <span className={styles.bioLabel}>Education</span>
+                    <span className={styles.bioValue}>4th Year Law Student, Uganda Christian University</span>
+                </div>
+                <div className={styles.bioItem}>
+                    <span className={styles.bioLabel}>Location</span>
+                    <span className={styles.bioValue}>Ibanda District, Western Uganda</span>
+                </div>
+                <div className={styles.bioItem}>
+                    <span className={styles.bioLabel}>Contact</span>
+                    <a href="https://wa.me/256703727965" className={styles.bioLink}>+256 703 727 965</a>
+                </div>
+            </div>
+
+            {/* ── Editorial content ── */}
             <section className={styles.editorialSection}>
                 <div className={styles.editorialGrid}>
-                    <div className={styles.founderImageFrame} style={{ position: 'relative', overflow: 'hidden' }}>
+
+                    {/* Sticky image */}
+                    <div className={styles.founderImageFrame}>
                         <img
                             src="/images/founder.jpg"
-                            alt="Akatwijuka Grace — Founder of African Girl Rise"
+                            alt="Akatwijuka Grace"
                             className={styles.founderImage}
-                            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
                             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                         />
                         <div className={styles.imageOverlay}>
@@ -25,26 +62,15 @@ export default function FounderPage() {
                         </div>
                     </div>
 
+                    {/* Story */}
                     <div className={styles.editorialContent}>
-                        <h2 className="heading-section">A Girl Whose Parents <span className="text-gradient">Broke the Cycle</span></h2>
+                        <h2>A Girl Whose Parents <span>Broke the Cycle</span></h2>
                         <FounderStoryText />
 
                         <div className={styles.statsGrid}>
                             <div className={styles.statItem}>
-                                <span className={styles.statLabel}>Role</span>
-                                <p className={styles.statValue}>Founder &amp; Visionary Director</p>
-                            </div>
-                            <div className={styles.statItem}>
-                                <span className={styles.statLabel}>Education</span>
-                                <p className={styles.statValue}>4th Year Law Student, Uganda Christian University</p>
-                            </div>
-                            <div className={styles.statItem}>
                                 <span className={styles.statLabel}>Initiative</span>
                                 <p className={styles.statValue}>African Girl Rise Initiative (Registered 2025)</p>
-                            </div>
-                            <div className={styles.statItem}>
-                                <span className={styles.statLabel}>Location</span>
-                                <p className={styles.statValue}>Ibanda District, Western Uganda</p>
                             </div>
                             <div className={styles.statItem}>
                                 <span className={styles.statLabel}>Girls Reached</span>
@@ -73,7 +99,7 @@ export default function FounderPage() {
                             <div className={styles.statItem}>
                                 <span className={styles.statLabel}>Email</span>
                                 <p className={styles.statValue}>
-                                    <a href="mailto:grace@africangirlrise.org" className={styles.contactLink}>grace@africangirlrise.org</a>
+                                    <a href="mailto:africangirlriseltd@gmail.com" className={styles.contactLink}>africangirlriseltd@gmail.com</a>
                                 </p>
                             </div>
                         </div>
@@ -81,12 +107,14 @@ export default function FounderPage() {
                 </div>
             </section>
 
+            {/* ── Statement band ── */}
             <section className={styles.statementBox}>
                 <div className={styles.statementInner}>
                     <p>&ldquo;I am not special. I am simply a girl whose parents chose to break the cycle. They did not bequeath hardship; they passed on hope. Now I reach back to ignite that same transformation in others.&rdquo;</p>
                     <div className={styles.signature}>— Akatwijuka Grace, Founder &amp; Visionary Director</div>
                 </div>
             </section>
+
         </div>
     );
 }

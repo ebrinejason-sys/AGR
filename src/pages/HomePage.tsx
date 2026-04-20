@@ -12,6 +12,7 @@ const impactStats = [
     suffix: '+',
     desc: 'Direct support delivered through outreach, mentoring, and education support.',
     color: '#e91e63',
+    continuous: true,   // keeps incrementing — more girls reached every day
   },
   { 
     label: 'Active sanctuaries', 
@@ -19,6 +20,7 @@ const impactStats = [
     suffix: '+',
     desc: 'Trusted spaces and school-linked support points where girls find guidance.',
     color: '#9c27b0',
+    continuous: false,  // fixed stat — must not exceed 12
   },
   { 
     label: 'National dropout', 
@@ -26,6 +28,7 @@ const impactStats = [
     suffix: ' in 10',
     desc: 'Girls drop out before Form 4. Our work is designed to interrupt that pattern early.',
     color: '#00bcd4',
+    continuous: false,  // fixed statistic — 4 in 10 must stay at 4
   },
 ] as const;
 
@@ -207,7 +210,7 @@ export default function HomePage() {
             <div key={stat.label} className={styles.statCard} data-reveal style={{ transitionDelay: `${i * 120}ms` }}>
               <div className={styles.statAccentBar} style={{ background: stat.color }} />
               <span className={styles.statValue} style={{ color: stat.color }}>
-                <AnimatedCounter target={stat.value} suffix={stat.suffix} continuous={true} />
+                <AnimatedCounter target={stat.value} suffix={stat.suffix} continuous={stat.continuous} />
               </span>
               <span className={styles.statLabel}>{stat.label}</span>
               <p className={styles.statDesc}>{stat.desc}</p>
