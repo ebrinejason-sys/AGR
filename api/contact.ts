@@ -51,7 +51,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             const displayName = (sanitize(body.orgName) || sanitize(body.contactPerson) || name || 'Anonymous').slice(0, 255);
             try {
                 await supabase.from('contacts').insert({ name: displayName, email, message: message || '(no message)', type, extra_fields: extraFields });
-            } catch { /* non-blocking: don't fail the response if DB insert fails */ }
+            } catch (dbError) {
+                console.warn('Database logging failed (non-blocking):', dbError);
+            }
         }
 
         const adminRecipient = process.env.CONTACT_EMAIL || 'africangirlriseltd@gmail.com';
@@ -68,7 +70,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         await resend.emails.send({ from: SENDER_EMAIL, to: email, subject: 'Thank you for contacting African Girl Rise', html: `<div style="font-family:Arial,sans-serif;line-height:1.6;"><h2>Thank you, ${safeName}</h2><p>We received your message and our team will be in touch soon.</p><p style="margin-top:2rem;font-style:italic;">Rise. Then reach back.</p><p><strong>African Girl Rise Initiative</strong></p></div>` }).catch(console.error);
 
         return res.json({ message: 'Message sent successfully' });
-    } catch {
-        return res.status(500).json({ error: 'Internal server error' });
+    } catch (error) {
+        console.error("Contact API Error:", error);
+        const message = error instanceof Error ? error.message : "Internal server error";
+        const status = /not configured/i.test(message) ? 503 : 500;
+        return res.status(status).json({ error: message });
     }
 }
