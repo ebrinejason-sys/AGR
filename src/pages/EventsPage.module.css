@@ -1,0 +1,480 @@
+.container {
+  width: 100%;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 13rem 5% 5.5rem;
+  text-align: center;
+  background: linear-gradient(180deg, var(--surface-rose) 0%, #ffffff 100%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  bottom: -8rem;
+  left: -8rem;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  background: rgba(233, 30, 99, 0.08);
+  filter: blur(12px);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  border-radius: 32px;
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow-soft);
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 0.85rem;
+  color: var(--color-pink);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.pageTitle {
+  margin: 0;
+  color: var(--text-color);
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+}
+
+.pageSubtitle {
+  max-width: 36rem;
+  margin: 1rem auto 0;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.eventSection {
+  padding: 5.5rem 5% 7rem;
+  background: transparent;
+}
+
+.loadingState,
+.emptyState {
+  padding: 6rem 5%;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.loadingState {
+  letter-spacing: 0.2em;
+}
+
+.emptyText {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.sectionHeading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 3vw, 2.7rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 2.5rem;
+  max-width: 1180px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.completedHeading {
+  margin-top: 5rem;
+}
+
+.eventGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ---- Event Card ---- */
+.eventCard {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  border-radius: 28px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-soft);
+}
+
+.eventCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+  border-color: rgba(233, 30, 99, 0.2);
+}
+
+.eventCard:focus-visible {
+  outline: 3px solid var(--color-pink);
+  outline-offset: 2px;
+}
+
+/* Cover image on card */
+.eventCover {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.eventCoverOverlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.25) 100%);
+}
+.eventCoverPlaceholder {
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.14), rgba(0, 188, 212, 0.12));
+  position: relative;
+}
+
+.eventCoverPlaceholder::after {
+  content: 'Event image';
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1rem;
+  color: rgba(26, 26, 46, 0.45);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.eventCardBody {
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.statusBadge {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 800;
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+  align-self: flex-start;
+  background: rgba(233, 30, 99, 0.1);
+  color: var(--color-pink);
+}
+.statusBadge.completed {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+}
+.statusBadge.cancelled {
+  background: rgba(158, 158, 158, 0.15);
+  color: var(--text-muted);
+}
+
+.eventTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.eventDate {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+.eventLocation {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.eventDescription {
+  font-size: 0.98rem;
+  line-height: 1.72;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.tapHint {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-top: auto;
+}
+
+/* ---- Progress Bar ---- */
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.8rem;
+}
+
+.progressBar {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  width: 100%;
+  overflow: hidden;
+  border: none;
+  border-radius: 999px;
+  background: var(--border-color);
+}
+
+.progressBar::-webkit-progress-bar {
+  background: var(--border-color);
+}
+
+.progressBar::-webkit-progress-value {
+  background: linear-gradient(90deg, var(--color-pink), var(--color-purple));
+}
+
+.progressBar::-moz-progress-bar {
+  background: linear-gradient(90deg, var(--color-pink), var(--color-purple));
+}
+
+/* ---- Event Detail Modal ---- */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(26, 26, 46, 0.42);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 4rem 2rem;
+}
+
+.modal {
+  background: white;
+  width: 100%;
+  max-width: 780px;
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+  animation: modalIn 0.3s ease;
+  border-radius: 30px;
+  box-shadow: var(--shadow-medium);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modalClose {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.modalClose:hover { background: rgba(0,0,0,0.75); }
+
+.modalCover {
+  position: relative;
+  width: 100%;
+  height: 320px;
+}
+.modalCoverOverlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.35) 100%);
+}
+
+.modalBody {
+  padding: 3rem;
+}
+
+.modalTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.modalMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  margin-top: 1rem;
+}
+
+.modalDescription {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+}
+
+.modalGoal {
+  border-left: 3px solid var(--color-pink);
+  padding: 1.5rem 2rem;
+  background: var(--bg-secondary);
+  margin-bottom: 2.5rem;
+}
+
+.modalGoalLabel {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-pink);
+  margin-bottom: 0.8rem;
+}
+
+.modalGoalText {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.modalAchievements {
+  border-left: 3px solid #4caf50;
+  padding: 1.5rem 2rem;
+  background: rgba(76, 175, 80, 0.05);
+  margin-bottom: 2.5rem;
+}
+.modalAchievements p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.modalCtas {
+  margin-bottom: 3rem;
+}
+
+/* ---- Gallery ---- */
+.modalGallery {
+  margin-top: 3rem;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.galleryItem {
+  position: relative;
+  height: 140px;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .hero { padding: 8rem 6% 4rem; }
+  .eventSection { padding: 4rem 6%; }
+  .eventGrid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .modalOverlay { padding: 0; align-items: flex-end; }
+  .modal { max-width: 100%; max-height: 90vh; overflow-y: auto; border-radius: 16px 16px 0 0; }
+  .modalCover { height: 220px; }
+  .modalBody { padding: 2.5rem 2rem; }
+  .modalTitle { font-size: 2rem; }
+  .galleryGrid { grid-template-columns: repeat(2, 1fr); }
+  .heroContent { padding: 2rem 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .sectionHeading { font-size: 1.5rem; }
+  .eventCardBody { padding: 1.75rem; }
+  .eventTitle { font-size: 1.5rem; }
+  .modalTitle { font-size: 1.6rem; }
+  .galleryGrid { grid-template-columns: 1fr; }
+}
+
+:global([data-theme="dark"]) .hero {
+  background: linear-gradient(180deg, #10192b 0%, var(--bg-color) 100%);
+}
+
+:global([data-theme="dark"]) .heroContent,
+:global([data-theme="dark"]) .eventCard,
+:global([data-theme="dark"]) .modal {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+:global([data-theme="dark"]) .heroContent {
+  background: var(--surface-elevated);
+}
+
+:global([data-theme="dark"]) .modalGoal {
+  background: var(--surface-muted);
+}
+
+:global([data-theme="dark"]) .modalAchievements {
+  background: rgba(74, 222, 128, 0.08);
+}
+
+:global(html[data-ios="1"]) .hero::before,
+:global(html[data-runtime-safe="1"]) .hero::before {
+  display: none;
+}
+
+:global(html[data-ios="1"]) .modal,
+:global(html[data-runtime-safe="1"]) .modal {
+  animation: none;
+}
