@@ -43,7 +43,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }
 
         return res.json({ message: 'Welcome to the African Girl Rise family! 🌍' });
-    } catch {
-        return res.status(500).json({ error: 'Something went wrong. Please try again.' });
+    } catch (error) {
+        console.error("Subscription API Error:", error);
+        const message = error instanceof Error ? error.message : "Something went wrong. Please try again.";
+        const status = /not configured/i.test(message) ? 503 : 500;
+        return res.status(status).json({ error: message });
     }
 }
