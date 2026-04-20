@@ -6,7 +6,8 @@ import { Resend } from 'resend';
  * Handles transactional emails for donations and contact forms.
  */
 
-export const resend = isConfigured.resend ? new Resend(RESEND_API_KEY) : null;
+export const isResendConfigured = isConfigured.resend;
+export const resend = isResendConfigured ? new Resend(RESEND_API_KEY) : null;
 
 export const SENDER_EMAIL = RESEND_FROM_EMAIL;
 export const ADMIN_EMAIL = ADMIN_LOGIN_EMAIL;
