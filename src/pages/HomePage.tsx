@@ -108,6 +108,12 @@ export default function HomePage() {
             From trauma recovery to school retention, we build responses that work.
           </p>
           <HeroCTAButtons />
+          
+          <div className={styles.heroQuickLinks}>
+            <Link to="/our-story" className={styles.heroQuickLink}>Our Story</Link>
+            <Link to="/contact" className={styles.heroQuickLink}>Join the Mission</Link>
+            <Link to="/stories" className={styles.heroQuickLink}>Impact Stories</Link>
+          </div>
         </div>
 
         <div className={styles.heroVisual}>
@@ -158,26 +164,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* --- PROGRAMS --- */}
+      {/* --- PROGRAMS (REVAMPED AS BUTTONS) --- */}
       <section className={`${styles.section} ${styles.sectionDark}`}>
         <div className={styles.secHeader}>
           <span className={styles.eyebrow}>Core Pathways</span>
-          <h2 className={styles.secTitle}>Four clear ways we deliver impact.</h2>
+          <h2 className={styles.secTitle}>Animate change through clear action.</h2>
           <p className={styles.secDesc}>
-            Our programmes are designed to address the unique barriers girls face in Ugandan communities.
+            Our core pathways are designed to address the unique barriers girls face. 
+            Click any pathway below to explore our interventions.
           </p>
         </div>
 
-        <div className={styles.programGrid}>
-          {programCards.map(program => (
-            <div key={program.title} className={styles.programCard}>
-              <div className={styles.programCardContent}>
-                <span className={styles.programNumber}>{program.number}</span>
-                <h3 className={styles.programTitle}>{program.title}</h3>
-                <p className={styles.programText}>{program.description}</p>
-                <Link to={program.href} className={styles.programLink}>{program.label} →</Link>
-              </div>
-            </div>
+        <div className={styles.pathwayGrid}>
+          {programCards.map((program, i) => (
+            <Link 
+              key={program.title} 
+              to={program.href} 
+              className={styles.pathwayBtn}
+              style={{ animationDelay: `${i * 100}ms` }}
+            >
+              <span className={styles.pathwayIcon}>{program.number}</span>
+              {program.title}
+            </Link>
           ))}
         </div>
       </section>
