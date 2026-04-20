@@ -95,16 +95,6 @@ export default function HomePage() {
       {/* --- CINEMATIC HERO --- */}
       <section className={styles.heroSection}>
         <div className={styles.heroContent}>
-          <div className={styles.welcomePill}>
-            <img 
-              src="/logo.png" 
-              alt="AGR Logo" 
-              width={24} 
-              height={24} 
-              className={styles.welcomeLogo}
-            />
-            <span className={styles.welcomeLabel}>Welcome to African Girl Rise</span>
-          </div>
           <h1 className={styles.heroHeading}>
             Help girls stay safe, 
             <span>Stay in school.</span>
@@ -139,7 +129,7 @@ export default function HomePage() {
           {impactStats.map((stat, i) => (
             <div key={stat.label} className={styles.statCard}>
               <span className={styles.statValue} style={{ color: i === 0 ? '#e91e63' : i === 1 ? '#9c27b0' : '#00bcd4' }}>
-                <AnimatedCounter target={stat.value} suffix={stat.suffix} continuous={i < 2} />
+                <AnimatedCounter target={stat.value} suffix={stat.suffix} continuous={true} />
               </span>
               <span className={styles.statLabel}>{stat.label}</span>
               <p className={styles.statDesc}>{stat.desc}</p>

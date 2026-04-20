@@ -1,18 +1,38 @@
+import { RESEND_API_KEY, RESEND_FROM_EMAIL, ADMIN_LOGIN_EMAIL, isConfigured } from './env';
 import { Resend } from 'resend';
 
-export const RESEND_API_KEY =
-	process.env.RESEND_API_KEY ||
-	process.env.VITE_RESEND_API_KEY ||
-	process.env.RESEND_KEY ||
-	process.env.RESEND_TOKEN ||
-	'';
+/**
+ * Resend Email Integration
+ * Handles transactional emails for donations and contact forms.
+ */
 
-export const isResendConfigured = Boolean(RESEND_API_KEY);
+export const resend = isConfigured.resend ? new Resend(RESEND_API_KEY) : null;
 
-export const resend = isResendConfigured ? new Resend(RESEND_API_KEY) : null;
+export const SENDER_EMAIL = RESEND_FROM_EMAIL;
+export const ADMIN_EMAIL = ADMIN_LOGIN_EMAIL;
 
-export const ADMIN_EMAIL = process.env.ADMIN_LOGIN_EMAIL || 'africangirlriseltd@gmail.com';
-export const SENDER_EMAIL =
-	process.env.RESEND_FROM_EMAIL ||
-	process.env.SENDER_EMAIL ||
-	'African Girl Rise <onboarding@resend.dev>';
+export async function sendEmail({ to, subject, html }: { to: string; subject: string; html: string }) {
+    if (!resend) {
+        console.warn('Resend is not configured. Email not sent:', { to, subject });
+        return { success: false, error: 'Not configured' };
+    }
+
+    try {
+        const { data, error } = await resend.emails.send({
+            from: SENDER_EMAIL,
+            to,
+            subject,
+            html,
+        });
+
+        if (error) {
+            console.error('Resend error:', error);
+            return { success: false, error };
+        }
+
+        return { success: true, data };
+    } catch (err) {
+        console.error('Failed to send email:', err);
+        return { success: false, error: err };
+    }
+}

@@ -19,20 +19,18 @@ export default function AnimatedCounter({
     suffix = "",
     separator = true,
     continuous = false,
-    incrementInterval = 800
+    incrementInterval = 400
 }: AnimatedCounterProps) {
     const [count, setCount] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
     const counterRef = useRef<HTMLDivElement>(null);
 
-    // Format number with commas
     const formatNumber = (num: number): string => {
         if (!separator) return num.toString();
         return num.toLocaleString();
     };
 
     useEffect(() => {
-        // Fallback for browsers that don't support IntersectionObserver
         if (typeof window !== 'undefined' && !window.IntersectionObserver) {
             setIsVisible(true);
             return;
@@ -48,9 +46,7 @@ export default function AnimatedCounter({
         );
 
         const node = counterRef.current;
-        if (node) {
-            observer.observe(node);
-        }
+        if (node) observer.observe(node);
 
         return () => {
             if (node) observer.unobserve(node);
@@ -60,7 +56,6 @@ export default function AnimatedCounter({
     useEffect(() => {
         if (!isVisible) return;
 
-        // SAFE MODE CHECK: Bypass all animations on iOS / low memory devices
         const isSafeMode = document.documentElement.getAttribute('data-runtime-safe') === '1';
         if (isSafeMode) {
             setCount(target);
@@ -73,15 +68,8 @@ export default function AnimatedCounter({
         const step = (timestamp: number) => {
             if (!startTimestamp) startTimestamp = timestamp;
             const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-
-            // Enhanced easing: easeOutExpo for more elegant animation
             const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-
-            // Add slight overshoot and settle back for more dynamic feel
-            const overshoot = progress < 0.8 ? 1.02 : 1;
-            const easedProgress = easeOutExpo * overshoot;
-
-            setCount(Math.floor(Math.min(easedProgress * target, target)));
+            setCount(Math.floor(Math.min(easeOutExpo * target, target)));
 
             if (progress < 1) {
                 animationFrame = window.requestAnimationFrame(step);
@@ -93,26 +81,22 @@ export default function AnimatedCounter({
         animationFrame = window.requestAnimationFrame(step);
 
         return () => {
-            if (animationFrame) {
-                window.cancelAnimationFrame(animationFrame);
-            }
+            if (animationFrame) window.cancelAnimationFrame(animationFrame);
         };
     }, [isVisible, target, duration]);
 
     useEffect(() => {
         if (!isVisible || !continuous) return;
 
-        // SAFE MODE CHECK: No continuous background rendering on iOS
         const isSafeMode = document.documentElement.getAttribute('data-runtime-safe') === '1';
         if (isSafeMode) return;
 
         let interval: NodeJS.Timeout;
 
-        // Start continuous increment only after initial animation reaches target
-        // We wait for the duration of the initial animation
         const timeout = setTimeout(() => {
             interval = setInterval(() => {
-                setCount(prev => prev + Math.floor(Math.random() * 3) + 1);
+                // Continuous tick for that "endless" feeling
+                setCount(prev => prev + Math.floor(Math.random() * 2) + 1);
             }, incrementInterval);
         }, duration);
 
