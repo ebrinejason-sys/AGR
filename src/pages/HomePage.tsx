@@ -92,14 +92,18 @@ const galleryMoments = [
 export default function HomePage() {
   return (
     <div className={styles.container}>
-      {/* --- ELITE HERO --- */}
+      {/* --- CINEMATIC HERO --- */}
       <section className={styles.heroSection}>
-        <img src="/images/hero-bg.jpg" alt="African Girl Rise" className={styles.heroMainImage} />
-        <div className={styles.heroImageOverlay}></div>
-        
-        <div className={styles.heroContentCard}>
+        <div className={styles.heroContent}>
           <div className={styles.welcomePill}>
-            <span className={styles.welcomeLabel} style={{ color: '#ff5e8a', fontWeight: 800 }}>Uganda · Global Mission</span>
+            <img 
+              src="/logo.png" 
+              alt="AGR Logo" 
+              width={24} 
+              height={24} 
+              className={styles.welcomeLogo}
+            />
+            <span className={styles.welcomeLabel}>Welcome to African Girl Rise</span>
           </div>
           <h1 className={styles.heroHeading}>
             Help girls stay safe, 
@@ -112,23 +116,24 @@ export default function HomePage() {
           <HeroCTAButtons />
           
           <div className={styles.heroQuickLinks}>
-            <Link to="/our-story" className={styles.heroQuickLink}>Our Impact</Link>
-            <Link to="/contact" className={styles.heroQuickLink}>Partner</Link>
-            <Link to="/stories" className={styles.heroQuickLink}>Stories</Link>
+            <Link to="/our-story" className={styles.heroQuickLink}>Our Story</Link>
+            <Link to="/contact" className={styles.heroQuickLink}>Join Mission</Link>
+            <Link to="/stories" className={styles.heroQuickLink}>Impact Stories</Link>
           </div>
         </div>
 
-        <div className={styles.heroFloatingCard}>
-          <span className={styles.floatingCardTitle}>Active Impact</span>
-          <span className={styles.floatingCardValue}>56,000+</span>
-          <p className={styles.floatingCardText}>
-            Girls reached through our sanctuaries and school retention programmes.
-          </p>
-          <Link to="/stories" className={styles.programLink} style={{ marginTop: '1.2rem', display: 'inline-block' }}>Explore Results →</Link>
+        <div className={styles.heroVisual}>
+          <div className={styles.heroImageContainer}>
+            <img src="/images/hero-bg.jpg" alt="African Girl Rise Impact" />
+            <div className={styles.heroDecor}>
+              <span className={styles.heroDecorLabel}>Impacted Globally</span>
+              <span className={styles.heroDecorValue}>56,000+ Girls</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* --- STATS --- */}
+      {/* --- IMPACT STATS --- */}
       <section className={styles.statsContainer}>
         <div className={styles.statsGrid}>
           {impactStats.map((stat, i) => (
@@ -143,10 +148,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* --- OVERVIEW --- */}
+      {/* --- MISSION FLOW --- */}
       <section className={styles.section}>
         <div className={styles.secHeader}>
-          <span className={styles.eyebrow}>Built from lived experience</span>
+          <span className={styles.eyebrow}>Our Response Model</span>
           <h2 className={styles.secTitle}>The response is built around what moves a girl from crisis to momentum.</h2>
           <p className={styles.secDesc}>
             Girls first need stability and safety. Then they need support to remain in school. 
@@ -165,14 +170,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* --- PROGRAMS --- */}
+      {/* --- CORE PATHWAYS (ANIMATED BUTTONS) --- */}
       <section className={`${styles.section} ${styles.sectionDark}`}>
         <div className={styles.secHeader}>
-          <span className={styles.eyebrow}>Core Pathways</span>
-          <h2 className={styles.secTitle}>Animate change through clear action.</h2>
+          <span className={styles.eyebrow}>The Core Pathways</span>
+          <h2 className={styles.secTitle}>Practical tools for lasting change.</h2>
           <p className={styles.secDesc}>
-            Our core pathways are designed to address the unique barriers girls face. 
-            Click any pathway below to explore our interventions.
+            We focus on four strategic areas that address the root causes of school dropout and inequality.
           </p>
         </div>
 
@@ -191,10 +195,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* --- MARQUEE --- */}
+      {/* --- MOMENTS MARQUEE --- */}
       <section className={styles.marqueeSection}>
         <div className={styles.marqueeHeader}>
-          <span className={styles.eyebrow}>Moments from the work</span>
+          <span className={styles.eyebrow}>The Work in Action</span>
           <h2 className={styles.secTitle}>Documentation of resilience.</h2>
         </div>
         
@@ -214,7 +218,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* --- QUOTE --- */}
+      {/* --- FOUNDER QUOTE --- */}
       <section className={styles.quoteSection}>
         <div className={styles.quoteContent}>
           <span className={styles.quoteIcon}>“</span>
@@ -225,11 +229,10 @@ export default function HomePage() {
             <span className={styles.authorName}>Akatwijuka Grace</span>
             <span className={styles.authorTitle}>Founder · African Girl Rise</span>
           </div>
-          <Link to="/founder" className={`${styles.programLink} ${styles.quoteStoryLink}`} style={{ marginTop: '2rem', display: 'inline-block' }}>Read her story →</Link>
         </div>
       </section>
 
-      {/* --- CTA --- */}
+      {/* --- CTA SECTION --- */}
       <section className={styles.ctaSection}>
         <div className={styles.ctaContent}>
           <h2 className={styles.ctaTitle}>Help fund direct support for girls across Uganda.</h2>
