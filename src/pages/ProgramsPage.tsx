@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from './ProgramsPage.module.css';
 import ProgramsListClient from '@/components/ProgramsListClient';
+import PageHeader from '@/components/layout/PageHeader';
 
 const PILLARS = [
     { number: '01', title: 'Healing the Ground', subtitle: 'Mental Health & Trauma Recovery', quote: '"You cannot climb when you are bleeding."' },
@@ -12,11 +13,10 @@ const PILLARS = [
 export default function ProgramsPage() {
     return (
         <div className={styles.container}>
-            <section className={styles.hero}>
-                <p className="subheading reveal">Our Programs</p>
-                <h1 className="heading-display reveal">Core <span className="text-gradient">Programs</span></h1>
-                <p className={`subheading reveal ${styles.heroLead}`}>Long-term support that helps girls stay safe, stay in school, and build for the future.</p>
-            </section>
+            <PageHeader 
+                title="Our Core Programs" 
+                subtitle="Long-term support that helps girls stay safe, stay in school, and build for the future."
+            />
             <section className={styles.programsSection}><ProgramsListClient /></section>
             <section className={styles.pillarsSection}>
                 <div className={styles.pillarsWrapper}>

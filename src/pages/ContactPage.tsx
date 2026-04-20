@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './ContactPage.module.css';
+import PageHeader from '@/components/layout/PageHeader';
 
 type ContactType = 'general' | 'mentor' | 'sponsor' | 'donate';
 
@@ -59,13 +60,10 @@ export default function ContactPage() {
 
     return (
         <div className={styles.container}>
-            <section className={styles.hero}>
-                <p className="subheading reveal">Engagement</p>
-                <h1 className="heading-display reveal">Contact <span className="text-gradient">Rise</span></h1>
-                <p className={`${styles.heroLead} subheading reveal`}>
-                    Reach our team for mentorship, sponsorship, partnership, or general enquiries.
-                </p>
-            </section>
+            <PageHeader 
+                title="Contact Rise" 
+                subtitle="Reach our team for mentorship, sponsorship, partnership, or general enquiries."
+            />
 
             <section className={styles.contactSection}>
                 <div className={styles.contactGrid}>

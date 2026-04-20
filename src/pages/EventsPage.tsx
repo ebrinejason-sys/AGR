@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { formatDate } from '@/lib/utils';
 import styles from './EventsPage.module.css';
+import PageHeader from '@/components/layout/PageHeader';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
 
@@ -82,8 +83,11 @@ export default function EventsPage() {
 
     return (
         <div className={styles.container}>
-            <section className={styles.hero}><div className={styles.heroContent}><span className={styles.eyebrow}>Our Calendar</span><h1 className={styles.pageTitle}>Moments of <span className="text-gradient">Impact</span></h1><p className={styles.pageSubtitle}>Join our mission through community events, workshops, and advocacy drives across Uganda.</p></div></section>
-            {loading ?<div className={styles.loadingState}>Loading events…</div> : (
+            <PageHeader 
+                title="Moments of Impact" 
+                subtitle="Join our mission through community events, workshops, and advocacy drives across Uganda."
+            />
+            {loading ? <div className={styles.loadingState}>Loading events…</div> : (
                 <section className={styles.eventSection}>
                     {upcomingEvents.length > 0 && <><h2 className={styles.sectionHeading}>Upcoming Events</h2><div className={styles.eventGrid}>{upcomingEvents.map(evt => <EventCard key={evt.id} evt={evt} onClick={() => setSelectedEvent(evt)} />)}</div></>}
                     {completedEvents.length > 0 && <><h2 className={`${styles.sectionHeading} ${styles.completedHeading}`}>Completed Events</h2><div className={styles.eventGrid}>{completedEvents.map(evt => <EventCard key={evt.id} evt={evt} onClick={() => setSelectedEvent(evt)} />)}</div></>}

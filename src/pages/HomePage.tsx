@@ -92,12 +92,14 @@ const galleryMoments = [
 export default function HomePage() {
   return (
     <div className={styles.container}>
-      {/* --- HERO --- */}
+      {/* --- ELITE HERO --- */}
       <section className={styles.heroSection}>
-        <div className={styles.heroContent}>
+        <img src="/images/hero-bg.jpg" alt="African Girl Rise" className={styles.heroMainImage} />
+        <div className={styles.heroImageOverlay}></div>
+        
+        <div className={styles.heroContentCard}>
           <div className={styles.welcomePill}>
-            <img src="/logo.png" alt="AGR Logo" width={32} height={32} className={styles.welcomeLogo} />
-            <span className={styles.welcomeLabel}>African Girl Rise · Uganda</span>
+            <span className={styles.welcomeLabel} style={{ color: '#ff5e8a', fontWeight: 800 }}>Uganda · Global Mission</span>
           </div>
           <h1 className={styles.heroHeading}>
             Help girls stay safe, 
@@ -110,20 +112,19 @@ export default function HomePage() {
           <HeroCTAButtons />
           
           <div className={styles.heroQuickLinks}>
-            <Link to="/our-story" className={styles.heroQuickLink}>Our Story</Link>
-            <Link to="/contact" className={styles.heroQuickLink}>Join the Mission</Link>
-            <Link to="/stories" className={styles.heroQuickLink}>Impact Stories</Link>
+            <Link to="/our-story" className={styles.heroQuickLink}>Our Impact</Link>
+            <Link to="/contact" className={styles.heroQuickLink}>Partner</Link>
+            <Link to="/stories" className={styles.heroQuickLink}>Stories</Link>
           </div>
         </div>
 
-        <div className={styles.heroVisual}>
-          <div className={styles.heroImageContainer}>
-            <img src="/images/hero-bg.jpg" alt="African Girl Rise" />
-            <div className={styles.heroDecor}>
-              <span className={styles.heroDecorLabel}>Local Impact</span>
-              <span className={styles.heroDecorValue}>56,000+ Girls</span>
-            </div>
-          </div>
+        <div className={styles.heroFloatingCard}>
+          <span className={styles.floatingCardTitle}>Active Impact</span>
+          <span className={styles.floatingCardValue}>56,000+</span>
+          <p className={styles.floatingCardText}>
+            Girls reached through our sanctuaries and school retention programmes.
+          </p>
+          <Link to="/stories" className={styles.programLink} style={{ marginTop: '1.2rem', display: 'inline-block' }}>Explore Results →</Link>
         </div>
       </section>
 
@@ -164,7 +165,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* --- PROGRAMS (REVAMPED AS BUTTONS) --- */}
+      {/* --- PROGRAMS --- */}
       <section className={`${styles.section} ${styles.sectionDark}`}>
         <div className={styles.secHeader}>
           <span className={styles.eyebrow}>Core Pathways</span>
@@ -224,7 +225,7 @@ export default function HomePage() {
             <span className={styles.authorName}>Akatwijuka Grace</span>
             <span className={styles.authorTitle}>Founder · African Girl Rise</span>
           </div>
-          <Link to="/founder" className={`${styles.programLink} ${styles.quoteStoryLink}`} style={{ marginTop: '2rem' }}>Read her story →</Link>
+          <Link to="/founder" className={`${styles.programLink} ${styles.quoteStoryLink}`} style={{ marginTop: '2rem', display: 'inline-block' }}>Read her story →</Link>
         </div>
       </section>
 

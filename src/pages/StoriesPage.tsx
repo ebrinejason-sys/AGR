@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { formatDate } from '@/lib/utils';
 import styles from './StoriesPage.module.css';
+import PageHeader from '@/components/layout/PageHeader';
 
 type Story = { id: string; title: string; content: string; author: string; image_url?: string; created_at: string };
 
@@ -51,10 +52,10 @@ export default function StoriesPage() {
 
     return (
         <div className={styles.container}>
-            <section className={styles.hero}>
-                <p className="subheading reveal">Their Words</p>
-                <h1 className="heading-display reveal">Stories of <span className="text-gradient">Rise</span></h1>
-            </section>
+            <PageHeader 
+                title="Stories of Rise" 
+                subtitle="Voices from the field and testimonials of change across our communities."
+            />
             {loading ? <div className={styles.loadingState}>Loading stories…</div> : (
                 <div className={styles.storyGrid}>
                     {stories.map(story => <StoryCard key={story.id} story={story} />)}
