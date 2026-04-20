@@ -1,0 +1,293 @@
+.container {
+  width: 100%;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 13rem 5% 5rem;
+  text-align: center;
+  background: linear-gradient(180deg, var(--surface-rose) 0%, #ffffff 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -5rem;
+  left: -5rem;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  background: rgba(233, 30, 99, 0.1);
+  filter: blur(16px);
+}
+
+.contactSection {
+  padding: 5.5rem 5% 7rem;
+  background: transparent;
+}
+
+.contactGrid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.infoCol {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 8rem;
+  padding: 2.5rem;
+  border-radius: 32px;
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow-soft);
+}
+
+.infoCol h2 {
+  margin-bottom: 2rem;
+}
+
+.infoItem {
+  margin-bottom: 1.4rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid rgba(26, 26, 46, 0.08);
+}
+
+.infoItem:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.infoLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-pink);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.infoValue {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.infoLink {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-black);
+  text-decoration: none;
+  display: block;
+  transition: color 0.2s ease;
+}
+.infoLink:hover {
+  color: var(--color-pink);
+}
+
+.formCard {
+  background: rgba(255, 255, 255, 0.94);
+  padding: 2.5rem;
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  border-radius: 32px;
+  box-shadow: var(--shadow-medium);
+}
+
+.tabBar {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  border-bottom: none;
+  flex-wrap: wrap;
+}
+
+.tab {
+  background: #ffffff;
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  padding: 0.9rem 1rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text-muted);
+  position: relative;
+  border-radius: 999px;
+}
+
+.tabActive {
+  color: var(--color-black);
+  border-color: rgba(233, 30, 99, 0.16);
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(0, 188, 212, 0.08));
+}
+
+.tabActive::after {
+  display: none;
+}
+
+.inputGroup {
+  margin-bottom: 1.25rem;
+}
+
+.inputLabel {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  display: block;
+  color: var(--text-muted);
+}
+
+.input {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(26, 26, 46, 0.1);
+  border-radius: 18px;
+  background: var(--surface-cream);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.input:focus {
+  border-color: rgba(233, 30, 99, 0.28);
+  box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.08);
+  background: #ffffff;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.radioLabel {
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 1100px) {
+  .contactGrid { grid-template-columns: 1fr; gap: 8rem; }
+  .formCard { padding: 4rem 2rem; }
+}
+
+/*  Mobile hero padding fix  */
+@media (max-width: 768px) {
+  .hero {
+    padding: 8rem 6% 4rem;
+  }
+}
+
+
+
+
+@media (max-width: 768px) { .contactSection { padding: 4rem 6%; } .contactGrid { grid-template-columns: 1fr; gap: 4rem; } }
+
+/* Tab description box in info column */
+.tabDescriptionBox {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  border-radius: 24px;
+  background: linear-gradient(180deg, var(--surface-rose) 0%, #ffffff 100%);
+}
+.tabDescriptionText {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  font-style: normal;
+}
+
+/* Select styling */
+.input option {
+  font-size: 0.95rem;
+}
+
+/* Tab bar wraps for longer labels */
+.tabBar {
+  flex-wrap: wrap;
+}
+
+/* Make select match the underline style */
+select.input {
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  padding-right: 2rem;
+}
+
+@media (max-width: 480px) {
+  .hero { padding: 7rem 6% 3rem; }
+  .formCard { padding: 2rem 1.25rem; }
+  .radioGroup { flex-wrap: wrap; gap: 0.75rem; }
+  .infoValue, .infoLink { font-size: 1.1rem; }
+  .tabBar { gap: 1rem; }
+  .infoCol { padding: 1.5rem; }
+}
+
+.heroLead {
+  margin-top: 2rem;
+  font-style: italic;
+  letter-spacing: 0.1em;
+}
+
+.fullWidthButton {
+  width: 100%;
+}
+
+.statusSuccess,
+.statusError {
+  margin-top: 1.25rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.statusSuccess {
+  color: var(--color-pink);
+}
+
+.statusError {
+  color: #d64545;
+}
+
+:global([data-theme="dark"]) .hero {
+  background: linear-gradient(180deg, #10192b 0%, var(--bg-color) 100%);
+}
+
+:global([data-theme="dark"]) .infoCol,
+:global([data-theme="dark"]) .formCard,
+:global([data-theme="dark"]) .tab,
+:global([data-theme="dark"]) .tabDescriptionBox {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+:global([data-theme="dark"]) .infoCol {
+  background: var(--surface-elevated);
+}
+
+:global([data-theme="dark"]) .tabActive {
+  color: var(--text-color);
+}
+
+:global(html[data-ios="1"]) .hero::before,
+:global(html[data-runtime-safe="1"]) .hero::before {
+  display: none;
+}
+
+:global(html[data-ios="1"]) .infoCol,
+:global(html[data-runtime-safe="1"]) .infoCol {
+  position: static;
+}
