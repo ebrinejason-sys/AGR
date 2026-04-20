@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 import styles from './HomePage.module.css';
 import HeroCTAButtons from '@/components/HeroCTAButtons';
 import CTADonateButton from '@/components/CTADonateButton';
@@ -44,6 +45,54 @@ const galleryMoments = [
   { label: 'Rise Brothers in session', src: '/images/programs/rise-brothers/rise-brothers-3.jpg' },
 ] as const;
 
+function ProgramRevealCard({
+  item,
+  index,
+}: {
+  item: (typeof programCards)[number];
+  index: number;
+}) {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.setAttribute('data-visible', '1');
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <article
+      ref={ref}
+      className={styles.programRevealCard}
+      style={{ transitionDelay: `${index * 120}ms` }}
+    >
+      <div className={styles.programRevealLeft}>
+        <span className={styles.programRevealNumber}>{item.number}</span>
+      </div>
+      <div className={styles.programRevealBody}>
+        <h3 className={styles.programRevealTitle}>{item.title}</h3>
+        <p className={styles.programRevealText}>{item.description}</p>
+        <div className={styles.programTags}>
+          {item.tags.map(tag => (
+            <span key={tag} className={styles.programTag}>{tag}</span>
+          ))}
+        </div>
+        <Link to={item.href} className={styles.programLink}>{item.hrefLabel} →</Link>
+      </div>
+    </article>
+  );
+}
+
 export default function HomePage() {
   return (
     <div className={styles.container}>
@@ -57,7 +106,10 @@ export default function HomePage() {
             </div>
           </div>
           <span className={styles.eyebrow}>African Girl Rise · Uganda</span>
-          <h1 className={styles.heroHeading}>Help girls stay safe, stay in school, and build a stronger future.</h1>
+          <h1 className={styles.heroHeading}>
+            Help girls stay safe, stay in school, and{' '}
+            <span style={{ color: 'var(--color-pink)' }}>build a stronger future.</span>
+          </h1>
           <p className={styles.heroSubtext}>African Girl Rise combines counselling, school retention support, allyship programming, and legal advocacy so donors and partners can fund a response that is practical, local, and measurable.</p>
           <div className={styles.heroPoints}>
             <span className={styles.heroPoint}>School retention support</span>
@@ -78,6 +130,21 @@ export default function HomePage() {
               {heroSummaryItems.map(item => <li key={item} className={styles.summaryItem}>{item}</li>)}
             </ul>
           </aside>
+        </div>
+      </section>
+
+      <section className={styles.statsBand}>
+        <div className={styles.statsBandInner}>
+          {impactCards.map((item, i) => {
+            const colors = ['#e91e63', '#9c27b0', '#00bcd4'] as const;
+            return (
+              <div key={item.label} className={styles.statsBandCard} style={{ borderTopColor: colors[i] }}>
+                <span className={styles.statsBandValue} style={{ color: colors[i] }}>{item.value}</span>
+                <span className={styles.statsBandLabel}>{item.label}</span>
+                <p className={styles.statsBandCaption}>{item.caption}</p>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -108,20 +175,9 @@ export default function HomePage() {
           <h2 className={styles.secTitle}>Four clear pathways organise the work girls and communities actually receive.</h2>
           <p className={styles.secDesc}>Rise Brothers sits inside the main programme structure because lasting change requires both direct support for girls and change around them.</p>
         </div>
-        <div className={styles.programGrid}>
-          {programCards.map(item => (
-            <article key={item.title} className={styles.programCard}>
-              <div className={styles.programHeader}>
-                <span className={styles.programNumber}>{item.number}</span>
-                <span className={styles.programEyebrow}>Pathway</span>
-              </div>
-              <h3 className={styles.programTitle}>{item.title}</h3>
-              <p className={styles.programBody}>{item.description}</p>
-              <div className={styles.programTags}>
-                {item.tags.map(tag => <span key={tag} className={styles.programTag}>{tag}</span>)}
-              </div>
-              <Link to={item.href} className={styles.programLink}>{item.hrefLabel} →</Link>
-            </article>
+        <div className={styles.programRevealList}>
+          {programCards.map((item, i) => (
+            <ProgramRevealCard key={item.title} item={item} index={i} />
           ))}
         </div>
       </section>
