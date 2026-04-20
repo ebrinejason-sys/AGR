@@ -32,7 +32,7 @@ export const ADMIN_AUTH_SECRET = getEnv('ADMIN_AUTH_SECRET');
 
 // Supabase Configuration
 export const SUPABASE_URL = getEnv('SUPABASE_URL');
-export const SUPABASE_ANON_KEY = getEnv('SUPABASE_ANON_KEY');
+export const SUPABASE_ANON_KEY = getEnv('SUPABASE_ANON_KEY') || getEnv('SUPABASE_PUBLISHABLE_KEY');
 export const SUPABASE_SERVICE_ROLE_KEY = getEnv('SUPABASE_SERVICE_ROLE_KEY');
 
 export const isConfigured = {

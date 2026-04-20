@@ -19,15 +19,14 @@ export default function Navbar() {
 
     // iOS-safe scroll lock
     useEffect(() => {
-        if (!isOpen) return;
+        if (!isOpen) {
+            document.body.style.overflow = '';
+            return;
+        }
 
-        const scrollY = window.scrollY;
-        const prevStyle = document.body.getAttribute('style') || '';
-        document.body.style.cssText = `position: fixed; width: 100%; top: -${scrollY}px; overflow-y: scroll;`;
-
+        document.body.style.overflow = 'hidden';
         return () => {
-            document.body.setAttribute('style', prevStyle);
-            window.scrollTo(0, scrollY);
+            document.body.style.overflow = '';
         };
     }, [isOpen]);
 
@@ -38,12 +37,14 @@ export default function Navbar() {
                     <img
                         src="/logo.png"
                         alt="African Girl Rise Logo"
-                        width={36}
-                        height={36}
+                        width={40}
+                        height={40}
                         className={styles.logoImage}
                     />
-                    <span className={styles.brandName}>AFRICAN GIRL RISE</span>
-                    <span className={styles.brandNameShort}>AGR</span>
+                    <div className={styles.brandWrapper}>
+                        <span className={styles.brandName}>AFRICAN GIRL RISE</span>
+                        <span className={styles.brandNameShort}>AGR</span>
+                    </div>
                 </Link>
 
                 {/* Desktop Navigation */}
@@ -58,6 +59,7 @@ export default function Navbar() {
                         <div className={styles.dropdownContent}>
                             <Link to="/our-story" className={styles.dropdownLink}>Who We Are</Link>
                             <Link to="/founder" className={styles.dropdownLink}>Founder</Link>
+                            <Link to="/stories" className={styles.dropdownLink}>Impact Stories</Link>
                         </div>
                     </div>
 
@@ -67,19 +69,17 @@ export default function Navbar() {
                             Programs <ChevronDown size={14} className={styles.chevron} />
                         </button>
                         <div className={styles.dropdownContent}>
-                            <Link to="/programs" className={styles.dropdownLink}>Core Programs</Link>
+                            <Link to="/programs" className={styles.dropdownLink}>All Programs</Link>
                             <Link to="/programs/rise-brothers" className={styles.dropdownLink}>Rise Brothers</Link>
                             <Link to="/legal-advocacy" className={styles.dropdownLink}>Legal Advocacy</Link>
                         </div>
                     </div>
 
                     <Link to="/events" className={styles.navLink}>Events</Link>
-                    <Link to="/stories" className={styles.navLink}>Stories</Link>
                     <Link to="/contact" className={styles.navLink}>Contact</Link>
+                    
                     <div className={styles.navActions}>
-                        <div className={styles.themeToggleWrap}>
-                            <ThemeToggle />
-                        </div>
+                        <ThemeToggle />
                         <button onClick={() => setIsDonationModalOpen(true)} className={styles.donateBtn}>Donate</button>
                     </div>
                 </nav>
@@ -92,38 +92,36 @@ export default function Navbar() {
                 {/* Mobile Navigation Overlay */}
                 <div className={`${styles.mobileOverlay} ${isOpen ? styles.active : ''}`} onClick={closeMenu}></div>
 
-                {/* Mobile Navigation */}
+                {/* Mobile Navigation Side Drawer */}
                 <div className={`${styles.mobileNav} ${isOpen ? styles.open : ''}`}>
                     <nav className={styles.mobileNavLinks}>
                         <Link to="/" className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
 
                         <div className={styles.mobileSection}>
-                            <div className={styles.mobileSectionTitle}>About</div>
+                            <div className={styles.mobileSectionTitle}>Platform</div>
                             <Link to="/our-story" className={styles.mobileNavLink} onClick={closeMenu}>Who We Are</Link>
                             <Link to="/founder" className={styles.mobileNavLink} onClick={closeMenu}>Founder</Link>
+                            <Link to="/stories" className={styles.mobileNavLink} onClick={closeMenu}>Stories</Link>
+                            <Link to="/events" className={styles.mobileNavLink} onClick={closeMenu}>Events</Link>
                         </div>
 
                         <div className={styles.mobileSection}>
-                            <div className={styles.mobileSectionTitle}>Programs</div>
+                            <div className={styles.mobileSectionTitle}>Impact Work</div>
                             <Link to="/programs" className={styles.mobileNavLink} onClick={closeMenu}>Core Programs</Link>
                             <Link to="/programs/rise-brothers" className={styles.mobileNavLink} onClick={closeMenu}>Rise Brothers</Link>
                             <Link to="/legal-advocacy" className={styles.mobileNavLink} onClick={closeMenu}>Legal Advocacy</Link>
                         </div>
 
-                        <Link to="/events" className={styles.mobileNavLink} onClick={closeMenu}>Events</Link>
-                        <Link to="/stories" className={styles.mobileNavLink} onClick={closeMenu}>Stories</Link>
                         <Link to="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>
 
                         <div className={styles.mobileUtilityRow}>
                             <span className={styles.mobileUtilityLabel}>Appearance</span>
-                            <div className={styles.themeToggleWrap}>
-                                <ThemeToggle />
-                            </div>
+                            <ThemeToggle />
                         </div>
 
                         <div className={styles.mobileDonateContainer}>
                             <button onClick={() => { setIsDonationModalOpen(true); closeMenu(); }} className={styles.mobileDonateBtn}>
-                                Donate
+                                Donate Now
                             </button>
                         </div>
                     </nav>
