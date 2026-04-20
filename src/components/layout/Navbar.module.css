@@ -25,6 +25,13 @@
   border-bottom-color: rgba(255, 255, 255, 0.06);
 }
 
+.scrolled {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+:global([data-theme="dark"]) .scrolled {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
 /* Logo */
 .logoLink {
   display: flex;
@@ -96,14 +103,37 @@
   letter-spacing: 0.1px;
   padding: 8px 14px;
   border-radius: 10px;
-  transition: all 0.22s ease;
+  transition: color 0.22s ease, background 0.22s ease;
+  position: relative;
 }
 :global([data-theme="dark"]) .navLink {
   color: #94a3b8;
 }
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: #e91e63;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
 .navLink:hover {
   color: #e91e63;
   background: rgba(233, 30, 99, 0.06);
+}
+.navLink:hover::after {
+  transform: scaleX(1);
+}
+.navLinkActive {
+  color: #e91e63 !important;
+}
+.navLinkActive::after {
+  transform: scaleX(1) !important;
 }
 
 .navActions {
@@ -135,7 +165,7 @@
   gap: 5px;
   padding: 8px 14px;
   border-radius: 10px;
-  transition: all 0.22s ease;
+  transition: color 0.22s ease, background 0.22s ease;
   font-family: inherit;
 }
 :global([data-theme="dark"]) .dropbtn {
@@ -145,6 +175,9 @@
 .dropbtn:focus-visible {
   color: #e91e63;
   background: rgba(233, 30, 99, 0.06);
+}
+.dropbtnActive {
+  color: #e91e63 !important;
 }
 
 .chevron {
@@ -162,12 +195,13 @@
   background: white;
   min-width: 210px;
   border-radius: 18px;
-  padding: 8px;
+  padding: 10px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.06);
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.28s;
   border: 1px solid rgba(0, 0, 0, 0.06);
+  border-left: 3px solid #e91e63;
   z-index: 100;
 }
 :global([data-theme="dark"]) .dropdownContent {
@@ -305,6 +339,9 @@
 }
 .mobileNavLink:hover {
   color: #e91e63;
+}
+.mobileNavLinkActive {
+  color: #e91e63 !important;
 }
 
 .mobileSection {

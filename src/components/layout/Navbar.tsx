@@ -8,14 +8,21 @@ import styles from './Navbar.module.css';
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
 
     const closeMenu = () => setIsOpen(false);
 
-    // Close mobile menu on route change
+    const isActive = (path: string) =>
+        path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
+
+    useEffect(() => { closeMenu(); }, [location.pathname]);
+
     useEffect(() => {
-        closeMenu();
-    }, [location.pathname]);
+        const onScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
     // iOS-safe scroll lock
     useEffect(() => {
@@ -31,7 +38,7 @@ export default function Navbar() {
 
     return (
         <>
-            <header className={styles.header}>
+            <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
                 <Link to="/" className={styles.logoLink} onClick={closeMenu}>
                     <img
                         src="/logo.png"
@@ -48,11 +55,11 @@ export default function Navbar() {
 
                 {/* Desktop Navigation */}
                 <nav className={styles.desktopNav}>
-                    <Link to="/" className={styles.navLink}>Home</Link>
+                    <Link to="/" className={`${styles.navLink} ${isActive('/') ? styles.navLinkActive : ''}`}>Home</Link>
 
                     {/* About Dropdown */}
                     <div className={styles.dropdown}>
-                        <button className={styles.dropbtn}>
+                        <button className={`${styles.dropbtn} ${(isActive('/our-story') || isActive('/founder') || isActive('/stories')) ? styles.dropbtnActive : ''}`}>
                             About <ChevronDown size={14} className={styles.chevron} />
                         </button>
                         <div className={styles.dropdownContent}>
@@ -64,7 +71,7 @@ export default function Navbar() {
 
                     {/* Programs Dropdown */}
                     <div className={styles.dropdown}>
-                        <button className={styles.dropbtn}>
+                        <button className={`${styles.dropbtn} ${(isActive('/programs') || isActive('/legal-advocacy')) ? styles.dropbtnActive : ''}`}>
                             Programs <ChevronDown size={14} className={styles.chevron} />
                         </button>
                         <div className={styles.dropdownContent}>
@@ -74,8 +81,8 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    <Link to="/events" className={styles.navLink}>Events</Link>
-                    <Link to="/contact" className={styles.navLink}>Contact</Link>
+                    <Link to="/events" className={`${styles.navLink} ${isActive('/events') ? styles.navLinkActive : ''}`}>Events</Link>
+                    <Link to="/contact" className={`${styles.navLink} ${isActive('/contact') ? styles.navLinkActive : ''}`}>Contact</Link>
                     
                     <div className={styles.navActions}>
                         <ThemeToggle />
@@ -94,7 +101,7 @@ export default function Navbar() {
                 {/* Mobile Navigation Side Drawer */}
                 <div className={`${styles.mobileNav} ${isOpen ? styles.open : ''}`}>
                     <nav className={styles.mobileNavLinks}>
-                        <Link to="/" className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
+                        <Link to="/" className={`${styles.mobileNavLink} ${isActive('/') ? styles.mobileNavLinkActive : ''}`} onClick={closeMenu}>Home</Link>
 
                         <div className={styles.mobileSection}>
                             <div className={styles.mobileSectionTitle}>Platform</div>

@@ -32,7 +32,7 @@ export const FLUTTERWAVE_CLIENT_ID = getServerEnv('FLUTTERWAVE_CLIENT_ID');
 export const FLUTTERWAVE_CLIENT_SECRET = getServerEnv('FLUTTERWAVE_CLIENT_SECRET');
 export const FLUTTERWAVE_ENVIRONMENT = getServerEnv('FLUTTERWAVE_ENVIRONMENT', 'production');
 
-export const MARZPAY_SECRET_KEY = getServerEnv('MARZPAY_SECRET_KEY');
+export const MARZPAY_SECRET_KEY = getServerEnv('MARZPAY_SECRET_KEY') || getServerEnv('MARZPAY_API_SECRET');
 export const MARZPAY_ENVIRONMENT = getServerEnv('MARZPAY_ENVIRONMENT', 'production');
 
 // Email Configuration — SERVER ONLY
@@ -46,8 +46,8 @@ export const ADMIN_AUTH_SECRET = getServerEnv('ADMIN_AUTH_SECRET');
 
 // Supabase Configuration
 // Note: SUPABASE_SERVICE_ROLE_KEY is SERVER ONLY and must never reach the browser.
-export const SUPABASE_URL = getServerEnv('SUPABASE_URL');
-export const SUPABASE_ANON_KEY = getServerEnv('SUPABASE_ANON_KEY') || getServerEnv('SUPABASE_PUBLISHABLE_KEY');
+export const SUPABASE_URL = getServerEnv('SUPABASE_URL') || getServerEnv('VITE_SUPABASE_URL');
+export const SUPABASE_ANON_KEY = getServerEnv('SUPABASE_ANON_KEY') || getServerEnv('VITE_SUPABASE_PUBLISHABLE_KEY') || getServerEnv('SUPABASE_PUBLISHABLE_KEY');
 export const SUPABASE_SERVICE_ROLE_KEY = getServerEnv('SUPABASE_SERVICE_ROLE_KEY');
 
 export const isConfigured = {
