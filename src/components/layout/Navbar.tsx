@@ -1,27 +1,23 @@
-"use client";
-
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import dynamic from 'next/dynamic';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import DonationModal from '@/components/DonationModal';
 import styles from './Navbar.module.css';
-
-// Dynamically import DonationModal to reduce initial bundle size
-const DonationModal = dynamic(() => import('../DonationModal'), {
-    ssr: false, // Modal is interactive and client-side only
-});
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+    const location = useLocation();
 
-    // Close menu when route changes (on mobile)
     const closeMenu = () => setIsOpen(false);
 
-    // iOS-safe scroll lock: overflow:hidden on body is ignored by iOS Safari.
-    // Record scrollY, switch body to position:fixed, restore on close.
+    // Close mobile menu on route change
+    useEffect(() => {
+        closeMenu();
+    }, [location.pathname]);
+
+    // iOS-safe scroll lock
     useEffect(() => {
         if (!isOpen) return;
 
@@ -38,14 +34,12 @@ export default function Navbar() {
     return (
         <>
             <header className={styles.header}>
-                <Link href="/" className={styles.logoLink} onClick={closeMenu}>
-                    <Image
+                <Link to="/" className={styles.logoLink} onClick={closeMenu}>
+                    <img
                         src="/logo.png"
                         alt="African Girl Rise Logo"
                         width={36}
                         height={36}
-                        sizes="36px"
-                        priority
                         className={styles.logoImage}
                     />
                     <span className={styles.brandName}>AFRICAN GIRL RISE</span>
@@ -54,7 +48,7 @@ export default function Navbar() {
 
                 {/* Desktop Navigation */}
                 <nav className={styles.desktopNav}>
-                    <Link href="/" className={styles.navLink}>Home</Link>
+                    <Link to="/" className={styles.navLink}>Home</Link>
 
                     {/* About Dropdown */}
                     <div className={styles.dropdown}>
@@ -62,8 +56,8 @@ export default function Navbar() {
                             About <ChevronDown size={14} className={styles.chevron} />
                         </button>
                         <div className={styles.dropdownContent}>
-                            <Link href="/our-story" className={styles.dropdownLink}>Who We Are</Link>
-                            <Link href="/founder" className={styles.dropdownLink}>Founder</Link>
+                            <Link to="/our-story" className={styles.dropdownLink}>Who We Are</Link>
+                            <Link to="/founder" className={styles.dropdownLink}>Founder</Link>
                         </div>
                     </div>
 
@@ -73,15 +67,15 @@ export default function Navbar() {
                             Programs <ChevronDown size={14} className={styles.chevron} />
                         </button>
                         <div className={styles.dropdownContent}>
-                            <Link href="/programs" className={styles.dropdownLink}>Core Programs</Link>
-                            <Link href="/programs/rise-brothers" className={styles.dropdownLink}>Rise Brothers</Link>
-                            <Link href="/legal-advocacy" className={styles.dropdownLink}>Legal Advocacy</Link>
+                            <Link to="/programs" className={styles.dropdownLink}>Core Programs</Link>
+                            <Link to="/programs/rise-brothers" className={styles.dropdownLink}>Rise Brothers</Link>
+                            <Link to="/legal-advocacy" className={styles.dropdownLink}>Legal Advocacy</Link>
                         </div>
                     </div>
 
-                    <Link href="/events" className={styles.navLink}>Events</Link>
-                    <Link href="/stories" className={styles.navLink}>Stories</Link>
-                    <Link href="/contact" className={styles.navLink}>Contact</Link>
+                    <Link to="/events" className={styles.navLink}>Events</Link>
+                    <Link to="/stories" className={styles.navLink}>Stories</Link>
+                    <Link to="/contact" className={styles.navLink}>Contact</Link>
                     <div className={styles.navActions}>
                         <div className={styles.themeToggleWrap}>
                             <ThemeToggle />
@@ -101,44 +95,24 @@ export default function Navbar() {
                 {/* Mobile Navigation */}
                 <div className={`${styles.mobileNav} ${isOpen ? styles.open : ''}`}>
                     <nav className={styles.mobileNavLinks}>
-                        <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>
-                            Home
-                        </Link>
+                        <Link to="/" className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
 
-                        {/* Mobile About Section */}
                         <div className={styles.mobileSection}>
                             <div className={styles.mobileSectionTitle}>About</div>
-                            <Link href="/our-story" className={styles.mobileNavLink} onClick={closeMenu}>
-                                Who We Are
-                            </Link>
-                            <Link href="/founder" className={styles.mobileNavLink} onClick={closeMenu}>
-                                Founder
-                            </Link>
+                            <Link to="/our-story" className={styles.mobileNavLink} onClick={closeMenu}>Who We Are</Link>
+                            <Link to="/founder" className={styles.mobileNavLink} onClick={closeMenu}>Founder</Link>
                         </div>
 
-                        {/* Mobile Programs Section */}
                         <div className={styles.mobileSection}>
                             <div className={styles.mobileSectionTitle}>Programs</div>
-                            <Link href="/programs" className={styles.mobileNavLink} onClick={closeMenu}>
-                                Core Programs
-                            </Link>
-                            <Link href="/programs/rise-brothers" className={styles.mobileNavLink} onClick={closeMenu}>
-                                Rise Brothers
-                            </Link>
-                            <Link href="/legal-advocacy" className={styles.mobileNavLink} onClick={closeMenu}>
-                                Legal Advocacy
-                            </Link>
+                            <Link to="/programs" className={styles.mobileNavLink} onClick={closeMenu}>Core Programs</Link>
+                            <Link to="/programs/rise-brothers" className={styles.mobileNavLink} onClick={closeMenu}>Rise Brothers</Link>
+                            <Link to="/legal-advocacy" className={styles.mobileNavLink} onClick={closeMenu}>Legal Advocacy</Link>
                         </div>
 
-                        <Link href="/events" className={styles.mobileNavLink} onClick={closeMenu}>
-                            Events
-                        </Link>
-                        <Link href="/stories" className={styles.mobileNavLink} onClick={closeMenu}>
-                            Stories
-                        </Link>
-                        <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>
-                            Contact
-                        </Link>
+                        <Link to="/events" className={styles.mobileNavLink} onClick={closeMenu}>Events</Link>
+                        <Link to="/stories" className={styles.mobileNavLink} onClick={closeMenu}>Stories</Link>
+                        <Link to="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>
 
                         <div className={styles.mobileUtilityRow}>
                             <span className={styles.mobileUtilityLabel}>Appearance</span>

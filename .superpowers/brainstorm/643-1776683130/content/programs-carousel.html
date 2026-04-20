@@ -1,0 +1,83 @@
+<h2>Programs Section — Auto-Scroll Style</h2>
+<p class="subtitle">How should the 4 program cards scroll/animate on the homepage?</p>
+
+<div class="options">
+
+  <div class="option" data-choice="A" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Horizontal Drag Carousel</h3>
+      <p>Cards sit in a horizontal scrollable row. Auto-advances every 4 seconds, pauses on hover/touch. Prev/next arrow buttons visible. Works great on mobile with swipe. Each card shows program icon, number, title, description, and tags.</p>
+      <div style="display:flex;gap:8px;margin-top:10px;overflow:hidden;">
+        <div style="min-width:130px;background:linear-gradient(180deg,#13213a,#0f1a2d);border:1px solid rgba(255,94,138,0.2);border-radius:14px;padding:12px;color:#fff;">
+          <div style="font-size:20px;font-weight:800;color:rgba(255,94,138,0.3);margin-bottom:6px;">01</div>
+          <div style="font-size:11px;font-weight:800;margin-bottom:4px;">Rise Sanctuaries</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.5);line-height:1.4;">School-linked safe spaces for counselling & peer support.</div>
+          <div style="display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;">
+            <span style="background:rgba(255,94,138,0.15);border:1px solid rgba(255,94,138,0.2);border-radius:20px;padding:2px 7px;font-size:8px;color:#ff80ab;">Counselling</span>
+          </div>
+        </div>
+        <div style="min-width:130px;background:linear-gradient(180deg,#13213a,#0f1a2d);border:1px solid rgba(148,163,184,0.15);border-radius:14px;padding:12px;color:#fff;opacity:0.7;">
+          <div style="font-size:20px;font-weight:800;color:rgba(255,255,255,0.15);margin-bottom:6px;">02</div>
+          <div style="font-size:11px;font-weight:800;margin-bottom:4px;">Education Support</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.4);line-height:1.4;">School retention & scholastic materials.</div>
+        </div>
+        <div style="min-width:40px;background:rgba(255,255,255,0.04);border:1px dashed rgba(255,255,255,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.3);font-size:16px;">›</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="B" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Vertical Stacked Reveal</h3>
+      <p>Cards stack vertically and animate in one by one as you scroll down the page (intersection observer). Each card slides in from the side with a slight fade. Feels more editorial and deliberate. Better for long-form reading on desktop.</p>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px;">
+        <div style="background:linear-gradient(90deg,rgba(255,94,138,0.08),transparent);border-left:3px solid #ff5e8a;border-radius:8px;padding:10px 12px;color:#f8fafc;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:18px;font-weight:800;color:rgba(255,94,138,0.4);">01</span>
+            <div>
+              <div style="font-size:11px;font-weight:800;">Rise Sanctuaries</div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.5);">Safe spaces & counselling</div>
+            </div>
+            <span style="margin-left:auto;font-size:9px;color:#ff5e8a;">→</span>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border-left:3px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 12px;color:#f8fafc;opacity:0.5;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:18px;font-weight:800;color:rgba(255,255,255,0.15);">02</span>
+            <div>
+              <div style="font-size:11px;font-weight:800;">Education Support</div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.3);">School retention</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="C" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Auto-Rotating Feature Card</h3>
+      <p>One large featured card at a time, full-width. Tabs/dots at bottom for each program. Auto-rotates every 5 seconds. Clicking a tab jumps to that program. The active card shows image, description, and a "Explore" link. Very visual and immersive.</p>
+      <div style="background:linear-gradient(135deg,#13213a,#1d1030);border:1px solid rgba(255,94,138,0.2);border-radius:14px;padding:14px;color:#fff;margin-top:10px;">
+        <div style="font-size:9px;letter-spacing:2px;color:#ff80ab;text-transform:uppercase;margin-bottom:6px;">Pathway 01 of 04</div>
+        <div style="font-size:15px;font-weight:800;margin-bottom:6px;">Rise Sanctuaries</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.55);line-height:1.4;margin-bottom:10px;">School-linked safe spaces where girls can access counselling, peer support, and trusted adult follow-up.</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;gap:5px;">
+            <div style="width:20px;height:4px;background:#ff5e8a;border-radius:4px;"></div>
+            <div style="width:8px;height:4px;background:rgba(255,255,255,0.2);border-radius:4px;"></div>
+            <div style="width:8px;height:4px;background:rgba(255,255,255,0.2);border-radius:4px;"></div>
+            <div style="width:8px;height:4px;background:rgba(255,255,255,0.2);border-radius:4px;"></div>
+          </div>
+          <span style="font-size:9px;color:#ff5e8a;font-weight:700;">Explore →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:20px;">All options include a "See all programmes →" link below. On mobile all become swipeable.</p>

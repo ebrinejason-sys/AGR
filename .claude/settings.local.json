@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\({k: d[k] for k in ['name','scripts','dependencies'] if k in d}, indent=2\\)\\)\")",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\)\\); console.log\\(JSON.stringify\\({scripts:d.scripts,dependencies:Object.keys\\(d.dependencies||{}\\)},null,2\\)\\)\")",
+      "Bash(git commit *)",
+      "Bash(xxd)",
+      "Bash(npm run *)"
+    ]
+  }
+}

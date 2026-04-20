@@ -1,8 +1,5 @@
-"use client";
-
 import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import styles from './Preloader.module.css';
 
 type PreloaderProps = {
@@ -118,12 +115,11 @@ export default function Preloader({ skip = false }: PreloaderProps) {
                         </defs>
                     </svg>
                     <div className={styles.logoBox}>
-                        <Image
+                        <img
                             src="/logo.png"
                             alt="African Girl Rise"
                             width={64}
                             height={64}
-                            priority
                             className={styles.logoImg}
                         />
                     </div>
@@ -145,11 +141,11 @@ export default function Preloader({ skip = false }: PreloaderProps) {
 
             {/* Quick links bar */}
             <div className={styles.quickLinks}>
-                <Link href="/" className={styles.quickLink} onClick={handleSkip}>Home</Link>
+                <Link to="/" className={styles.quickLink} onClick={handleSkip}>Home</Link>
                 <span className={styles.quickLinkDivider} />
-                <Link href="/donate" className={styles.quickLink}>Donate</Link>
+                <Link to="/donate" className={styles.quickLink}>Donate</Link>
                 <span className={styles.quickLinkDivider} />
-                <Link href="/programs" className={styles.quickLink}>Programs</Link>
+                <Link to="/programs" className={styles.quickLink}>Programs</Link>
             </div>
 
             {/* Progress bar */}

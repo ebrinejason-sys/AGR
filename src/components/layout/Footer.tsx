@@ -1,7 +1,5 @@
-"use client";
-
 import { useState } from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -77,18 +75,18 @@ export default function Footer() {
                     <div className={styles.linksColumn}>
                         <h4 className={styles.columnTitle}>About</h4>
                         <nav className={styles.linksList}>
-                            <Link href="/our-story">Who We Are</Link>
-                            <Link href="/founder">Founder</Link>
-                            <Link href="/stories">Stories</Link>
+                            <Link to="/our-story">Who We Are</Link>
+                            <Link to="/founder">Founder</Link>
+                            <Link to="/stories">Stories</Link>
                         </nav>
 
                         <div className={styles.sectionSpacer}></div>
 
                         <h4 className={styles.columnTitle}>Programs</h4>
                         <nav className={styles.linksList}>
-                            <Link href="/programs">Core Programs</Link>
-                            <Link href="/legal-advocacy">Legal Advocacy</Link>
-                            <Link href="/events">Events</Link>
+                            <Link to="/programs">Core Programs</Link>
+                            <Link to="/legal-advocacy">Legal Advocacy</Link>
+                            <Link to="/events">Events</Link>
                         </nav>
                     </div>
 
@@ -121,9 +119,9 @@ export default function Footer() {
                         © {new Date().getFullYear()} African Girl Rise Ltd. All rights reserved.
                     </p>
                     <nav className={styles.legalLinks}>
-                        <Link href="/legal/terms">Terms of Service</Link>
-                        <Link href="/legal/privacy">Privacy Policy</Link>
-                        <Link href="/legal/refund">Refund Policy</Link>
+                        <Link to="/legal/terms">Terms of Service</Link>
+                        <Link to="/legal/privacy">Privacy Policy</Link>
+                        <Link to="/legal/refund">Refund Policy</Link>
                     </nav>
                     <p className={styles.mission}>
                         Education, safety, and advocacy for girls.

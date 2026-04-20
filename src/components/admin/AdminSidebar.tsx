@@ -1,14 +1,11 @@
-"use client";
-
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Image as ImageIcon, BookOpen, Calendar, Users, LogOut, Menu, X, MessageSquare } from 'lucide-react';
-import styles from '../../app/admin/layout.module.css';
+import styles from './layout.module.css';
 
 export default function AdminSidebar() {
     const [isOpen, setIsOpen] = useState(false);
-    const pathname = usePathname();
+    const { pathname } = useLocation();
 
     const toggleSidebar = () => setIsOpen(!isOpen);
     const closeSidebar = () => setIsOpen(false);
@@ -40,31 +37,31 @@ export default function AdminSidebar() {
                 </div>
 
                 <nav className={styles.nav}>
-                    <Link href="/admin" className={`${styles.navItem} ${pathname === '/admin' ? styles.active : ''}`}>
+                    <Link to="/admin" className={`${styles.navItem} ${pathname === '/admin' ? styles.active : ''}`}>
                         <LayoutDashboard size={20} />
                         <span>Overview</span>
                     </Link>
-                    <Link href="/admin/projects" className={`${styles.navItem} ${pathname === '/admin/projects' ? styles.active : ''}`}>
+                    <Link to="/admin/projects" className={`${styles.navItem} ${pathname === '/admin/projects' ? styles.active : ''}`}>
                         <BookOpen size={20} />
                         <span>Projects & Programs</span>
                     </Link>
-                    <Link href="/admin/media" className={`${styles.navItem} ${pathname === '/admin/media' ? styles.active : ''}`}>
+                    <Link to="/admin/media" className={`${styles.navItem} ${pathname === '/admin/media' ? styles.active : ''}`}>
                         <ImageIcon size={20} />
                         <span>Media Library</span>
                     </Link>
-                    <Link href="/admin/stories" className={`${styles.navItem} ${pathname === '/admin/stories' ? styles.active : ''}`}>
+                    <Link to="/admin/stories" className={`${styles.navItem} ${pathname === '/admin/stories' ? styles.active : ''}`}>
                         <BookOpen size={20} />
                         <span>Stories</span>
                     </Link>
-                    <Link href="/admin/events" className={`${styles.navItem} ${pathname === '/admin/events' ? styles.active : ''}`}>
+                    <Link to="/admin/events" className={`${styles.navItem} ${pathname === '/admin/events' ? styles.active : ''}`}>
                         <Calendar size={20} />
                         <span>Events</span>
                     </Link>
-                    <Link href="/admin/subscriptions" className={`${styles.navItem} ${pathname === '/admin/subscriptions' ? styles.active : ''}`}>
+                    <Link to="/admin/subscriptions" className={`${styles.navItem} ${pathname === '/admin/subscriptions' ? styles.active : ''}`}>
                         <Users size={20} />
                         <span>Subscribers</span>
                     </Link>
-                    <Link href="/admin/contacts" className={`${styles.navItem} ${pathname === '/admin/contacts' ? styles.active : ''}`}>
+                    <Link to="/admin/contacts" className={`${styles.navItem} ${pathname === '/admin/contacts' ? styles.active : ''}`}>
                         <MessageSquare size={20} />
                         <span>Messages</span>
                     </Link>

@@ -1,19 +1,20 @@
-import { NextResponse } from 'next/server';
-import { ADMIN_SESSION_COOKIE } from '@/lib/admin-constants';
-import { verifyAdminSessionToken } from '@/lib/admin-auth';
-import { isSupabaseAdminConfigured } from '@/lib/supabase';
+import { ADMIN_SESSION_COOKIE } from './admin-constants';
+import { verifyAdminSessionToken } from './admin-auth';
+import { isSupabaseAdminConfigured } from './supabase.server';
 
-export const checkSupabaseAdminConfig = () => {
+export type ApiError = { statusCode: number; body: { error: string } };
+
+export const checkSupabaseAdminConfig = (): ApiError | null => {
     if (!isSupabaseAdminConfigured) {
-        return NextResponse.json(
-            { error: 'Supabase Admin is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables.' },
-            { status: 503 }
-        );
+        return {
+            statusCode: 503,
+            body: { error: 'Supabase Admin is not configured. Please set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables.' },
+        };
     }
     return null;
 };
 
-export const getCookieValue = (cookieHeader: string | null, cookieName: string) => {
+export const getCookieValue = (cookieHeader: string | null | undefined, cookieName: string) => {
     if (!cookieHeader) return null;
 
     return cookieHeader
@@ -31,16 +32,16 @@ const safeDecodeCookie = (value: string) => {
     }
 };
 
-export const requireAdminSession = (request: Request) => {
-    const sessionCookie = getCookieValue(request.headers.get('cookie'), ADMIN_SESSION_COOKIE);
+export const requireAdminSession = (cookieHeader: string | null | undefined) => {
+    const sessionCookie = getCookieValue(cookieHeader, ADMIN_SESSION_COOKIE);
 
     if (!sessionCookie) {
-        return { session: null, error: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }) };
+        return { session: null, error: { statusCode: 401, body: { error: 'Unauthorized' } } as ApiError };
     }
 
     const session = verifyAdminSessionToken(safeDecodeCookie(sessionCookie));
     if (!session) {
-        return { session: null, error: NextResponse.json({ error: 'Session expired. Please log in again.' }, { status: 401 }) };
+        return { session: null, error: { statusCode: 401, body: { error: 'Session expired. Please log in again.' } } as ApiError };
     }
 
     return { session, error: null };

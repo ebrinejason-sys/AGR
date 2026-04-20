@@ -1,4 +1,4 @@
-import type { DonationCheckoutResult, DonationCurrency } from '@/lib/marzpay';
+import type { DonationCheckoutResult, DonationCurrency } from './marzpay';
 
 export type FlutterwaveMobileMoneyNetwork = 'MTN' | 'Airtel';
 
