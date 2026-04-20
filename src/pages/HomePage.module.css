@@ -294,9 +294,6 @@
   background: var(--gradient-pink-purple);
 }
 
-.contextWrap,
-.aboutWrap,
-.pillarsWrap,
 .marqueeSection,
 .quoteWrap,
 .ctaBand {
@@ -725,7 +722,6 @@
 
 :global([data-theme="dark"]) .heroSummaryCard,
 :global([data-theme="dark"]) .leadCard,
-:global([data-theme="dark"]) .programCard,
 :global([data-theme="dark"]) .contextCard {
   background: linear-gradient(180deg, var(--surface-strong) 0%, var(--card-bg) 100%);
   border-color: var(--border-color);
