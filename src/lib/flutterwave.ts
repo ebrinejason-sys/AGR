@@ -595,6 +595,48 @@ export async function initializeFlutterwaveMobileMoneyCheckout(
   return initializeFlutterwaveV3MobileMoneyCheckout(input);
 }
 
+async function getFlutterwaveV3TransactionStatus(transactionId: string): Promise<FlutterwaveChargeStatus> {
+  const secretKey = getConfiguredSecretKey();
+  if (!secretKey) {
+    throw new Error("Flutterwave is not configured. Set FLUTTERWAVE_SECRET_KEY or FLUTTERWAVE_CLIENT_ID and FLUTTERWAVE_CLIENT_SECRET.");
+  }
+
+  const response = await fetch(`https://api.flutterwave.com/v3/transactions/${encodeURIComponent(transactionId)}/verify`, {
+    headers: {
+      Authorization: `Bearer ${secretKey}`,
+      "Content-Type": "application/json",
+    },
+    method: "GET",
+  });
+
+  const data = (await response.json().catch(() => null)) as FlutterwaveApiResult | null;
+
+  if (!response.ok || data?.status !== "success") {
+    throw new Error(getFlutterwaveErrorMessage(data) || "Flutterwave rejected the transaction verification request.");
+  }
+
+  const status = normalizeFlutterwaveChargeState(extractString(data, ["data", "status"]));
+  const amount = extractNumber(data, ["data", "amount"]) || 0;
+  const currency = (extractString(data, ["data", "currency"]) || "UGX") as DonationCurrency;
+  const reference = extractString(data, ["data", "tx_ref"]) || "";
+  const id = String(extractNumber(data, ["data", "id"]) || transactionId);
+  const phone = extractString(data, ["data", "customer", "phone_number"]);
+
+  return {
+    amount,
+    chargeId: id,
+    currency,
+    network: null,
+    nextActionType: null,
+    phoneNumber: phone,
+    processorResponseType: extractString(data, ["data", "processor_response"]),
+    provider: "flutterwave",
+    redirectUrl: null,
+    reference,
+    status,
+  };
+}
+
 export async function getFlutterwaveChargeStatus(chargeId: string): Promise<FlutterwaveChargeStatus> {
   const normalizedChargeId = chargeId.trim();
   if (!normalizedChargeId) {
@@ -602,7 +644,7 @@ export async function getFlutterwaveChargeStatus(chargeId: string): Promise<Flut
   }
 
   if (!hasV4Credentials()) {
-    throw new Error('Flutterwave v4 status checks require FLUTTERWAVE_CLIENT_ID and FLUTTERWAVE_CLIENT_SECRET.');
+    return getFlutterwaveV3TransactionStatus(normalizedChargeId);
   }
 
   const { data } = await flutterwaveV4Request(`/charges/${encodeURIComponent(normalizedChargeId)}`, {
