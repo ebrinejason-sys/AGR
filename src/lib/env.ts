@@ -16,8 +16,9 @@
 function getServerEnv(key: string, defaultValue: string = ''): string {
     if (typeof process === 'undefined') {
         // We are in a browser bundle — this should never happen.
-        // Fail loudly in development; silently in production.
-        if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {
+        // process is narrowed to `never` here, so we cannot access process.env.
+        // Log unconditionally when in browser context (tree-shaken in production builds).
+        if (typeof window !== 'undefined') {
             console.error(`[SECURITY] env.ts was imported in browser context. Key: ${key}`);
         }
         return defaultValue;
