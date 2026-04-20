@@ -71,6 +71,10 @@
   letter-spacing: -0.04em;
 }
 
+.heroAccent {
+  color: var(--color-pink);
+}
+
 .heroSubtext {
   max-width: 37rem;
   margin: 1.5rem 0 0;
@@ -490,51 +494,6 @@
   color: rgba(194, 202, 218, 0.8);
 }
 
-.programCard {
-  padding: 2rem;
-  border: 1px solid rgba(26, 26, 46, 0.08);
-  border-radius: 28px;
-  background: linear-gradient(180deg, #ffffff 0%, var(--surface-rose) 100%);
-  box-shadow: 0 14px 34px rgba(26, 26, 46, 0.05);
-}
-
-.programHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.programNumber {
-  color: rgba(233, 30, 99, 0.25);
-  font-family: var(--font-serif);
-  font-size: 2.7rem;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.programEyebrow {
-  color: var(--text-muted);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.programTitle {
-  margin: 1rem 0 0;
-  color: var(--text-color);
-  font-size: 1.2rem;
-  font-weight: 800;
-}
-
-.programBody {
-  margin: 0.9rem 0 0;
-  color: var(--text-muted);
-  font-size: 0.97rem;
-  line-height: 1.78;
-}
-
 .programTags {
   display: flex;
   flex-wrap: wrap;
@@ -549,7 +508,7 @@
   border: 1px solid rgba(233, 30, 99, 0.14);
   border-radius: 999px;
   background: rgba(233, 30, 99, 0.06);
-  color: var(--text-color);
+  color: rgba(248, 250, 252, 0.9);
   font-size: 0.78rem;
   font-weight: 700;
 }
@@ -753,6 +712,13 @@
   display: none;
 }
 
+:global(html[data-ios="1"]) .programRevealCard,
+:global(html[data-runtime-safe="1"]) .programRevealCard {
+  transform: none;
+  opacity: 1;
+  transition: none;
+}
+
 :global([data-theme="dark"]) .heroSplit {
   background: linear-gradient(180deg, #04080f 0%, #0a1320 100%);
 }
@@ -883,6 +849,14 @@
   text-decoration: none;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .programRevealCard {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}
+
 @media (max-width: 1100px) {
   .heroSplit,
   .overviewGrid,
@@ -916,7 +890,6 @@
   }
 
   .contextGrid,
-  .programGrid,
   .flowSteps {
     grid-template-columns: 1fr;
   }
@@ -957,8 +930,7 @@
     display: none;
   }
 
-  .contextGrid,
-  .programGrid {
+  .contextGrid {
     grid-template-columns: 1fr;
   }
 

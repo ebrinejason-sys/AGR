@@ -108,7 +108,7 @@ export default function HomePage() {
           <span className={styles.eyebrow}>African Girl Rise · Uganda</span>
           <h1 className={styles.heroHeading}>
             Help girls stay safe, stay in school, and{' '}
-            <span style={{ color: 'var(--color-pink)' }}>build a stronger future.</span>
+            <span className={styles.heroAccent}>build a stronger future.</span>
           </h1>
           <p className={styles.heroSubtext}>African Girl Rise combines counselling, school retention support, allyship programming, and legal advocacy so donors and partners can fund a response that is practical, local, and measurable.</p>
           <div className={styles.heroPoints}>
