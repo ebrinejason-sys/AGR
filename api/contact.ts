@@ -1,7 +1,17 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { resend, SENDER_EMAIL } from '../src/lib/resend';
 import { supabase, isSupabaseConfigured } from '../src/lib/supabase.server';
-import { rateLimit, getIPFromHeader } from '../src/lib/rate-limit';
+import { rateLimit, getIPFromHeader, securityLog } from '../src/lib/rate-limit';
+
+const INJECTION_PATTERN = /(<script|javascript:|on\w+\s*=|\bDROP\b|\bUNION\b|\bSELECT\b|\bINSERT\b|\bDELETE\b|\bUPDATE\b|\bEXEC\b)/i;
+
+function applySecurityHeaders(res: VercelResponse) {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  if (process.env.NODE_ENV === 'production') {
+    res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+  }
+}
 
 const escapeHtml = (s: string) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 
@@ -23,12 +33,22 @@ function buildAdminHtml(type: FormType, b: Record<string, unknown>) {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+    applySecurityHeaders(res);
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+    // Require JSON content-type
+    const ct = req.headers['content-type'] || '';
+    if (!ct.includes('application/json')) {
+        return res.status(415).json({ error: 'Content-Type must be application/json' });
+    }
 
     try {
         const ip = getIPFromHeader(req.headers['x-forwarded-for']);
         const rl = rateLimit(ip, 3, 60 * 60 * 1000);
-        if (rl.isLimited) return res.status(rl.statusCode).json(rl.body);
+        if (rl.isLimited) {
+            securityLog({ type: 'rate_limited', ip, endpoint: '/api/contact' });
+            return res.status(rl.statusCode).json(rl.body);
+        }
 
         if (!resend) return res.status(503).json({ error: 'Email service is not configured. Set RESEND_API_KEY.' });
 
@@ -38,10 +58,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const name = sanitize(body.name || body.contactPerson);
         const message = sanitize(body.message, 10000);
 
+        // Strict input validation
         if (!email) return res.status(400).json({ error: 'Email is required' });
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'Invalid email address' });
+        if (email.length > 320) return res.status(400).json({ error: 'Email too long' });
+        if (name && name.length > 255) return res.status(400).json({ error: 'Name too long' });
         if ((type === 'general' || type === 'donate') && !message) return res.status(400).json({ error: 'Message is required' });
 
+        // Injection guard
+        const fieldsToCheck = [email, name, message];
+        if (fieldsToCheck.some((f) => f && INJECTION_PATTERN.test(f))) {
+            securityLog({ type: 'suspicious', ip: getIPFromHeader(req.headers['x-forwarded-for']), endpoint: '/api/contact', detail: 'Injection pattern detected' });
+            return res.status(400).json({ error: 'Invalid input detected.' });
+        }
         const extraFields: Record<string, string> = {};
         for (const f of ['phone','profession','organization','contributionArea','mentorCapacity','orgName','contactPerson','sponsorType','budgetRange','donationType','donationIntent']) {
             const v = sanitize(body[f]); if (v) extraFields[f] = v;

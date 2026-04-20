@@ -1,351 +1,386 @@
-/* Premium Navbar Design */
+/* ══════════════════════════════════════
+   PREMIUM NAVBAR — African Girl Rise
+══════════════════════════════════════ */
+
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 6%;
-    z-index: 1000;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 76px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  z-index: 1000;
+  transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 :global([data-theme="dark"]) .header {
-    background: rgba(13, 17, 23, 0.75);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(8, 17, 31, 0.88);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
 }
 
+/* Logo */
 .logoLink {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    transition: transform 0.3s ease;
-    z-index: 1001;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  z-index: 1001;
+  transition: opacity 0.25s ease;
 }
-
 .logoLink:hover {
-    transform: scale(1.02);
+  opacity: 0.85;
 }
 
 .logoImage {
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+.brandWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
 .brandName {
-    font-weight: 800;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #1a1a2e;
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.brandSub {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #e91e63;
+  line-height: 1;
 }
 
 .brandNameShort {
-    display: none;
+  display: none;
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: #0f172a;
+  letter-spacing: 1px;
 }
 
-:global([data-theme="dark"]) .brandName {
-    color: white;
+:global([data-theme="dark"]) .brandName,
+:global([data-theme="dark"]) .brandNameShort {
+  color: white;
 }
 
-/* Navigation Links */
+/* ── Desktop Nav ── */
 .desktopNav {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .navLink {
-    color: #4a5568;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.2px;
-    transition: all 0.3s ease;
-    position: relative;
-    padding: 8px 0;
+  color: #475569;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.1px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: all 0.22s ease;
 }
-
 :global([data-theme="dark"]) .navLink {
-    color: #a0aec0;
+  color: #94a3b8;
 }
-
 .navLink:hover {
-    color: var(--color-pink);
-}
-
-.navLink::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--gradient-pink-purple);
-    transition: width 0.3s ease;
-    border-radius: 2px;
-}
-
-.navLink:hover::after {
-    width: 100%;
+  color: #e91e63;
+  background: rgba(233, 30, 99, 0.06);
 }
 
 .navActions {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
+}
+:global([data-theme="dark"]) .navActions {
+  border-left-color: rgba(255, 255, 255, 0.08);
 }
 
-/* Dropdown */
+/* ── Dropdown ── */
 .dropdown {
-    position: relative;
+  position: relative;
 }
 
 .dropbtn {
-    background: none;
-    border: none;
-    color: #4a5568;
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 0;
-    transition: color 0.3s ease;
-    font-family: inherit;
+  background: none;
+  border: none;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: all 0.22s ease;
+  font-family: inherit;
 }
-
 :global([data-theme="dark"]) .dropbtn {
-    color: #a0aec0;
+  color: #94a3b8;
+}
+.dropdown:hover .dropbtn,
+.dropbtn:focus-visible {
+  color: #e91e63;
+  background: rgba(233, 30, 99, 0.06);
 }
 
-.dropdown:hover .dropbtn {
-    color: var(--color-pink);
+.chevron {
+  transition: transform 0.3s ease;
+}
+.dropdown:hover .chevron {
+  transform: rotate(180deg);
 }
 
 .dropdownContent {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background: white;
-    min-width: 220px;
-    border-radius: 16px;
-    padding: 12px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: white;
+  min-width: 210px;
+  border-radius: 18px;
+  padding: 8px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  z-index: 100;
 }
-
 :global([data-theme="dark"]) .dropdownContent {
-    background: #1a1a2e;
-    border-color: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  background: #111827;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
-
 .dropdown:hover .dropdownContent {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
 }
 
 .dropdownLink {
-    display: block;
-    padding: 12px 16px;
-    text-decoration: none;
-    color: #4a5568;
-    font-weight: 500;
-    font-size: 0.85rem;
-    border-radius: 10px;
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: #334155;
+  font-weight: 500;
+  font-size: 0.85rem;
+  border-radius: 10px;
+  transition: all 0.18s ease;
+  gap: 8px;
 }
-
 :global([data-theme="dark"]) .dropdownLink {
-    color: #a0aec0;
+  color: #cbd5e1;
 }
-
 .dropdownLink:hover {
-    background: rgba(233, 30, 99, 0.05);
-    color: var(--color-pink);
-    transform: translateX(4px);
+  background: rgba(233, 30, 99, 0.05);
+  color: #e91e63;
+  padding-left: 18px;
 }
 
-/* Donate Button */
+/* ── Donate Button ── */
 .donateBtn {
-    background: var(--gradient-pink-purple);
-    color: white;
-    padding: 10px 24px;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 0.85rem;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 20px rgba(233, 30, 99, 0.2);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  background: linear-gradient(135deg, #e91e63, #9c27b0);
+  color: white;
+  padding: 9px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.25);
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  font-family: inherit;
 }
-
 .donateBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 30px rgba(233, 30, 99, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(233, 30, 99, 0.35);
 }
 
-/* Mobile Controls */
+/* ── Mobile Toggle ── */
 .mobileToggle {
-    display: none;
-    background: rgba(233, 30, 99, 0.1);
-    color: var(--color-pink);
-    border: none;
-    padding: 10px;
-    border-radius: 12px;
-    cursor: pointer;
-    z-index: 1001;
-    transition: all 0.3s ease;
+  display: none;
+  background: rgba(233, 30, 99, 0.08);
+  color: #e91e63;
+  border: none;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 1001;
+  transition: all 0.25s ease;
+  align-items: center;
+  justify-content: center;
 }
-
 .mobileToggle:hover {
-    background: var(--color-pink);
-    color: white;
+  background: #e91e63;
+  color: white;
 }
 
+/* ── Mobile Overlay ── */
 .mobileOverlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s ease;
-    z-index: 998;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+  z-index: 998;
 }
-
 .mobileOverlay.active {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Mobile Nav Content */
+/* ── Mobile Nav Drawer ── */
 .mobileNav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 320px;
-    height: 100vh;
-    background: white;
-    z-index: 999;
-    padding: 100px 32px 40px;
-    transform: translateX(100%);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(340px, 92vw);
+  height: 100dvh;
+  background: white;
+  z-index: 999;
+  padding: 92px 28px 40px;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
-
 :global([data-theme="dark"]) .mobileNav {
-    background: #0d1117;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+  background: #0d1117;
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.4);
 }
-
 .mobileNav.open {
-    transform: translateX(0);
+  transform: translateX(0);
 }
 
 .mobileNavLinks {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
 }
 
 .mobileNavLink {
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-decoration: none;
-    color: #1a1a2e;
-    transition: color 0.3s ease;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #0f172a;
+  transition: color 0.2s ease;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
-
 :global([data-theme="dark"]) .mobileNavLink {
-    color: white;
+  color: #f1f5f9;
+  border-bottom-color: rgba(255, 255, 255, 0.05);
 }
-
 .mobileNavLink:hover {
-    color: var(--color-pink);
+  color: #e91e63;
 }
 
 .mobileSection {
-    margin: 1rem 0;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-:global([data-theme="dark"]) .mobileSection {
-    border-top-color: rgba(255, 255, 255, 0.05);
+  margin: 1rem 0 0.5rem;
 }
 
 .mobileSectionTitle {
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    color: #a0aec0;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: #94a3b8;
+  margin-bottom: 0.6rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+:global([data-theme="dark"]) .mobileSectionTitle {
+  border-top-color: rgba(255, 255, 255, 0.06);
 }
 
 .mobileUtilityRow {
-    margin-top: auto;
-    padding-top: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  margin-top: auto;
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+:global([data-theme="dark"]) .mobileUtilityRow {
+  border-top-color: rgba(255, 255, 255, 0.06);
 }
 
 .mobileUtilityLabel {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #718096;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
 }
 
 .mobileDonateContainer {
-    margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .mobileDonateBtn {
-    width: 100%;
-    padding: 16px;
-    background: var(--gradient-pink-purple);
-    color: white;
-    border: none;
-    border-radius: 14px;
-    font-weight: 700;
-    font-size: 1rem;
-    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.2);
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #e91e63, #9c27b0);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 8px 24px rgba(233, 30, 99, 0.25);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.25s ease;
+}
+.mobileDonateBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(233, 30, 99, 0.35);
 }
 
+/* ── Responsive ── */
 @media (max-width: 1024px) {
-    .desktopNav {
-        display: none;
-    }
-    .mobileToggle {
-        display: flex;
-    }
-    .brandNameShort {
-        display: inline;
-    }
-    .brandName {
-        display: none;
-    }
+  .desktopNav {
+    display: none;
+  }
+  .mobileToggle {
+    display: flex;
+  }
+  .brandNameShort {
+    display: inline;
+  }
+  .brandName {
+    display: none;
+  }
+  .brandSub {
+    display: none;
+  }
 }

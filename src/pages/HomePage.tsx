@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import styles from './HomePage.module.css';
 import HeroCTAButtons from '@/components/HeroCTAButtons';
 import CTADonateButton from '@/components/CTADonateButton';
@@ -9,19 +10,22 @@ const impactStats = [
     label: 'Girls reached', 
     value: 56000, 
     suffix: '+',
-    desc: 'Direct support delivered through outreach, mentoring, and education support.'
+    desc: 'Direct support delivered through outreach, mentoring, and education support.',
+    color: '#e91e63',
   },
   { 
     label: 'Active sanctuaries', 
     value: 12, 
     suffix: '+',
-    desc: 'Trusted spaces and school-linked support points where girls find guidance.'
+    desc: 'Trusted spaces and school-linked support points where girls find guidance.',
+    color: '#9c27b0',
   },
   { 
     label: 'National dropout', 
     value: 4, 
     suffix: ' in 10',
-    desc: 'Girls drop out before Form 4. Our work is designed to interrupt that pattern early.'
+    desc: 'Girls drop out before Form 4. Our work is designed to interrupt that pattern early.',
+    color: '#00bcd4',
   },
 ] as const;
 
@@ -29,30 +33,38 @@ const programCards = [
   { 
     title: 'Rise Sanctuaries',
     number: '01',
-    description: 'School-linked safe spaces where girls can access counselling, peer support, and trusted adult follow-up.',
+    description: 'School-linked safe spaces where girls access counselling, peer support, and trusted adult follow-up.',
     href: '/programs/rise-rooms',
-    label: 'Explore Sanctuaries'
+    label: 'Explore Sanctuaries',
+    icon: '🏡',
+    accent: '#e91e63',
   },
   { 
     title: 'Education Support',
     number: '02',
     description: 'School retention support, scholastic materials, and practical help that keeps girls learning with dignity.',
     href: '/programs/academic-rescue',
-    label: 'See education support'
+    label: 'See education support',
+    icon: '📚',
+    accent: '#9c27b0',
   },
   { 
     title: 'Legal Advocacy',
     number: '03',
     description: 'Rights awareness, case management, and direct advocacy when girls face abuse, neglect, or exclusion.',
     href: '/legal-advocacy',
-    label: 'View legal advocacy'
+    label: 'View legal advocacy',
+    icon: '⚖️',
+    accent: '#00bcd4',
   },
   { 
     title: 'Rise Brothers',
     number: '04',
     description: 'Engaging boys to understand what girls face, manage their own emotions, and become active allies.',
     href: '/programs/rise-brothers',
-    label: 'Explore Rise Brothers'
+    label: 'Explore Rise Brothers',
+    icon: '🤝',
+    accent: '#ff9800',
   },
 ] as const;
 
@@ -60,17 +72,17 @@ const supportFlow = [
   { 
     step: '01', 
     title: 'Identify risk early',
-    text: 'Teachers and community partners flag attendance gaps or abuse risk before they harden into dropout.'
+    text: 'Teachers and community partners flag attendance gaps or abuse risk before they harden into dropout.',
   },
   { 
     step: '02', 
     title: 'Stabilise the girl',
-    text: 'We respond with counselling, supplies, and mentoring based on what will stabilise the girl quickly.'
+    text: 'We respond with counselling, supplies, and mentoring based on what will stabilise the girl quickly.',
   },
   { 
     step: '03', 
     title: 'Shift the environment',
-    text: 'We work with boys and legal systems too, so girls are not sent back into the same silence that harmed them.'
+    text: 'We work with boys and legal systems too, so girls are not sent back into the same silence that harmed them.',
   },
 ] as const;
 
@@ -89,46 +101,112 @@ const galleryMoments = [
   { label: 'Rise Brothers in session', src: '/images/programs/rise-brothers/rise-brothers-3.jpg' },
 ] as const;
 
+// Animated headline word rotator
+const ROTATING_WORDS = ['Safe.', 'Heard.', 'Educated.', 'Empowered.', 'Rising.'];
+
+function useScrollReveal() {
+  useEffect(() => {
+    const els = document.querySelectorAll('[data-reveal]');
+    if (!els.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.revealed);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+    );
+
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+}
+
 export default function HomePage() {
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isExiting, setIsExiting] = useState(false);
+  const marqueeRef = useRef<HTMLDivElement>(null);
+
+  useScrollReveal();
+
+  // Rotate hero headline words
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsExiting(true);
+      setTimeout(() => {
+        setWordIndex((i) => (i + 1) % ROTATING_WORDS.length);
+        setIsExiting(false);
+      }, 380);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Pause marquee on hover
+  const pauseMarquee = () => {
+    if (marqueeRef.current) {
+      marqueeRef.current.style.animationPlayState = 'paused';
+    }
+  };
+  const resumeMarquee = () => {
+    if (marqueeRef.current) {
+      marqueeRef.current.style.animationPlayState = 'running';
+    }
+  };
+
   return (
     <div className={styles.container}>
-      {/* --- CINEMATIC HERO --- */}
+
+      {/* ── CINEMATIC HERO ── */}
       <section className={styles.heroSection}>
+        <div className={styles.heroBg} aria-hidden />
         <div className={styles.heroContent}>
-          <h1 className={styles.heroHeading}>
-            Help girls stay safe, 
-            <span>Stay in school.</span>
+          <span className={styles.heroPill} data-reveal>
+            Uganda's girl-led movement
+          </span>
+          <h1 className={styles.heroHeading} data-reveal>
+            <span className={styles.heroLine1}>Help girls stay</span>
+            <span className={styles.heroWordRow}>
+              <span className={styles.heroWordStatic}>safe &amp;&nbsp;</span>
+              <span className={`${styles.heroWordRotating} ${isExiting ? styles.wordExit : styles.wordEnter}`}>
+                {ROTATING_WORDS[wordIndex]}
+              </span>
+            </span>
           </h1>
-          <p className={styles.heroSubtext}>
-            We deliver local, practical support that keeps girls safe and learning. 
+          <p className={styles.heroSubtext} data-reveal>
+            We deliver local, practical support that keeps girls safe and learning.
             From trauma recovery to school retention, we build responses that work.
           </p>
-          <HeroCTAButtons />
-          
-          <div className={styles.heroQuickLinks}>
+          <div className={styles.heroActions} data-reveal>
+            <HeroCTAButtons />
+          </div>
+          <div className={styles.heroQuickLinks} data-reveal>
             <Link to="/our-story" className={styles.heroQuickLink}>Our Story</Link>
+            <span className={styles.heroQuickDivider} />
             <Link to="/contact" className={styles.heroQuickLink}>Join Mission</Link>
+            <span className={styles.heroQuickDivider} />
             <Link to="/stories" className={styles.heroQuickLink}>Impact Stories</Link>
           </div>
         </div>
 
-        <div className={styles.heroVisual}>
-          <div className={styles.heroImageContainer}>
-            <img src="/images/hero-bg.jpg" alt="African Girl Rise Impact" />
-            <div className={styles.heroDecor}>
-              <span className={styles.heroDecorLabel}>Impacted Globally</span>
-              <span className={styles.heroDecorValue}>56,000+ Girls</span>
-            </div>
-          </div>
+        {/* Floating stat badge */}
+        <div className={styles.heroFloatingBadge} aria-hidden>
+          <span className={styles.badgePulse} />
+          <span className={styles.badgeLabel}>Girls impacted</span>
+          <span className={styles.badgeValue}>56,000+</span>
         </div>
       </section>
 
-      {/* --- IMPACT STATS --- */}
-      <section className={styles.statsContainer}>
+      {/* ── IMPACT STATS ── */}
+      <section className={styles.statsSection}>
         <div className={styles.statsGrid}>
           {impactStats.map((stat, i) => (
-            <div key={stat.label} className={styles.statCard}>
-              <span className={styles.statValue} style={{ color: i === 0 ? '#e91e63' : i === 1 ? '#9c27b0' : '#00bcd4' }}>
+            <div key={stat.label} className={styles.statCard} data-reveal style={{ transitionDelay: `${i * 120}ms` }}>
+              <div className={styles.statAccentBar} style={{ background: stat.color }} />
+              <span className={styles.statValue} style={{ color: stat.color }}>
                 <AnimatedCounter target={stat.value} suffix={stat.suffix} continuous={true} />
               </span>
               <span className={styles.statLabel}>{stat.label}</span>
@@ -138,21 +216,83 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* --- MISSION FLOW --- */}
-      <section className={styles.section}>
-        <div className={styles.secHeader}>
-          <span className={styles.eyebrow}>Our Response Model</span>
-          <h2 className={styles.secTitle}>The response is built around what moves a girl from crisis to momentum.</h2>
+      {/* ── CORE PATHWAY FLOATING CARDS (Zavora-style) ── */}
+      <section className={`${styles.section} ${styles.pathwaysSection}`}>
+        <div className={styles.secHeader} data-reveal>
+          <span className={styles.eyebrow}>The Core Pathways</span>
+          <h2 className={styles.secTitle}>Four pillars of lasting change.</h2>
           <p className={styles.secDesc}>
-            Girls first need stability and safety. Then they need support to remain in school. 
+            We focus on four strategic areas that address the root causes of school dropout and gender inequality.
+          </p>
+        </div>
+        <div className={styles.floatingCardsGrid}>
+          {programCards.map((p, i) => (
+            <Link
+              key={p.title}
+              to={p.href}
+              className={styles.floatingCard}
+              data-reveal
+              style={{ transitionDelay: `${i * 90}ms` }}
+            >
+              <div className={styles.floatingCardTop}>
+                <span className={styles.floatingCardIcon} style={{ background: `${p.accent}18` }}>
+                  {p.icon}
+                </span>
+                <span className={styles.floatingCardNum} style={{ color: p.accent }}>{p.number}</span>
+              </div>
+              <h3 className={styles.floatingCardTitle}>{p.title}</h3>
+              <p className={styles.floatingCardDesc}>{p.description}</p>
+              <span className={styles.floatingCardCta} style={{ color: p.accent }}>
+                {p.label} <span className={styles.floatingCardArrow}>→</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ── IMAGE MARQUEE (Zavora-style clean infinite scroll) ── */}
+      <section className={styles.marqueeSection}>
+        <div className={styles.marqueeHeader} data-reveal>
+          <span className={styles.eyebrow}>The Work in Action</span>
+          <h2 className={styles.secTitle}>Documentation of resilience.</h2>
+        </div>
+        <div
+          className={styles.marqueeOuter}
+          onMouseEnter={pauseMarquee}
+          onMouseLeave={resumeMarquee}
+        >
+          <div className={styles.marqueeFade} data-side="left" aria-hidden />
+          <div className={styles.marqueeFade} data-side="right" aria-hidden />
+          <div className={styles.marqueeTrack} ref={marqueeRef}>
+            {[...galleryMoments, ...galleryMoments].map((item, index) => (
+              <div key={`${item.src}-${index}`} className={styles.marqueeItem}>
+                <div className={styles.marqueeImgWrap}>
+                  <img src={item.src} alt={item.label} loading="lazy" />
+                  <div className={styles.marqueeOverlay}>
+                    <span>{item.label}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── MISSION FLOW ── */}
+      <section className={styles.section}>
+        <div className={styles.secHeader} data-reveal>
+          <span className={styles.eyebrow}>Our Response Model</span>
+          <h2 className={styles.secTitle}>Built around what moves a girl from crisis to momentum.</h2>
+          <p className={styles.secDesc}>
+            Girls first need stability and safety. Then support to remain in school.
             Finally, the environment around them has to change so the gains hold.
           </p>
         </div>
-
         <div className={styles.flowContainer}>
-          {supportFlow.map(item => (
-            <div key={item.step} className={styles.flowItem}>
+          {supportFlow.map((item, i) => (
+            <div key={item.step} className={styles.flowItem} data-reveal style={{ transitionDelay: `${i * 130}ms` }}>
               <span className={styles.flowNumber}>{item.step}</span>
+              <div className={styles.flowConnector} aria-hidden />
               <h3 className={styles.flowTitle}>{item.title}</h3>
               <p className={styles.flowText}>{item.text}</p>
             </div>
@@ -160,81 +300,42 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* --- CORE PATHWAYS (ANIMATED BUTTONS) --- */}
-      <section className={`${styles.section} ${styles.sectionDark}`}>
-        <div className={styles.secHeader}>
-          <span className={styles.eyebrow}>The Core Pathways</span>
-          <h2 className={styles.secTitle}>Practical tools for lasting change.</h2>
-          <p className={styles.secDesc}>
-            We focus on four strategic areas that address the root causes of school dropout and inequality.
+      {/* ── FOUNDER QUOTE ── */}
+      <section className={styles.quoteSection} data-reveal>
+        <div className={styles.quoteContent}>
+          <span className={styles.quoteIcon} aria-hidden>"</span>
+          <p className={styles.quoteText}>
+            My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.
           </p>
-        </div>
-
-        <div className={styles.pathwayGrid}>
-          {programCards.map((program, i) => (
-            <Link 
-              key={program.title} 
-              to={program.href} 
-              className={styles.pathwayBtn}
-              style={{ animationDelay: `${i * 100}ms` }}
-            >
-              <span className={styles.pathwayIcon}>{program.number}</span>
-              {program.title}
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* --- MOMENTS MARQUEE --- */}
-      <section className={styles.marqueeSection}>
-        <div className={styles.marqueeHeader}>
-          <span className={styles.eyebrow}>The Work in Action</span>
-          <h2 className={styles.secTitle}>Documentation of resilience.</h2>
-        </div>
-        
-        <div className={styles.marqueeFrame}>
-          <div className={styles.marqueeRow}>
-            <div className={styles.marqueeTrack}>
-              {[...galleryMoments, ...galleryMoments].map((item, index) => (
-                <div key={`${item.src}-${index}`} className={styles.marqueeCard}>
-                  <div className={styles.marqueeMedia}>
-                    <img src={item.src} alt={item.label} loading="lazy" />
-                  </div>
-                  <span className={styles.marqueeCaption}>{item.label}</span>
-                </div>
-              ))}
+          <div className={styles.quoteAuthor}>
+            <img src="/images/founder.jpg" alt="Akatwijuka Grace" className={styles.quoteAvatar} />
+            <div>
+              <span className={styles.authorName}>Akatwijuka Grace</span>
+              <span className={styles.authorTitle}>Founder · African Girl Rise</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* --- FOUNDER QUOTE --- */}
-      <section className={styles.quoteSection}>
-        <div className={styles.quoteContent}>
-          <span className={styles.quoteIcon}>“</span>
-          <p className={styles.quoteText}>
-            My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.
-          </p>
-          <div className={styles.quoteAuthor}>
-            <span className={styles.authorName}>Akatwijuka Grace</span>
-            <span className={styles.authorTitle}>Founder · African Girl Rise</span>
-          </div>
-        </div>
-      </section>
-
-      {/* --- CTA SECTION --- */}
-      <section className={styles.ctaSection}>
+      {/* ── CTA BAND ── */}
+      <section className={styles.ctaSection} data-reveal>
         <div className={styles.ctaContent}>
+          <span className={styles.eyebrow} style={{ color: 'rgba(255,255,255,0.6)' }}>Take Action</span>
           <h2 className={styles.ctaTitle}>Help fund direct support for girls across Uganda.</h2>
           <p className={styles.ctaText}>
             Your contribution helps cover school fees, emergency response, and protection.
           </p>
           <div className={styles.ctaActions}>
             <CTADonateButton />
-            <Link to="/contact" className={styles.volunteerBtn}>Volunteer</Link>
+            <Link to="/contact" className={styles.volunteerBtn}>Volunteer with us</Link>
           </div>
         </div>
+        <div className={styles.ctaDecor} aria-hidden>
+          <span className={styles.ctaOrb1} />
+          <span className={styles.ctaOrb2} />
+        </div>
       </section>
+
     </div>
   );
 }

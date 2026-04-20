@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { isResendConfigured, resend, SENDER_EMAIL } from '../src/lib/resend';
-import { rateLimit, getIPFromHeader } from '../src/lib/rate-limit';
+import { rateLimit, getIPFromHeader, securityLog } from '../src/lib/rate-limit';
 import { ADMIN_OTP_COOKIE, ADMIN_SESSION_COOKIE } from '../src/lib/admin-constants';
 import { getCookieValue } from '../src/lib/admin-api';
 import {
@@ -19,6 +19,15 @@ const normalizeOtp = (value: unknown) => typeof value === 'string' ? value.repla
 const normalizeText = (value: unknown) => typeof value === 'string' ? value.trim() : '';
 const safeDecodeCookie = (value: string) => { try { return decodeURIComponent(value); } catch { return value; } };
 
+function applySecurityHeaders(res: VercelResponse) {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    if (process.env.NODE_ENV === 'production') {
+        res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+    }
+}
+
 function setCookie(res: VercelResponse, name: string, value: string, maxAge: number) {
     const secure = process.env.NODE_ENV === 'production';
     res.setHeader('Set-Cookie',
@@ -27,24 +36,27 @@ function setCookie(res: VercelResponse, name: string, value: string, maxAge: num
 }
 
 function clearCookie(res: VercelResponse, name: string) {
-    res.setHeader('Set-Cookie', `${name}=; HttpOnly; Max-Age=0; Path=/`);
+    const secure = process.env.NODE_ENV === 'production';
+    res.setHeader('Set-Cookie',
+        `${name}=; HttpOnly; ${secure ? 'Secure; ' : ''}SameSite=Strict; Max-Age=0; Path=/`
+    );
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+    applySecurityHeaders(res);
+
     if (req.method === 'GET') {
         const missingAdminEnvVars = getMissingAdminAuthEnvVars();
         const sessionCookie = getCookieValue(req.headers.cookie as string, ADMIN_SESSION_COOKIE);
         const session = sessionCookie ? verifyAdminSessionToken(safeDecodeCookie(sessionCookie)) : null;
 
-        let adminEmail = null;
-        try { adminEmail = getAdminCredentials().email; } catch { /* env vars missing */ }
-
+        // NEVER expose adminEmail or env var names to the frontend in production
         return res.json({
             authenticated: Boolean(session),
             authConfigured: missingAdminEnvVars.length === 0,
-            missingAdminEnvVars,
+            // Only expose missing var names during local dev
+            missingAdminEnvVars: process.env.NODE_ENV !== 'production' ? missingAdminEnvVars : [],
             resendConfigured: isResendConfigured,
-            adminEmail,
         });
     }
 
@@ -52,8 +64,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     try {
         const ip = getIPFromHeader(req.headers['x-forwarded-for']);
-        const rl = rateLimit(ip, 5, 10 * 60 * 1000);
-        if (rl.isLimited) return res.status(rl.statusCode).json(rl.body);
+        // 5 attempts per 15 minutes per IP (down from 10 min for tighter security)
+        const rl = rateLimit(ip, 5, 15 * 60 * 1000);
+        if (rl.isLimited) {
+            securityLog({ type: 'rate_limited', ip, endpoint: '/api/auth' });
+            return res.status(rl.statusCode).json(rl.body);
+        }
 
         const payload = req.body || {};
         const action = normalizeText(payload?.action);
@@ -74,7 +90,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const normalizedOtp = normalizeOtp(otp);
 
         if (action === 'request_otp') {
+            securityLog({ type: 'auth_attempt', ip, endpoint: '/api/auth', detail: 'request_otp' });
             if (!safeCompare(normalizedEmail, normalizedTargetEmail) || !safeCompare(password, targetPassword)) {
+                securityLog({ type: 'auth_failure', ip, endpoint: '/api/auth', detail: 'Bad credentials' });
                 return res.status(401).json({ error: 'Invalid credentials' });
             }
             if (!resend) return res.status(503).json({ error: 'Email service is not configured. Set RESEND_API_KEY.' });
@@ -92,6 +110,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             if (error) return res.status(500).json({ error: 'Failed to send OTP email' });
 
             setCookie(res, ADMIN_OTP_COOKIE, otpState.token, otpState.maxAge);
+            securityLog({ type: 'auth_attempt', ip, endpoint: '/api/auth', detail: 'OTP email sent' });
             return res.json({ success: true, message: 'OTP sent successfully' });
         }
 
@@ -107,6 +126,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 `${ADMIN_OTP_COOKIE}=; HttpOnly; Max-Age=0; Path=/`,
             ];
             res.setHeader('Set-Cookie', cookies);
+            securityLog({ type: 'auth_success', ip, endpoint: '/api/auth', detail: 'Admin session created' });
             return res.json({ success: true, message: 'OTP verified' });
         }
 

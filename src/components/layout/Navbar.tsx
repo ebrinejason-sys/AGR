@@ -23,7 +23,6 @@ export default function Navbar() {
             document.body.style.overflow = '';
             return;
         }
-
         document.body.style.overflow = 'hidden';
         return () => {
             document.body.style.overflow = '';
@@ -43,6 +42,7 @@ export default function Navbar() {
                     />
                     <div className={styles.brandWrapper}>
                         <span className={styles.brandName}>AFRICAN GIRL RISE</span>
+                        <span className={styles.brandSub}>Empowering girls since 2018</span>
                         <span className={styles.brandNameShort}>AGR</span>
                     </div>
                 </Link>

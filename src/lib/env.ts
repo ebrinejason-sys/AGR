@@ -1,39 +1,53 @@
 /**
- * Central configuration for environment variables across the African Girl Rise platform.
- * Supports both Node.js (process.env) and Vite (import.meta.env) environments.
+ * Central configuration for environment variables — African Girl Rise.
+ *
+ * ⚠️  SECURITY BOUNDARY:
+ *  - This file is imported by SERVER-ONLY code (api/ routes running in Node.js).
+ *  - It must NEVER be imported by any file in src/pages/, src/components/, or
+ *    any path that Vite bundles for the browser.
+ *  - Only VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are intentionally
+ *    exposed to the frontend via the separate src/lib/supabase.ts client.
+ *
+ * The function below reads from process.env ONLY (Node.js / Vercel serverless).
+ * It intentionally does NOT fall back to import.meta.env so that secrets cannot
+ * accidentally be included in the browser bundle through tree-shaking misses.
  */
 
-function getEnv(key: string, defaultValue: string = ''): string {
-    // @ts-ignore - Handle Node.js environment
-    const nodeEnv = typeof process !== 'undefined' ? process.env[key] : undefined;
-    // @ts-ignore - Handle Vite environment
-    const viteEnv = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env[`VITE_${key}`] : undefined;
-    
-    return (nodeEnv || viteEnv || defaultValue).trim();
+function getServerEnv(key: string, defaultValue: string = ''): string {
+    if (typeof process === 'undefined') {
+        // We are in a browser bundle — this should never happen.
+        // Fail loudly in development; silently in production.
+        if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {
+            console.error(`[SECURITY] env.ts was imported in browser context. Key: ${key}`);
+        }
+        return defaultValue;
+    }
+    return (process.env[key] ?? defaultValue).trim();
 }
 
-// Payment Configurations
-export const FLUTTERWAVE_SECRET_KEY = getEnv('FLUTTERWAVE_SECRET_KEY');
-export const FLUTTERWAVE_CLIENT_ID = getEnv('FLUTTERWAVE_CLIENT_ID');
-export const FLUTTERWAVE_CLIENT_SECRET = getEnv('FLUTTERWAVE_CLIENT_SECRET');
-export const FLUTTERWAVE_ENVIRONMENT = getEnv('FLUTTERWAVE_ENVIRONMENT', 'production');
+// Payment Configurations — SERVER ONLY
+export const FLUTTERWAVE_SECRET_KEY = getServerEnv('FLUTTERWAVE_SECRET_KEY');
+export const FLUTTERWAVE_CLIENT_ID = getServerEnv('FLUTTERWAVE_CLIENT_ID');
+export const FLUTTERWAVE_CLIENT_SECRET = getServerEnv('FLUTTERWAVE_CLIENT_SECRET');
+export const FLUTTERWAVE_ENVIRONMENT = getServerEnv('FLUTTERWAVE_ENVIRONMENT', 'production');
 
-export const MARZPAY_SECRET_KEY = getEnv('MARZPAY_SECRET_KEY');
-export const MARZPAY_ENVIRONMENT = getEnv('MARZPAY_ENVIRONMENT', 'production');
+export const MARZPAY_SECRET_KEY = getServerEnv('MARZPAY_SECRET_KEY');
+export const MARZPAY_ENVIRONMENT = getServerEnv('MARZPAY_ENVIRONMENT', 'production');
 
-// Email Configuration
-export const RESEND_API_KEY = getEnv('RESEND_API_KEY');
-export const RESEND_FROM_EMAIL = getEnv('RESEND_FROM_EMAIL', 'African Girl Rise <onboarding@resend.dev>');
-export const ADMIN_LOGIN_EMAIL = getEnv('ADMIN_LOGIN_EMAIL', 'africangirlriseltd@gmail.com');
+// Email Configuration — SERVER ONLY
+export const RESEND_API_KEY = getServerEnv('RESEND_API_KEY');
+export const RESEND_FROM_EMAIL = getServerEnv('RESEND_FROM_EMAIL', 'African Girl Rise <noreply@africangirlrise.org>');
 
-// Admin Configuration
-export const ADMIN_LOGIN_PASSWORD = getEnv('ADMIN_LOGIN_PASSWORD');
-export const ADMIN_AUTH_SECRET = getEnv('ADMIN_AUTH_SECRET');
+// Admin Configuration — SERVER ONLY
+export const ADMIN_LOGIN_EMAIL = getServerEnv('ADMIN_LOGIN_EMAIL', 'africangirlriseltd@gmail.com');
+export const ADMIN_LOGIN_PASSWORD = getServerEnv('ADMIN_LOGIN_PASSWORD');
+export const ADMIN_AUTH_SECRET = getServerEnv('ADMIN_AUTH_SECRET');
 
 // Supabase Configuration
-export const SUPABASE_URL = getEnv('SUPABASE_URL');
-export const SUPABASE_ANON_KEY = getEnv('SUPABASE_ANON_KEY') || getEnv('SUPABASE_PUBLISHABLE_KEY');
-export const SUPABASE_SERVICE_ROLE_KEY = getEnv('SUPABASE_SERVICE_ROLE_KEY');
+// Note: SUPABASE_SERVICE_ROLE_KEY is SERVER ONLY and must never reach the browser.
+export const SUPABASE_URL = getServerEnv('SUPABASE_URL');
+export const SUPABASE_ANON_KEY = getServerEnv('SUPABASE_ANON_KEY') || getServerEnv('SUPABASE_PUBLISHABLE_KEY');
+export const SUPABASE_SERVICE_ROLE_KEY = getServerEnv('SUPABASE_SERVICE_ROLE_KEY');
 
 export const isConfigured = {
     flutterwave: Boolean(FLUTTERWAVE_SECRET_KEY || (FLUTTERWAVE_CLIENT_ID && FLUTTERWAVE_CLIENT_SECRET)),

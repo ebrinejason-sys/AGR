@@ -2,15 +2,34 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { SubscriberWelcomeTemplate } from '../src/lib/email-templates';
 import { isResendConfigured, resend, SENDER_EMAIL } from '../src/lib/resend';
 import { supabase, isSupabaseConfigured } from '../src/lib/supabase.server';
-import { rateLimit, getIPFromHeader } from '../src/lib/rate-limit';
+import { rateLimit, getIPFromHeader, securityLog } from '../src/lib/rate-limit';
+
+const INJECTION_PATTERN = /(<script|javascript:|on\w+\s*=|\bDROP\b|\bUNION\b|\bSELECT\b)/i;
+
+function applySecurityHeaders(res: VercelResponse) {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  if (process.env.NODE_ENV === 'production') {
+    res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+  }
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+    applySecurityHeaders(res);
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+    const ct = req.headers['content-type'] || '';
+    if (!ct.includes('application/json')) {
+        return res.status(415).json({ error: 'Content-Type must be application/json' });
+    }
 
     try {
         const ip = getIPFromHeader(req.headers['x-forwarded-for']);
         const rl = rateLimit(ip, 3, 60 * 60 * 1000);
-        if (rl.isLimited) return res.status(rl.statusCode).json(rl.body);
+        if (rl.isLimited) {
+            securityLog({ type: 'rate_limited', ip, endpoint: '/api/subscribe' });
+            return res.status(rl.statusCode).json(rl.body);
+        }
 
         const body = req.body || {};
         const { email, name } = body;
@@ -21,6 +40,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) return res.status(400).json({ error: 'Please enter a valid email address.' });
+        if (email.length > 320) return res.status(400).json({ error: 'Email too long' });
+
+        // Injection guard
+        if (INJECTION_PATTERN.test(email) || (name && INJECTION_PATTERN.test(String(name)))) {
+            securityLog({ type: 'suspicious', ip: getIPFromHeader(req.headers['x-forwarded-for']), endpoint: '/api/subscribe', detail: 'Injection in subscribe fields' });
+            return res.status(400).json({ error: 'Invalid input detected.' });
+        }
 
         if (!isSupabaseConfigured) return res.json({ message: 'Thank you for subscribing! (Demo mode)' });
 
