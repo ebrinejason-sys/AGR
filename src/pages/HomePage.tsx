@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import styles from './HomePage.module.css';
 import HeroCTAButtons from '@/components/HeroCTAButtons';
 import CTADonateButton from '@/components/CTADonateButton';
+import AnimatedCounter from '@/components/AnimatedCounter';
 
 const heroSummaryItems = [
   'Protect girls early and practically.',
@@ -12,9 +13,9 @@ const heroSummaryItems = [
 ] as const;
 
 const impactCards = [
-  { caption: 'Direct support delivered through outreach, mentoring, education support, and community protection.', label: 'Girls reached', value: '56,000+' },
-  { caption: 'Trusted spaces and school-linked support points where girls can find guidance, safety, and follow-up care.', label: 'Active sanctuaries', value: '12+' },
-  { caption: 'Girls drop out before Form 4 nationally. Our work is designed to interrupt that pattern early.', label: 'National dropout reality', value: '4 in 10' },
+  { caption: 'Direct support delivered through outreach, mentoring, education support, and community protection.', label: 'Girls reached', value: 56000, suffix: '+' },
+  { caption: 'Trusted spaces and school-linked support points where girls can find guidance, safety, and follow-up care.', label: 'Active sanctuaries', value: 12, suffix: '+' },
+  { caption: 'Girls drop out before Form 4 nationally. Our work is designed to interrupt that pattern early.', label: 'National dropout reality', value: 4, suffix: ' in 10' },
 ] as const;
 
 const programCards = [
@@ -139,7 +140,9 @@ export default function HomePage() {
             const colors = ['#e91e63', '#9c27b0', '#00bcd4'] as const;
             return (
               <div key={item.label} className={styles.statsBandCard} style={{ borderTopColor: colors[i] }}>
-                <span className={styles.statsBandValue} style={{ color: colors[i] }}>{item.value}</span>
+                <span className={styles.statsBandValue} style={{ color: colors[i] }}>
+                  <AnimatedCounter target={item.value} suffix={item.suffix} continuous={i < 2} />
+                </span>
                 <span className={styles.statsBandLabel}>{item.label}</span>
                 <p className={styles.statsBandCaption}>{item.caption}</p>
               </div>
@@ -158,13 +161,27 @@ export default function HomePage() {
             <Link to="/our-story" className={styles.textLink}>Read our story →</Link>
           </article>
           <div className={styles.contextGrid}>
-            {impactCards.map(item => (
-              <article key={item.label} className={styles.contextCard}>
-                <span className={styles.contextValue}>{item.value}</span>
-                <h3 className={styles.contextLabel}>{item.label}</h3>
-                <p className={styles.contextCaption}>{item.caption}</p>
-              </article>
-            ))}
+            <article className={styles.contextCard}>
+              <span className={styles.contextValue}>
+                <AnimatedCounter target={2026} prefix="Est. " separator={false} />
+              </span>
+              <h3 className={styles.contextLabel}>Founded</h3>
+              <p className={styles.contextCaption}>Formally established to fill the gaps in existing protection systems.</p>
+            </article>
+            <article className={styles.contextCard}>
+              <span className={styles.contextValue}>
+                <AnimatedCounter target={100} suffix="%" />
+              </span>
+              <h3 className={styles.contextLabel}>Ugandan Led</h3>
+              <p className={styles.contextCaption}>Programmes designed and executed by those who live in the communities we serve.</p>
+            </article>
+            <article className={styles.contextCard}>
+              <span className={styles.contextValue}>
+                <AnimatedCounter target={24} suffix="/7" />
+              </span>
+              <h3 className={styles.contextLabel}>Response</h3>
+              <p className={styles.contextCaption}>Always ready to facilitate case management and protection referrals.</p>
+            </article>
           </div>
         </div>
       </section>
