@@ -100,6 +100,10 @@ export default function Navbar() {
 
                 {/* Mobile Navigation Side Drawer */}
                 <div className={`${styles.mobileNav} ${isOpen ? styles.open : ''}`}>
+                    {/* Branded drawer header */}
+                    <div className={styles.mobileNavHeader}>
+                        <span className={styles.mobileNavBrand}>African Girl Rise</span>
+                    </div>
                     <nav className={styles.mobileNavLinks}>
                         <Link to="/" className={`${styles.mobileNavLink} ${isActive('/') ? styles.mobileNavLinkActive : ''}`} onClick={closeMenu}>Home</Link>
 
