@@ -360,3 +360,10 @@
     .searchInput { width: 100%; }
     .title { font-size: 1.2rem; }
 }
+
+@media (max-width: 480px) {
+    .container { padding: 0.75rem; }
+    .contactCard { padding: 1rem; }
+    .title { font-size: 1rem; }
+    .contactCard h3 { font-size: 1rem; }
+}
