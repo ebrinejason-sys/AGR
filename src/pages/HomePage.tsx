@@ -181,7 +181,7 @@ export default function HomePage() {
                         Help fund direct support for girls across Uganda. Your contribution covers school fees, emergency response, and protection.
                     </p>
                     <div className={styles.ctaActions}>
-                        <Link to="/contact" className={styles.btn-white}>Donate Now</Link>
+                        <Link to="/contact" className={styles['btn-white']}>Donate Now</Link>
                         <Link to="/contact" className="btn-glass" style={{ borderColor: 'rgba(255,255,255,0.4)' }}>
                             Join as Volunteer
                         </Link>

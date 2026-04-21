@@ -380,6 +380,34 @@ input, textarea, select {
   }
 }
 
+.btn-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.85rem 2.2rem;
+  background: white;
+  color: var(--accent-pink);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+@media (hover: hover) {
+  .btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+}
+
+
 
 
 .bg-pink-light {
