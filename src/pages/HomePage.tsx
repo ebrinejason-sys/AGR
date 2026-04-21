@@ -173,7 +173,6 @@ export default function HomePage() {
           <h1 className={styles.heroHeading} data-reveal>
             <span className={styles.heroLine1}>Help girls stay</span>
             <span className={styles.heroWordRow}>
-              <span className={styles.heroWordStatic}>safe &amp;&nbsp;</span>
               <span className={`${styles.heroWordRotating} ${isExiting ? styles.wordExit : styles.wordEnter}`}>
                 {ROTATING_WORDS[wordIndex]}
               </span>

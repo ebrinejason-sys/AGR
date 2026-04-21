@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Analytics } from '@vercel/analytics/react';
 import RuntimeStabilityGuard from '@/components/RuntimeStabilityGuard';
+import ScrollToTop from '@/components/ScrollToTop';
 import LayoutShell from '@/components/layout/LayoutShell';
 import AdminGuard from '@/components/admin/AdminGuard';
 
@@ -46,7 +47,9 @@ function AppRoutes({ isIOSDevice }: { isIOSDevice: boolean }) {
   const isAdmin = location.pathname.startsWith('/admin');
 
   return (
-    <LayoutShell isIOSDevice={isIOSDevice} isAdmin={isAdmin}>
+    <>
+      <ScrollToTop />
+      <LayoutShell isIOSDevice={isIOSDevice} isAdmin={isAdmin}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/programs" element={<ProgramsPage />} />
@@ -77,7 +80,8 @@ function AppRoutes({ isIOSDevice }: { isIOSDevice: boolean }) {
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </LayoutShell>
+      </LayoutShell>
+    </>
   );
 }
 
