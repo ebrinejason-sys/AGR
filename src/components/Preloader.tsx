@@ -19,6 +19,13 @@ export default function Preloader({ skip = false }: PreloaderProps) {
     const [fade, setFade] = useState(false);
     const didFinishRef = useRef(false);
 
+    // Sync state if skip prop changes after initial mount (e.g. device detection completion)
+    useEffect(() => {
+        if (skip && show) {
+            setShow(false);
+        }
+    }, [skip, show]);
+
     useEffect(() => {
         if (skip) return;
 

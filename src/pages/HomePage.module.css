@@ -446,6 +446,8 @@
 ══════════════════════════════════════ */
 .pathwaysSection {
   background: #fafbff;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 800px;
 }
 
 .floatingCardsGrid {
@@ -553,6 +555,8 @@
   padding: 9rem 0 9rem;
   background: #ffffff;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
 }
 
 .marqueeHeader {
@@ -712,6 +716,8 @@
   background: linear-gradient(135deg, #fdf0f5 0%, #f5f0ff 100%);
   position: relative;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 400px;
 }
 .quoteSection::before {
   content: '"';
@@ -791,6 +797,8 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 400px;
 }
 
 .ctaDecor {

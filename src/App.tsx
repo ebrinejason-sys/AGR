@@ -93,17 +93,16 @@ function AppRoutes({ isIOSDevice }: { isIOSDevice: boolean }) {
 }
 
 export default function App() {
-  const [isIOSDevice, setIsIOSDevice] = useState(false);
+  // Synchronous detection for first-render optimization
+  const [isIOSDevice] = useState(() => detectIOS());
 
   useEffect(() => {
-    const ios = detectIOS();
-    setIsIOSDevice(ios);
-    if (ios) {
+    if (isIOSDevice) {
       document.documentElement.setAttribute('data-ios', '1');
       document.documentElement.setAttribute('data-runtime-safe', '1');
     }
     document.documentElement.classList.add('antialiased');
-  }, []);
+  }, [isIOSDevice]);
 
   return (
     <BrowserRouter>
