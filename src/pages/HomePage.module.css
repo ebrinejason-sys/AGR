@@ -192,6 +192,67 @@
   margin-bottom: 2.5rem;
 }
 
+/* ── Hero CTA button row ── */
+.heroCtas {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Pink gradient CTA — "Support Her Rise" */
+.btnPink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.9rem 2.2rem;
+  background: linear-gradient(135deg, #e91e63, #9c27b0);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 6px 24px rgba(233, 30, 99, 0.35);
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btnPink:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(233, 30, 99, 0.5);
+}
+
+/* White ghost CTA — "Explore Programs" on dark hero */
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.9rem 2.2rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btnGhost:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: white;
+  transform: translateY(-2px);
+}
+
 .heroQuickLinks {
   display: flex;
   align-items: center;
