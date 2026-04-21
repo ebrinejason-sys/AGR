@@ -1,116 +1,25 @@
-/* Clean light theme */
-:root,
+@import './design-system.css';
+
+:root {
+  color-scheme: light dark;
+}
+
 [data-theme="light"] {
-  --color-black: #1a1a2e;
-  --color-white: #ffffff;
-  --color-pink: #e91e63;
-  --color-purple: #9c27b0;
-  --color-lightblue: #00bcd4;
-  --color-teal: #009688;
-  --color-orange: #ff9800;
-  --color-green: #4caf50;
-  --color-indigo: #3f51b5;
-  --color-yellow: #ffeb3b;
-
-  --color-pink-light: rgba(233, 30, 99, 0.08);
-  --color-pink-soft: rgba(233, 30, 99, 0.18);
-  --color-purple-light: rgba(156, 39, 176, 0.08);
-  --color-teal-light: rgba(0, 150, 136, 0.08);
-  --color-orange-light: rgba(255, 152, 0, 0.08);
-  --color-green-light: rgba(76, 175, 80, 0.08);
-  --color-indigo-light: rgba(63, 81, 181, 0.08);
-
-  --bg-color: #ffffff;
-  --bg-secondary: #f8f5ff;
-  --surface-cream: #fffdfa;
-  --surface-rose: #fff7fb;
-  --surface-blue: #f3f9ff;
-  --surface-elevated: rgba(255, 255, 255, 0.86);
-  --surface-muted: #f8f5ff;
-  --surface-strong: #ffffff;
-  --text-color: #1a1a2e;
-  --text-muted: #6b6b8a;
-  --border-color: rgba(26, 26, 46, 0.1);
-  --border-accent: rgba(233, 30, 99, 0.18);
-  --card-bg: #ffffff;
-  --card-hover-bg: #f8f5ff;
-  --hover-bg: rgba(233, 30, 99, 0.06);
-  --active-bg: rgba(233, 30, 99, 0.12);
-  --shadow-soft: 0 14px 40px rgba(26, 26, 46, 0.07);
-  --shadow-medium: 0 22px 56px rgba(26, 26, 46, 0.11);
-  --shadow-premium: 0 28px 70px rgba(26, 26, 46, 0.12);
-  --gradient-dramatic: linear-gradient(135deg, #1f2545 0%, #6c2959 52%, #e91e63 100%);
-  --radius-lg: 24px;
-  --radius-xl: 32px;
-
-  --nav-bg: rgba(255, 255, 255, 0.96);
-  --nav-hover-bg: rgba(233, 30, 99, 0.06);
-  --footer-bg-color: #1a1a2e;
-
-  /* Gradients */
-  --gradient-pink-purple: linear-gradient(135deg, #e91e63, #9c27b0);
-  --gradient-teal-blue: linear-gradient(135deg, #009688, #00bcd4);
-  --gradient-orange-yellow: linear-gradient(135deg, #ff9800, #ffeb3b);
-  --gradient-green-teal: linear-gradient(135deg, #4caf50, #009688);
-  --gradient-indigo-purple: linear-gradient(135deg, #3f51b5, #9c27b0);
-  --gradient-hero: linear-gradient(135deg, #e91e63 0%, #9c27b0 50%, #00bcd4 100%);
-
-  color-scheme: light;
+  --clr-bg-raw: 0 0% 100%;
+  --clr-surface-raw: 0 0% 98%;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --border-color: rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="dark"] {
-  --color-black: #020617;
-  --color-white: #0f172a;
-  --color-pink: #ff5e8a;
-  --color-purple: #c084fc;
-  --color-lightblue: #38bdf8;
-  --color-teal: #2dd4bf;
-  --color-orange: #fb923c;
-  --color-green: #4ade80;
-  --color-indigo: #818cf8;
-  --color-yellow: #fde047;
-
-  --color-pink-light: rgba(255, 94, 138, 0.08);
-  --color-pink-soft: rgba(255, 94, 138, 0.18);
-  --color-purple-light: rgba(192, 132, 252, 0.08);
-  --color-teal-light: rgba(45, 212, 191, 0.08);
-  --color-orange-light: rgba(251, 146, 60, 0.08);
-  --color-green-light: rgba(74, 222, 128, 0.08);
-  --color-indigo-light: rgba(129, 140, 248, 0.08);
-
-  --bg-color: #08111f;
-  --bg-secondary: #101b2e;
-  --surface-cream: #0d1728;
-  --surface-rose: #161223;
-  --surface-blue: #0d1f33;
-  --surface-elevated: rgba(13, 23, 40, 0.9);
-  --surface-muted: #0f1a2d;
-  --surface-strong: #13213a;
-  --text-color: #f8fafc;
-  --text-muted: #c2cada;
-  --border-color: rgba(148, 163, 184, 0.18);
-  --border-accent: rgba(255, 94, 138, 0.24);
-  --card-bg: #0f1a2d;
-  --card-hover-bg: #16243c;
-  --hover-bg: rgba(255, 94, 138, 0.08);
-  --active-bg: rgba(255, 94, 138, 0.14);
-  --shadow-soft: 0 16px 38px rgba(2, 6, 23, 0.34);
-  --shadow-medium: 0 24px 62px rgba(2, 6, 23, 0.42);
-  --shadow-premium: 0 32px 76px rgba(2, 6, 23, 0.48);
-  --gradient-dramatic: linear-gradient(135deg, #0f172a 0%, #1d2842 46%, #ff5e8a 100%);
-
-  --nav-bg: rgba(8, 17, 31, 0.9);
-  --nav-hover-bg: rgba(255, 94, 138, 0.08);
-  --footer-bg-color: #020617;
-
-  --gradient-pink-purple: linear-gradient(135deg, #ff5e8a, #c084fc);
-  --gradient-teal-blue: linear-gradient(135deg, #2dd4bf, #38bdf8);
-  --gradient-orange-yellow: linear-gradient(135deg, #fb923c, #fde047);
-  --gradient-green-teal: linear-gradient(135deg, #4ade80, #2dd4bf);
-  --gradient-indigo-purple: linear-gradient(135deg, #818cf8, #c084fc);
-  --gradient-hero: linear-gradient(135deg, #ff5e8a 0%, #c084fc 52%, #38bdf8 100%);
-
-  color-scheme: dark;
+  --clr-bg-raw: 220 60% 4%;
+  --clr-surface-raw: 220 40% 8%;
+  --text-primary: #ffffff;
+  --text-secondary: hsla(0, 0%, 100%, 0.7);
+  --text-muted: hsla(0, 0%, 100%, 0.45);
+  --border-color: hsla(0, 0%, 100%, 0.1);
 }
 
 * {
@@ -119,7 +28,6 @@
   margin: 0;
 }
 
-/* Base styles */
 html,
 body {
   max-width: 100vw;
@@ -127,77 +35,30 @@ body {
   min-height: 100dvh;
   overflow-x: hidden;
   background: var(--bg-color);
-  color: var(--text-color);
-  font-family: var(--font-sans);
+  color: var(--text-primary);
+  font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
 }
 
-/* iOS Safe Areas & Specifics */
 body {
   padding-top: max(env(safe-area-inset-top), 0px);
   padding-bottom: max(env(safe-area-inset-bottom), 0px);
   padding-left: max(env(safe-area-inset-left), 0px);
   padding-right: max(env(safe-area-inset-right), 0px);
-  background:
-    radial-gradient(circle at top left, rgba(233, 30, 99, 0.06), transparent 28%),
-    radial-gradient(circle at top right, rgba(0, 188, 212, 0.08), transparent 24%),
-    linear-gradient(180deg, var(--surface-cream) 0%, var(--bg-color) 22%, var(--surface-rose) 100%);
 }
 
-/* Prevent zoom on inputs in iOS */
-input,
-textarea,
-select {
-  font-size: 16px;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-/* Base resets for iOS touch rendering */
-html {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
-
-/* Allow text selection only in specific input areas so users can still copy/paste text where they expect it */
-input,
-textarea {
-  -webkit-user-select: auto;
-  user-select: auto;
-}
-
-/* GPU hints only for specific animated/transformed elements — NOT on * selector.
-   Blanket backface-visibility/transform-style on * causes iOS Safari to create
-   a compositing layer for every DOM node, exhausting GPU memory and crashing. */
-
-/* Note: Infinite glow animations are already disabled on mobile in page.module.css
-   via "animation: none" on the glow orb classes. No blanket animation kill needed
-   here — that was breaking the loading spinner and hero fadeUp animation. */
-
-/* Removed destructive global hover reset */
-
-/* Prevent iOS crashes with images */
 img {
-  -webkit-user-drag: none;
-  -webkit-touch-callout: none;
-  pointer-events: auto;
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 a {
   color: inherit;
   text-decoration: none;
-}
-
-::selection {
-  background: rgba(233, 30, 99, 0.16);
-  color: var(--text-color);
+  transition: var(--transition-base);
 }
 
 button {
@@ -207,32 +68,52 @@ button {
   font-family: inherit;
 }
 
-/* Base utility classes for typography */
-.heading-xl {
-  font-family: var(--font-serif);
-  font-size: 2.5rem;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+/* ─── Shared Typography ─── */
+.heading-display {
+  font-size: clamp(3rem, 7vw, 5.5rem);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: var(--text-color);
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
-.heading-lg {
-  font-family: var(--font-serif);
-  font-size: 2rem; /* Fallback for older iOS */
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  line-height: 1.15;
-  color: var(--text-color);
+.heading-section {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, var(--color-pink), var(--color-purple), var(--color-lightblue));
+  background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: transparent;
+}
+
+/* ─── Animation Tokens ─── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--transition-base), transform 0.8s var(--transition-base);
+}
+
+[data-reveal].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── iOS/Runtime Safety ─── */
+html[data-runtime-safe="1"] *,
+html[data-runtime-safe="1"] *::before,
+html[data-runtime-safe="1"] *::after {
+  animation: none !important;
+  transition: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+input, textarea, select {
+  font-size: 16px !important; /* Prevent iOS zoom */
 }
 
 /* ══════════════════════════════════

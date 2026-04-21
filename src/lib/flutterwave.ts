@@ -4,8 +4,8 @@ import {
     FLUTTERWAVE_CLIENT_SECRET, 
     FLUTTERWAVE_ENVIRONMENT,
     isConfigured 
-} from './env';
-import type { DonationCheckoutResult, DonationCurrency } from './marzpay';
+} from './env.js';
+import type { DonationCheckoutResult, DonationCurrency } from './marzpay.js';
 
 /**
  * Flutterwave Payment Integration

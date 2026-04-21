@@ -1,320 +1,186 @@
 .container {
-  width: 100%;
+    width: 100%;
 }
 
 .hero {
-  padding: 12rem 5% 8rem;
-  text-align: center;
-  background: white;
-}
-
-.editorialIntro {
-  padding: 15rem 5%;
-  background: var(--bg-color);
-}
-
-.introContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.premiumGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-top: 6rem;
-}
-
-.truthCard {
-  background: white;
-  padding: 5rem 3rem;
-  border-radius: 4px;
-  border-top: 2px solid var(--border-color);
-  transition: all 0.5s ease;
-  position: relative;
-  text-align: left;
-}
-
-.truthCard:hover {
-  border-top-color: var(--color-pink);
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-premium);
-}
-
-.truthIcon {
-  font-size: 2.5rem;
-  margin-bottom: 2.5rem;
-  display: block;
-}
-
-.truthCard p {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-.editorialBody {
-  padding: 15rem 5%;
-  background: white;
-}
-
-.advocacyBox {
-  max-width: 1100px;
-  margin: 0 auto 12rem;
-  padding: 8rem 5rem;
-  background: var(--bg-color);
-  border: 1px solid var(--border-color);
-  position: relative;
-}
-
-.advocacyBox::after {
-  content: '';
-  position: absolute;
-  top: 2rem; left: 2rem; width: 100%; height: 100%;
-  border: 1px solid var(--color-pink-soft);
-  z-index: -1;
-  opacity: 0.3;
-}
-
-.advocacyBox h3 {
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
-}
-
-.advocacyBox p {
-  font-size: 1.2rem;
-  color: var(--text-muted);
-  margin-bottom: 4rem;
-}
-
-.benefitGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4rem;
-  margin-top: 10rem;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.benefitCard {
-  border-left: 1px solid var(--border-color);
-  padding-left: 3rem;
-}
-
-.benefitCard span {
-  font-size: 0.75rem;
-  font-weight: 900;
-  color: var(--color-pink);
-  letter-spacing: 0.2em;
-  display: block;
-  margin-bottom: 2rem;
-}
-
-.benefitCard p {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-.ctaBox {
-  padding: 15rem 5%;
-  background: var(--color-black);
-  color: white;
-  text-align: center;
-}
-
-@media (max-width: 1024px) {
-  .premiumGrid, .benefitGrid {
-    grid-template-columns: 1fr;
-    gap: 4rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .advocacyBox { padding: 4rem 2rem; }
-}
-
-@media (max-width: 768px) { .editorialIntro { padding: 5rem 6%; } .editorialBody { padding: 5rem 6%; } .ctaBox { padding: 5rem 6%; } .premiumGrid { grid-template-columns: 1fr; } .benefitGrid { grid-template-columns: 1fr; } }
-
-.founderVoice {
-  padding: 10rem 5%;
-  background: var(--bg-color);
-  text-align: center;
-}
-
-.founderVoice blockquote {
-  font-family: var(--font-serif);
-  font-size: clamp(1.1rem, 2.5vw, 1.8rem);
-  font-style: italic;
-  color: var(--color-purple-deep);
-  line-height: 1.75;
-  margin: 3rem 0;
-  border-left: 4px solid var(--color-pink);
-  padding-left: 2.5rem;
-  text-align: left;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.founderVoice .attribution {
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 3rem;
-}
-
-@media (max-width: 768px) {
-  .founderVoice {
-    padding: 5rem 6%;
-  }
-  .founderVoice blockquote {
-    padding-left: 1.5rem;
-    font-size: 1.1rem;
-  }
-}
-
-.hero {
-  background: linear-gradient(180deg, var(--surface-rose) 0%, var(--bg-color) 100%);
+    padding: 160px 8% 100px;
+    background: var(--bg-color);
+    text-align: center;
 }
 
 .heroLead {
-  margin-top: 2rem;
-  font-style: italic;
-  letter-spacing: 0.1em;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent-pink);
+    margin-top: 1.5rem;
 }
 
 .heroSupportText {
-  margin-top: 1rem;
-  letter-spacing: 0.05em;
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-top: 1rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.editorialIntro {
+    padding: 100px 8%;
+    background: var(--surface);
+}
+
+.introContainer {
+    max-width: var(--container-max);
+    margin: 0 auto;
 }
 
 .introLeadWrap {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+    margin-bottom: 5rem;
+    max-width: 800px;
 }
 
 .introLead {
-  margin-top: 2rem;
-  color: var(--text-muted);
-  font-size: 1.2rem;
-  line-height: 1.8;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-top: 1.5rem;
 }
 
-.sectionIntro {
-  margin-bottom: 6rem;
-  text-align: center;
+.premiumGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
-.initiativeList {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-  padding: 0;
-  list-style: none;
+.truthCard {
+    padding: 3rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 32px;
+    transition: var(--transition-base);
 }
 
-.initiativeListItem {
-  border-left: 2px solid var(--color-pink);
-  padding-left: 1.5rem;
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
+.truthCard:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-pink);
 }
 
-.founderVoiceInner {
-  max-width: 900px;
-  margin: 0 auto;
+.truthIcon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 1.5rem;
 }
 
-.ctaHeading {
-  color: #ffffff;
+.editorialBody {
+    padding: 120px 8%;
+    background: var(--bg-color);
 }
 
-.ctaLead {
-  margin-bottom: 5rem;
-  font-size: 1.4rem;
-  font-family: var(--font-serif);
-  font-style: italic;
-  opacity: 0.8;
-}
-
-.ctaActions {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.ctaPrimary {
-  background: #ffffff;
-  color: #0f172a;
-}
-
-.ctaSecondary {
-  background: transparent;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-}
-
-.ctaPrimary:hover {
-  background: #ffffff;
-  color: #0f172a;
-}
-
-.ctaSecondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-}
-
-.truthCard,
 .advocacyBox {
-  border-radius: 28px;
-}
-
-:global([data-theme="dark"]) .hero {
-  background: linear-gradient(180deg, #10192b 0%, var(--bg-color) 100%);
-}
-
-:global([data-theme="dark"]) .truthCard,
-:global([data-theme="dark"]) .advocacyBox {
-  background: var(--card-bg);
-  border-color: var(--border-color);
-  box-shadow: var(--shadow-soft);
-}
-
-:global([data-theme="dark"]) .advocacyBox::after {
-  border-color: rgba(255, 94, 138, 0.14);
-}
-
-:global([data-theme="dark"]) .founderVoice blockquote {
-  color: var(--text-color);
-}
-
-:global(html[data-ios="1"]) .truthCard:hover,
-:global(html[data-runtime-safe="1"]) .truthCard:hover,
-:global(html[data-ios="1"]) .advocacyBox::after,
-:global(html[data-runtime-safe="1"]) .advocacyBox::after {
-  transform: none;
-  display: none;
+    margin-bottom: 5rem;
+    padding: 4rem;
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: 40px;
 }
 
 @media (max-width: 768px) {
-  .sectionIntro {
-    margin-bottom: 4rem;
-  }
+    .advocacyBox {
+        padding: 2rem;
+    }
+}
 
-  .ctaLead {
+.advocacyBox h3 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.advocacyBox p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.initiativeList {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.initiativeListItem {
+    position: relative;
+    padding-left: 2rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.initiativeListItem::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent-pink);
+    font-weight: 900;
+}
+
+.benefitGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 80px;
+}
+
+.benefitCard {
+    padding: 2.5rem;
+    background: hsla(var(--clr-accent-teal-raw) / 0.05);
+    border-radius: 24px;
+    border-left: 4px solid var(--accent-teal);
+}
+
+.benefitCard span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--accent-teal);
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.benefitCard p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+.founderVoice {
+    padding: 120px 8%;
+    background: var(--surface);
+}
+
+.founderVoiceInner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.founderVoice blockquote {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.4;
     margin-bottom: 3rem;
-    font-size: 1.15rem;
-  }
+}
 
-  .ctaActions {
-    gap: 1rem;
-  }
+.ctaBox {
+    padding: 120px 8%;
+    background: var(--bg-color);
+    text-align: center;
+}
+
+.ctaActions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 4rem;
 }

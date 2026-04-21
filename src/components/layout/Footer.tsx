@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Send, MapPin, Mail, Phone, ExternalLink } from 'lucide-react';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -37,111 +38,111 @@ export default function Footer() {
 
     return (
         <footer className={styles.footer}>
-            <div className={styles.footerInner}>
-
-                {/* ── Newsletter Band ── */}
-                <div className={styles.newsletterBand}>
-                    <div className={styles.nlLeft}>
-                        <h4>Stay in the loop.</h4>
-                        <p>Get occasional updates on programs, events, and ways to support girls across Uganda.</p>
+            <div className={styles.container}>
+                
+                {/* ── Newsletter Section ── */}
+                <div className={styles.newsletterSection}>
+                    <div className={styles.newsletterInfo}>
+                        <h3 className={styles.newsletterTitle}>Stay Informed</h3>
+                        <p className={styles.newsletterText}>
+                            Get updates on our impact and stories from the field.
+                        </p>
                     </div>
-                    <div className={styles.nlRight}>
-                        <form className={styles.subscribeForm} onSubmit={handleSubscribe}>
-                            <div className={styles.inputRow}>
-                                <input
-                                    type="email"
-                                    placeholder="Your email address"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                    className={styles.input}
-                                    id="footer-newsletter-email"
-                                />
-                                <button
-                                    type="submit"
-                                    className={styles.subscribeBtn}
-                                    disabled={status === 'loading'}
-                                >
-                                    {status === 'loading' ? 'Sending…' : 'Subscribe'}
-                                </button>
-                            </div>
-                            {status === 'success' && <p className={styles.successMsg}>{message}</p>}
-                            {status === 'error' && <p className={styles.errorMsg}>{message}</p>}
-                        </form>
-                    </div>
+                    <form className={styles.newsletterForm} onSubmit={handleSubscribe}>
+                        <div className={styles.inputWrapper}>
+                            <input
+                                type="email"
+                                placeholder="Email address"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                className={styles.input}
+                            />
+                            <button type="submit" className={styles.submitBtn} disabled={status === 'loading'}>
+                                <Send size={18} />
+                            </button>
+                        </div>
+                        {status === 'success' && <p className={styles.statusSuccess}>{message}</p>}
+                        {status === 'error' && <p className={styles.statusError}>{message}</p>}
+                    </form>
                 </div>
 
-                {/* ── Footer Grid ── */}
-                <div className={styles.footerGrid}>
+                <div className={styles.divider} />
 
-                    {/* Brand Column */}
-                    <div className={styles.brandColumn}>
-                        <div className={styles.brandBlock}>
-                            <span className={styles.brandName}>AFRICAN GIRL RISE</span>
-                            <p className={styles.brandTagline}>
-                                Practical, local support that keeps girls safe and in school across Uganda.
-                                Education, safety, and advocacy — for every girl.
-                            </p>
-                        </div>
-
-                        <div className={styles.contactInfo}>
+                {/* ── Footer Main Grid ── */}
+                <div className={styles.grid}>
+                    
+                    {/* Brand & Mission */}
+                    <div className={styles.brandCol}>
+                        <h2 className={styles.brandName}>AFRICAN GIRL RISE</h2>
+                        <p className={styles.brandDescription}>
+                            Practical, local support that keeps girls safe and in school across Uganda. 
+                            Empowering through education, safety, and legal advocacy.
+                        </p>
+                        <div className={styles.contactList}>
                             <div className={styles.contactItem}>
-                                <span className={styles.contactLabel}>Location</span>
-                                <span className={styles.contactValue}>Kiburara, Ibanda District, Uganda</span>
+                                <MapPin size={18} />
+                                <span>Kiburara, Ibanda District, Uganda</span>
                             </div>
                             <div className={styles.contactItem}>
-                                <span className={styles.contactLabel}>Email</span>
-                                <a href="mailto:africangirlriseltd@gmail.com" className={styles.contactValue}>
-                                    africangirlriseltd@gmail.com
-                                </a>
+                                <Mail size={18} />
+                                <a href="mailto:africangirlriseltd@gmail.com">africangirlriseltd@gmail.com</a>
                             </div>
                             <div className={styles.contactItem}>
-                                <span className={styles.contactLabel}>WhatsApp / Phone</span>
-                                <a href="tel:+256703727965" className={styles.contactValue}>
-                                    0703 727 965 · 0763 738 733
-                                </a>
+                                <Phone size={18} />
+                                <a href="tel:+256703727965">0703 727 965</a>
                             </div>
                         </div>
                     </div>
 
-                    {/* About */}
-                    <div className={styles.linksColumn}>
-                        <span className={styles.columnTitle}>About</span>
-                        <nav className={styles.linksList}>
-                            <Link to="/our-story">Who We Are</Link>
-                            <Link to="/founder">Founder</Link>
-                            <Link to="/stories">Impact Stories</Link>
-                            <Link to="/events">Events</Link>
-                        </nav>
+                    {/* Quick Links */}
+                    <div className={styles.linksCol}>
+                        <h4 className={styles.colTitle}>Organization</h4>
+                        <ul className={styles.linksList}>
+                            <li><Link to="/our-story">Our Story</Link></li>
+                            <li><Link to="/founder">The Founder</Link></li>
+                            <li><Link to="/stories">Impact Stories</Link></li>
+                            <li><Link to="/events">Events</Link></li>
+                        </ul>
                     </div>
 
                     {/* Programs */}
-                    <div className={styles.linksColumn}>
-                        <span className={styles.columnTitle}>Programs</span>
-                        <nav className={styles.linksList}>
-                            <Link to="/programs">All Programs</Link>
-                            <Link to="/programs/rise-rooms">Rise Sanctuaries</Link>
-                            <Link to="/programs/rise-brothers">Rise Brothers</Link>
-                            <Link to="/legal-advocacy">Legal Advocacy</Link>
-                            <Link to="/contact">Get Involved</Link>
-                        </nav>
+                    <div className={styles.linksCol}>
+                        <h4 className={styles.colTitle}>Programs</h4>
+                        <ul className={styles.linksList}>
+                            <li><Link to="/programs">All Programs</Link></li>
+                            <li><Link to="/programs/rise-rooms">Rise Sanctuaries</Link></li>
+                            <li><Link to="/programs/rise-brothers">Rise Brothers</Link></li>
+                            <li><Link to="/legal-advocacy">Legal Advocacy</Link></li>
+                        </ul>
                     </div>
 
+                    {/* Support */}
+                    <div className={styles.linksCol}>
+                        <h4 className={styles.colTitle}>Support Us</h4>
+                        <ul className={styles.linksList}>
+                            <li><Link to="/contact">Get Involved</Link></li>
+                            <li><Link to="/contact">Partner With Us</Link></li>
+                            <li><Link to="/contact">Donate</Link></li>
+                            <li>
+                                <a href="https://flutterwave.com" target="_blank" rel="noopener noreferrer">
+                                    Flutterwave <ExternalLink size={12} />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
-                {/* ── Bottom Bar ── */}
                 <div className={styles.bottomBar}>
-                    <p className={styles.copyright}>
-                        © {new Date().getFullYear()} African Girl Rise Ltd. All rights reserved.
-                    </p>
-                    <nav className={styles.legalLinks}>
-                        <Link to="/legal/terms">Terms of Service</Link>
-                        <Link to="/legal/privacy">Privacy Policy</Link>
-                        <Link to="/legal/refund">Refund Policy</Link>
-                    </nav>
-                    <p className={styles.mission}>Education · Safety · Advocacy</p>
+                    <div className={styles.legal}>
+                        <span>© {new Date().getFullYear()} African Girl Rise Ltd.</span>
+                        <Link to="/legal/privacy">Privacy</Link>
+                        <Link to="/legal/terms">Terms</Link>
+                    </div>
+                    <div className={styles.mission}>
+                        Education · Safety · Advocacy
+                    </div>
                 </div>
-
             </div>
         </footer>
     );

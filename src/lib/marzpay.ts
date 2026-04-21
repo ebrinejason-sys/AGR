@@ -1,4 +1,4 @@
-import { MARZPAY_SECRET_KEY, MARZPAY_ENVIRONMENT, isConfigured } from './env';
+import { MARZPAY_SECRET_KEY, MARZPAY_ENVIRONMENT, isConfigured } from './env.js';
 
 export type DonationCurrency = 'UGX';
 export type DonationMethod = 'mobile_money' | 'card';

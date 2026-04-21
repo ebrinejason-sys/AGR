@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { MessageSquare, Phone, Mail, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import styles from './FounderPage.module.css';
-import FounderStoryText from './FounderStoryText';
 
 const timeline = [
     { year: '2001', label: 'Born in Ibanda District, Western Uganda' },
@@ -11,17 +12,15 @@ const timeline = [
 ];
 
 export default function FounderPage() {
+    const [isStoryExpanded, setIsStoryExpanded] = useState(false);
+
     return (
         <div className={styles.container}>
 
-            {/* ── Cinematic full-bleed hero ── */}
+            {/* ─── Hero Section ─── */}
             <section className={styles.hero}>
                 <div className={styles.heroImage}>
-                    <img
-                        src="/images/founder.jpg"
-                        alt="Akatwijuka Grace — Founder of African Girl Rise"
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                    />
+                    <img src="/images/founder.jpg" alt="Akatwijuka Grace" />
                     <div className={styles.heroImageOverlay} />
                 </div>
 
@@ -31,126 +30,130 @@ export default function FounderPage() {
                         Akatwijuka<br />
                         <span>Grace</span>
                     </h1>
-                    <p className={styles.heroRole}>Founder &amp; Visionary Director · African Girl Rise</p>
+                    <p className={styles.heroRole}>Founder & Visionary Director</p>
                     <p className={styles.heroTagline}>
                         &ldquo;My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.&rdquo;
                     </p>
                     <div className={styles.heroCtas}>
-                        <a href="https://wa.me/256703727965" target="_blank" rel="noopener noreferrer" className="btn-premium">
-                            💬 WhatsApp Grace
+                        <a href="https://wa.me/256703727965" className="btn-premium">
+                            <MessageSquare size={18} style={{ marginRight: 8 }} /> WhatsApp Grace
                         </a>
-                        <Link to="/contact" className={styles.heroCtaOutline}>
-                            Reach Out
+                        <Link to="/contact" className="btn-glass" style={{ color: 'var(--text-primary)' }}>
+                            Get in Touch
                         </Link>
                     </div>
                 </div>
             </section>
 
-            {/* ── Bio strip ── */}
+            {/* ─── Bio Strip ─── */}
             <div className={styles.bioStrip}>
                 <div className={styles.bioItem}>
                     <span className={styles.bioLabel}>Education</span>
-                    <span className={styles.bioValue}>4th Year Law Student, Uganda Christian University</span>
+                    <span className={styles.bioValue}>4th Year Law Student, UCU</span>
                 </div>
                 <div className={styles.bioItem}>
                     <span className={styles.bioLabel}>Location</span>
-                    <span className={styles.bioValue}>Ibanda District, Western Uganda</span>
-                </div>
-                <div className={styles.bioItem}>
-                    <span className={styles.bioLabel}>WhatsApp</span>
-                    <a href="https://wa.me/256703727965" className={styles.bioLink}>+256 703 727 965</a>
+                    <span className={styles.bioValue}>Ibanda District, Uganda</span>
                 </div>
                 <div className={styles.bioItem}>
                     <span className={styles.bioLabel}>Girls Reached</span>
-                    <span className={styles.bioValue}>800+ through direct programmes</span>
+                    <span className={styles.bioValue}>800+ Direct Impact</span>
+                </div>
+                <div className={styles.bioItem}>
+                    <span className={styles.bioLabel}>Focus Area</span>
+                    <span className={styles.bioValue}>Legal Advocacy & Safety</span>
                 </div>
             </div>
 
-            {/* ── Editorial content ── */}
+            {/* ─── Story Section ─── */}
             <section className={styles.editorialSection}>
                 <div className={styles.editorialGrid}>
-
-                    {/* Left — sticky photo + timeline */}
+                    
+                    {/* Left: Sticky Image & Timeline */}
                     <div className={styles.leftColumn}>
                         <div className={styles.founderImageFrame}>
-                            <img
-                                src="/images/founder.jpg"
-                                alt="Akatwijuka Grace"
-                                className={styles.founderImage}
-                                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                            />
-                            <div className={styles.imageOverlay}>
-                                <span className={styles.imageCaption}>Akatwijuka Grace · Founder &amp; Visionary Director</span>
-                            </div>
+                            <img src="/images/founder.jpg" alt="Akatwijuka Grace" />
                         </div>
 
-                        {/* Timeline */}
                         <div className={styles.timeline}>
                             <h3 className={styles.timelineHeading}>Her Journey</h3>
                             {timeline.map((t) => (
                                 <div className={styles.timelineItem} key={t.year}>
                                     <span className={styles.timelineYear}>{t.year}</span>
-                                    <div className={styles.timelineDot} />
                                     <p className={styles.timelineLabel}>{t.label}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    {/* Right — story + stats */}
+                    {/* Right: Story Content */}
                     <div className={styles.editorialContent}>
                         <h2>A Girl Whose Parents <span>Broke the Cycle</span></h2>
-                        <FounderStoryText />
+                        
+                        <div className={styles.storyText}>
+                            <p style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>
+                                I grew up in Ibanda District, in the rolling hills of Western Uganda. My family was not wealthy, but my parents refused to let their suffering become my inheritance.
+                            </p>
+                            
+                            <p>
+                                I grew up alongside five girls — Annet, Grace, Mary, Robinah, Sylvia — who dreamed with me under the mango tree. Every single one of them left school before finishing. Married off, pushed aside, silenced. I kept walking. Why me? Because my parents chose differently.
+                            </p>
+
+                            {!isStoryExpanded ? (
+                                <button className="btn-glass" onClick={() => setIsStoryExpanded(true)} style={{ color: 'var(--text-primary)', marginTop: '2rem' }}>
+                                    Read Full Story <ChevronDown size={18} style={{ marginLeft: 8 }} />
+                                </button>
+                            ) : (
+                                <>
+                                    <p style={{ marginTop: '2rem' }}>
+                                        I am currently in my fourth year of law studies at Uganda Christian University. I chose law because lasting change requires changing the systems that fail girls in the first place. I want to be the lawyer who stands as a shield between the powerless and a cruel system.
+                                    </p>
+                                    <p style={{ marginTop: '1.5rem' }}>
+                                        My vision is simple and enormous: I want every girl in Ibanda District — every girl in Uganda — to know that her beginning does not define her becoming.
+                                    </p>
+                                    <button className="btn-glass" onClick={() => setIsStoryExpanded(false)} style={{ color: 'var(--text-primary)', marginTop: '2rem' }}>
+                                        Show Less <ChevronUp size={18} style={{ marginLeft: 8 }} />
+                                    </button>
+                                </>
+                            )}
+                        </div>
 
                         <div className={styles.statsGrid}>
                             <div className={styles.statItem}>
-                                <span className={styles.statLabel}>Initiative</span>
-                                <p className={styles.statValue}>African Girl Rise Initiative (Registered 2025)</p>
-                            </div>
-                            <div className={styles.statItem}>
                                 <span className={styles.statLabel}>Girls Reached</span>
-                                <p className={styles.statValue}>800+ through direct programmes</p>
+                                <p className={styles.statValue}>800+ through direct mentorship and safety programs.</p>
                             </div>
                             <div className={styles.statItem}>
-                                <span className={styles.statLabel}>Core Belief</span>
-                                <p className={styles.statValue}>&ldquo;Your beginning does not define your becoming.&rdquo;</p>
-                            </div>
-                            <div className={styles.statItem}>
-                                <span className={styles.statLabel}>Life Motto</span>
-                                <p className={styles.statValue}>&ldquo;Rise. Then reach back.&rdquo;</p>
+                                <span className={styles.statLabel}>Vision</span>
+                                <p className={styles.statValue}>Breaking systemic cycles of poverty through legal advocacy.</p>
                             </div>
                         </div>
 
-                        {/* Contact glass cards */}
+                        {/* Contact Cards */}
                         <div className={styles.contactCards}>
-                            <a href="https://wa.me/256703727965" className={styles.contactCard}>
-                                <span className={styles.contactCardIcon}>💬</span>
-                                <span className={styles.contactCardLabel}>WhatsApp</span>
-                                <span className={styles.contactCardValue}>+256 703 727 965</span>
-                            </a>
                             <a href="tel:+256763738733" className={styles.contactCard}>
-                                <span className={styles.contactCardIcon}>📞</span>
+                                <Phone size={24} className={styles.contactCardIcon} style={{ color: 'var(--accent-pink)' }} />
                                 <span className={styles.contactCardLabel}>Phone</span>
                                 <span className={styles.contactCardValue}>+256 763 738 733</span>
                             </a>
                             <a href="mailto:africangirlriseltd@gmail.com" className={styles.contactCard}>
-                                <span className={styles.contactCardIcon}>✉️</span>
+                                <Mail size={24} className={styles.contactCardIcon} style={{ color: 'var(--accent-pink)' }} />
                                 <span className={styles.contactCardLabel}>Email</span>
-                                <span className={styles.contactCardValue}>africangirlriseltd@gmail.com</span>
+                                <span className={styles.contactCardValue}>africangirl@gmail.com</span>
                             </a>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ── Statement band ── */}
+            {/* ─── Statement Box ─── */}
             <section className={styles.statementBox}>
                 <div className={styles.statementInner}>
-                    <p>&ldquo;I am not special. I am simply a girl whose parents chose to break the cycle. They did not bequeath hardship; they passed on hope. Now I reach back to ignite that same transformation in others.&rdquo;</p>
-                    <div className={styles.signature}>— Akatwijuka Grace, Founder &amp; Visionary Director</div>
+                    <p>&ldquo;I am not special. I am simply a girl whose parents chose to break the cycle. Now I reach back to ignite that same transformation in others.&rdquo;</p>
+                    <div className={styles.signature}>— Akatwijuka Grace, Founder</div>
                     <div className={styles.statementCtas}>
-                        <Link to="/our-story" className="btn-premium">Our Story</Link>
-                        <Link to="/contact" className="btn-glass">Partner With Us</Link>
+                        <Link to="/our-story" className="btn-premium">Our Narrative</Link>
+                        <Link to="/contact" className="btn-glass" style={{ color: 'var(--text-primary)' }}>Partner With Us</Link>
                     </div>
                 </div>
             </section>

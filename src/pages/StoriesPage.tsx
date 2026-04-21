@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import { User, Calendar, ArrowRight } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import styles from './StoriesPage.module.css';
-import PageHeader from '@/components/layout/PageHeader';
 
 type Story = { id: string; title: string; content: string; author: string; image_url?: string; created_at: string };
 
@@ -10,29 +10,30 @@ const MOCK_STORIES: Story[] = [
     { id: 'mock-2', title: 'A Bridge to Radiance', content: '<p>Having a mentor who looks like me and has walked my path made all the difference in my academic journey. I realised my beginning does not define my becoming.</p>', author: 'Grace A.', created_at: new Date().toISOString() },
 ];
 
-const PREVIEW_LENGTH = 500;
-
 function StoryCard({ story }: { story: Story }) {
     const [expanded, setExpanded] = useState(false);
     const plainText = story.content.replace(/<[^>]+>/g, '');
-    const needsExpansion = plainText.length > PREVIEW_LENGTH;
+    const needsExpansion = plainText.length > 300;
 
     return (
         <article className={styles.storyCard}>
             {story.image_url && (
-                <div className={styles.storyCover} style={{ position: 'relative', overflow: 'hidden' }}>
-                    <img src={story.image_url} alt={story.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
-                    <div className={styles.storyCoverOverlay} />
+                <div className={styles.storyCover}>
+                    <img src={story.image_url} alt={story.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
             )}
             <div className={styles.storyCardInner}>
-                <h2 className="serif">{story.title}</h2>
+                <h2>{story.title}</h2>
                 <div className={styles.meta}>
-                    <span>WRITTEN BY: {story.author || 'African Girl Rise'}</span>
-                    <span>DATE: {formatDate(story.created_at)}</span>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><User size={14} /> {story.author || 'African Girl Rise'}</span>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Calendar size={14} /> {formatDate(story.created_at)}</span>
                 </div>
                 <div className={`${styles.content} ${!expanded && needsExpansion ? styles.contentClamped : ''}`} dangerouslySetInnerHTML={{ __html: story.content }} />
-                {needsExpansion && <button className={styles.readMoreBtn} onClick={() => setExpanded(!expanded)}>{expanded ? 'Show Less ↑' : 'Read More ↓'}</button>}
+                {needsExpansion && (
+                    <button className={styles.readMoreBtn} onClick={() => setExpanded(!expanded)}>
+                        {expanded ? 'Show Less' : 'Read More'} <ArrowRight size={14} style={{ marginLeft: 8 }} />
+                    </button>
+                )}
             </div>
         </article>
     );
@@ -52,15 +53,18 @@ export default function StoriesPage() {
 
     return (
         <div className={styles.container}>
-            <PageHeader 
-                title="Stories of Rise" 
-                subtitle="Voices from the field and testimonials of change across our communities."
-            />
-            {loading ? <div className={styles.loadingState}>Loading stories…</div> : (
-                <div className={styles.storyGrid}>
-                    {stories.map(story => <StoryCard key={story.id} story={story} />)}
-                </div>
-            )}
+            <section className={styles.storyGrid} style={{ paddingTop: '160px' }}>
+                <span className="subheading">Voices of Change</span>
+                <h1 className="heading-display">Stories of <span className="text-gradient">Rise</span></h1>
+                
+                {loading ? (
+                    <div style={{ padding: '100px 0', textAlign: 'center', fontWeight: 700 }}>Loading stories...</div>
+                ) : (
+                    <div style={{ marginTop: '80px', display: 'grid', gridTemplateColumns: 'inherit', gap: 'inherit' }}>
+                        {stories.map(story => <StoryCard key={story.id} story={story} />)}
+                    </div>
+                )}
+            </section>
         </div>
     );
 }

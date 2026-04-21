@@ -1,579 +1,243 @@
-/* ══════════════════════════════════════
-   OUR STORY PAGE — Magazine Editorial
-══════════════════════════════════════ */
-
 .container {
-  background: #ffffff;
-  overflow-x: hidden;
+    width: 100%;
 }
 
-/* ── Hero ── */
-.hero {
-  padding: 11rem 8% 7rem;
-  background: #0f172a;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -30%;
-  left: -10%;
-  width: 60%;
-  height: 160%;
-  background: radial-gradient(ellipse, rgba(233,30,99,0.12) 0%, transparent 65%);
-  pointer-events: none;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -20%;
-  right: -5%;
-  width: 45%;
-  height: 120%;
-  background: radial-gradient(ellipse, rgba(0,188,212,0.07) 0%, transparent 65%);
-  pointer-events: none;
-}
-
-.hero p:first-child {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #e91e63;
-  margin-bottom: 1.2rem;
-}
-
-.heroTitle {
-  font-family: var(--font-serif);
-  font-size: clamp(3.5rem, 8vw, 7rem);
-  font-weight: 900;
-  line-height: 0.95;
-  color: #ffffff;
-  letter-spacing: -0.05em;
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 2;
-}
-
-.heroTitle span {
-  background: linear-gradient(135deg, #e91e63, #9c27b0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.heroSection {
+    padding: 160px 8% 100px;
+    background: var(--bg-color);
+    text-align: center;
 }
 
 .subtitle {
-  font-family: var(--font-serif);
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  font-style: italic;
-  color: rgba(255,255,255,0.6);
-  max-width: 600px;
-  line-height: 1.6;
-  position: relative;
-  z-index: 2;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-top: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* ── Content sections ── */
 .contentSection {
-  padding: 9rem 8%;
+    padding: 100px 8%;
+    background: var(--bg-color);
 }
 
 .contentSectionAlt {
-  background: #f8fafc;
+    background: var(--surface);
 }
 
 .narrativeWrapper {
-  max-width: 1140px;
-  margin: 0 auto;
+    max-width: var(--container-max);
+    margin: 0 auto;
 }
 
-/* ── Story grid ── */
 .storyGrid {
-  display: grid;
-  grid-template-columns: 1fr 1.6fr;
-  gap: 6rem;
-  margin-bottom: 5rem;
-  align-items: start;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 6rem;
+    align-items: start;
 }
 
-.storyGrid h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
-  font-weight: 800;
-  color: #0f172a;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  position: sticky;
-  top: 100px;
-}
-
-.storyGrid h2 span {
-  background: linear-gradient(135deg, #e91e63, #9c27b0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+@media (max-width: 1024px) {
+    .storyGrid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
 }
 
 .storyTextStack {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .storyTextStack p {
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: #475569;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
 }
 
 .storyOffset {
-  padding-left: 2rem;
-  border-left: 2px solid rgba(233,30,99,0.2);
+    padding-left: 2rem;
+    border-left: 3px solid var(--accent-pink);
+    font-style: italic;
 }
 
-/* ── Pull quote ── */
 .highlightQuote {
-  font-family: var(--font-serif);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-style: italic;
-  font-weight: 700;
-  line-height: 1.45;
-  color: #0f172a;
-  padding: 4rem 0;
-  border-top: 2px solid rgba(233,30,99,0.15);
-  border-bottom: 2px solid rgba(233,30,99,0.15);
-  margin: 3rem 0 5rem;
-  max-width: 800px;
+    margin: 80px 0;
+    padding: 60px;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 40px;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    box-shadow: 0 40px 80px hsla(var(--clr-accent-pink-raw) / 0.2);
 }
 
-/* ── Challenge cards ── */
+.premiumNarrative {
+    margin-top: 100px;
+}
+
 .sectionIntro {
-  max-width: 640px;
-  margin-bottom: 4rem;
-}
-
-.sectionIntro p:first-child {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #e91e63;
-  margin-bottom: 0.8rem;
-}
-
-.sectionIntro h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
-  font-weight: 800;
-  color: #0f172a;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  margin-bottom: 1rem;
-}
-
-.sectionIntro h2 span {
-  background: linear-gradient(135deg, #e91e63, #9c27b0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+    margin-bottom: 4rem;
 }
 
 .sectionLead {
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: #64748b;
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-top: 1.5rem;
+    max-width: 800px;
 }
 
 .missionVision {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
 .challengeCard {
-  padding: 2.5rem 2rem;
-  border-radius: 24px;
-  background: #ffffff;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.05);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.challengeCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(135deg, #e91e63, #9c27b0);
+    padding: 3rem;
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: 32px;
+    transition: var(--transition-base);
 }
 
 .challengeCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-}
-
-.challengeCardPurple::before {
-  background: linear-gradient(135deg, #9c27b0, #3f51b5);
-}
-
-.challengeCardBlue::before {
-  background: linear-gradient(135deg, #00bcd4, #3f51b5);
-}
-
-.challengeCard p:first-child {
-  display: inline-block;
-  font-size: 0.65rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  color: #e91e63;
-  margin-bottom: 0.7rem;
+    transform: translateY(-5px);
+    border-color: var(--accent-pink);
 }
 
 .challengeCard h3 {
-  font-family: var(--font-serif);
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
 }
 
 .challengeText {
-  font-size: 0.9rem;
-  line-height: 1.7;
-  color: #64748b;
-  margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
 }
 
-/* ── Belief callout ── */
 .beliefCallout {
-  padding: 8rem 8%;
-  background: linear-gradient(135deg, #e91e63, #9c27b0);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.beliefCallout::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E");
-}
-
-.beliefCallout h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 4.5vw, 3.5rem);
-  font-weight: 800;
-  line-height: 1.2;
-  color: #ffffff;
-  max-width: 800px;
-  margin: 0 auto;
-  letter-spacing: -0.03em;
-  position: relative;
-  z-index: 2;
-}
-
-.beliefCallout h2 span {
-  -webkit-text-fill-color: rgba(255,255,255,0.7);
-  text-decoration: underline;
-  text-underline-offset: 6px;
-  text-decoration-color: rgba(255,255,255,0.3);
-}
-
-/* ── Vision & Mission grid ── */
-.bodyCopyLarge {
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: #475569;
-  margin-bottom: 1.2rem;
-}
-
-.bodyCopyTight {
-  margin-bottom: 0;
+    padding: 120px 8%;
+    background: var(--bg-color);
+    text-align: center;
 }
 
 .missionList {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .missionList li {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #475569;
-  padding-left: 1.5rem;
-  position: relative;
+    position: relative;
+    padding-left: 2.5rem;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
 }
 
 .missionList li::before {
-  content: '↗';
-  position: absolute;
-  left: 0;
-  color: #e91e63;
-  font-weight: 900;
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-pink);
+    font-weight: 900;
 }
 
-/* ── Core belief panel ── */
 .coreBeliefPanel {
-  margin-top: 5rem;
-  padding: 4rem;
-  background: #0f172a;
-  border-radius: 32px;
-  position: relative;
-  overflow: hidden;
+    margin-top: 120px;
+    padding: 80px;
+    background: var(--surface);
+    border-radius: 60px;
+    border: 1px solid var(--border-color);
+    text-align: center;
 }
 
-.coreBeliefPanel::before {
-  content: '"';
-  position: absolute;
-  top: -3rem;
-  left: 2rem;
-  font-family: var(--font-serif);
-  font-size: 20rem;
-  color: rgba(233,30,99,0.07);
-  line-height: 1;
-  font-weight: 900;
-}
-
-.coreBeliefPanel p:first-child {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #e91e63;
-  margin-bottom: 1rem;
-}
-
-.coreBeliefHeading {
-  font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 800;
-  line-height: 1.2;
-  color: #ffffff;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.03em;
-  position: relative;
-  z-index: 2;
+@media (max-width: 768px) {
+    .coreBeliefPanel {
+        padding: 40px 20px;
+    }
 }
 
 .coreBeliefCopy {
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: rgba(255,255,255,0.65);
-  max-width: 680px;
-  margin-bottom: 1.2rem;
-  position: relative;
-  z-index: 2;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin: 2rem auto;
 }
 
 .coreBeliefQuote {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.1rem;
-  color: rgba(255,255,255,0.5);
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding-top: 1.2rem;
-  margin-top: 0.5rem;
-  position: relative;
-  z-index: 2;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-top: 3rem;
 }
 
-/* ── Founder vision ── */
 .founderVision {
-  background: #0f172a;
-  padding: 8rem 8%;
+    padding: 120px 8%;
+    background: var(--bg-color);
 }
 
 .founderVisionInner {
-  max-width: 860px;
-  margin: 0 auto;
-  text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
 }
 
-.founderVisionInner p:first-child {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #e91e63;
-  margin-bottom: 1.5rem;
-}
-
-.founderVisionInner blockquote {
-  font-family: var(--font-serif);
-  font-size: clamp(1.3rem, 2.5vw, 2rem);
-  font-style: italic;
-  line-height: 1.55;
-  color: rgba(255,255,255,0.85);
-  margin: 0 0 2rem;
-  font-weight: 600;
-  border: none;
-  padding: 0;
+.founderVision blockquote {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
 }
 
 .attribution {
-  font-size: 0.82rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: rgba(255,255,255,0.35);
-  margin-bottom: 2.5rem;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent-pink);
+    margin-bottom: 3rem;
 }
 
-.founderVisionButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.9rem 2.2rem;
-  background: linear-gradient(135deg, #e91e63, #9c27b0);
-  color: white;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: all 0.25s ease;
-  box-shadow: 0 8px 24px rgba(233,30,99,0.3);
-}
-
-.founderVisionButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(233,30,99,0.4);
-}
-
-/* ── CTA editorial ── */
 .ctaEditorial {
-  padding: 9rem 8%;
-  background: #f8fafc;
-}
-
-.ctaEditorial p:first-child {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #e91e63;
-  margin-bottom: 1rem;
-}
-
-.ctaEditorial h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
-  font-weight: 800;
-  color: #0f172a;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-
-.ctaEditorial h2 span {
-  background: linear-gradient(135deg, #e91e63, #9c27b0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.ctaLead {
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: #64748b;
-  max-width: 620px;
-  margin-bottom: 4rem;
+    padding: 120px 8%;
+    background: var(--surface);
 }
 
 .ctaGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
 }
 
 .ctaCard {
-  padding: 2.2rem 1.8rem;
-  background: #ffffff;
-  border-radius: 24px;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.ctaCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    padding: 3rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
 }
 
 .ctaCard h3 {
-  font-family: var(--font-serif);
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #0f172a;
-  margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
 }
 
 .ctaCard p {
-  font-size: 0.88rem;
-  line-height: 1.65;
-  color: #64748b;
-  flex: 1;
-  margin: 0;
-}
-
-.ctaCard a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #e91e63, #9c27b0);
-  color: white;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.82rem;
-  text-decoration: none;
-  transition: all 0.25s ease;
-  margin-top: 0.5rem;
-  box-shadow: 0 4px 14px rgba(233,30,99,0.2);
-}
-
-.ctaCard a:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(233,30,99,0.3);
-}
-
-.premiumNarrative { margin-top: 2rem; }
-
-/* ── Responsive ── */
-@media (max-width: 1024px) {
-  .missionVision { grid-template-columns: 1fr; }
-  .ctaGrid { grid-template-columns: repeat(2, 1fr); }
-  .storyGrid { grid-template-columns: 1fr; gap: 3rem; }
-  .storyGrid h2 { position: static; }
-}
-
-@media (max-width: 640px) {
-  .contentSection { padding: 5rem 5%; }
-  .ctaGrid { grid-template-columns: 1fr; }
-  .coreBeliefPanel { padding: 2.5rem 1.8rem; }
-  .hero { padding: 9rem 5% 5rem; }
-  .founderVision { padding: 5rem 5%; }
-  .ctaEditorial { padding: 5rem 5%; }
-  .beliefCallout { padding: 5rem 5%; }
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    flex: 1;
 }

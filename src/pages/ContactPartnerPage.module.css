@@ -1,126 +1,97 @@
 .container {
-    min-height: 100vh;
-    min-height: 100dvh;
-    padding: 4rem 5%;
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
 }
 
 .header {
+    padding: 160px 8% 80px;
+    background: var(--bg-color);
     text-align: center;
-    margin-bottom: 4rem;
 }
 
 .subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.3rem);
-    color: var(--text-muted);
-    max-width: 700px;
-    margin: 1.5rem auto 0;
-    line-height: 1.6;
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-top: 1.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .contentWrapper {
+    padding: 0 8% 120px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 6rem;
+}
+
+@media (max-width: 1024px) {
+    .contentWrapper {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
 }
 
 .infoSection h2 {
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-    color: var(--text-color);
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
 }
 
 .opportunityList {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    margin-bottom: 3rem;
 }
 
 .opportunityCard {
-    background: var(--card-bg);
+    padding: 2.5rem;
+    background: var(--surface);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--color-pink);
-    padding: 1.5rem;
-    border-radius: 12px;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    border-radius: 24px;
+    transition: var(--transition-base);
 }
 
 .opportunityCard:hover {
-    transform: translateX(4px);
-    border-left-color: var(--color-lightblue);
+    border-color: var(--accent-pink);
+    transform: translateX(10px);
 }
 
 .opportunityCard h3 {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
+    font-weight: 800;
     margin-bottom: 0.5rem;
-    color: var(--text-color);
+    color: var(--accent-pink);
 }
 
 .opportunityCard p {
-    color: var(--text-muted);
-    line-height: 1.6;
     font-size: 0.95rem;
-}
-
-.advocacyTips {
-    background: var(--card-hover-bg);
-    padding: 2rem;
-    border-radius: 12px;
-    border: 1px dashed var(--border-color);
-}
-
-.advocacyTips h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    color: var(--color-pink);
-}
-
-.advocacyTips ul {
-    list-style: none;
-    padding: 0;
-}
-
-.advocacyTips li {
-    padding: 0.5rem 0 0.5rem 1.5rem;
-    position: relative;
-    color: var(--text-muted);
-    line-height: 1.6;
-}
-
-.advocacyTips li::before {
-    content: "→";
-    position: absolute;
-    left: 0;
-    color: var(--color-lightblue);
-    font-weight: bold;
-}
-
-.formSection {
-    position: sticky;
-    top: 100px;
+    color: var(--text-secondary);
+    line-height: 1.5;
 }
 
 .formCard {
-    background: var(--card-bg);
+    padding: 4rem;
+    background: var(--surface);
     border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 2.5rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 40px;
+}
+
+@media (max-width: 640px) {
+    .formCard {
+        padding: 2rem;
+    }
 }
 
 .formCard h2 {
-    font-size: 1.6rem;
-    margin-bottom: 2rem;
-    color: var(--text-color);
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .formGroup {
@@ -130,107 +101,51 @@
 }
 
 .formGroup label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-color);
+    font-size: 0.75rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    color: var(--text-muted);
 }
 
-.input,
-.select,
-.textarea {
-    padding: 0.9rem 1rem;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
+.input, .select, .textarea {
+    width: 100%;
+    padding: 1rem;
     background: var(--bg-color);
-    color: var(--text-color);
-    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-primary);
     font-family: inherit;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: var(--transition-base);
 }
 
-.input:focus,
-.select:focus,
-.textarea:focus {
+.input:focus, .select:focus, .textarea:focus {
     outline: none;
-    border-color: var(--color-lightblue);
-    box-shadow: 0 0 0 3px rgba(3, 169, 244, 0.1);
-}
-
-.textarea {
-    resize: vertical;
-    min-height: 120px;
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 0 4px hsla(var(--clr-accent-pink-raw) / 0.1);
 }
 
 .submitBtn {
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    padding: 1.25rem;
+    background: var(--gradient-primary);
     color: white;
-    font-weight: 600;
-    font-size: 1.05rem;
     border: none;
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 1rem;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    margin-top: 0.5rem;
+    transition: var(--transition-base);
 }
 
-.submitBtn:hover:not(:disabled) {
+.submitBtn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(216, 27, 96, 0.4);
-}
-
-.submitBtn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+    box-shadow: 0 15px 30px hsla(var(--clr-accent-pink-raw) / 0.3);
 }
 
 .successMsg {
-    padding: 1rem;
-    background: rgba(76, 175, 80, 0.1);
-    border: 1px solid rgba(76, 175, 80, 0.3);
-    border-radius: 8px;
-    color: #4caf50;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-.errorMsg {
-    padding: 1rem;
-    background: rgba(244, 67, 54, 0.1);
-    border: 1px solid rgba(244, 67, 54, 0.3);
-    border-radius: 8px;
-    color: #f44336;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-@media (max-width: 1024px) {
-    .contentWrapper {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-
-    .formSection {
-        position: static;
-    }
-}
-
-@media (max-width: 768px) {
-    .container {
-        padding: 3rem 4%;
-    }
-
-    .header {
-        margin-bottom: 3rem;
-    }
-
-    .formCard {
-        padding: 1.5rem;
-    }
-
-    .opportunityCard {
-        padding: 1.25rem;
-    }
+    padding: 1.5rem;
+    background: hsla(var(--clr-accent-teal-raw) / 0.1);
+    color: var(--accent-teal);
+    border-radius: 12px;
+    font-weight: 700;
 }

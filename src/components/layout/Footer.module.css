@@ -1,326 +1,205 @@
-/* ══════════════════════════════════════
-   PREMIUM FOOTER — African Girl Rise
-══════════════════════════════════════ */
-
 .footer {
-  position: relative;
-  background: #0d1117;
-  color: rgba(255, 255, 255, 0.75);
-  padding-bottom: max(env(safe-area-inset-bottom), 0px);
-  overflow: hidden;
+    background: var(--surface);
+    color: var(--text-primary);
+    padding-top: 80px;
+    padding-bottom: 40px;
+    border-top: 1px solid var(--border-color);
 }
 
-/* Subtle background pattern */
-.footer::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at top left, rgba(233, 30, 99, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom right, rgba(0, 188, 212, 0.05) 0%, transparent 50%);
-  pointer-events: none;
+.container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 5%;
 }
 
-.footerInner {
-  position: relative;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 6%;
-  z-index: 2;
+/* ─── Newsletter ─── */
+.newsletterSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 60px;
 }
 
-/* ── Newsletter Band ── */
-.newsletterBand {
-  padding: 4rem 0 3.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 3rem;
-  flex-wrap: wrap;
+.newsletterTitle {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
 }
 
-.nlLeft h4 {
-  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-  font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 0.4rem;
-  font-family: var(--font-serif);
-  letter-spacing: -0.02em;
+.newsletterText {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
 }
 
-.nlLeft p {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.5);
-  line-height: 1.6;
-  max-width: 360px;
+.newsletterForm {
+    flex: 1;
+    min-width: 300px;
+    max-width: 450px;
 }
 
-.nlRight {
-  flex: 1;
-  min-width: 280px;
-  max-width: 480px;
-}
-
-.subscribeForm {
-  width: 100%;
-}
-
-.inputRow {
-  display: flex;
-  gap: 0.6rem;
-  align-items: stretch;
+.inputWrapper {
+    position: relative;
+    display: flex;
+    background: hsla(0, 0%, 100%, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 99px;
+    overflow: hidden;
+    padding: 4px;
 }
 
 .input {
-  flex: 1;
-  padding: 0.9rem 1.2rem;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
-  font-size: 0.9rem;
-  font-family: inherit;
-  outline: none;
-  transition: all 0.25s ease;
-  min-width: 0;
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 20px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
 }
-.input::placeholder {
-  color: rgba(255, 255, 255, 0.35);
-}
+
 .input:focus {
-  border-color: rgba(233, 30, 99, 0.5);
-  background: rgba(233, 30, 99, 0.06);
-  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+    outline: none;
 }
 
-.subscribeBtn {
-  padding: 0.9rem 1.4rem;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #e91e63, #9c27b0);
-  color: white;
-  font-weight: 700;
-  font-size: 0.85rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  white-space: nowrap;
-  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.25);
-  font-family: inherit;
-}
-.subscribeBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(233, 30, 99, 0.35);
-}
-.subscribeBtn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
+.submitBtn {
+    background: var(--accent-pink);
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-base);
 }
 
-.successMsg {
-  color: #4ade80;
-  font-size: 0.78rem;
-  margin-top: 0.5rem;
-  font-weight: 600;
-}
-.errorMsg {
-  color: #f87171;
-  font-size: 0.78rem;
-  margin-top: 0.5rem;
-  font-weight: 600;
+.submitBtn:hover {
+    transform: scale(1.05);
+    background: var(--accent-purple);
 }
 
-/* ── Footer Grid ── */
-.footerGrid {
-  display: grid;
-  grid-template-columns: 1.8fr 1fr 1fr;
-  gap: 4rem;
-  padding: 4rem 0 3rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+.statusSuccess { color: var(--accent-teal); font-size: 0.8rem; margin-top: 10px; padding-left: 20px; }
+.statusError { color: var(--accent-pink); font-size: 0.8rem; margin-top: 10px; padding-left: 20px; }
+
+.divider {
+    height: 1px;
+    background: var(--border-color);
+    margin-bottom: 60px;
 }
 
-/* Brand Column */
-.brandColumn {
-  display: flex;
-  flex-direction: column;
+/* ─── Grid ─── */
+.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 80px;
 }
 
-.brandBlock {
-  margin-bottom: 2rem;
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .brandName {
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #ffffff;
-  margin-bottom: 0.3rem;
-  display: block;
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
 }
 
-.brandTagline {
-  color: rgba(255, 255, 255, 0.45);
-  font-size: 0.88rem;
-  line-height: 1.65;
-  max-width: 280px;
+.brandDescription {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
 }
 
-.contactInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-  margin-top: 0.5rem;
+.contactList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .contactItem {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
-.contactLabel {
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.35);
+.contactItem a:hover {
+    color: var(--accent-pink);
 }
 
-.contactValue {
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-.contactValue:hover {
-  color: #e91e63;
-}
-
-/* Links Columns */
-.linksColumn {}
-
-.columnTitle {
-  font-size: 0.68rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  color: rgba(255, 255, 255, 0.35);
-  margin-bottom: 1.4rem;
-  display: block;
+.colTitle {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
 }
 
 .linksList {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
+
 .linksList a {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: var(--transition-base);
 }
+
 .linksList a:hover {
-  color: #ffffff;
-  padding-left: 4px;
+    color: var(--accent-pink);
+    padding-left: 5px;
 }
 
-.sectionSpacer {
-  height: 2rem;
-}
-
-/* ── Bottom Bar ── */
-.divider {
-  display: none;
-}
-
+/* ─── Bottom Bar ─── */
 .bottomBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 1.8rem 0 2.5rem;
-}
-
-.copyright {
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 0.78rem;
-  margin: 0;
-}
-
-.legalLinks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem 1.5rem;
-}
-.legalLinks a {
-  color: rgba(255, 255, 255, 0.35);
-  font-size: 0.75rem;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-.legalLinks a:hover {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.mission {
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 0.78rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-/* ── Responsive ── */
-@media (max-width: 1024px) {
-  .footerGrid {
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-  }
-  .brandColumn {
-    grid-column: 1 / -1;
-  }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.85rem;
 }
 
 @media (max-width: 768px) {
-  .newsletterBand {
-    flex-direction: column;
-    gap: 2rem;
-    padding: 3rem 0 2.5rem;
-  }
-  .nlRight {
-    max-width: 100%;
-    width: 100%;
-  }
-  .footerGrid {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    padding: 3rem 0 2rem;
-  }
-  .brandColumn {
-    grid-column: 1 / -1;
-  }
-  .bottomBar {
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-  }
+    .bottomBar {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
 }
 
-@media (max-width: 480px) {
-  .footerGrid {
-    grid-template-columns: 1fr;
-  }
-  .inputRow {
-    flex-direction: column;
-  }
-  .subscribeBtn {
-    width: 100%;
-  }
+.legal {
+    display: flex;
+    gap: 2rem;
+}
+
+.legal a:hover {
+    color: var(--text-primary);
+}
+
+.mission {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
 }
