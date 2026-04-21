@@ -37,7 +37,7 @@ export const MARZPAY_ENVIRONMENT = getServerEnv('MARZPAY_ENVIRONMENT', 'producti
 
 // Email Configuration — SERVER ONLY
 export const RESEND_API_KEY = getServerEnv('RESEND_API_KEY');
-export const RESEND_FROM_EMAIL = getServerEnv('RESEND_FROM_EMAIL', 'African Girl Rise <noreply@africangirlrise.org>');
+export const RESEND_FROM_EMAIL = getServerEnv('RESEND_FROM_EMAIL', 'African Girl Rise <onboarding@resend.dev>');
 
 // Admin Configuration — SERVER ONLY
 export const ADMIN_LOGIN_EMAIL = getServerEnv('ADMIN_LOGIN_EMAIL', 'africangirlriseltd@gmail.com');
