@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import DonationModal from '@/components/DonationModal';
+const DonationModal = lazy(() => import('@/components/DonationModal'));
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
@@ -138,7 +138,9 @@ export default function Navbar() {
                 </div>
             </header>
             {isDonationModalOpen && (
-                <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+                <Suspense fallback={null}>
+                    <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+                </Suspense>
             )}
         </>
     );

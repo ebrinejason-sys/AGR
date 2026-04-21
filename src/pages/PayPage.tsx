@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import DonationModal from '@/components/DonationModal';
+const DonationModal = lazy(() => import('@/components/DonationModal'));
 import styles from './PayPage.module.css';
 
 type CheckoutState = { authorizationUrl: string | null; provider: string | null; reference: string | null; status: string | null; transactionId: string | null };
@@ -102,7 +102,9 @@ export default function PayPage() {
                     <button onClick={() => setIsOpen(true)} className="btn-premium"><span>{checkoutState.status || checkoutState.transactionId ? 'Make another donation' : 'Open donation form'}</span></button>
                 </div>
             </div>
-            <DonationModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+            <Suspense fallback={null}>
+                <DonationModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+            </Suspense>
         </div>
     );
 }

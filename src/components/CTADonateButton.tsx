@@ -1,5 +1,5 @@
-import { useState } from "react";
-import DonationModal from "@/components/DonationModal";
+import { useState, lazy, Suspense } from "react";
+const DonationModal = lazy(() => import("@/components/DonationModal"));
 import styles from '../pages/HomePage.module.css';
 
 export default function CTADonateButton() {
@@ -15,10 +15,12 @@ export default function CTADonateButton() {
       </button>
 
       {isDonationModalOpen ? (
-        <DonationModal
-          isOpen={isDonationModalOpen}
-          onClose={() => setIsDonationModalOpen(false)}
-        />
+        <Suspense fallback={null}>
+          <DonationModal
+            isOpen={isDonationModalOpen}
+            onClose={() => setIsDonationModalOpen(false)}
+          />
+        </Suspense>
       ) : null}
     </>
   );

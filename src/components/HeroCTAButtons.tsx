@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
-import DonationModal from "@/components/DonationModal";
+const DonationModal = lazy(() => import("@/components/DonationModal"));
 import styles from '../pages/HomePage.module.css';
 
 export default function HeroCTAButtons() {
@@ -21,10 +21,12 @@ export default function HeroCTAButtons() {
       </div>
 
       {isDonationModalOpen ? (
-        <DonationModal
-          isOpen={isDonationModalOpen}
-          onClose={() => setIsDonationModalOpen(false)}
-        />
+        <Suspense fallback={null}>
+          <DonationModal
+            isOpen={isDonationModalOpen}
+            onClose={() => setIsDonationModalOpen(false)}
+          />
+        </Suspense>
       ) : null}
     </>
   );
