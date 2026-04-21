@@ -36,8 +36,8 @@ export default function FounderPage() {
                         &ldquo;My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.&rdquo;
                     </p>
                     <div className={styles.heroCtas}>
-                        <a href="https://wa.me/256703727965" target="_blank" rel="noopener noreferrer" className="btn-glass">
-                            WhatsApp Grace
+                        <a href="https://wa.me/256703727965" target="_blank" rel="noopener noreferrer" className="btn-premium">
+                            💬 WhatsApp Grace
                         </a>
                         <Link to="/contact" className={styles.heroCtaOutline}>
                             Reach Out
