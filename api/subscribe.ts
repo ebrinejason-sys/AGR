@@ -65,16 +65,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         // Send welcome emails regardless of Supabase configuration
         if (isResendConfigured && resend) {
             const subscriberName = normalizedName || 'Friend';
-            const { error: welcomeError } = await resend.emails.send({ from: SENDER_EMAIL, to: normalizedEmail, subject: 'Welcome to African Girl Rise', html: SubscriberWelcomeTemplate(subscriberName) });
-            if (welcomeError) {
-                console.error('Failed to send subscriber welcome email:', welcomeError);
-                return res.status(500).json({ error: 'Welcome email could not be sent. Please try again.' });
-            }
+            await resend.emails.send({ from: SENDER_EMAIL, to: normalizedEmail, subject: 'Welcome to African Girl Rise', html: SubscriberWelcomeTemplate(subscriberName) }).catch(err => console.error('Failed to send subscriber welcome email:', err));
 
             const adminRecipient = process.env.CONTACT_EMAIL || 'africangirlriseltd@gmail.com';
             await resend.emails.send({ from: SENDER_EMAIL, to: adminRecipient, replyTo: normalizedEmail, subject: '[AGR] New newsletter subscriber', html: `<div style="font-family:Arial,sans-serif;line-height:1.6;"><h2>New Subscriber</h2><p><strong>Email:</strong> ${normalizedEmail}</p><p><strong>Name:</strong> ${subscriberName}</p></div>` }).catch(console.error);
         } else if (!isResendConfigured) {
-            return res.status(503).json({ error: 'Email service is not configured. Set RESEND_API_KEY.' });
+            console.warn('Resend email service not configured');
         }
 
         return res.json({ message: 'Welcome to the African Girl Rise family! 🌍' });
