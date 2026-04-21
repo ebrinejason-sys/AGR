@@ -48,24 +48,33 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             return res.status(400).json({ error: 'Invalid input detected.' });
         }
 
-        if (!isSupabaseConfigured) return res.json({ message: 'Thank you for subscribing! (Demo mode)' });
-
         const normalizedEmail = email.toLowerCase().trim();
         const normalizedName = name ? String(name).trim() : null;
 
-        const { error } = await supabase.from('subscriptions').insert({ email: normalizedEmail, name: normalizedName });
+        // Save to database if Supabase is configured
+        if (isSupabaseConfigured) {
+            const { error } = await supabase.from('subscriptions').insert({ email: normalizedEmail, name: normalizedName });
 
-        if (error) {
-            if (error.code === '23505') return res.json({ message: "You're already subscribed! Thank you for staying connected." });
-            console.error('Subscription error:', error);
-            return res.status(500).json({ error: 'Could not subscribe. Please try again.' });
+            if (error) {
+                if (error.code === '23505') return res.json({ message: "You're already subscribed! Thank you for staying connected." });
+                console.error('Subscription error:', error);
+                return res.status(500).json({ error: 'Could not subscribe. Please try again.' });
+            }
         }
 
+        // Send welcome emails regardless of Supabase configuration
         if (isResendConfigured && resend) {
             const subscriberName = normalizedName || 'Friend';
-            await resend.emails.send({ from: SENDER_EMAIL, to: normalizedEmail, subject: 'Welcome to African Girl Rise', html: SubscriberWelcomeTemplate(subscriberName) }).catch(console.error);
+            const { error: welcomeError } = await resend.emails.send({ from: SENDER_EMAIL, to: normalizedEmail, subject: 'Welcome to African Girl Rise', html: SubscriberWelcomeTemplate(subscriberName) });
+            if (welcomeError) {
+                console.error('Failed to send subscriber welcome email:', welcomeError);
+                return res.status(500).json({ error: 'Welcome email could not be sent. Please try again.' });
+            }
+
             const adminRecipient = process.env.CONTACT_EMAIL || 'africangirlriseltd@gmail.com';
             await resend.emails.send({ from: SENDER_EMAIL, to: adminRecipient, replyTo: normalizedEmail, subject: '[AGR] New newsletter subscriber', html: `<div style="font-family:Arial,sans-serif;line-height:1.6;"><h2>New Subscriber</h2><p><strong>Email:</strong> ${normalizedEmail}</p><p><strong>Name:</strong> ${subscriberName}</p></div>` }).catch(console.error);
+        } else if (!isResendConfigured) {
+            return res.status(503).json({ error: 'Email service is not configured. Set RESEND_API_KEY.' });
         }
 
         return res.json({ message: 'Welcome to the African Girl Rise family! 🌍' });

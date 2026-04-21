@@ -107,7 +107,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 html: `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;border:1px solid #eee;border-radius:10px;"><h2 style="color:#d81b60;">Admin Login Attempt</h2><p>Your One-Time Password:</p><div style="background:#f4f4f4;padding:15px;text-align:center;border-radius:8px;margin:20px 0;"><h1 style="letter-spacing:5px;color:#4a148c;margin:0;">${generatedOtp}</h1></div><p style="color:#666;font-size:14px;">Expires in 10 minutes.</p></div>`,
             });
 
-            if (error) return res.status(500).json({ error: 'Failed to send OTP email' });
+            if (error) {
+                console.error('Failed to send OTP email:', error);
+                return res.status(500).json({ error: 'Failed to send OTP email. Email service may be unavailable.' });
+            }
 
             setCookie(res, ADMIN_OTP_COOKIE, otpState.token, otpState.maxAge);
             securityLog({ type: 'auth_attempt', ip, endpoint: '/api/auth', detail: 'OTP email sent' });

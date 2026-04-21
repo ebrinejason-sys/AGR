@@ -94,9 +94,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             html: buildAdminHtml(type, body),
         });
 
-        if (sendError) return res.status(500).json({ error: sendError.message });
+        if (sendError) {
+            console.error('Admin email send error:', sendError);
+            return res.status(500).json({ error: 'Failed to send contact form to admin. Please try again.' });
+        }
 
-        await resend.emails.send({ from: SENDER_EMAIL, to: email, subject: 'Thank you for contacting African Girl Rise', html: `<div style="font-family:Arial,sans-serif;line-height:1.6;"><h2>Thank you, ${safeName}</h2><p>We received your message and our team will be in touch soon.</p><p style="margin-top:2rem;font-style:italic;">Rise. Then reach back.</p><p><strong>African Girl Rise Initiative</strong></p></div>` }).catch(console.error);
+        // Send confirmation email to user (non-blocking failure)
+        await resend.emails.send({ from: SENDER_EMAIL, to: email, subject: 'Thank you for contacting African Girl Rise', html: `<div style="font-family:Arial,sans-serif;line-height:1.6;"><h2>Thank you, ${safeName}</h2><p>We received your message and our team will be in touch soon.</p><p style="margin-top:2rem;font-style:italic;">Rise. Then reach back.</p><p><strong>African Girl Rise Initiative</strong></p></div>` }).catch(err => console.error('Failed to send user confirmation email:', err));
 
         return res.json({ message: 'Message sent successfully' });
     } catch (error) {
