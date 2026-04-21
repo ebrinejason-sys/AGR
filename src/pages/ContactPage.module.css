@@ -244,20 +244,31 @@ select.input {
 }
 
 @media (max-width: 480px) {
-  .hero { padding: 7rem 5% 3rem; }
-  .formCard { padding: 1.5rem 1rem; }
-  .infoCol { padding: 1.25rem; }
+  .hero { padding: 6rem 5% 2rem; }
+  .contactSection { padding: 2rem 5% 3rem; overflow-x: hidden; }
+  .contactGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .formCard { padding: 2rem 1.5rem; max-height: calc(100vh - 12rem); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .infoCol { padding: 1.5rem; }
   .radioGroup { flex-wrap: wrap; gap: 0.75rem; }
-  .infoValue, .infoLink { font-size: 1rem; }
+  .infoValue, .infoLink { font-size: 0.95rem; }
   .tabBar {
     gap: 0.4rem;
     flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .tab {
     font-size: 0.65rem;
     padding: 0.7rem 0.75rem;
     white-space: nowrap;
     flex-shrink: 0;
+  }
+  .tabDescriptionBox {
+    margin-top: 1rem;
+    padding: 1.5rem;
   }
 }
 

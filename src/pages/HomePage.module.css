@@ -949,6 +949,7 @@
   .heroQuickLinks {
     justify-content: center;
   }
+}
   .heroFloatingBadge {
     display: none;
   }
@@ -1009,6 +1010,26 @@
     border-radius: 20px;
   }
   .heroFloatingBadge {
+    display: none;
+  }
+  .heroQuickLinks {
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.8rem;
+  }
+  .heroCtas {
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+  .heroQuickLink {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+  .heroQuickDivider {
     display: none;
   }
 }
