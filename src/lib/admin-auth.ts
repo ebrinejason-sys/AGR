@@ -1,6 +1,7 @@
 import { createHmac, timingSafeEqual, randomInt } from 'crypto';
 // Cookie constants exported from admin-constants.ts to avoid Edge Runtime issues
-import { ADMIN_SESSION_COOKIE, ADMIN_OTP_COOKIE } from './admin-constants';
+import { ADMIN_SESSION_COOKIE, ADMIN_OTP_COOKIE } from './admin-constants.js';
+import { ADMIN_LOGIN_EMAIL, ADMIN_LOGIN_PASSWORD, ADMIN_AUTH_SECRET } from './env.js';
 
 // Re-export for convenience (used by other modules)
 export { ADMIN_SESSION_COOKIE, ADMIN_OTP_COOKIE };
@@ -22,11 +23,11 @@ const b64urlEncode = (value: string) => Buffer.from(value, 'utf8').toString('bas
 const b64urlDecode = (value: string) => Buffer.from(value, 'base64url').toString('utf8');
 
 const getAuthSecret = () => {
-    return process.env.ADMIN_AUTH_SECRET?.trim() || null;
+    return ADMIN_AUTH_SECRET || null;
 };
 
 const requireAuthSecret = () => {
-    const secret = process.env.ADMIN_AUTH_SECRET;
+    const secret = ADMIN_AUTH_SECRET;
     if (!secret) {
         throw new Error('ADMIN_AUTH_SECRET environment variable is required. Generate one with: openssl rand -hex 32');
     }
@@ -73,12 +74,16 @@ const hashOtp = (email: string, otp: string, nonce: string, exp: number) => {
 };
 
 export const getMissingAdminAuthEnvVars = () => {
-    return REQUIRED_ADMIN_ENV_VARS.filter((name) => !process.env[name]?.trim());
+    const vars = [];
+    if (!ADMIN_LOGIN_EMAIL) vars.push('ADMIN_LOGIN_EMAIL');
+    if (!ADMIN_LOGIN_PASSWORD) vars.push('ADMIN_LOGIN_PASSWORD');
+    if (!ADMIN_AUTH_SECRET) vars.push('ADMIN_AUTH_SECRET');
+    return vars;
 };
 
 export const getAdminCredentials = () => {
-    const email = process.env.ADMIN_LOGIN_EMAIL?.trim();
-    const password = process.env.ADMIN_LOGIN_PASSWORD?.trim();
+    const email = ADMIN_LOGIN_EMAIL;
+    const password = ADMIN_LOGIN_PASSWORD;
     if (!email || !password) {
         throw new Error('ADMIN_LOGIN_EMAIL and ADMIN_LOGIN_PASSWORD environment variables are required.');
     }

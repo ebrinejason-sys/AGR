@@ -1,16 +1,16 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-import { requireAdminSession, checkSupabaseAdminConfig } from '../src/lib/admin-api';
+import { requireAdminSession, checkSupabaseAdminConfig } from '../src/lib/admin-api.js';
 
-import contactsHandler from '../src/lib/admin-api-routes/contacts';
-import emailHandler from '../src/lib/admin-api-routes/email';
-import eventsHandler from '../src/lib/admin-api-routes/events';
-import projectsHandler from '../src/lib/admin-api-routes/projects';
-import projectsIdHandler from '../src/lib/admin-api-routes/projects/[id]';
-import statsHandler from '../src/lib/admin-api-routes/stats';
-import storiesHandler from '../src/lib/admin-api-routes/stories';
-import subscriptionsHandler from '../src/lib/admin-api-routes/subscriptions';
-import emailBroadcastHandler from '../src/lib/admin-api-routes/email/broadcast';
+import contactsHandler from '../src/lib/admin-api-routes/contacts.js';
+import emailHandler from '../src/lib/admin-api-routes/email.js';
+import eventsHandler from '../src/lib/admin-api-routes/events.js';
+import projectsHandler from '../src/lib/admin-api-routes/projects.js';
+import projectsIdHandler from '../src/lib/admin-api-routes/projects/[id].js';
+import statsHandler from '../src/lib/admin-api-routes/stats.js';
+import storiesHandler from '../src/lib/admin-api-routes/stories.js';
+import subscriptionsHandler from '../src/lib/admin-api-routes/subscriptions.js';
+import emailBroadcastHandler from '../src/lib/admin-api-routes/email/broadcast.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     const configError = checkSupabaseAdminConfig();

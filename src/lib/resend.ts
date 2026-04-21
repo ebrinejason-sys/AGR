@@ -1,4 +1,4 @@
-import { RESEND_API_KEY, RESEND_FROM_EMAIL, ADMIN_LOGIN_EMAIL, isConfigured } from './env';
+import { RESEND_API_KEY, RESEND_FROM_EMAIL, ADMIN_LOGIN_EMAIL, isConfigured } from './env.js';
 import { Resend } from 'resend';
 
 /**

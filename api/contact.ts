@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { resend, SENDER_EMAIL } from '../src/lib/resend';
-import { supabase, isSupabaseConfigured } from '../src/lib/supabase.server';
-import { rateLimit, getIPFromHeader, securityLog } from '../src/lib/rate-limit';
+import { resend, SENDER_EMAIL } from '../src/lib/resend.js';
+import { supabase, isSupabaseConfigured } from '../src/lib/supabase.server.js';
+import { rateLimit, getIPFromHeader, securityLog } from '../src/lib/rate-limit.js';
 
 const INJECTION_PATTERN = /(<script|javascript:|on\w+\s*=|\bDROP\b|\bUNION\b|\bSELECT\b|\bINSERT\b|\bDELETE\b|\bUPDATE\b|\bEXEC\b)/i;
 

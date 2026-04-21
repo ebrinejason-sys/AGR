@@ -1,6 +1,6 @@
-import { ADMIN_SESSION_COOKIE } from './admin-constants';
-import { verifyAdminSessionToken } from './admin-auth';
-import { isSupabaseAdminConfigured } from './supabase.server';
+import { ADMIN_SESSION_COOKIE } from './admin-constants.js';
+import { verifyAdminSessionToken } from './admin-auth.js';
+import { isSupabaseAdminConfigured } from './supabase.server.js';
 
 export type ApiError = { statusCode: number; body: { error: string } };
 
