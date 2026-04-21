@@ -100,10 +100,38 @@
   margin: 0;
 }
 
+/* ── Hero CTAs ── */
+.heroCtas {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.heroCtaOutline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.85rem 2rem;
+  background: rgba(15,23,42,0.06);
+  color: #0f172a;
+  border: 1.5px solid rgba(15,23,42,0.15);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.heroCtaOutline:hover {
+  background: rgba(15,23,42,0.1);
+  border-color: rgba(15,23,42,0.3);
+  transform: translateY(-2px);
+}
+
 /* ── Bio strip ── */
 .bioStrip {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid rgba(0,0,0,0.06);
   border-bottom: 1px solid rgba(0,0,0,0.06);
 }
@@ -151,6 +179,64 @@
   grid-template-columns: 1fr 1.4fr;
   gap: 6rem;
   align-items: start;
+}
+
+/* Left column wraps image + timeline */
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* ── Timeline ── */
+.timeline {
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.timelineHeading {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #94a3b8;
+  margin-bottom: 1.5rem;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 3.5rem 16px 1fr;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.timelineItem:last-child { border-bottom: none; }
+
+.timelineYear {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #e91e63;
+  letter-spacing: 0.5px;
+}
+
+.timelineDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e91e63;
+  border: 2px solid rgba(233,30,99,0.2);
+  flex-shrink: 0;
+}
+
+.timelineLabel {
+  font-size: 0.82rem;
+  color: #475569;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0;
 }
 
 .editorialContent h2 {
@@ -247,6 +333,50 @@
 }
 .contactLink:hover { text-decoration: underline; }
 
+/* ── Glass contact cards ── */
+.contactCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.contactCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 1.5rem 1rem;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(233,30,99,0.12);
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.contactCard:hover {
+  border-color: rgba(233,30,99,0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(233,30,99,0.12);
+}
+
+.contactCardIcon { font-size: 1.5rem; }
+.contactCardLabel {
+  font-size: 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #94a3b8;
+}
+.contactCardValue {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #e91e63;
+  text-align: center;
+}
+
 /* ── Statement band ── */
 .statementBox {
   background: #0f172a;
@@ -291,6 +421,13 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   color: rgba(255,255,255,0.4);
+  margin-bottom: 3rem;
+}
+
+.statementCtas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 /* ── Responsive ── */
@@ -312,17 +449,20 @@
     grid-template-columns: 1fr;
     gap: 3rem;
   }
+  .leftColumn { gap: 2rem; }
   .founderImageFrame {
     position: relative;
     top: auto;
     aspect-ratio: 4/3;
   }
   .bioStrip {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
   .bioItem {
-    border-right: none;
     border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .contactCards {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -332,4 +472,8 @@
   .statItem:nth-child(even) { border-right: none; }
   .statItem { border-bottom: 1px solid rgba(0,0,0,0.06) !important; border-right: none !important; }
   .statItem:last-child { border-bottom: none !important; }
+  .bioStrip { grid-template-columns: 1fr; }
+  .bioItem { border-right: none; }
+  .heroCtas { flex-direction: column; }
+  .statementCtas { flex-direction: column; }
 }

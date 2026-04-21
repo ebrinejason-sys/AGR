@@ -10,7 +10,18 @@
       "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\)\\); console.log\\(JSON.stringify\\({scripts:d.scripts,dependencies:Object.keys\\(d.dependencies||{}\\)},null,2\\)\\)\")",
       "Bash(git commit *)",
       "Bash(xxd)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(npx esbuild *)",
+      "Bash(node -e ' *)",
+      "Bash(rm -f test-contact.js)",
+      "Bash(vercel dev *)",
+      "Bash(curl -s -X POST http://localhost:3099/api/contact -H 'Content-Type: application/json' -d '{\"type\":\"general\",\"email\":\"test@example.com\",\"name\":\"Test\",\"message\":\"hello world\"}')",
+      "Bash(kill %1)",
+      "Bash(vercel env *)",
+      "Bash(vercel inspect *)",
+      "Bash(curl *)",
+      "Bash(vercel logs *)",
+      "Bash(vercel curl *)"
     ]
   }
 }
