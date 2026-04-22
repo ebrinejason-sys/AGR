@@ -1,47 +1,74 @@
-import { useState, useEffect, useRef } from 'react';
-import { Plus, Edit2, Trash2, Image as ImageIcon, Loader2, X } from 'lucide-react';
+import { useEffect, useState, useRef } from 'react';
+import { 
+    FolderKanban, 
+    Edit2, 
+    Image as ImageIcon, 
+    Loader2, 
+    UploadCloud, 
+    X,
+    LayoutGrid,
+    CheckCircle2,
+    DraftingCompass,
+    AlertCircle,
+    Save
+} from 'lucide-react';
 import styles from './ProjectsPage.module.css';
 
-type Project = { id: string; title: string; description: string; image_url?: string; status: 'active' | 'draft'; pillar_number: number };
+type ProjectItem = { 
+    id: string; 
+    title: string; 
+    description: string; 
+    image_url: string; 
+    status: 'active' | 'draft'; 
+    pillar_number: number;
+    created_at: string 
+};
+
+const PILLARS = [
+    { number: 1, name: 'Rise Sanctuaries (The Rise Room)', icon: LayoutGrid },
+    { number: 2, name: 'Academic Rescue & Scholarships', icon: LayoutGrid },
+    { number: 3, name: 'Legal Advocacy & Protection', icon: LayoutGrid },
+    { number: 4, name: 'The Rise Brothers Program', icon: LayoutGrid },
+];
 
 export default function AdminProjectsPage() {
-    const [projects, setProjects] = useState<Project[]>([]);
+    const [projects, setProjects] = useState<ProjectItem[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const [showForm, setShowForm] = useState(false);
-    const [editingId, setEditingId] = useState<string | null>(null);
+    const [editingPillar, setEditingPillar] = useState<number | null>(null);
     const [uploadingImage, setUploadingImage] = useState(false);
-    const [formData, setFormData] = useState<Partial<Project>>({ title: '', description: '', pillar_number: 1, status: 'draft', image_url: '' });
+    const [error, setError] = useState<string | null>(null);
+    const [formData, setFormData] = useState({ title: '', description: '', image_url: '', status: 'draft' as 'active' | 'draft' });
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const fetchProjects = async () => {
-        setLoading(true);
         try {
             const res = await fetch('/api/admin?action=projects');
             if (res.status === 401) { window.location.assign('/admin/login'); return; }
-            if (res.ok) { const data = await res.json(); setProjects(data.projects || []); setError(null); }
-            else { const data = await res.json().catch(() => ({ error: 'Failed to load projects.' })); setError(data.error || 'Failed to load projects.'); }
+            const data = await res.json();
+            if (res.ok) { setProjects(data.projects || []); setError(null); }
+            else setError(data.error || 'Failed to load projects.');
         } catch { setError('Network error while loading projects.'); }
         finally { setLoading(false); }
     };
 
     useEffect(() => { fetchProjects(); }, []);
 
-    const handleEdit = (project: Project) => {
-        setEditingId(project.id);
-        setFormData({ title: project.title, description: project.description || '', pillar_number: project.pillar_number, status: project.status, image_url: project.image_url || '' });
-        setShowForm(true);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    const startEditing = (pillarNumber: number) => {
+        const project = projects.find(p => p.pillar_number === pillarNumber);
+        setEditingPillar(pillarNumber);
+        if (project) {
+            setFormData({ title: project.title, description: project.description || '', image_url: project.image_url || '', status: project.status });
+        } else {
+            setFormData({ title: PILLARS.find(p => p.number === pillarNumber)?.name || '', description: '', image_url: '', status: 'draft' });
+        }
     };
-
-    const handleAddNew = () => { setEditingId(null); setFormData({ title: '', description: '', pillar_number: 1, status: 'draft', image_url: '' }); setShowForm(true); };
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files || e.target.files.length === 0) return;
         setUploadingImage(true);
         const uploadData = new FormData();
         uploadData.append('file', e.target.files[0]);
-        uploadData.append('description', `Cover image for project: ${formData.title || 'Untitled'}`);
+        uploadData.append('description', `Project image for pillar ${editingPillar}`);
         try {
             const res = await fetch('/api/admin/media', { method: 'POST', body: uploadData });
             const data = await res.json();
@@ -51,123 +78,115 @@ export default function AdminProjectsPage() {
         finally { setUploadingImage(false); if (fileInputRef.current) fileInputRef.current.value = ''; }
     };
 
-    const handleSave = async (e: React.FormEvent) => {
+    const saveProject = async (e: React.FormEvent) => {
         e.preventDefault();
-        const url = editingId ? `/api/admin?action=projects&id=${editingId}` : '/api/admin?action=projects';
-        const method = editingId ? 'PUT' : 'POST';
-        const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
-        if (res.status === 401) { window.location.assign('/admin/login'); return; }
-        if (res.ok) { setShowForm(false); setEditingId(null); setError(null); fetchProjects(); }
-        else { const data = await res.json(); alert(data.error || 'Failed to save project.'); }
-    };
-
-    const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this project?')) return;
-        const res = await fetch(`/api/admin?action=projects&id=${id}`, { method: 'DELETE' });
-        if (res.status === 401) { window.location.assign('/admin/login'); return; }
-        if (res.ok) fetchProjects();
-        else { const data = await res.json(); alert(data.error || 'Failed to delete project.'); }
+        const existing = projects.find(p => p.pillar_number === editingPillar);
+        // The projects API handles POST for both new and existing via unique pillar constraint logic
+        // But here we use a general approach
+        try {
+            const res = await fetch('/api/admin?action=projects', { 
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify({ ...formData, pillar_number: editingPillar }) 
+            });
+            if (res.ok) { setEditingPillar(null); fetchProjects(); }
+            else { const data = await res.json(); alert(data.error || 'Failed to save project.'); }
+        } catch { alert('Network error'); }
     };
 
     return (
         <div className={styles.container}>
-            <div className={styles.header}>
+            <div className={styles.pageHeader}>
                 <div>
-                    <h1 className={styles.title}>Projects & Programs</h1>
-                    <p className={styles.subtitle}>Manage core initiatives and pillars of African Girl Rise.</p>
-                    {error && <p className={styles.subtitle}>{error}</p>}
+                    <h1 className={styles.pageTitle}>Core Programs & Pillars</h1>
+                    <p className={styles.pageSubtitle}>Manage the four central pillars of the African Girl Rise mission.</p>
                 </div>
-                <button onClick={handleAddNew} className={styles.btnAdd}><Plus size={20} /> Add New Project</button>
             </div>
 
-            {showForm && (
-                <div className={styles.formCard}>
-                    <div className={styles.formHeader}>
-                        <h2>{editingId ? 'Edit Project' : 'Create New Project'}</h2>
-                        <button onClick={() => setShowForm(false)} className={styles.closeBtn}><X size={20} /></button>
-                    </div>
-                    <form className={styles.form} onSubmit={handleSave}>
-                        <div className={styles.formRow}>
-                            <div className={styles.inputGroup}><label>Project Title</label><input type="text" required placeholder="e.g. The Rise Room Initiative" value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} /></div>
-                            <div className={styles.inputGroup}>
-                                <label>Pillar Assignment</label>
-                                <select value={formData.pillar_number} onChange={e => setFormData({ ...formData, pillar_number: parseInt(e.target.value) })}>
-                                    <option value="1">Pillar 1 - Healing the Ground</option>
-                                    <option value="2">Pillar 2 - Building the Ladder</option>
-                                    <option value="3">Pillar 3 - Reaching New Altitudes</option>
-                                    <option value="4">Pillar 4 - Knowing Your Rights</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className={styles.inputGroup}><label>Description</label><textarea rows={4} required placeholder="Describe the initiative and its impact..." value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} /></div>
-                        <div className={styles.formRow}>
-                            <div className={styles.inputGroup}>
-                                <label>Status</label>
-                                <select value={formData.status} onChange={e => setFormData({ ...formData, status: e.target.value as 'active' | 'draft' })}>
-                                    <option value="draft">Draft</option>
-                                    <option value="active">Active</option>
-                                </select>
-                            </div>
-                            <div className={styles.inputGroup}>
-                                <label>Cover Image</label>
-                                <div className={styles.imageUploadBox}>
-                                    <button type="button" className={styles.uploadBtn} onClick={() => fileInputRef.current?.click()} disabled={uploadingImage}>
-                                        {uploadingImage ? <Loader2 size={18} className="spin" /> : <ImageIcon size={18} />}
-                                        <span>{formData.image_url ? 'Change Image' : 'Upload Image'}</span>
-                                    </button>
-                                    <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
-                                    {formData.image_url && (
-                                        <div className={styles.imagePreview}>
-                                            <img src={formData.image_url} alt="Preview" style={{ width: '200px', height: '150px', objectFit: 'cover' }} />
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.formActions}>
-                            <button type="button" onClick={() => setShowForm(false)} className={styles.btnCancel}>Cancel</button>
-                            <button type="submit" className={styles.btnSuccess}>{editingId ? 'Update Project' : 'Create Project'}</button>
-                        </div>
-                    </form>
+            {error && (
+                <div className={styles.errorBanner}>
+                    <AlertCircle size={20} />
+                    <span>{error}</span>
                 </div>
             )}
 
-            <div className={styles.tableCard}>
-                <div className={styles.tableResponsive}>
-                    <table className={styles.table}>
-                        <thead><tr><th>Image</th><th>Title & Description</th><th>Pillar</th><th>Status</th><th>Actions</th></tr></thead>
-                        <tbody>
-                            {loading ? (
-                                <tr><td colSpan={5} className={styles.loadingCell}><Loader2 size={24} className="spin" /> Loading projects...</td></tr>
-                            ) : projects.length === 0 ? (
-                                <tr><td colSpan={5} className={styles.emptyCell}>No projects found. Create one to get started.</td></tr>
-                            ) : (
-                                projects.map(project => (
-                                    <tr key={project.id}>
-                                        <td className={styles.imageCell}>
-                                            {project.image_url ? (
-                                                <img src={project.image_url} alt={project.title} className={styles.tableThumb} style={{ width: '40px', height: '40px', objectFit: 'cover' }} />
-                                            ) : (
-                                                <div className={styles.thumbPlaceholder}><ImageIcon size={20} /></div>
-                                            )}
-                                        </td>
-                                        <td className={styles.contentCell}><strong>{project.title}</strong><p>{project.description?.slice(0, 100)}{project.description?.length > 100 ? '...' : ''}</p></td>
-                                        <td><span className={styles.pillarBadge}>Pillar {project.pillar_number}</span></td>
-                                        <td><span className={`${styles.statusBadge} ${styles[project.status]}`}>{project.status.charAt(0).toUpperCase() + project.status.slice(1)}</span></td>
-                                        <td>
-                                            <div className={styles.actionButtons}>
-                                                <button onClick={() => handleEdit(project)} className={styles.btnIcon} title="Edit"><Edit2 size={18} /></button>
-                                                <button onClick={() => handleDelete(project.id)} className={styles.btnIconDelete} title="Delete"><Trash2 size={18} /></button>
+            <div className={styles.pillarsGrid}>
+                {PILLARS.map(pillar => {
+                    const project = projects.find(p => p.pillar_number === pillar.number);
+                    const isEditing = editingPillar === pillar.number;
+
+                    return (
+                        <div key={pillar.number} className={`${styles.pillarCard} ${isEditing ? styles.pillarCardEditing : ''}`}>
+                            <div className={styles.pillarBadge}>Pillar {pillar.number}</div>
+                            
+                            {isEditing ? (
+                                <form className={styles.editForm} onSubmit={saveProject}>
+                                    <div className={styles.formContent}>
+                                        <div className={styles.inputField}>
+                                            <label>Program Title</label>
+                                            <input 
+                                                type="text" 
+                                                required 
+                                                value={formData.title} 
+                                                onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))} 
+                                            />
+                                        </div>
+                                        <div className={styles.inputField}>
+                                            <label>Status</label>
+                                            <select value={formData.status} onChange={e => setFormData(prev => ({ ...prev, status: e.target.value as any }))}>
+                                                <option value="draft">Draft</option>
+                                                <option value="active">Active (Visible on Site)</option>
+                                            </select>
+                                        </div>
+                                        <div className={styles.inputField}>
+                                            <label>Description</label>
+                                            <textarea 
+                                                rows={4} 
+                                                value={formData.description} 
+                                                onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))} 
+                                            />
+                                        </div>
+                                        <div className={styles.imageEditRow}>
+                                            <div className={styles.smallPreview}>
+                                                {formData.image_url ? <img src={formData.image_url} alt="Preview" /> : <div className={styles.previewPlaceholder}><ImageIcon size={20} /></div>}
                                             </div>
-                                        </td>
-                                    </tr>
-                                ))
+                                            <button type="button" className={styles.miniUploadBtn} onClick={() => fileInputRef.current?.click()}>
+                                                {uploadingImage ? <Loader2 size={14} className={styles.spin} /> : <UploadCloud size={14} />}
+                                                Change Image
+                                            </button>
+                                            <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
+                                        </div>
+                                    </div>
+                                    <div className={styles.formActions}>
+                                        <button type="submit" className={styles.saveBtn}><Save size={16} /> Save Changes</button>
+                                        <button type="button" className={styles.cancelBtn} onClick={() => setEditingPillar(null)}>Cancel</button>
+                                    </div>
+                                </form>
+                            ) : (
+                                <>
+                                    <div className={styles.pillarImage}>
+                                        {project?.image_url ? <img src={project.image_url} alt={pillar.name} /> : <div className={styles.noImage}><FolderKanban size={48} /></div>}
+                                        <div className={`${styles.statusLabel} ${styles[project?.status || 'draft']}`}>
+                                            {project?.status === 'active' ? <CheckCircle2 size={12} /> : <DraftingCompass size={12} />}
+                                            {project?.status === 'active' ? 'Active' : 'Draft'}
+                                        </div>
+                                    </div>
+                                    <div className={styles.pillarContent}>
+                                        <h3 className={styles.pillarTitle}>{project?.title || pillar.name}</h3>
+                                        <p className={styles.pillarDesc}>
+                                            {project?.description || 'No description provided for this pillar yet. Update it to tell supporters about this program.'}
+                                        </p>
+                                        <button className={styles.editBtn} onClick={() => startEditing(pillar.number)}>
+                                            <Edit2 size={16} />
+                                            Edit Pillar Details
+                                        </button>
+                                    </div>
+                                </>
                             )}
-                        </tbody>
-                    </table>
-                </div>
+                        </div>
+                    );
+                })}
             </div>
-            <div className={styles.info}><p>💡 <strong>Pro Tip:</strong> Active projects and programs are displayed on the public Programs page.</p></div>
         </div>
     );
 }

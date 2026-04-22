@@ -12,7 +12,8 @@ import {
     Target,
     Link as LinkIcon,
     CheckCircle2,
-    AlertCircle
+    AlertCircle,
+    Clock
 } from 'lucide-react';
 import { formatDate, safeDate } from '@/lib/utils';
 import styles from './EventsPage.module.css';
@@ -326,7 +327,11 @@ export default function AdminEventsPage() {
                                 <div className={styles.cardContent}>
                                     <div className={styles.cardMeta}>
                                         <span className={styles.cardDate}>{formatDate(event.event_date)}</span>
-                                        {event.location && <span className={styles.cardLocation}><MapPin size={12} /> {event.location.split(',')[0]}</span>
+                                        {event.location && (
+                                            <span className={styles.cardLocation}>
+                                                <MapPin size={12} /> {event.location.split(',')[0]}
+                                            </span>
+                                        )}
                                     </div>
                                     <h3 className={styles.cardTitle}>{event.title}</h3>
                                     <p className={styles.cardDesc}>{event.description?.slice(0, 80)}...</p>
