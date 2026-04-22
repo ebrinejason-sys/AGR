@@ -1,7 +1,12 @@
-
+import { lazy, Suspense, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Heart, Calendar } from 'lucide-react';
+import styles from './DonatePage.module.css';
 import PageHero from '../components/PageHero';
+
 const DonationModal = lazy(() => import('@/components/DonationModal'));
 
+export default function DonatePage() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (

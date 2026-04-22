@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Shield, Scale, Info, Users, Book, ArrowRight } from 'lucide-react';
+import PageHero from '../components/PageHero';
 import styles from './LegalAdvocacyPage.module.css';
 
 const INITIATIVES = [

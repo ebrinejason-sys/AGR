@@ -2,10 +2,10 @@ import { ReactNode } from 'react';
 import styles from './PageHero.module.css';
 
 interface PageHeroProps {
-    eyebrow?: string;
+    eyebrow?: string | ReactNode;
     title: string | ReactNode;
     subtitle?: string;
-    description?: string;
+    description?: string | ReactNode;
     actions?: ReactNode;
     backgroundImage?: string;
     darkOverlay?: boolean;

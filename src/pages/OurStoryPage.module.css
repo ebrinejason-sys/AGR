@@ -100,11 +100,24 @@
 }
 
 .challengeCard {
-    padding: 3rem;
+    padding: 2rem;
     background: var(--surface);
     border: 1px solid var(--border-color);
-    border-radius: 32px;
+    border-radius: 20px;
     transition: var(--transition-base);
+}
+
+@media (max-width: 768px) {
+    .challengeCard {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .challengeCard {
+        padding: 1.25rem;
+    }
 }
 
 .challengeCard:hover {
@@ -221,12 +234,25 @@
 }
 
 .ctaCard {
-    padding: 3rem;
+    padding: 2rem;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
-    border-radius: 32px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .ctaCard {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ctaCard {
+        padding: 1.25rem;
+    }
 }
 
 .ctaCard h3 {

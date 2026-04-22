@@ -106,11 +106,11 @@ export default function HomePage() {
                         From trauma recovery to school retention, we build responses that work.
                     </p>
                     <div className={styles.heroActions}>
-                        <Link to="/contact" className="btn-premium">
-                            Support a Girl <Heart size={18} style={{ marginLeft: 8 }} />
+                        <Link to="/donate" className="btn-premium">
+                            Donate Now <Heart size={18} style={{ marginLeft: 8 }} />
                         </Link>
-                        <Link to="/our-story" className="btn-glass" style={{ color: 'var(--text-primary)' }}>
-                            Explore Our Mission
+                        <Link to="/contact" className="btn-secondary">
+                            Get Involved
                         </Link>
                     </div>
                 </div>

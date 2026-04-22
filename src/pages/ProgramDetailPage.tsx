@@ -3,6 +3,7 @@ import { ArrowLeft, Heart } from 'lucide-react';
 import { PROGRAM_DETAIL_MAP } from './programDetailData';
 import type { SubSection, Section } from './programDetailData';
 import styles from './ProgramDetailPage.module.css';
+import PageHero from '../components/PageHero';
 
 function SubSectionCard({ sub }: { sub: SubSection }) {
     return (

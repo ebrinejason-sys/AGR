@@ -1,35 +1,30 @@
 import { useState } from 'react';
 import { MapPin, Mail, MessageSquare, Phone, Send } from 'lucide-react';
 import styles from './ContactPage.module.css';
+import PageHero from '../components/PageHero';
 
 type ContactType = 'general' | 'mentor' | 'sponsor' | 'donate';
-
 type FormFields = {
     name: string; email: string; phone: string; message: string;
     profession: string; organization: string; contributionArea: string; mentorCapacity: string;
     orgName: string; contactPerson: string; sponsorType: string; budgetRange: string;
     donationType: string; donationIntent: string;
 };
-
 const EMPTY_FORM: FormFields = {
     name: '', email: '', phone: '', message: '',
     profession: '', organization: '', contributionArea: '', mentorCapacity: '',
     orgName: '', contactPerson: '', sponsorType: '', budgetRange: '',
     donationType: '', donationIntent: '',
 };
-
 const TAB_LABELS: Record<ContactType, string> = {
     general: 'General', mentor: 'Mentorship', sponsor: 'Sponsorship', donate: 'Partnership',
 };
-
 const TAB_DESCRIPTIONS: Record<ContactType, string> = {
     general: 'Send us a message for any general enquiry or feedback.',
     mentor: 'Share your expertise and guide the next generation of African girls.',
     sponsor: 'Partner with us to fund and sustain our programmes.',
     donate: 'Support our work through individual or corporate giving.',
 };
-
-import PageHero from '../components/PageHero';
 
 export default function ContactPage() {
     const [activeTab, setActiveTab] = useState<ContactType>('general');
@@ -69,7 +64,7 @@ export default function ContactPage() {
             <div className={styles.container}>
                 <section className={styles.contactSection}>
                     <div className={styles.contactGrid}>
-                        {/* ── Info Column ── */}
+                        {/* Info Column */}
                         <div className={styles.infoCol}>
                             <div className={styles.infoItem}>
                                 <span className={styles.infoLabel}>LOCATION</span>
@@ -78,7 +73,6 @@ export default function ContactPage() {
                                     Kiburara, Ibanda District, Uganda
                                 </div>
                             </div>
-
                             <div className={styles.infoItem}>
                                 <span className={styles.infoLabel}>EMAIL</span>
                                 <div className={styles.infoValue}>
@@ -86,7 +80,6 @@ export default function ContactPage() {
                                     <a href="mailto:africangirlriseltd@gmail.com" className={styles.infoLink}>africangirlriseltd@gmail.com</a>
                                 </div>
                             </div>
-
                             <div className={styles.infoItem}>
                                 <span className={styles.infoLabel}>DIRECT LINE</span>
                                 <div className={styles.infoValue}>
@@ -94,7 +87,6 @@ export default function ContactPage() {
                                     <a href="tel:+256703727965" className={styles.infoLink}>+256 703 727 965</a>
                                 </div>
                             </div>
-
                             <div className={styles.tabDescriptionBox}>
                                 <p className={styles.tabDescriptionText}>
                                     <MessageSquare size={18} style={{ marginBottom: 10, display: 'block', color: 'var(--accent-pink)' }} />
@@ -102,8 +94,7 @@ export default function ContactPage() {
                                 </p>
                             </div>
                         </div>
-
-                        {/* ── Form Column ── */}
+                        {/* Form Column */}
                         <div className={styles.formCard}>
                             <div className={styles.tabBar}>
                                 {(Object.keys(TAB_LABELS) as ContactType[]).map(tab => (
@@ -112,58 +103,52 @@ export default function ContactPage() {
                                     </button>
                                 ))}
                             </div>
-
                             <form className={styles.form} onSubmit={handleSubmit}>
                                 <div className={styles.inputGroup}>
                                     <label className={styles.inputLabel}>Full Name / Org</label>
                                     <input type="text" className={styles.input} required value={formData.name} onChange={set('name')} placeholder="Enter your name" />
                                 </div>
-                                {/* ...existing code... */}
-                                <label className={styles.inputLabel}>Email Address</label>
-                                <input type="email" className={styles.input} required value={formData.email} onChange={set('email')} placeholder="email@example.com" />
-                            </div>
-
-                            {activeTab === 'mentor' && (
                                 <div className={styles.inputGroup}>
-                                    <label className={styles.inputLabel}>Area of Expertise</label>
-                                    <select className={styles.input} required value={formData.contributionArea} onChange={set('contributionArea')}>
-                                        <option value="">Select an area</option>
-                                        <option value="Career Guidance">Career Guidance</option>
-                                        <option value="Academic Support">Academic Support</option>
-                                        <option value="Digital Skills">Digital Skills</option>
-                                        <option value="Mental Health">Mental Health</option>
-                                    </select>
+                                    <label className={styles.inputLabel}>Email Address</label>
+                                    <input type="email" className={styles.input} required value={formData.email} onChange={set('email')} placeholder="email@example.com" />
                                 </div>
-                            )}
-
-                            {activeTab === 'sponsor' && (
+                                {activeTab === 'mentor' && (
+                                    <div className={styles.inputGroup}>
+                                        <label className={styles.inputLabel}>Area of Expertise</label>
+                                        <select className={styles.input} required value={formData.contributionArea} onChange={set('contributionArea')}>
+                                            <option value="">Select an area</option>
+                                            <option value="Career Guidance">Career Guidance</option>
+                                            <option value="Academic Support">Academic Support</option>
+                                            <option value="Digital Skills">Digital Skills</option>
+                                            <option value="Mental Health">Mental Health</option>
+                                        </select>
+                                    </div>
+                                )}
+                                {activeTab === 'sponsor' && (
+                                    <div className={styles.inputGroup}>
+                                        <label className={styles.inputLabel}>Sponsorship Type</label>
+                                        <select className={styles.input} required value={formData.sponsorType} onChange={set('sponsorType')}>
+                                            <option value="">Select type</option>
+                                            <option value="Monetary">Monetary</option>
+                                            <option value="In-Kind">In-Kind</option>
+                                            <option value="Partnership">Partnership</option>
+                                        </select>
+                                    </div>
+                                )}
                                 <div className={styles.inputGroup}>
-                                    <label className={styles.inputLabel}>Sponsorship Type</label>
-                                    <select className={styles.input} required value={formData.sponsorType} onChange={set('sponsorType')}>
-                                        <option value="">Select type</option>
-                                        <option value="Monetary">Monetary</option>
-                                        <option value="In-Kind">In-Kind</option>
-                                        <option value="Partnership">Partnership</option>
-                                    </select>
+                                    <label className={styles.inputLabel}>Message</label>
+                                    <textarea rows={4} className={styles.input} required value={formData.message} onChange={set('message')} placeholder="How can we help?" />
                                 </div>
-                            )}
-
-                            <div className={styles.inputGroup}>
-                                <label className={styles.inputLabel}>Message</label>
-                                <textarea rows={4} className={styles.input} required value={formData.message} onChange={set('message')} placeholder="How can we help?" />
-                            </div>
-
-                            <button type="submit" className={`btn-premium ${styles.fullWidthButton}`} disabled={status === 'loading'}>
-                                {status === 'loading' ? 'Sending...' : 'Send Message'} <Send size={18} style={{ marginLeft: 10 }} />
-                            </button>
-
-                            {status === 'success' && <p className={styles.statusSuccess}>Message sent successfully.</p>}
-                            {status === 'error' && <p className={styles.statusError}>Failed to send. Please try again.</p>}
-                        </form>
+                                <button type="submit" className={`btn-premium ${styles.fullWidthButton}`} disabled={status === 'loading'}>
+                                    {status === 'loading' ? 'Sending...' : 'Send Message'} <Send size={18} style={{ marginLeft: 10 }} />
+                                </button>
+                                {status === 'success' && <p className={styles.statusSuccess}>Message sent successfully.</p>}
+                                {status === 'error' && <p className={styles.statusError}>Failed to send. Please try again.</p>}
+                            </form>
+                        </div>
                     </div>
-
-                </div>
-            </section>
-        </div>
+                </section>
+            </div>
+        </>
     );
 }
