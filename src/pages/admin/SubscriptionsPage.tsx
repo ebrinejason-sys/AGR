@@ -11,7 +11,8 @@ import {
     Calendar,
     Search,
     Filter,
-    SendHorizonal
+    SendHorizonal,
+    X
 } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import styles from './SubscriptionsPage.module.css';

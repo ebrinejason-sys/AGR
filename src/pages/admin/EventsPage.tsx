@@ -42,7 +42,7 @@ const EMPTY_FORM = {
     goal_amount: '', 
     goal_text: '', 
     donation_link: '', 
-    status: 'upcoming' as const, 
+    status: 'upcoming' as 'upcoming' | 'completed' | 'cancelled', 
     cover_image: '', 
     achievements: '' 
 };
