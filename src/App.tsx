@@ -36,7 +36,7 @@ const AdminContactsPage = lazy(() => import('@/pages/admin/ContactsPage'));
 
 // Lightweight loading fallback
 function PageLoader() {
-  return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>;
+  return <div className="app-loading">Loading...</div>;
 }
 
 function detectIOS(): boolean {

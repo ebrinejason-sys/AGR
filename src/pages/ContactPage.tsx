@@ -115,7 +115,7 @@ export default function ContactPage() {
                                 {activeTab === 'mentor' && (
                                     <div className={styles.inputGroup}>
                                         <label className={styles.inputLabel}>Area of Expertise</label>
-                                        <select className={styles.input} required value={formData.contributionArea} onChange={set('contributionArea')}>
+                                        <select className={styles.input} required value={formData.contributionArea} onChange={set('contributionArea')} aria-label="Contribution Area">
                                             <option value="">Select an area</option>
                                             <option value="Career Guidance">Career Guidance</option>
                                             <option value="Academic Support">Academic Support</option>
@@ -127,7 +127,7 @@ export default function ContactPage() {
                                 {activeTab === 'sponsor' && (
                                     <div className={styles.inputGroup}>
                                         <label className={styles.inputLabel}>Sponsorship Type</label>
-                                        <select className={styles.input} required value={formData.sponsorType} onChange={set('sponsorType')}>
+                                        <select className={styles.input} required value={formData.sponsorType} onChange={set('sponsorType')} aria-label="Sponsor Type">
                                             <option value="">Select type</option>
                                             <option value="Monetary">Monetary</option>
                                             <option value="In-Kind">In-Kind</option>
