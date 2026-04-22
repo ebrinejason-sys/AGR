@@ -29,6 +29,8 @@ const TAB_DESCRIPTIONS: Record<ContactType, string> = {
     donate: 'Support our work through individual or corporate giving.',
 };
 
+import PageHero from '../components/PageHero';
+
 export default function ContactPage() {
     const [activeTab, setActiveTab] = useState<ContactType>('general');
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -58,66 +60,65 @@ export default function ContactPage() {
     };
 
     return (
-        <div className={styles.container}>
-            <section className={styles.contactSection}>
-                <div className={styles.contactGrid}>
-                    
-                    {/* ── Info Column ── */}
-                    <div className={styles.infoCol}>
-                        <h1 className="heading-section">Let's <span className="text-gradient">Connect.</span></h1>
-                        <p className={styles.secDesc} style={{ marginTop: '1.5rem', marginBottom: '3rem' }}>
-                            Reach out to our team in Uganda for mentorship, sponsorship, or general enquiries.
-                        </p>
-                        
-                        <div className={styles.infoItem}>
-                            <span className={styles.infoLabel}>LOCATION</span>
-                            <div className={styles.infoValue}>
-                                <MapPin size={18} style={{ marginRight: 10, verticalAlign: 'middle' }} />
-                                Kiburara, Ibanda District, Uganda
+        <>
+            <PageHero
+                eyebrow="Contact Us"
+                title={<>Let's <span className="text-gradient">Connect.</span></>}
+                description="Reach out to our team in Uganda for mentorship, sponsorship, or general enquiries."
+            />
+            <div className={styles.container}>
+                <section className={styles.contactSection}>
+                    <div className={styles.contactGrid}>
+                        {/* ── Info Column ── */}
+                        <div className={styles.infoCol}>
+                            <div className={styles.infoItem}>
+                                <span className={styles.infoLabel}>LOCATION</span>
+                                <div className={styles.infoValue}>
+                                    <MapPin size={18} style={{ marginRight: 10, verticalAlign: 'middle' }} />
+                                    Kiburara, Ibanda District, Uganda
+                                </div>
+                            </div>
+
+                            <div className={styles.infoItem}>
+                                <span className={styles.infoLabel}>EMAIL</span>
+                                <div className={styles.infoValue}>
+                                    <Mail size={18} style={{ marginRight: 10, verticalAlign: 'middle' }} />
+                                    <a href="mailto:africangirlriseltd@gmail.com" className={styles.infoLink}>africangirlriseltd@gmail.com</a>
+                                </div>
+                            </div>
+
+                            <div className={styles.infoItem}>
+                                <span className={styles.infoLabel}>DIRECT LINE</span>
+                                <div className={styles.infoValue}>
+                                    <Phone size={18} style={{ marginRight: 10, verticalAlign: 'middle' }} />
+                                    <a href="tel:+256703727965" className={styles.infoLink}>+256 703 727 965</a>
+                                </div>
+                            </div>
+
+                            <div className={styles.tabDescriptionBox}>
+                                <p className={styles.tabDescriptionText}>
+                                    <MessageSquare size={18} style={{ marginBottom: 10, display: 'block', color: 'var(--accent-pink)' }} />
+                                    {TAB_DESCRIPTIONS[activeTab]}
+                                </p>
                             </div>
                         </div>
 
-                        <div className={styles.infoItem}>
-                            <span className={styles.infoLabel}>EMAIL</span>
-                            <div className={styles.infoValue}>
-                                <Mail size={18} style={{ marginRight: 10, verticalAlign: 'middle' }} />
-                                <a href="mailto:africangirlriseltd@gmail.com" className={styles.infoLink}>africangirlriseltd@gmail.com</a>
+                        {/* ── Form Column ── */}
+                        <div className={styles.formCard}>
+                            <div className={styles.tabBar}>
+                                {(Object.keys(TAB_LABELS) as ContactType[]).map(tab => (
+                                    <button key={tab} className={`${styles.tab} ${activeTab === tab ? styles.tabActive : ''}`} onClick={() => handleTabChange(tab)}>
+                                        {TAB_LABELS[tab]}
+                                    </button>
+                                ))}
                             </div>
-                        </div>
 
-                        <div className={styles.infoItem}>
-                            <span className={styles.infoLabel}>DIRECT LINE</span>
-                            <div className={styles.infoValue}>
-                                <Phone size={18} style={{ marginRight: 10, verticalAlign: 'middle' }} />
-                                <a href="tel:+256703727965" className={styles.infoLink}>+256 703 727 965</a>
-                            </div>
-                        </div>
-
-                        <div className={styles.tabDescriptionBox}>
-                            <p className={styles.tabDescriptionText}>
-                                <MessageSquare size={18} style={{ marginBottom: 10, display: 'block', color: 'var(--accent-pink)' }} />
-                                {TAB_DESCRIPTIONS[activeTab]}
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* ── Form Column ── */}
-                    <div className={styles.formCard}>
-                        <div className={styles.tabBar}>
-                            {(Object.keys(TAB_LABELS) as ContactType[]).map(tab => (
-                                <button key={tab} className={`${styles.tab} ${activeTab === tab ? styles.tabActive : ''}`} onClick={() => handleTabChange(tab)}>
-                                    {TAB_LABELS[tab]}
-                                </button>
-                            ))}
-                        </div>
-
-                        <form className={styles.form} onSubmit={handleSubmit}>
-                            <div className={styles.inputGroup}>
-                                <label className={styles.inputLabel}>Full Name / Org</label>
-                                <input type="text" className={styles.input} required value={formData.name} onChange={set('name')} placeholder="Enter your name" />
-                            </div>
-                            
-                            <div className={styles.inputGroup}>
+                            <form className={styles.form} onSubmit={handleSubmit}>
+                                <div className={styles.inputGroup}>
+                                    <label className={styles.inputLabel}>Full Name / Org</label>
+                                    <input type="text" className={styles.input} required value={formData.name} onChange={set('name')} placeholder="Enter your name" />
+                                </div>
+                                {/* ...existing code... */}
                                 <label className={styles.inputLabel}>Email Address</label>
                                 <input type="email" className={styles.input} required value={formData.email} onChange={set('email')} placeholder="email@example.com" />
                             </div>
