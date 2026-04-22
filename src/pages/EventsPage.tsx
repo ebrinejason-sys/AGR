@@ -47,7 +47,7 @@ function EventDetailModal({ event, onClose, onDonate }: { event: Event | null; o
     return (
         <div className={styles.modalOverlay} onClick={onClose}>
             <div className={styles.modal} onClick={e => e.stopPropagation()}>
-                <button className={styles.modalClose} onClick={onClose}><X size={24} /></button>
+                <button className={styles.modalClose} onClick={onClose} aria-label="Close"><X size={24} /></button>
                 <div className={styles.modalCover}>
                     {event.cover_image && <img src={event.cover_image} alt={event.title} className={styles.modalImg} />}
                 </div>

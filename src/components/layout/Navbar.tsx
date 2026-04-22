@@ -102,7 +102,7 @@ export default function Navbar() {
                             className={styles.mobileToggle}
                             onClick={() => setIsOpen(o => !o)}
                             aria-label={isOpen ? 'Close menu' : 'Open menu'}
-                            aria-expanded={isOpen}
+                            aria-expanded={isOpen ? 'true' : 'false'}
                         >
                             {isOpen ? <X size={20} /> : <Menu size={20} />}
                         </button>
@@ -144,7 +144,7 @@ export default function Navbar() {
                         <button
                             className={`${styles.mobileGroupBtn} ${isAboutGroup ? styles.mobileGroupBtnActive : ''}`}
                             onClick={() => setAboutOpen(o => !o)}
-                            aria-expanded={aboutOpen}
+                            aria-expanded={aboutOpen ? 'true' : 'false'}
                         >
                             <span>About</span>
                             <ChevronDown size={16} className={`${styles.mobileChevron} ${aboutOpen ? styles.mobileChevronOpen : ''}`} />
@@ -163,7 +163,7 @@ export default function Navbar() {
                         <button
                             className={`${styles.mobileGroupBtn} ${isProgramsGroup ? styles.mobileGroupBtnActive : ''}`}
                             onClick={() => setProgramsOpen(o => !o)}
-                            aria-expanded={programsOpen}
+                            aria-expanded={programsOpen ? 'true' : 'false'}
                         >
                             <span>Programs</span>
                             <ChevronDown size={16} className={`${styles.mobileChevron} ${programsOpen ? styles.mobileChevronOpen : ''}`} />

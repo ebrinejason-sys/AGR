@@ -5,6 +5,7 @@
     border-bottom: 1px solid var(--border-color);
     padding: 14px 0;
     overflow: hidden;
+    -webkit-user-select: none;
     user-select: none;
 }
 
