@@ -179,8 +179,8 @@ input, textarea, select {
 /* Card Styles */
 .card {
   background: var(--card-bg);
-  border-radius: 16px;
-  padding: 1.5rem;
+  border-radius: 8px;
+  padding: 1rem;
   border: 1px solid var(--border-color);
   box-shadow: 0 2px 16px rgba(26, 26, 46, 0.06);
   transition: all 0.3s ease;

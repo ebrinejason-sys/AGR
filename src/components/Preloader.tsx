@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Preloader.module.css';
 
@@ -11,7 +11,8 @@ type NetworkInformationLike = {
     effectiveType?: string;
 };
 
-export default function Preloader({ skip = false }: PreloaderProps) {
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+    const DonationModal = lazy(() => import('@/components/DonationModal'));
     // Initialise directly from the prop so the heavy animated DOM is never
     // injected into the page when skip=true (iOS / safe-mode), avoiding a
     // one-frame flash of the complex SVG that can spike GPU memory on iOS.
@@ -150,10 +151,16 @@ export default function Preloader({ skip = false }: PreloaderProps) {
             <div className={styles.quickLinks}>
                 <Link to="/" className={styles.quickLink} onClick={handleSkip}>Home</Link>
                 <span className={styles.quickLinkDivider} />
-                <Link to="/donate" className={styles.quickLink}>Donate</Link>
+                <button className={styles.quickLink} type="button" onClick={() => setIsDonationModalOpen(true)}>Donate</button>
                 <span className={styles.quickLinkDivider} />
                 <Link to="/programs" className={styles.quickLink}>Programs</Link>
             </div>
+
+            {isDonationModalOpen && (
+                <Suspense fallback={null}>
+                    <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+                </Suspense>
+            )}
 
             {/* Progress bar */}
             <div className={styles.progressTrack}>

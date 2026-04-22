@@ -13,7 +13,6 @@ const ProgramDetailPage = lazy(() => import('@/pages/ProgramDetailPage'));
 const StoriesPage = lazy(() => import('@/pages/StoriesPage'));
 const EventsPage = lazy(() => import('@/pages/EventsPage'));
 const PayPage = lazy(() => import('@/pages/PayPage'));
-const DonatePage = lazy(() => import('@/pages/DonatePage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const ContactAdvocatePage = lazy(() => import('@/pages/ContactAdvocatePage'));
 const ContactMentorPage = lazy(() => import('@/pages/ContactMentorPage'));
@@ -63,7 +62,6 @@ function AppRoutes({ isIOSDevice }: { isIOSDevice: boolean }) {
             <Route path="/stories" element={<StoriesPage />} />
             <Route path="/events" element={<EventsPage />} />
             <Route path="/pay" element={<PayPage />} />
-            <Route path="/donate" element={<DonatePage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/contact/advocate" element={<ContactAdvocatePage />} />
             <Route path="/contact/mentor" element={<ContactMentorPage />} />

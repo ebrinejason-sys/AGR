@@ -2,11 +2,15 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { useState as useModalState, lazy, Suspense } from 'react';
 import styles from './Navbar.module.css';
+
+const DonationModal = lazy(() => import('@/components/DonationModal'));
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [isDonationModalOpen, setIsDonationModalOpen] = useModalState(false);
     const location = useLocation();
 
     const closeMenu = () => setIsOpen(false);
@@ -60,7 +64,7 @@ export default function Navbar() {
                     
                     <div className={styles.actions}>
                         <ThemeToggle />
-                        <Link to="/contact" className="btn-premium">Support Us</Link>
+                        <button className="btn-premium" type="button" onClick={() => setIsDonationModalOpen(true)}>Support Us</button>
                     </div>
                 </div>
 
@@ -77,9 +81,14 @@ export default function Navbar() {
                 <Link to="/contact" onClick={closeMenu}>Contact</Link>
                 <div className={styles.mobileActions}>
                     <ThemeToggle />
-                    <Link to="/contact" className="btn-premium" onClick={closeMenu}>Support Us</Link>
+                    <button className="btn-premium" type="button" onClick={() => { setIsDonationModalOpen(true); closeMenu(); }}>Support Us</button>
                 </div>
             </div>
+        {isDonationModalOpen && (
+            <Suspense fallback={null}>
+                <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+            </Suspense>
+        )}
         </header>
     );
 }

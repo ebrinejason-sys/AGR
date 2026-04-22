@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useState, lazy, Suspense } from 'react';
 import { Send, MapPin, Mail, Phone, ExternalLink } from 'lucide-react';
 import styles from './Footer.module.css';
 
-export default function Footer() {
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+    const DonationModal = lazy(() => import('@/components/DonationModal'));
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [message, setMessage] = useState('');
@@ -123,7 +125,7 @@ export default function Footer() {
                         <ul className={styles.linksList}>
                             <li><Link to="/contact">Get Involved</Link></li>
                             <li><Link to="/contact">Partner With Us</Link></li>
-                            <li><Link to="/contact">Donate</Link></li>
+                            <li><button type="button" className={styles.linkBtn} onClick={() => setIsDonationModalOpen(true)}>Donate</button></li>
                             <li>
                                 <a href="https://flutterwave.com" target="_blank" rel="noopener noreferrer">
                                     Flutterwave <ExternalLink size={12} />
@@ -132,6 +134,12 @@ export default function Footer() {
                         </ul>
                     </div>
                 </div>
+
+                {isDonationModalOpen && (
+                    <Suspense fallback={null}>
+                        <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+                    </Suspense>
+                )}
 
                 <div className={styles.bottomBar}>
                     <div className={styles.legal}>
