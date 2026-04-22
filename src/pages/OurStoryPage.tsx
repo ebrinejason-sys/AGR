@@ -1,9 +1,14 @@
+import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import styles from './OurStoryPage.module.css';
 
+const DonationModal = lazy(() => import('@/components/DonationModal'));
+
 export default function OurStoryPage() {
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+
     return (
         <div className={styles.container}>
             <PageHero
@@ -124,7 +129,7 @@ export default function OurStoryPage() {
                         <div className={styles.ctaCard}>
                             <h3>Donate</h3>
                             <p>Fund a girl's journey for a year. Your investment transforms generations, not just individuals.</p>
-                            <Link to="/contact" className="btn-premium">Contribute Now</Link>
+                            <button className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>Contribute Now</button>
                         </div>
                         <div className={styles.ctaCard}>
                             <h3>Partner</h3>
@@ -140,6 +145,11 @@ export default function OurStoryPage() {
                 </div>
             </section>
 
+            {isDonationModalOpen && (
+                <Suspense fallback={null}>
+                    <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+                </Suspense>
+            )}
         </div>
     );
 }

@@ -1,9 +1,12 @@
+import { lazy, Suspense, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Heart } from 'lucide-react';
 import { PROGRAM_DETAIL_MAP } from './programDetailData';
 import type { SubSection, Section } from './programDetailData';
 import styles from './ProgramDetailPage.module.css';
 import PageHero from '../components/PageHero';
+
+const DonationModal = lazy(() => import('@/components/DonationModal'));
 
 function SubSectionCard({ sub }: { sub: SubSection }) {
     return (
@@ -30,6 +33,7 @@ function SubSectionCard({ sub }: { sub: SubSection }) {
 }
 
 export default function ProgramDetailPage() {
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
     const { id } = useParams<{ id: string }>();
     const detail = id ? PROGRAM_DETAIL_MAP[id] : null;
 
@@ -105,10 +109,16 @@ export default function ProgramDetailPage() {
                 <Link to="/programs" className={styles.btnBack}>
                     <ArrowLeft size={18} style={{ marginRight: 8, verticalAlign: 'middle' }} /> Back to Programs
                 </Link>
-                <Link to="/contact" className="btn-premium">
+                <button className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>
                     Support This Program <Heart size={18} style={{ marginLeft: 8 }} />
-                </Link>
+                </button>
             </div>
+
+            {isDonationModalOpen && (
+                <Suspense fallback={null}>
+                    <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+                </Suspense>
+            )}
         </div>
     );
 }

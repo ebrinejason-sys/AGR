@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { useState as useModalState, lazy, Suspense } from 'react';
 import styles from './Navbar.module.css';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
@@ -10,7 +9,7 @@ const DonationModal = lazy(() => import('@/components/DonationModal'));
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [isDonationModalOpen, setIsDonationModalOpen] = useModalState(false);
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
     const location = useLocation();
 
     const closeMenu = () => setIsOpen(false);

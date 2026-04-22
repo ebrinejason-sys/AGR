@@ -1,7 +1,10 @@
+import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ProgramsPage.module.css';
 import PageHero from '@/components/PageHero';
 import ProgramsListClient from '@/components/ProgramsListClient';
+
+const DonationModal = lazy(() => import('@/components/DonationModal'));
 
 const PILLARS = [
     { number: '01', title: 'Healing the Ground', subtitle: 'Mental Health & Trauma', quote: '"You cannot climb when you are bleeding."' },
@@ -11,6 +14,8 @@ const PILLARS = [
 ];
 
 export default function ProgramsPage() {
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+
     return (
         <div className={styles.container}>
             <PageHero
@@ -61,11 +66,16 @@ export default function ProgramsPage() {
                 <h2 className="heading-section">Invest in a Girl&apos;s Future</h2>
                 <p className={styles.ctaCopy}>Your support helps fund practical care and pathways for girls to lead with confidence.</p>
                 <div className={styles.ctaActions}>
-                    <Link to="/contact" className="btn-white">Support a Girl</Link>
-                    <Link to="/contact" className="btn-glass" style={{ borderColor: 'rgba(255,255,255,0.4)' }}>Partner With Us</Link>
+                    <button type="button" className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>Support a Girl</button>
+                    <Link to="/contact/partner" className="btn-glass" style={{ borderColor: 'rgba(255,255,255,0.4)' }}>Partner With Us</Link>
                 </div>
             </section>
 
+            {isDonationModalOpen && (
+                <Suspense fallback={null}>
+                    <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+                </Suspense>
+            )}
         </div>
     );
 }

@@ -1,7 +1,10 @@
+import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Scale, Info, Users, Book, ArrowRight } from 'lucide-react';
 import PageHero from '../components/PageHero';
 import styles from './LegalAdvocacyPage.module.css';
+
+const DonationModal = lazy(() => import('@/components/DonationModal'));
 
 const INITIATIVES = [
     {
@@ -40,6 +43,7 @@ const INITIATIVES = [
 ];
 
 export default function LegalAdvocacyPage() {
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
     return (
         <div className={styles.container}>
             
@@ -143,11 +147,16 @@ export default function LegalAdvocacyPage() {
                     Your contribution ensures that no girl in our community has to suffer in silence.
                 </p>
                 <div className={styles.ctaActions}>
-                    <Link to="/contact" className="btn-premium">Support Legal Rights</Link>
+                    <button type="button" className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>Support Legal Rights</button>
                     <Link to="/contact" className="btn-glass" style={{ color: 'var(--text-primary)' }}>Contact Our Team</Link>
                 </div>
             </section>
 
+            {isDonationModalOpen && (
+                <Suspense fallback={null}>
+                    <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+                </Suspense>
+            )}
         </div>
     );
 }

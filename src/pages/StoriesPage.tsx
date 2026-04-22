@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { User, Calendar, ArrowRight } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import PageHero from '@/components/PageHero';
 import styles from './StoriesPage.module.css';
+
+const DonationModal = lazy(() => import('@/components/DonationModal'));
 
 type Story = { id: string; title: string; content: string; author: string; image_url?: string; created_at: string };
 
@@ -43,6 +45,7 @@ function StoryCard({ story }: { story: Story }) {
 export default function StoriesPage() {
     const [stories, setStories] = useState<Story[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
     useEffect(() => {
         fetch('/api/public/data')
@@ -67,6 +70,20 @@ export default function StoriesPage() {
                     </div>
                 )}
             </section>
+
+            <section className={styles.ctaBanner}>
+                <p className={styles.ctaBannerEyebrow}>Every Story Continues</p>
+                <h2 className={styles.ctaBannerTitle}>Be the reason a girl <span className="text-gradient">writes her next chapter</span></h2>
+                <button className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>
+                    Support a Story <ArrowRight size={18} style={{ marginLeft: 8 }} />
+                </button>
+            </section>
+
+            {isDonationModalOpen && (
+                <Suspense fallback={null}>
+                    <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+                </Suspense>
+            )}
         </div>
     );
 }

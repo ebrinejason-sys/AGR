@@ -1,6 +1,6 @@
 import { lazy, Suspense, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Mail, MapPin, Phone, Send } from 'lucide-react';
+import { Mail, MapPin, Phone, Send } from 'lucide-react';
 import styles from './Footer.module.css';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
@@ -135,11 +135,7 @@ export default function Footer() {
                                     Donate
                                 </button>
                             </li>
-                            <li>
-                                <a href="https://flutterwave.com" target="_blank" rel="noopener noreferrer">
-                                    Flutterwave <ExternalLink size={12} />
-                                </a>
-                            </li>
+                            <li><Link to="/contact/partner">Become a Sponsor</Link></li>
                         </ul>
                     </div>
                 </div>
