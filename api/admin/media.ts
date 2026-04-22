@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getAdminSupabase } from '../../src/lib/supabase.server';
-import { requireAdminSession, checkSupabaseAdminConfig } from '../../src/lib/admin-api';
-import { getMediaBucketName, normalizeMediaUrl, normalizeMediaUrls } from '../../src/lib/media';
+import { getAdminSupabase } from '../../src/lib/supabase.server.js';
+import { requireAdminSession, checkSupabaseAdminConfig } from '../../src/lib/admin-api.js';
+import { getMediaBucketName, normalizeMediaUrl, normalizeMediaUrls } from '../../src/lib/media.js';
 
 // Disable Vercel body parser so we can handle raw multipart ourselves
 export const config = { api: { bodyParser: false } };

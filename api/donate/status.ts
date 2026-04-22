@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getFlutterwaveChargeStatus } from '../../src/lib/flutterwave';
-import { rateLimit, getIPFromHeader } from '../../src/lib/rate-limit';
-import { getMarzPayCollectionStatus } from '../../src/lib/marzpay';
+import { getFlutterwaveChargeStatus } from '../../src/lib/flutterwave.js';
+import { rateLimit, getIPFromHeader } from '../../src/lib/rate-limit.js';
+import { getMarzPayCollectionStatus } from '../../src/lib/marzpay.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });

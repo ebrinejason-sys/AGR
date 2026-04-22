@@ -130,12 +130,29 @@ export default function HomePage() {
                     ))}
                 </div>
             </section>
+            
+            {/* ─── Community Marquee ─── */}
+            <section className={styles.marqueeSection}>
+                <div className={styles.marqueeContent}>
+                    {[1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4].map((num, i) => (
+                        <div key={i} className={styles.marqueeItem}>
+                            <img 
+                                src={`/images/agr-photo-${num}.jpg`} 
+                                alt={`Community ${i}`} 
+                                className={styles.marqueeImage} 
+                                loading="lazy"
+                            />
+                        </div>
+                    ))}
+                </div>
+            </section>
+
 
             {/* ─── Pathways Section ─── */}
             <section className={styles.pathwaysSection}>
                 <div className={styles.secHeader}>
-                    <span className={styles.eyebrow}>The Core Pathways</span>
-                    <h2 className={styles.secTitle}>Four pillars of lasting change.</h2>
+                    <span className="subheading">The Core Pathways</span>
+                    <h2 className="heading-section">Four pillars of <span className="text-gradient">lasting change</span>.</h2>
                     <p className={styles.secDesc}>
                         We focus on four strategic areas that address the root causes of school dropout and gender inequality.
                     </p>

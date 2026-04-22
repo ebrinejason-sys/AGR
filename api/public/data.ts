@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getAdminSupabase } from '../../src/lib/supabase.server';
-import { normalizeMediaUrls, normalizeRichTextMediaUrls } from '../../src/lib/media';
+import { getAdminSupabase } from '../../src/lib/supabase.server.js';
+import { normalizeMediaUrls, normalizeRichTextMediaUrls } from '../../src/lib/media.js';
 
 export default async function handler(_req: VercelRequest, res: VercelResponse) {
     try {
