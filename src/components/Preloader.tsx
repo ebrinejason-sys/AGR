@@ -168,4 +168,4 @@ type NetworkInformationLike = {
             </div>
         </div>
     );
-}
+// removed stray closing brace

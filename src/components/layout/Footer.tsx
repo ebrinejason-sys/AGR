@@ -153,4 +153,4 @@ import styles from './Footer.module.css';
             </div>
         </footer>
     );
-}
+// removed stray closing brace
