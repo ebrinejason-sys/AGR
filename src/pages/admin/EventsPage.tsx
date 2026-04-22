@@ -1,12 +1,50 @@
 import { useEffect, useState, useRef } from 'react';
-import { PlusCircle, Edit2, Trash2, Image as ImageIcon, Loader2, UploadCloud, X } from 'lucide-react';
+import { 
+    PlusCircle, 
+    Edit2, 
+    Trash2, 
+    Image as ImageIcon, 
+    Loader2, 
+    UploadCloud, 
+    X,
+    Calendar,
+    MapPin,
+    Target,
+    Link as LinkIcon,
+    CheckCircle2,
+    AlertCircle
+} from 'lucide-react';
 import { formatDate, safeDate } from '@/lib/utils';
 import styles from './EventsPage.module.css';
 
 type GalleryImage = { id: string; url: string; description: string };
-type EventItem = { id: string; title: string; description: string; event_date: string; goal_amount: number; goal_text: string; current_amount: number; status: 'upcoming' | 'completed' | 'cancelled'; cover_image?: string; achievements?: string; location?: string; donation_link?: string };
+type EventItem = { 
+    id: string; 
+    title: string; 
+    description: string; 
+    event_date: string; 
+    goal_amount: number; 
+    goal_text: string; 
+    current_amount: number; 
+    status: 'upcoming' | 'completed' | 'cancelled'; 
+    cover_image?: string; 
+    achievements?: string; 
+    location?: string; 
+    donation_link?: string 
+};
 
-const EMPTY_FORM = { title: '', description: '', event_date: '', location: '', goal_amount: '', goal_text: '', donation_link: '', status: 'upcoming', cover_image: '', achievements: '' };
+const EMPTY_FORM = { 
+    title: '', 
+    description: '', 
+    event_date: '', 
+    location: '', 
+    goal_amount: '', 
+    goal_text: '', 
+    donation_link: '', 
+    status: 'upcoming' as const, 
+    cover_image: '', 
+    achievements: '' 
+};
 
 export default function AdminEventsPage() {
     const [showForm, setShowForm] = useState(false);
@@ -16,10 +54,10 @@ export default function AdminEventsPage() {
     const [error, setError] = useState<string | null>(null);
     const [gallery, setGallery] = useState<GalleryImage[]>([]);
     const [uploadingGallery, setUploadingGallery] = useState(false);
-    const galleryInputRef = useRef<HTMLInputElement>(null);
     const [editId, setEditId] = useState<string | null>(null);
     const [formData, setFormData] = useState(EMPTY_FORM);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const galleryInputRef = useRef<HTMLInputElement>(null);
 
     const fetchEvents = async () => {
         try {
@@ -45,14 +83,29 @@ export default function AdminEventsPage() {
 
     const handleEdit = (ev: EventItem) => {
         setEditId(ev.id);
-        setFormData({ title: ev.title, description: ev.description || '', event_date: safeDate(ev.event_date).toISOString().split('T')[0], location: ev.location || '', goal_amount: ev.goal_amount ? ev.goal_amount.toString() : '', goal_text: ev.goal_text || '', donation_link: ev.donation_link || '', status: ev.status, cover_image: ev.cover_image || '', achievements: ev.achievements || '' });
+        setFormData({ 
+            title: ev.title, 
+            description: ev.description || '', 
+            event_date: safeDate(ev.event_date).toISOString().split('T')[0], 
+            location: ev.location || '', 
+            goal_amount: ev.goal_amount ? ev.goal_amount.toString() : '', 
+            goal_text: ev.goal_text || '', 
+            donation_link: ev.donation_link || '', 
+            status: ev.status, 
+            cover_image: ev.cover_image || '', 
+            achievements: ev.achievements || '' 
+        });
         setGallery([]);
         if (ev.status === 'completed') fetchGallery(ev.id);
         setShowForm(true);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const handleAddNew = () => { setEditId(null); setFormData(EMPTY_FORM); setGallery([]); setShowForm(true); };
+    const handleAddNew = () => { 
+        setEditId(null); 
+        setFormData(EMPTY_FORM); 
+        setGallery([]); 
+        setShowForm(true); 
+    };
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files || e.target.files.length === 0) return;
@@ -104,12 +157,6 @@ export default function AdminEventsPage() {
         } catch { alert('Network error while saving event.'); }
     };
 
-    const toggleStatus = async (id: string, newStatus: string) => {
-        const res = await fetch('/api/admin?action=events', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, status: newStatus }) });
-        if (res.status === 401) { window.location.assign('/admin/login'); return; }
-        await fetchEvents();
-    };
-
     const deleteEvent = async (id: string) => {
         if (!confirm('Delete this event?')) return;
         const res = await fetch('/api/admin?action=events', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) });
@@ -119,135 +166,187 @@ export default function AdminEventsPage() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.header}>
+            <div className={styles.pageHeader}>
                 <div>
-                    <h1 className={styles.title}>Events Management</h1>
-                    <p className={styles.subtitle}>Create events, upload cover images, and manage achievements.</p>
-                    {error && <p className={styles.subtitle}>{error}</p>}
+                    <h1 className={styles.pageTitle}>Events Management</h1>
+                    <p className={styles.pageSubtitle}>Schedule, update, and showcase your community events.</p>
                 </div>
-                <button className={styles.createBtn} onClick={handleAddNew}><PlusCircle size={20} /> New Event</button>
+                {!showForm && (
+                    <button className={styles.createBtn} onClick={handleAddNew}>
+                        <PlusCircle size={20} />
+                        <span>Create Event</span>
+                    </button>
+                )}
             </div>
 
-            {showForm && (
-                <div className={styles.formCard}>
-                    <h2>{editId ? 'Edit Event' : 'Create New Event'}</h2>
-                    <form className={styles.form} onSubmit={saveEvent}>
-                        <div className={styles.formRow}>
-                            <div className={styles.inputGroup}><label>Event Title</label><input type="text" required placeholder="e.g. Annual Empowerment Gala" value={formData.title} onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))} /></div>
-                            <div className={styles.inputGroup}><label>Event Date</label><input type="date" required value={formData.event_date} onChange={e => setFormData(prev => ({ ...prev, event_date: e.target.value }))} /></div>
-                        </div>
-                        <div className={styles.inputGroup}><label>Location</label><input type="text" placeholder="e.g. Kiburara Community Hall, Ibanda District" value={formData.location} onChange={e => setFormData(prev => ({ ...prev, location: e.target.value }))} /></div>
-                        <div className={styles.inputGroup}><label>Description</label><textarea rows={4} required placeholder="What is this event about?" value={formData.description} onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))} /></div>
-                        <div className={styles.formRow}>
-                            <div className={styles.inputGroup}><label>Funding Goal (UGX) — optional</label><input type="number" min="0" placeholder="e.g. 5000000" value={formData.goal_amount} onChange={e => setFormData(prev => ({ ...prev, goal_amount: e.target.value }))} /></div>
-                            <div className={styles.inputGroup}><label>Goal / Target — optional text</label><input type="text" placeholder="e.g. 50 girls trained" value={formData.goal_text} onChange={e => setFormData(prev => ({ ...prev, goal_text: e.target.value }))} /></div>
-                        </div>
-                        <div className={styles.formRow}>
-                            <div className={styles.inputGroup}>
-                                <label>Event Status</label>
-                                <select className={styles.statusSelect} value={formData.status} onChange={e => setFormData(prev => ({ ...prev, status: e.target.value }))} style={{ padding: '1rem', width: '100%' }}>
-                                    <option value="upcoming">Upcoming</option>
-                                    <option value="completed">Completed</option>
-                                    <option value="cancelled">Cancelled</option>
-                                </select>
-                            </div>
-                            <div className={styles.inputGroup}><label>External Donation Link — optional</label><input type="url" placeholder="https://give.example.com/event" value={formData.donation_link} onChange={e => setFormData(prev => ({ ...prev, donation_link: e.target.value }))} /></div>
-                        </div>
-
-                        <div className={styles.inputGroup} style={{ border: '1px dashed var(--border-color)', padding: '1.5rem', borderRadius: '12px' }}>
-                            <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span>Cover Image</span>
-                                <button type="button" className={styles.iconBtn} onClick={() => fileInputRef.current?.click()} disabled={uploadingImage}>
-                                    {uploadingImage ? <Loader2 size={16} className="spin" /> : <ImageIcon size={16} />}
-                                    <span style={{ marginLeft: '8px' }}>{formData.cover_image ? 'Change Image' : 'Upload Image'}</span>
-                                </button>
-                            </label>
-                            <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
-                            {formData.cover_image && (
-                                <div style={{ marginTop: '1rem', position: 'relative', height: '180px', borderRadius: '8px', overflow: 'hidden' }}>
-                                    <img src={formData.cover_image} alt="Cover Preview" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                                </div>
-                            )}
-                        </div>
-
-                        {formData.status === 'completed' && (
-                            <div className={styles.inputGroup} style={{ background: 'rgba(76, 175, 80, 0.05)', padding: '1.5rem', borderRadius: '12px', borderLeft: '4px solid #4caf50' }}>
-                                <label>Achievements (Completed Event)</label>
-                                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Describe what was accomplished at this event.</p>
-                                <textarea rows={4} placeholder="We successfully raised 10 million UGX..." value={formData.achievements} onChange={e => setFormData(prev => ({ ...prev, achievements: e.target.value }))} style={{ background: 'var(--bg-color)' }} />
-                            </div>
-                        )}
-
-                        {editId && formData.status === 'completed' && (
-                            <div className={styles.inputGroup} style={{ border: '1px dashed var(--border-color)', padding: '1.5rem', borderRadius: '12px' }}>
-                                <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                                    <span>Event Gallery ({gallery.length} photos)</span>
-                                    <button type="button" className={styles.iconBtn} onClick={() => galleryInputRef.current?.click()} disabled={uploadingGallery}>
-                                        {uploadingGallery ? <Loader2 size={16} className="spin" /> : <UploadCloud size={16} />}
-                                        <span style={{ marginLeft: '8px' }}>Add Photo</span>
-                                    </button>
-                                </label>
-                                <input type="file" accept="image/*" ref={galleryInputRef} style={{ display: 'none' }} onChange={handleGalleryUpload} />
-                                {gallery.length > 0 && (
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '0.75rem', marginTop: '1rem' }}>
-                                        {gallery.map(img => (
-                                            <div key={img.id} style={{ position: 'relative', height: '100px', borderRadius: '8px', overflow: 'hidden' }}>
-                                                <img src={img.url} alt="gallery" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                                                <button type="button" onClick={() => deleteGalleryImage(img.id)} style={{ position: 'absolute', top: '4px', right: '4px', background: 'rgba(0,0,0,0.6)', border: 'none', borderRadius: '50%', width: '22px', height: '22px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }} aria-label="Remove photo"><X size={12} /></button>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                                {gallery.length === 0 && !uploadingGallery && <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>No gallery photos yet.</p>}
-                            </div>
-                        )}
-
-                        <div className={styles.formActions}>
-                            <button type="button" onClick={() => { setShowForm(false); setEditId(null); setGallery([]); }} className={styles.cancelBtn}>Cancel</button>
-                            <button type="submit" className={styles.submitBtn} disabled={uploadingImage || uploadingGallery}>{editId ? 'Update Event' : 'Save Event'}</button>
-                        </div>
-                    </form>
+            {error && (
+                <div className={styles.errorBanner}>
+                    <AlertCircle size={20} />
+                    <span>{error}</span>
                 </div>
             )}
 
-            <div className={styles.tableCard}>
-                <table className={styles.table}>
-                    <thead><tr><th>Cover</th><th>Event Title</th><th>Date</th><th>Location</th><th>Goal</th><th>Status</th><th>Actions</th></tr></thead>
-                    <tbody>
-                        {!loading && events.length === 0 && <tr><td colSpan={7}>No events found.</td></tr>}
-                        {events.map(ev => (
-                            <tr key={ev.id}>
-                                <td>
-                                    {ev.cover_image ? (
-                                        <div style={{ width: '50px', height: '50px', borderRadius: '8px', overflow: 'hidden', position: 'relative' }}>
-                                            <img src={ev.cover_image} alt="cover" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                                        </div>
-                                    ) : (
-                                        <div style={{ width: '50px', height: '50px', borderRadius: '8px', background: 'var(--card-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}><ImageIcon size={20} /></div>
-                                    )}
-                                </td>
-                                <td className={styles.cellTitle}>{ev.title}</td>
-                                <td>{formatDate(ev.event_date)}</td>
-                                <td style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{ev.location || '—'}</td>
-                                <td>{ev.goal_amount > 0 ? `UGX ${Number(ev.goal_amount).toLocaleString()}` : ev.goal_text || '—'}</td>
-                                <td>
-                                    <select value={ev.status} onChange={e => toggleStatus(ev.id, e.target.value)} className={`${styles.statusSelect} ${styles[ev.status]}`}>
+            {showForm ? (
+                <div className={styles.formContainer}>
+                    <div className={styles.formHeader}>
+                        <h2>{editId ? 'Edit Event' : 'New Event Details'}</h2>
+                        <button className={styles.closeForm} onClick={() => setShowForm(false)}><X size={24} /></button>
+                    </div>
+                    
+                    <form className={styles.eventForm} onSubmit={saveEvent}>
+                        <div className={styles.formSection}>
+                            <div className={styles.formGrid}>
+                                <div className={styles.inputField}>
+                                    <label><Calendar size={14} /> Event Title</label>
+                                    <input type="text" required placeholder="e.g. Education Drive 2025" value={formData.title} onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))} />
+                                </div>
+                                <div className={styles.inputField}>
+                                    <label><Clock size={14} /> Event Date</label>
+                                    <input type="date" required value={formData.event_date} onChange={e => setFormData(prev => ({ ...prev, event_date: e.target.value }))} />
+                                </div>
+                                <div className={styles.inputFieldFull}>
+                                    <label><MapPin size={14} /> Location</label>
+                                    <input type="text" placeholder="e.g. Kampala Central Square" value={formData.location} onChange={e => setFormData(prev => ({ ...prev, location: e.target.value }))} />
+                                </div>
+                                <div className={styles.inputFieldFull}>
+                                    <label>Description</label>
+                                    <textarea rows={4} required placeholder="Tell the community about this event..." value={formData.description} onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))} />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className={styles.formSection}>
+                            <h3 className={styles.sectionTitle}>Goals & Status</h3>
+                            <div className={styles.formGrid}>
+                                <div className={styles.inputField}>
+                                    <label><Target size={14} /> Funding Goal (UGX)</label>
+                                    <input type="number" placeholder="5,000,000" value={formData.goal_amount} onChange={e => setFormData(prev => ({ ...prev, goal_amount: e.target.value }))} />
+                                </div>
+                                <div className={styles.inputField}>
+                                    <label>Status</label>
+                                    <select value={formData.status} onChange={e => setFormData(prev => ({ ...prev, status: e.target.value as any }))}>
                                         <option value="upcoming">Upcoming</option>
                                         <option value="completed">Completed</option>
                                         <option value="cancelled">Cancelled</option>
                                     </select>
-                                </td>
-                                <td>
-                                    <div className={styles.actionRow}>
-                                        <button className={styles.iconBtn} aria-label="Edit" onClick={() => handleEdit(ev)}><Edit2 size={16} /></button>
-                                        <button className={styles.iconBtnThreat} aria-label="Delete" onClick={() => deleteEvent(ev.id)}><Trash2 size={16} /></button>
+                                </div>
+                                <div className={styles.inputFieldFull}>
+                                    <label><LinkIcon size={14} /> Donation Link</label>
+                                    <input type="url" placeholder="https://flutterwave.com/pay/..." value={formData.donation_link} onChange={e => setFormData(prev => ({ ...prev, donation_link: e.target.value }))} />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className={styles.formSection}>
+                            <h3 className={styles.sectionTitle}>Media & Coverage</h3>
+                            <div className={styles.mediaUploadArea}>
+                                <div className={styles.coverUpload}>
+                                    <div className={styles.coverPreview}>
+                                        {formData.cover_image ? (
+                                            <img src={formData.cover_image} alt="Preview" />
+                                        ) : (
+                                            <div className={styles.imagePlaceholder}><ImageIcon size={48} /></div>
+                                        )}
                                     </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                                    <div className={styles.uploadControls}>
+                                        <button type="button" className={styles.uploadBtn} onClick={() => fileInputRef.current?.click()} disabled={uploadingImage}>
+                                            {uploadingImage ? <Loader2 size={16} className={styles.spin} /> : <UploadCloud size={16} />}
+                                            {formData.cover_image ? 'Replace Cover' : 'Upload Cover'}
+                                        </button>
+                                        <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
+                                        <p className={styles.uploadHint}>JPG or PNG. Max 5MB.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {formData.status === 'completed' && (
+                            <div className={`${styles.formSection} ${styles.highlightSection}`}>
+                                <h3 className={styles.sectionTitle}>Post-Event Achievements</h3>
+                                <div className={styles.inputFieldFull}>
+                                    <textarea rows={4} placeholder="Describe the impact achieved..." value={formData.achievements} onChange={e => setFormData(prev => ({ ...prev, achievements: e.target.value }))} />
+                                </div>
+                                
+                                {editId && (
+                                    <div className={styles.galleryArea}>
+                                        <div className={styles.galleryHeader}>
+                                            <h4>Event Gallery ({gallery.length})</h4>
+                                            <button type="button" className={styles.addGalleryBtn} onClick={() => galleryInputRef.current?.click()} disabled={uploadingGallery}>
+                                                {uploadingGallery ? <Loader2 size={14} className={styles.spin} /> : <PlusCircle size={14} />}
+                                                Add Photos
+                                            </button>
+                                            <input type="file" accept="image/*" ref={galleryInputRef} style={{ display: 'none' }} onChange={handleGalleryUpload} />
+                                        </div>
+                                        <div className={styles.galleryGrid}>
+                                            {gallery.map(img => (
+                                                <div key={img.id} className={styles.galleryItem}>
+                                                    <img src={img.url} alt="Gallery" />
+                                                    <button type="button" className={styles.removeImg} onClick={() => deleteGalleryImage(img.id)}><X size={12} /></button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        <div className={styles.formActions}>
+                            <button type="button" className={styles.cancelBtn} onClick={() => setShowForm(false)}>Discard</button>
+                            <button type="submit" className={styles.saveBtn} disabled={uploadingImage || uploadingGallery}>
+                                {editId ? 'Update Event' : 'Publish Event'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            ) : (
+                <div className={styles.eventsGrid}>
+                    {loading ? (
+                        <div className={styles.loadingState}>
+                            <Loader2 size={40} className={styles.spin} />
+                            <p>Loading events...</p>
+                        </div>
+                    ) : events.length === 0 ? (
+                        <div className={styles.emptyState}>
+                            <div className={styles.emptyIcon}><Calendar size={48} /></div>
+                            <h3>No events yet</h3>
+                            <p>Start by creating your first community event.</p>
+                            <button className={styles.emptyAction} onClick={handleAddNew}>Add New Event</button>
+                        </div>
+                    ) : (
+                        events.map(event => (
+                            <div key={event.id} className={styles.eventCard}>
+                                <div className={styles.cardImage}>
+                                    {event.cover_image ? <img src={event.cover_image} alt={event.title} /> : <div className={styles.noImage}><ImageIcon size={32} /></div>}
+                                    <div className={`${styles.statusBadge} ${styles[event.status]}`}>
+                                        {event.status === 'upcoming' && <Clock size={12} />}
+                                        {event.status === 'completed' && <CheckCircle2 size={12} />}
+                                        {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
+                                    </div>
+                                </div>
+                                <div className={styles.cardContent}>
+                                    <div className={styles.cardMeta}>
+                                        <span className={styles.cardDate}>{formatDate(event.event_date)}</span>
+                                        {event.location && <span className={styles.cardLocation}><MapPin size={12} /> {event.location.split(',')[0]}</span>
+                                    </div>
+                                    <h3 className={styles.cardTitle}>{event.title}</h3>
+                                    <p className={styles.cardDesc}>{event.description?.slice(0, 80)}...</p>
+                                    
+                                    <div className={styles.cardFooter}>
+                                        <div className={styles.cardGoal}>
+                                            <Target size={14} />
+                                            <span>{event.goal_amount > 0 ? `UGX ${Number(event.goal_amount).toLocaleString()}` : event.goal_text || 'No goal set'}</span>
+                                        </div>
+                                        <div className={styles.cardActions}>
+                                            <button className={styles.editIcon} onClick={() => handleEdit(event)} title="Edit"><Edit2 size={18} /></button>
+                                            <button className={styles.deleteIcon} onClick={() => deleteEvent(event.id)} title="Delete"><Trash2 size={18} /></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
+            )}
         </div>
     );
 }

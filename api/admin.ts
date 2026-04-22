@@ -1,16 +1,16 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-import { requireAdminSession, checkSupabaseAdminConfig } from '../src/lib/admin-api.js';
+import { requireAdminSession, checkSupabaseAdminConfig } from '../src/lib/admin-api';
 
-import contactsHandler from '../src/lib/admin-api-routes/contacts.js';
-import emailHandler from '../src/lib/admin-api-routes/email.js';
-import eventsHandler from '../src/lib/admin-api-routes/events.js';
-import projectsHandler from '../src/lib/admin-api-routes/projects.js';
-import projectsIdHandler from '../src/lib/admin-api-routes/projects/[id].js';
-import statsHandler from '../src/lib/admin-api-routes/stats.js';
-import storiesHandler from '../src/lib/admin-api-routes/stories.js';
-import subscriptionsHandler from '../src/lib/admin-api-routes/subscriptions.js';
-import emailBroadcastHandler from '../src/lib/admin-api-routes/email/broadcast.js';
+import contactsHandler from '../src/lib/admin-api-routes/contacts';
+import emailHandler from '../src/lib/admin-api-routes/email';
+import eventsHandler from '../src/lib/admin-api-routes/events';
+import projectsHandler from '../src/lib/admin-api-routes/projects';
+import projectsIdHandler from '../src/lib/admin-api-routes/projects/[id]';
+import statsHandler from '../src/lib/admin-api-routes/stats';
+import storiesHandler from '../src/lib/admin-api-routes/stories';
+import subscriptionsHandler from '../src/lib/admin-api-routes/subscriptions';
+import emailBroadcastHandler from '../src/lib/admin-api-routes/email/broadcast';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     const configError = checkSupabaseAdminConfig();
@@ -51,7 +51,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 return res.status(404).json({ error: 'Admin action not found' });
         }
     } catch (err) {
-        console.error(`Admin API Error (${action}):`, err);
-        return res.status(500).json({ error: err instanceof Error ? err.message : 'Internal server error' });
+        const errorMsg = err instanceof Error ? err.message : 'Internal server error';
+        const stack = err instanceof Error ? err.stack : '';
+        console.error(`[Admin API Critical Failure] action=${action}:`, errorMsg, stack);
+        return res.status(500).json({ 
+            error: errorMsg,
+            action,
+            debug: process.env.NODE_ENV === 'development' ? stack : undefined
+        });
     }
 }

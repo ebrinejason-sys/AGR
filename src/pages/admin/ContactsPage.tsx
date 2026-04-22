@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Mail, Trash2, Search, RefreshCw, MessageSquare } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
+import AdminToastRegion from '@/components/admin/AdminToast';
+import { useAdminToast } from '@/components/admin/useAdminToast';
 import styles from './ContactsPage.module.css';
 
 type ContactType = 'general' | 'mentor' | 'sponsor' | 'donate';
@@ -18,6 +20,7 @@ export default function AdminContactsPage() {
     const [filterType, setFilterType] = useState<ContactType | 'all'>('all');
     const [expanded, setExpanded] = useState<string | null>(null);
     const [deleting, setDeleting] = useState<string | null>(null);
+    const toast = useAdminToast();
 
     const fetchContacts = async () => {
         setLoading(true);
@@ -38,9 +41,17 @@ export default function AdminContactsPage() {
         setDeleting(id);
         try {
             const res = await fetch('/api/admin?action=contacts', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) });
-            if (res.ok) { setContacts(prev => prev.filter(c => c.id !== id)); if (expanded === id) setExpanded(null); }
-            else { const data = await res.json(); alert(data.error || 'Failed to delete.'); }
-        } catch { alert('Network error.'); }
+            if (res.ok) {
+                setContacts(prev => prev.filter(c => c.id !== id));
+                if (expanded === id) setExpanded(null);
+                toast.success('Message deleted', 'The submission has been removed from your inbox.');
+            } else {
+                const data = await res.json();
+                toast.error('Delete failed', data.error || 'Failed to delete this message.');
+            }
+        } catch {
+            toast.error('Network error', 'The message could not be deleted. Please try again.');
+        }
         finally { setDeleting(null); }
     };
 
@@ -54,6 +65,7 @@ export default function AdminContactsPage() {
 
     return (
         <div className={styles.container}>
+            <AdminToastRegion toasts={toast.toasts} onDismiss={toast.dismiss} />
             <div className={styles.header}>
                 <div>
                     <h1 className={styles.title}>Contact Messages</h1>

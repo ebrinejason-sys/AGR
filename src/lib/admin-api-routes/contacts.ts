@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getAdminSupabase } from '../supabase.server.js';
-import { requireAdminSession, checkSupabaseAdminConfig } from '../admin-api.js';
+import { getAdminSupabase } from '../supabase.server';
+import { requireAdminSession, checkSupabaseAdminConfig } from '../admin-api';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     const configError = checkSupabaseAdminConfig();
