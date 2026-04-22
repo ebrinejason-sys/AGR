@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Send, MapPin, Mail, Phone, ExternalLink } from 'lucide-react';
 import styles from './Footer.module.css';
 
+export default function Footer() {
     const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
     const DonationModal = lazy(() => import('@/components/DonationModal'));
     const [email, setEmail] = useState('');
@@ -40,24 +41,11 @@ import styles from './Footer.module.css';
     return (
         <footer className={styles.footer}>
             <div className={styles.container}>
-                
-                {/* ── Newsletter Section ── */}
-                <div className={styles.newsletterSection}>
-                    <div className={styles.newsletterInfo}>
-                        <h3 className={styles.newsletterTitle}>Stay Informed</h3>
-                        <p className={styles.newsletterText}>
-                            Get updates on our impact and stories from the field.
-                        </p>
-                    </div>
-                    <form className={styles.newsletterForm} onSubmit={handleSubscribe}>
-                        <div className={styles.inputWrapper}>
-                            <input
-                                type="email"
-                                placeholder="Email address"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                className={styles.input}
+                {/* ...existing code... */}
+            </div>
+        </footer>
+    );
+}
                             />
                             <button type="submit" className={styles.submitBtn} disabled={status === 'loading'}>
                                 <Send size={18} />
