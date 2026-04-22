@@ -57,8 +57,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
             if (error) {
                 if (error.code === '23505') return res.json({ message: "You're already subscribed! Thank you for staying connected." });
-                console.error('Subscription error:', error);
-                return res.status(500).json({ error: 'Could not subscribe. Please try again.' });
+                // Table may not exist yet — log but don't block the response
+                console.error('Subscription DB error (check SUPABASE_SCHEMA.sql has been applied):', error.message, error.code);
+                // If it's a "relation does not exist" error, degrade gracefully
+                if (error.code === '42P01' || error.message?.includes('does not exist')) {
+                    console.warn('subscriptions table missing — run SUPABASE_SCHEMA.sql on your project');
+                } else {
+                    return res.status(500).json({ error: 'Could not subscribe. Please try again.' });
+                }
             }
         }
 
