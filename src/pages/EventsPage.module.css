@@ -1,3 +1,44 @@
+.modalImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.modalMeta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+}
+.modalMetaItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.modalDescriptionLarge {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+.modalProgressRow {
+    display: flex;
+    justify-self: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+.modalDonateBtn {
+    width: 100%;
+    margin-top: 2rem;
+}
+.eventSectionPad {
+    padding-top: 80px;
+}
+.loadingEvents {
+    padding: 100px 0;
+    text-align: center;
+    font-weight: 700;
+}
+.sectionMarginTop {
+    margin-top: 80px;
+}
 .container {
     width: 100%;
 }

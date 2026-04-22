@@ -48,21 +48,21 @@ function EventDetailModal({ event, onClose, onDonate }: { event: Event | null; o
             <div className={styles.modal} onClick={e => e.stopPropagation()}>
                 <button className={styles.modalClose} onClick={onClose}><X size={24} /></button>
                 <div className={styles.modalCover}>
-                    {event.cover_image && <img src={event.cover_image} alt={event.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+                    {event.cover_image && <img src={event.cover_image} alt={event.title} className={styles.modalImg} />}
                 </div>
                 <div className={styles.modalBody}>
                     <span className={`${styles.statusBadge} ${styles[event.status]}`}>{event.status}</span>
                     <h2 className={styles.modalTitle}>{event.title}</h2>
-                    <div className={styles.modalMeta} style={{ display: 'flex', gap: '2rem', marginBottom: '2rem', color: 'var(--text-muted)' }}>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Calendar size={18} /> {formatDate(event.event_date)}</span>
-                        {event.location && <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><MapPin size={18} /> {event.location}</span>}
+                    <div className={styles.modalMeta}>
+                        <span className={styles.modalMetaItem}><Calendar size={18} /> {formatDate(event.event_date)}</span>
+                        {event.location && <span className={styles.modalMetaItem}><MapPin size={18} /> {event.location}</span>}
                     </div>
-                    <p className={styles.modalDescription} style={{ fontSize: '1.1rem', lineHeight: 1.7 }}>{event.description}</p>
+                    <p className={`${styles.modalDescription} ${styles.modalDescriptionLarge}`}>{event.description}</p>
                     
                     {event.goal_amount > 0 && (
                         <div className={styles.modalGoal}>
                             <span className={styles.modalGoalLabel}>FUNDRAISING PROGRESS</span>
-                            <div style={{ display: 'flex', justifySelf: 'space-between', marginBottom: '0.5rem', fontWeight: 800 }}>
+                            <div className={styles.modalProgressRow}>
                                 <span>{pct}% Towards Goal</span>
                             </div>
                             <progress className={styles.progressBar} value={pct} max={100} />
@@ -70,7 +70,7 @@ function EventDetailModal({ event, onClose, onDonate }: { event: Event | null; o
                     )}
 
                     {event.status !== 'completed' && (
-                        <button className="btn-premium" style={{ width: '100%', marginTop: '2rem' }} onClick={() => onDonate(event)}>
+                        <button className="btn-premium" onClick={() => onDonate(event)} className={styles.modalDonateBtn}>
                             Donate to Event
                         </button>
                     )}
@@ -103,13 +103,13 @@ export default function EventsPage() {
                 eyebrow="Our Calendar"
                 title="Moments of Impact"
             />
-            <section className={styles.eventSection} style={{ paddingTop: '80px' }}>
+            <section className={`${styles.eventSection} ${styles.eventSectionPad}`}>
                 {loading ? (
-                    <div style={{ padding: '100px 0', textAlign: 'center', fontWeight: 700 }}>Loading events...</div>
+                    <div className={styles.loadingEvents}>Loading events...</div>
                 ) : (
                     <>
                         {upcoming.length > 0 && (
-                            <div style={{ marginTop: '80px' }}>
+                            <div className={styles.sectionMarginTop}>
                                 <h2 className={styles.sectionHeading}>Upcoming</h2>
                                 <div className={styles.eventGrid}>
                                     {upcoming.map(evt => <EventCard key={evt.id} evt={evt} onClick={() => setSelectedEvent(evt)} />)}
@@ -118,7 +118,7 @@ export default function EventsPage() {
                         )}
 
                         {completed.length > 0 && (
-                            <div style={{ marginTop: '80px' }}>
+                            <div className={styles.sectionMarginTop}>
                                 <h2 className={styles.sectionHeading}>Past Impact</h2>
                                 <div className={styles.eventGrid}>
                                     {completed.map(evt => <EventCard key={evt.id} evt={evt} onClick={() => setSelectedEvent(evt)} />)}
