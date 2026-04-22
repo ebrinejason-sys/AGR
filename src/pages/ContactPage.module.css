@@ -7,6 +7,12 @@
     background: var(--bg-color);
 }
 
+@media (max-width: 768px) {
+    .contactSection {
+        padding: 60px 5%;
+    }
+}
+
 .contactGrid {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
@@ -109,8 +115,8 @@
 }
 
 .tabActive {
-    background: white;
-    color: black;
+    background: var(--surface);
+    color: var(--text-primary);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
@@ -135,7 +141,7 @@
 }
 
 .input {
-    background: hsla(0, 0%, 100%, 0.05);
+    background: var(--surface);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 14px 18px;
@@ -147,7 +153,7 @@
 .input:focus {
     outline: none;
     border-color: var(--accent-pink);
-    background: hsla(0, 0%, 100%, 0.08);
+    background: var(--bg-color);
 }
 
 .fullWidthButton {

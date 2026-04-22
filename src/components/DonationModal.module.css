@@ -19,21 +19,21 @@
   max-height: calc(100vh - 3rem);
   max-height: calc(100dvh - 3rem);
   overflow-y: auto;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--border-color);
   border-radius: 24px;
-  background: #ffffff;
+  background: var(--surface);
   box-shadow: 0 28px 70px rgba(15, 23, 42, 0.18);
 }
 
 .heroShell {
   position: relative;
   padding: 1.5rem 1.5rem 0;
-  background: #ffffff;
+  background: var(--surface);
 }
 
 .heroPanel {
   padding: 0 3rem 1rem 0;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .kicker {
@@ -72,9 +72,9 @@
 
 .providerRailItem {
   padding: 0.85rem 1rem;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--border-color);
   border-radius: 14px;
-  background: #f8fafc;
+  background: var(--bg-color);
 }
 
 .providerRailItem strong {
@@ -114,7 +114,7 @@
 .section + .section {
   margin-top: 1.25rem;
   padding-top: 1.25rem;
-  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  border-top: 1px solid var(--border-color);
 }
 
 .sectionHeading {
@@ -160,9 +160,9 @@
   display: grid;
   gap: 0.55rem;
   padding: 1rem;
-  border: 1px solid rgba(15, 23, 42, 0.1);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
-  background: #f8fafc;
+  background: var(--bg-color);
   text-align: left;
   color: var(--text-color);
 }
@@ -184,9 +184,9 @@
   display: inline-flex;
   align-items: center;
   padding: 0.28rem 0.6rem;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--border-color);
   border-radius: 999px;
-  background: #ffffff;
+  background: var(--surface);
   color: var(--text-muted);
   font-size: 0.72rem;
   font-weight: 700;
@@ -207,7 +207,7 @@
 
 .methodCardActive {
   border-color: rgba(233, 30, 99, 0.32);
-  background: #ffffff;
+  background: var(--surface);
   box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.08);
 }
 
@@ -219,9 +219,9 @@
 
 .amountChip {
   padding: 0.8rem 0.9rem;
-  border: 1px solid rgba(15, 23, 42, 0.1);
+  border: 1px solid var(--border-color);
   border-radius: 14px;
-  background: #f8fafc;
+  background: var(--bg-color);
   color: var(--text-color);
   font-weight: 600;
 }
@@ -229,7 +229,7 @@
 .amountChipActive {
   border-color: rgba(233, 30, 99, 0.32);
   background: rgba(233, 30, 99, 0.08);
-  color: var(--text-color);
+  color: var(--accent-pink);
 }
 
 .fieldRow {
@@ -282,9 +282,9 @@
   width: 100%;
   min-height: 48px;
   padding: 0.85rem 0.95rem;
-  border: 1px solid rgba(15, 23, 42, 0.12);
+  border: 1px solid var(--border-color);
   border-radius: 14px;
-  background: #ffffff;
+  background: var(--surface);
   color: var(--text-color);
   font-family: inherit;
   font-size: 1rem;
@@ -292,12 +292,12 @@
 
 .input:focus {
   outline: none;
-  border-color: rgba(233, 30, 99, 0.36);
-  box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.08);
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 0 4px hsla(var(--clr-accent-pink-raw) / 0.08);
 }
 
 .input::placeholder {
-  color: #9ea0b4;
+  color: var(--text-muted);
 }
 
 .selectInput {
@@ -316,9 +316,9 @@
 .fieldInfoCard {
   align-content: start;
   padding: 0.95rem 1rem;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--border-color);
   border-radius: 14px;
-  background: #f8fafc;
+  background: var(--bg-color);
 }
 
 .fieldInfoText {
@@ -337,9 +337,9 @@
 .summaryCard,
 .trustCard {
   padding: 1rem;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
-  background: #f8fafc;
+  background: var(--bg-color);
 }
 
 .summaryGrid {
@@ -352,7 +352,7 @@
   justify-content: space-between;
   gap: 1rem;
   padding-bottom: 0.55rem;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .summaryRow:last-child {
@@ -410,8 +410,8 @@
   padding: 0.9rem 1rem;
   border: 1px solid rgba(233, 30, 99, 0.15);
   border-radius: 14px;
-  background: #fef2f4;
-  color: #b42356;
+  background: hsla(var(--clr-accent-pink-raw) / 0.05);
+  color: var(--accent-pink);
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -424,9 +424,9 @@
 }
 
 .secondaryButton {
-  border: 1px solid rgba(15, 23, 42, 0.12);
+  border: 1px solid var(--border-color);
   border-radius: 14px;
-  background: #ffffff;
+  background: var(--surface);
   color: var(--text-color);
   font-weight: 700;
 }
@@ -449,7 +449,7 @@
   }
 
   .modalClose:hover {
-    background: #f8fafc;
+    background: var(--bg-color);
   }
 
   .primaryButton:hover {

@@ -8,6 +8,12 @@
     text-align: center;
 }
 
+@media (max-width: 768px) {
+    .hero {
+        padding: 120px 5% 80px;
+    }
+}
+
 .subtitle {
     font-size: 1.25rem;
     line-height: 1.6;
@@ -24,17 +30,4 @@
     justify-content: center;
     gap: 1.5rem;
     flex-wrap: wrap;
-}
-
-.secondaryBtn {
-    font-weight: 800;
-    color: var(--text-muted);
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    transition: var(--transition-base);
-}
-
-.secondaryBtn:hover {
-    color: var(--text-primary);
 }

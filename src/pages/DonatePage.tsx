@@ -21,7 +21,7 @@ export default function DonatePage() {
                     <button className="btn-premium" onClick={() => setIsOpen(true)}>
                         Donate Now <Heart size={18} style={{ marginLeft: 8 }} />
                     </button>
-                    <Link to="/events" className={styles.secondaryBtn}>
+                    <Link to="/events" className="btn-secondary">
                         <Calendar size={18} style={{ marginRight: 8 }} /> See Events
                     </Link>
                 </div>
