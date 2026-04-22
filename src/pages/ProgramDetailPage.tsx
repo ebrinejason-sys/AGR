@@ -43,13 +43,15 @@ export default function ProgramDetailPage() {
 
     return (
         <div className={styles.container}>
-            <section className={styles.hero}>
-                <span className={`${styles.typeBadge} ${detail.type === 'pillar' ? styles.badgePillar : styles.badgeProgram}`}>
-                    {detail.type === 'pillar' ? 'Core Pillar' : 'Core Program'}
-                </span>
-                <h1 className="heading-display"><span className="text-gradient">{detail.title}</span></h1>
-                <p className={styles.heroSubtitle}>{detail.heroSubtitle}</p>
-            </section>
+            <PageHero
+                eyebrow={
+                    <span className={`${styles.typeBadge} ${detail.type === 'pillar' ? styles.badgePillar : styles.badgeProgram}`}>
+                        {detail.type === 'pillar' ? 'Core Pillar' : 'Core Program'}
+                    </span>
+                }
+                title={<span className="text-gradient">{detail.title}</span>}
+                description={detail.heroSubtitle}
+            />
 
             {detail.philosophy && (
                 <section className={styles.philosophySection}>

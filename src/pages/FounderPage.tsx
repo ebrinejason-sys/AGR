@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MessageSquare, Phone, Mail, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
+import PageHero from '../components/PageHero';
 import styles from './FounderPage.module.css';
 
 const timeline = [
@@ -17,23 +18,13 @@ export default function FounderPage() {
     return (
         <div className={styles.container}>
 
-            {/* ─── Hero Section ─── */}
-            <section className={styles.hero}>
-                <div className={styles.heroImage}>
-                    <img src="/images/founder.jpg" alt="Akatwijuka Grace" />
-                    <div className={styles.heroImageOverlay} />
-                </div>
-
-                <div className={styles.heroContent}>
-                    <span className={styles.heroPill}>The Visionary</span>
-                    <h1 className={styles.heroName}>
-                        Akatwijuka<br />
-                        <span>Grace</span>
-                    </h1>
-                    <p className={styles.heroRole}>Founder & Visionary Director</p>
-                    <p className={styles.heroTagline}>
-                        &ldquo;My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.&rdquo;
-                    </p>
+            {/* ─── Hero Section (PageHero) ─── */}
+            <PageHero
+                eyebrow={<span className={styles.heroPill}>The Visionary</span>}
+                title={<><span>Akatwijuka</span><br /><span>Grace</span></>}
+                subtitle="Founder & Visionary Director"
+                description="“My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.”"
+                actions={
                     <div className={styles.heroCtas}>
                         <a href="https://wa.me/256703727965" className="btn-premium">
                             <MessageSquare size={18} style={{ marginRight: 8 }} /> WhatsApp Grace
@@ -42,8 +33,9 @@ export default function FounderPage() {
                             Get in Touch
                         </Link>
                     </div>
-                </div>
-            </section>
+                }
+                backgroundImage="/images/founder.jpg"
+            />
 
             {/* ─── Bio Strip ─── */}
             <div className={styles.bioStrip}>

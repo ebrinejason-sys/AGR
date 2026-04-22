@@ -42,13 +42,17 @@ export default function LegalAdvocacyPage() {
     return (
         <div className={styles.container}>
             
-            {/* ─── Hero Section ─── */}
-            <section className={styles.hero}>
-                <span className="subheading">Protection & Justice</span>
-                <h1 className="heading-display">Knowing Your <span className="text-gradient">Rights</span></h1>
-                <p className={styles.heroLead}>Your Rights. Your Power. Your Protection.</p>
-                <p className={styles.heroSupportText}>No girl should suffer in silence. No woman should be abused without recourse.</p>
-            </section>
+            {/* ─── Hero Section (PageHero) ─── */}
+            <PageHero
+                eyebrow={<span className="subheading">Protection & Justice</span>}
+                title={<>Knowing Your <span className="text-gradient">Rights</span></>}
+                description={
+                    <>
+                        <span>Your Rights. Your Power. Your Protection.</span><br />
+                        <span>No girl should suffer in silence. No woman should be abused without recourse.</span>
+                    </>
+                }
+            />
 
             {/* ─── The Reality Section ─── */}
             <section className={styles.editorialIntro}>
