@@ -139,7 +139,7 @@ export default function LegalAdvocacyPage() {
             {/* ─── Final CTA ─── */}
             <section className={styles.ctaBox}>
                 <h2 className="heading-section">Advocate for <span className="text-gradient">Justice</span></h2>
-                <p className={styles.heroSupportText} style={{ marginBottom: '3rem' }}>
+                <p className={`${styles.heroSupportText} ${styles.heroSupportTextMargin}`}>
                     Your contribution ensures that no girl in our community has to suffer in silence.
                 </p>
                 <div className={styles.ctaActions}>

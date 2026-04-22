@@ -121,7 +121,11 @@ export default function HomePage() {
                 <div className={styles.statsGrid}>
                     {impactStats.map((stat, i) => (
                         <div key={stat.label} className={styles.statCard}>
-                            <span className={`${styles.statValue} ${styles.statValueDynamic}`} style={{ color: stat.color }}>
+                            <span className={`${styles.statValue} ${
+                                stat.color === 'var(--accent-pink)' ? styles.statValuePink :
+                                stat.color === 'var(--accent-purple)' ? styles.statValuePurple :
+                                stat.color === 'var(--accent-teal)' ? styles.statValueTeal : ''
+                            }`}>
                                 <AnimatedCounter target={stat.value} suffix={stat.suffix} continuous={stat.continuous} />
                             </span>
                             <span className={styles.statLabel}>{stat.label}</span>
@@ -160,12 +164,22 @@ export default function HomePage() {
                 <div className={styles.pathwaysGrid}>
                     {programCards.map((p) => (
                         <Link key={p.title} to={p.href} className={styles.pathwayCard}>
-                            <div className={`${styles.pathwayIcon} ${styles.pathwayIconDynamic}`} style={{ background: p.accent + '20', color: p.accent }}>
+                            <div className={`${styles.pathwayIcon} ${
+                                p.accent === 'var(--accent-pink)' ? styles.pathwayIconPink :
+                                p.accent === 'var(--accent-purple)' ? styles.pathwayIconPurple :
+                                p.accent === 'var(--accent-teal)' ? styles.pathwayIconTeal :
+                                p.accent === '#f59e0b' ? styles.pathwayIconYellow : ''
+                            }`}>
                                 {p.icon}
                             </div>
                             <h3 className={styles.pathwayTitle}>{p.title}</h3>
                             <p className={styles.pathwayDesc}>{p.description}</p>
-                            <div className={styles.learnMoreRow} style={{ color: p.accent }}>
+                            <div className={`${styles.learnMoreRow} ${
+                                p.accent === 'var(--accent-pink)' ? styles.learnMorePink :
+                                p.accent === 'var(--accent-purple)' ? styles.learnMorePurple :
+                                p.accent === 'var(--accent-teal)' ? styles.learnMoreTeal :
+                                p.accent === '#f59e0b' ? styles.learnMoreYellow : ''
+                            }`}>
                                 Learn more <ArrowRight size={16} />
                             </div>
                         </Link>
