@@ -1,3 +1,21 @@
+/* Dynamic color for stat value */
+.statValueDynamic {
+    /* color will be set inline via style, but fallback here */
+}
+
+/* Dynamic background and color for pathway icon */
+.pathwayIconDynamic {
+    /* background and color will be set inline via style, but fallback here */
+}
+
+/* Pathway Learn More row */
+.learnMoreRow {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+}
 .container {
     width: 100%;
 }

@@ -121,7 +121,7 @@ export default function HomePage() {
                 <div className={styles.statsGrid}>
                     {impactStats.map((stat, i) => (
                         <div key={stat.label} className={styles.statCard}>
-                            <span className={styles.statValue} style={{ color: stat.color }}>
+                            <span className={`${styles.statValue} ${styles.statValueDynamic}`} style={{ color: stat.color }}>
                                 <AnimatedCounter target={stat.value} suffix={stat.suffix} continuous={stat.continuous} />
                             </span>
                             <span className={styles.statLabel}>{stat.label}</span>
@@ -160,12 +160,12 @@ export default function HomePage() {
                 <div className={styles.pathwaysGrid}>
                     {programCards.map((p) => (
                         <Link key={p.title} to={p.href} className={styles.pathwayCard}>
-                            <div className={styles.pathwayIcon} style={{ background: p.accent + '20', color: p.accent }}>
+                            <div className={`${styles.pathwayIcon} ${styles.pathwayIconDynamic}`} style={{ background: p.accent + '20', color: p.accent }}>
                                 {p.icon}
                             </div>
                             <h3 className={styles.pathwayTitle}>{p.title}</h3>
                             <p className={styles.pathwayDesc}>{p.description}</p>
-                            <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', gap: 8, color: p.accent, fontWeight: 700 }}>
+                            <div className={styles.learnMoreRow} style={{ color: p.accent }}>
                                 Learn more <ArrowRight size={16} />
                             </div>
                         </Link>
