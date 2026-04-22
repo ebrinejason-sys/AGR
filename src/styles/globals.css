@@ -1,9 +1,10 @@
+@import './design-system.css';
+
 /* App loading state */
 .app-loading {
   padding: 2rem;
   text-align: center;
 }
-@import './design-system.css';
 
 :root {
   color-scheme: light dark;

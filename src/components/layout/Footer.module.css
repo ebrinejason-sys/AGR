@@ -22,6 +22,11 @@
     margin-bottom: 60px;
 }
 
+.newsletterInfo {
+    flex: 1;
+    min-width: 260px;
+}
+
 .newsletterTitle {
     font-size: 1.5rem;
     font-weight: 800;
@@ -71,6 +76,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none;
+    cursor: pointer;
     transition: var(--transition-base);
 }
 
@@ -114,6 +121,11 @@
     font-weight: 900;
     margin-bottom: 1.5rem;
     letter-spacing: 1px;
+}
+
+.brandCol,
+.linksCol {
+    min-width: 0;
 }
 
 .brandDescription {
@@ -164,7 +176,23 @@
     transition: var(--transition-base);
 }
 
+.linkBtn {
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
 .linksList a:hover {
+    color: var(--accent-pink);
+    padding-left: 5px;
+}
+
+.linkBtn:hover {
     color: var(--accent-pink);
     padding-left: 5px;
 }

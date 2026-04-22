@@ -1,29 +1,30 @@
-import { useState, lazy, Suspense } from 'react';
+import { lazy, Suspense, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { Send, MapPin, Mail, Phone, ExternalLink } from 'lucide-react';
+import { ExternalLink, Mail, MapPin, Phone, Send } from 'lucide-react';
 import styles from './Footer.module.css';
+
+const DonationModal = lazy(() => import('@/components/DonationModal'));
 
 export default function Footer() {
     const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
-    const DonationModal = lazy(() => import('@/components/DonationModal'));
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [message, setMessage] = useState('');
 
-    const handleSubscribe = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSubscribe = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         setStatus('loading');
 
         try {
-            const res = await fetch('/api/subscribe', {
+            const response = await fetch('/api/subscribe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),
             });
 
-            const data = await res.json();
+            const data = await response.json();
 
-            if (!res.ok) {
+            if (!response.ok) {
                 setStatus('error');
                 setMessage(data.error || 'Something went wrong.');
                 return;
@@ -41,13 +42,32 @@ export default function Footer() {
     return (
         <footer className={styles.footer}>
             <div className={styles.container}>
-                {/* ...existing code... */}
-            </div>
-        </footer>
-    );
-}
+                <div className={styles.newsletterSection}>
+                    <div className={styles.newsletterInfo}>
+                        <h3 className={styles.newsletterTitle}>Stay Informed</h3>
+                        <p className={styles.newsletterText}>
+                            Get updates on our impact, programs, and community stories.
+                        </p>
+                    </div>
+
+                    <form className={styles.newsletterForm} onSubmit={handleSubscribe}>
+                        <div className={styles.inputWrapper}>
+                            <input
+                                type="email"
+                                className={styles.input}
+                                placeholder="Email address"
+                                aria-label="Email address"
+                                value={email}
+                                onChange={(event) => setEmail(event.target.value)}
+                                required
                             />
-                            <button type="submit" className={styles.submitBtn} disabled={status === 'loading'}>
+                            <button
+                                type="submit"
+                                className={styles.submitBtn}
+                                disabled={status === 'loading'}
+                                aria-label="Subscribe to newsletter"
+                                title="Subscribe to newsletter"
+                            >
                                 <Send size={18} />
                             </button>
                         </div>
@@ -58,14 +78,11 @@ export default function Footer() {
 
                 <div className={styles.divider} />
 
-                {/* ── Footer Main Grid ── */}
                 <div className={styles.grid}>
-                    
-                    {/* Brand & Mission */}
                     <div className={styles.brandCol}>
                         <h2 className={styles.brandName}>AFRICAN GIRL RISE</h2>
                         <p className={styles.brandDescription}>
-                            Practical, local support that keeps girls safe and in school across Uganda. 
+                            Practical, local support that keeps girls safe and in school across Uganda.
                             Empowering through education, safety, and legal advocacy.
                         </p>
                         <div className={styles.contactList}>
@@ -84,7 +101,6 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* Quick Links */}
                     <div className={styles.linksCol}>
                         <h4 className={styles.colTitle}>Organization</h4>
                         <ul className={styles.linksList}>
@@ -95,7 +111,6 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Programs */}
                     <div className={styles.linksCol}>
                         <h4 className={styles.colTitle}>Programs</h4>
                         <ul className={styles.linksList}>
@@ -106,13 +121,20 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Support */}
                     <div className={styles.linksCol}>
                         <h4 className={styles.colTitle}>Support Us</h4>
                         <ul className={styles.linksList}>
                             <li><Link to="/contact">Get Involved</Link></li>
                             <li><Link to="/contact">Partner With Us</Link></li>
-                            <li><button type="button" className={styles.linkBtn} onClick={() => setIsDonationModalOpen(true)}>Donate</button></li>
+                            <li>
+                                <button
+                                    type="button"
+                                    className={styles.linkBtn}
+                                    onClick={() => setIsDonationModalOpen(true)}
+                                >
+                                    Donate
+                                </button>
+                            </li>
                             <li>
                                 <a href="https://flutterwave.com" target="_blank" rel="noopener noreferrer">
                                     Flutterwave <ExternalLink size={12} />
@@ -134,11 +156,9 @@ export default function Footer() {
                         <Link to="/legal/privacy">Privacy</Link>
                         <Link to="/legal/terms">Terms</Link>
                     </div>
-                    <div className={styles.mission}>
-                        Education · Safety · Advocacy
-                    </div>
+                    <div className={styles.mission}>Education · Safety · Advocacy</div>
                 </div>
             </div>
         </footer>
     );
-// removed stray closing brace
+}

@@ -70,7 +70,7 @@ function EventDetailModal({ event, onClose, onDonate }: { event: Event | null; o
                     )}
 
                     {event.status !== 'completed' && (
-                        <button className="btn-premium" onClick={() => onDonate(event)} className={styles.modalDonateBtn}>
+                        <button className={`btn-premium ${styles.modalDonateBtn}`} onClick={() => onDonate(event)}>
                             Donate to Event
                         </button>
                     )}
