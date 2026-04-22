@@ -108,8 +108,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             });
 
             if (error) {
-                console.error('Failed to send OTP email:', error);
-                return res.status(500).json({ error: 'Failed to send OTP email. Email service may be unavailable.' });
+                // Log the real Resend error so it's visible in Vercel Function Logs
+                console.error('[AUTH] Resend OTP send failed:', JSON.stringify(error));
+                console.error('[AUTH] Resend sender used:', SENDER_EMAIL);
+                console.error('[AUTH] OTP recipient:', normalizedEmail);
+                // Log OTP to function logs as fallback — only visible to Vercel project owner
+                // Remove this line once Resend sender domain is verified
+                console.warn('[AUTH][FALLBACK] OTP for manual entry:', generatedOtp);
+                // Still set the cookie so the OTP is valid if admin retrieves it from logs
+                setCookie(res, ADMIN_OTP_COOKIE, otpState.token, otpState.maxAge);
+                return res.status(500).json({
+                    error: `OTP email failed to deliver. Resend error: ${
+                        (error as { message?: string }).message ?? JSON.stringify(error)
+                    }. Check Vercel Function Logs for the OTP code, or verify your sender domain at resend.com/domains.`,
+                });
             }
 
             setCookie(res, ADMIN_OTP_COOKIE, otpState.token, otpState.maxAge);
