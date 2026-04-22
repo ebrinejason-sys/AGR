@@ -85,16 +85,16 @@ export default function LegalAdvocacyPage() {
 
             {/* ─── Initiatives ─── */}
             <section className={styles.editorialBody}>
-                <div className={styles.sectionIntro} style={{ marginBottom: '5rem' }}>
+                <div className={`${styles.sectionIntro} ${styles.sectionIntroMargin}`}>
                     <span className="subheading">Our Strategy</span>
                     <h2 className="heading-section">Legal Literacy & <span className="text-gradient">Empowerment</span></h2>
                 </div>
 
                 {INITIATIVES.map(init => (
                     <div key={init.number} className={styles.advocacyBox}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 15, marginBottom: '1.5rem' }}>
-                            <div style={{ color: 'var(--accent-pink)' }}>{init.icon}</div>
-                            <span className="subheading" style={{ margin: 0 }}>Initiative {init.number}</span>
+                        <div className={styles.initiativeHeader}>
+                            <div className={styles.initiativeIcon}>{init.icon}</div>
+                            <span className={`subheading ${styles.initiativeSubheading}`}>Initiative {init.number}</span>
                         </div>
                         <h3>{init.title}</h3>
                         <p>{init.description}</p>
