@@ -1,19 +1,16 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import PageHero from '@/components/PageHero';
 import styles from './OurStoryPage.module.css';
 
 export default function OurStoryPage() {
     return (
         <div className={styles.container}>
-            
-            {/* ─── Hero Section ─── */}
-            <section className={styles.heroSection}>
-                <span className="subheading">The Genesis</span>
-                <h1 className="heading-display">Our <span className="text-gradient">Narrative</span></h1>
-                <p className={styles.subtitle}>
-                    &ldquo;Your beginning does not define your becoming.&rdquo;
-                </p>
-            </section>
+            <PageHero
+                eyebrow="The Genesis"
+                title="Our Narrative"
+                subtitle="Your beginning does not define your becoming."
+            />
 
             {/* ─── Story Section ─── */}
             <section className={styles.contentSection}>

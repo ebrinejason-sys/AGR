@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { User, Calendar, ArrowRight } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
+import PageHero from '@/components/PageHero';
 import styles from './StoriesPage.module.css';
 
 type Story = { id: string; title: string; content: string; author: string; image_url?: string; created_at: string };
@@ -53,10 +54,11 @@ export default function StoriesPage() {
 
     return (
         <div className={styles.container}>
-            <section className={styles.storyGrid} style={{ paddingTop: '160px' }}>
-                <span className="subheading">Voices of Change</span>
-                <h1 className="heading-display">Stories of <span className="text-gradient">Rise</span></h1>
-                
+            <PageHero
+                eyebrow="Voices of Change"
+                title="Stories of Rise"
+            />
+            <section className={styles.storyGrid} style={{ paddingTop: '80px' }}>
                 {loading ? (
                     <div style={{ padding: '100px 0', textAlign: 'center', fontWeight: 700 }}>Loading stories...</div>
                 ) : (

@@ -125,11 +125,24 @@
 }
 
 .statCard {
-    padding: 3rem 2.5rem;
+    padding: 2rem;
     background: var(--surface);
     border: 1px solid var(--border-color);
-    border-radius: 32px;
+    border-radius: 20px;
     transition: var(--transition-base);
+}
+
+@media (max-width: 768px) {
+    .statCard {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .statCard {
+        padding: 1.25rem;
+    }
 }
 
 .statCard:hover {
@@ -256,11 +269,24 @@
 
 .pathwayCard {
     display: block;
-    padding: 3rem;
+    padding: 2rem;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
-    border-radius: 40px;
+    border-radius: 20px;
     transition: var(--transition-base);
+}
+
+@media (max-width: 768px) {
+    .pathwayCard {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pathwayCard {
+        padding: 1.25rem;
+    }
 }
 
 .pathwayCard:hover {

@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Calendar, MapPin, X, ArrowRight } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
+import PageHero from '@/components/PageHero';
 import styles from './EventsPage.module.css';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
@@ -98,10 +99,11 @@ export default function EventsPage() {
 
     return (
         <div className={styles.container}>
-            <section className={styles.eventSection} style={{ paddingTop: '160px' }}>
-                <span className="subheading">Our Calendar</span>
-                <h1 className="heading-display">Moments of <span className="text-gradient">Impact</span></h1>
-                
+            <PageHero
+                eyebrow="Our Calendar"
+                title="Moments of Impact"
+            />
+            <section className={styles.eventSection} style={{ paddingTop: '80px' }}>
                 {loading ? (
                     <div style={{ padding: '100px 0', textAlign: 'center', fontWeight: 700 }}>Loading events...</div>
                 ) : (

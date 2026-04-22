@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './ProgramsPage.module.css';
+import PageHero from '@/components/PageHero';
 import ProgramsListClient from '@/components/ProgramsListClient';
 
 const PILLARS = [
@@ -12,17 +13,11 @@ const PILLARS = [
 export default function ProgramsPage() {
     return (
         <div className={styles.container}>
-            
-            {/* ─── Hero Section ─── */}
-            <section className={styles.programsSection} style={{ paddingTop: '160px' }}>
-                <div className={styles.programsWrapper}>
-                    <span className="subheading">Our Impact</span>
-                    <h1 className="heading-display">Programs That <span className="text-gradient">Transform</span></h1>
-                    <p className={styles.sectionIntroCopy} style={{ maxWidth: '800px' }}>
-                        Long-term support that helps girls stay safe, stay in school, and build for the future. Each program responds to a barrier that places girls at risk.
-                    </p>
-                </div>
-            </section>
+            <PageHero
+                eyebrow="Our Impact"
+                title="Programs That Transform"
+                description="Long-term support that helps girls stay safe, stay in school, and build for the future. Each program responds to a barrier that places girls at risk."
+            />
 
             {/* ─── Main Program List ─── */}
             <section className={styles.programsSection}>
