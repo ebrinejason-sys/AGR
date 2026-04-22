@@ -31,52 +31,126 @@
 .infoCol {
     position: sticky;
     top: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
 }
 
-.infoItem {
-    margin-top: 3rem;
+.infoCards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
+
+.infoCard {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 1.1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    transition: border-color 0.2s;
+}
+
+.infoCard:hover {
+    border-color: hsla(var(--clr-accent-pink-raw) / 0.3);
+}
+
+.infoCardIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: hsla(var(--clr-accent-pink-raw) / 0.1);
+    color: var(--accent-pink);
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+/* Removed old .infoItem — replaced by .infoCard */
 
 .infoLabel {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     font-weight: 900;
     letter-spacing: 2px;
-    color: var(--accent-pink);
-    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+    margin-bottom: 3px;
+    text-transform: uppercase;
 }
 
 .infoValue {
-    font-size: 1.1rem;
+    font-size: 0.92rem;
     font-weight: 600;
-    line-height: 1.5;
     color: var(--text-primary);
+    line-height: 1.4;
 }
 
 .infoLink {
-    font-size: 1.1rem;
+    font-size: 0.92rem;
     font-weight: 600;
     color: var(--text-primary);
-    transition: var(--transition-base);
+    transition: color 0.2s;
+    word-break: break-all;
 }
 
 .infoLink:hover {
     color: var(--accent-pink);
 }
 
+/* ─── WhatsApp CTA ─── */
+.whatsappBtn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 1.1rem 1.4rem;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border-radius: 16px;
+    font-weight: 700;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+    text-decoration: none;
+}
+
+.whatsappBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(37, 211, 102, 0.45);
+}
+
+.whatsappBtn span {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.whatsappBtn strong {
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+}
+
+.whatsappBtn small {
+    font-size: 0.72rem;
+    font-weight: 500;
+    opacity: 0.82;
+}
+
 .tabDescriptionBox {
-    margin-top: 4rem;
-    padding: 2rem;
-    background: hsla(var(--clr-accent-pink-raw) / 0.05);
-    border-left: 4px solid var(--accent-pink);
-    border-radius: 0 16px 16px 0;
+    padding: 1.25rem 1.4rem;
+    background: hsla(var(--clr-accent-teal-raw) / 0.05);
+    border-left: 3px solid var(--accent-teal);
+    border-radius: 0 12px 12px 0;
 }
 
 .tabDescriptionText {
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 0.9rem;
+    line-height: 1.65;
     color: var(--text-secondary);
 }
+
 
 /* ─── Form Card ─── */
 .formCard {

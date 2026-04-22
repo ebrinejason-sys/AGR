@@ -96,13 +96,15 @@
 
 .heroWordRow {
     display: block;
+    font-size: clamp(3rem, 7vw, 5.5rem); /* anchor em for height calculation */
     height: 1.15em;
     overflow: hidden;
+    line-height: 1;
 }
 
 .heroWordRotating {
     display: block;
-    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-size: 1em; /* inherits from .heroWordRow — same size as heroLine1 */
     font-weight: 900;
     line-height: 1;
     letter-spacing: -0.04em;

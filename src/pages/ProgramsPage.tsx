@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './ProgramsPage.module.css';
 import PageHero from '@/components/PageHero';
 import ProgramsListClient from '@/components/ProgramsListClient';
+import TickerBanner from '@/components/TickerBanner';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
 
@@ -23,6 +24,7 @@ export default function ProgramsPage() {
                 title="Programs That Transform"
                 description="Long-term support that helps girls stay safe, stay in school, and build for the future. Each program responds to a barrier that places girls at risk."
             />
+            <TickerBanner accent="purple" />
 
             {/* ─── Main Program List ─── */}
             <section className={styles.programsSection}>

@@ -1,7 +1,15 @@
 import { useState } from 'react';
-import { MapPin, Mail, MessageSquare, Phone, Send } from 'lucide-react';
+import { MapPin, Mail, MessageSquare, Phone, Send, Clock } from 'lucide-react';
 import styles from './ContactPage.module.css';
 import PageHero from '../components/PageHero';
+import TickerBanner from '@/components/TickerBanner';
+
+const CONTACT_TICKER = [
+    '📬 Reply within 24 hours', '🤝 Partner With Us', '💡 Mentorship Openings',
+    '📞 WhatsApp Available', '🌍 Based in Uganda', '⚖️ Legal Advocacy Team',
+    '🎓 Education Support', '🛡️ Community Safety', '❤️ Open to Volunteers',
+    '🌱 Join the Movement',
+];
 
 type ContactType = 'general' | 'mentor' | 'sponsor' | 'donate';
 type FormFields = {
@@ -61,35 +69,59 @@ export default function ContactPage() {
                 title={<>Let's <span className="text-gradient">Connect.</span></>}
                 description="Reach out to our team in Uganda for mentorship, sponsorship, or general enquiries."
             />
+            <TickerBanner items={CONTACT_TICKER} accent="teal" />
             <div className={styles.container}>
                 <section className={styles.contactSection}>
                     <div className={styles.contactGrid}>
                         {/* Info Column */}
                         <div className={styles.infoCol}>
-                            <div className={styles.infoItem}>
-                                <span className={styles.infoLabel}>LOCATION</span>
-                                <div className={styles.infoValue}>
-                                    <MapPin size={18} style={{ marginRight: 10, verticalAlign: 'middle' }} />
-                                    Kiburara, Ibanda District, Uganda
+                            <div className={styles.infoCards}>
+                                <div className={styles.infoCard}>
+                                    <span className={styles.infoCardIcon}><MapPin size={18} /></span>
+                                    <div>
+                                        <span className={styles.infoLabel}>LOCATION</span>
+                                        <div className={styles.infoValue}>Kiburara, Ibanda District, Uganda</div>
+                                    </div>
+                                </div>
+                                <div className={styles.infoCard}>
+                                    <span className={styles.infoCardIcon}><Mail size={18} /></span>
+                                    <div>
+                                        <span className={styles.infoLabel}>EMAIL</span>
+                                        <a href="mailto:africangirlriseltd@gmail.com" className={styles.infoLink}>africangirlriseltd@gmail.com</a>
+                                    </div>
+                                </div>
+                                <div className={styles.infoCard}>
+                                    <span className={styles.infoCardIcon}><Phone size={18} /></span>
+                                    <div>
+                                        <span className={styles.infoLabel}>PHONE</span>
+                                        <a href="tel:+256703727965" className={styles.infoLink}>+256 703 727 965</a>
+                                    </div>
+                                </div>
+                                <div className={styles.infoCard}>
+                                    <span className={styles.infoCardIcon}><Clock size={18} /></span>
+                                    <div>
+                                        <span className={styles.infoLabel}>RESPONSE TIME</span>
+                                        <div className={styles.infoValue}>Usually within 24 hours</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className={styles.infoItem}>
-                                <span className={styles.infoLabel}>EMAIL</span>
-                                <div className={styles.infoValue}>
-                                    <Mail size={18} style={{ marginRight: 10, verticalAlign: 'middle' }} />
-                                    <a href="mailto:africangirlriseltd@gmail.com" className={styles.infoLink}>africangirlriseltd@gmail.com</a>
-                                </div>
-                            </div>
-                            <div className={styles.infoItem}>
-                                <span className={styles.infoLabel}>DIRECT LINE</span>
-                                <div className={styles.infoValue}>
-                                    <Phone size={18} style={{ marginRight: 10, verticalAlign: 'middle' }} />
-                                    <a href="tel:+256703727965" className={styles.infoLink}>+256 703 727 965</a>
-                                </div>
-                            </div>
+
+                            {/* WhatsApp CTA */}
+                            <a
+                                href="https://wa.me/256703727965"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.whatsappBtn}
+                            >
+                                <MessageSquare size={20} />
+                                <span>
+                                    <strong>Chat on WhatsApp</strong>
+                                    <small>Fastest way to reach us</small>
+                                </span>
+                            </a>
+
                             <div className={styles.tabDescriptionBox}>
                                 <p className={styles.tabDescriptionText}>
-                                    <MessageSquare size={18} style={{ marginBottom: 10, display: 'block', color: 'var(--accent-pink)' }} />
                                     {TAB_DESCRIPTIONS[activeTab]}
                                 </p>
                             </div>

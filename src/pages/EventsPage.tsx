@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Calendar, MapPin, X, ArrowRight } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import PageHero from '@/components/PageHero';
+import TickerBanner from '@/components/TickerBanner';
 import styles from './EventsPage.module.css';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
@@ -103,6 +104,7 @@ export default function EventsPage() {
                 eyebrow="Our Calendar"
                 title="Moments of Impact"
             />
+            <TickerBanner accent="teal" />
             <section className={`${styles.eventSection} ${styles.eventSectionPad}`}>
                 {loading ? (
                     <div className={styles.loadingEvents}>Loading events...</div>

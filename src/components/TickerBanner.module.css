@@ -1,0 +1,64 @@
+/* ─── TickerBanner — shared across pages ─── */
+.wrap {
+    background: var(--surface);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 14px 0;
+    overflow: hidden;
+    user-select: none;
+}
+
+.track {
+    display: flex;
+    width: max-content;
+    animation: tickerScroll 32s linear infinite;
+}
+
+.wrap:hover .track {
+    animation-play-state: paused;
+}
+
+@keyframes tickerScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.item {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    padding: 0 1.25rem;
+    white-space: nowrap;
+    transition: color 0.2s;
+}
+
+.item:hover {
+    color: var(--accent-pink);
+}
+
+/* Accent variants */
+.dot {
+    color: var(--accent-pink);
+    opacity: 0.45;
+}
+
+.teal .dot {
+    color: var(--accent-teal);
+}
+
+.purple .dot {
+    color: var(--accent-purple);
+}
+
+.teal .item:hover {
+    color: var(--accent-teal);
+}
+
+.purple .item:hover {
+    color: var(--accent-purple);
+}

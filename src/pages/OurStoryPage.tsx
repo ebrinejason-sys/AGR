@@ -2,6 +2,7 @@ import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import PageHero from '@/components/PageHero';
+import TickerBanner from '@/components/TickerBanner';
 import styles from './OurStoryPage.module.css';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
@@ -16,6 +17,7 @@ export default function OurStoryPage() {
                 title="Our Narrative"
                 subtitle="Your beginning does not define your becoming."
             />
+            <TickerBanner />
 
             {/* ─── Story Section ─── */}
             <section className={styles.contentSection}>
