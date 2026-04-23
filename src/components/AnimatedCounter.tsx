@@ -113,6 +113,7 @@ export default function AnimatedCounter({
             style={{
                 display: 'inline-block',
                 fontVariantNumeric: 'tabular-nums',
+                willChange: 'transform, opacity',
             }}
         >
             {prefix}{formatNumber(count)}{suffix}

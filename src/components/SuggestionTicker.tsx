@@ -66,8 +66,8 @@ export default function SuggestionTicker() {
   const displayItems = [...suggestions, ...suggestions, ...suggestions];
 
   return (
-    <div className={styles.tickerWrapper}>
-      <div className={styles.tickerTrack}>
+    <div className={styles.tickerWrapper} style={{ willChange: 'transform' }}>
+      <div className={styles.tickerTrack} style={{ willChange: 'transform' }}>
         {displayItems.map((text, i) => (
           <div key={`${text}-${i}`} className={styles.tickerItem}>
             <span className={styles.tickerDot} />

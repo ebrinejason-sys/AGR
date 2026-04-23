@@ -263,11 +263,13 @@ export default function HomePage() {
                         your beginning does not define your becoming.
                     </p>
                     <div className={styles.quoteAuthor}>
-                        <img src="/images/founder.jpg" alt="Akatwijuka Grace" className={styles.quoteAvatar} />
                         <div>
                             <span className={styles.authorName}>Akatwijuka Grace</span>
                             <span className={styles.authorTitle}>Founder · African Girl Rise</span>
                         </div>
+                        <Link to="/founder" className={styles.founderStoryLink}>
+                            Read Grace’s Full Story <ArrowRight size={16} style={{ marginLeft: 4 }} />
+                        </Link>
                     </div>
                 </div>
             </section>

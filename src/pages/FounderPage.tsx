@@ -81,33 +81,14 @@ export default function FounderPage() {
                     {/* Right: Story Content */}
                     <div className={styles.editorialContent}>
                         <h2>A Girl Whose Parents <span>Broke the Cycle</span></h2>
-                        
                         <div className={styles.storyText}>
                             <p style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>
-                                I grew up in Ibanda District, in the rolling hills of Western Uganda. My family was not wealthy, but my parents refused to let their suffering become my inheritance.
+                                AKATWIJUKA GRACE: FOUNDER & VISIONARY<br />African Girl Rise Initiative
                             </p>
-                            
-                            <p>
-                                I grew up alongside five girls — Annet, Grace, Mary, Robinah, Sylvia — who dreamed with me under the mango tree. Every single one of them left school before finishing. Married off, pushed aside, silenced. I kept walking. Why me? Because my parents chose differently.
-                            </p>
-
-                            {!isStoryExpanded ? (
-                                <button className="btn-glass" onClick={() => setIsStoryExpanded(true)} style={{ color: 'var(--text-primary)', marginTop: '2rem' }}>
-                                    Read Full Story <ChevronDown size={18} style={{ marginLeft: 8 }} />
-                                </button>
-                            ) : (
-                                <>
-                                    <p style={{ marginTop: '2rem' }}>
-                                        I am currently in my fourth year of law studies at Uganda Christian University. I chose law because lasting change requires changing the systems that fail girls in the first place. I want to be the lawyer who stands as a shield between the powerless and a cruel system.
-                                    </p>
-                                    <p style={{ marginTop: '1.5rem' }}>
-                                        My vision is simple and enormous: I want every girl in Ibanda District — every girl in Uganda — to know that her beginning does not define her becoming.
-                                    </p>
-                                    <button className="btn-glass" onClick={() => setIsStoryExpanded(false)} style={{ color: 'var(--text-primary)', marginTop: '2rem' }}>
-                                        Show Less <ChevronUp size={18} style={{ marginLeft: 8 }} />
-                                    </button>
-                                </>
-                            )}
+                            <p>My parents broke the cycle so I could rise. Now I help other girls do the same and raise daughters who will rise even higher.</p>
+                            <p>Hello. I am Grace. If you are reading this, you are someone who believes as I do that every girl deserves a chance to become who she was meant to be. I was born in Ibanda District, Western Uganda, in 2001. My parents were not wealthy, but they refused to let their suffering become my inheritance. I grew up alongside five girls — Annet, Grace, Mary, Robinah, Sylvia — who dreamed with me under the mango tree. Every single one of them left school before finishing. Married off, pushed aside, silenced. I kept walking. Why me? Because my parents chose differently.</p>
+                            <p>In 2018, I witnessed the systemic barriers that block girls from education: poverty, violence, early marriage, and a lack of safe spaces. I began grassroots mentorship in my community in 2021, determined to be the difference I wished I had seen. In 2023, I enrolled in Law at Uganda Christian University, because lasting change requires changing the systems that fail girls in the first place. I want to be the lawyer who stands as a shield between the powerless and a cruel system.</p>
+                            <p>In 2025, I officially registered African Girl Rise Initiative. My vision is simple and enormous: I want every girl in Ibanda District — every girl in Uganda — to know that her beginning does not define her becoming. I am not special. I am simply a girl whose parents chose to break the cycle. Now I reach back to ignite that same transformation in others.</p>
                         </div>
 
                         <div className={styles.statsGrid}>
