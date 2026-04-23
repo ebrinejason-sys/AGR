@@ -8,6 +8,7 @@ const VALID_METHODS: DonationMethod[] = ['mobile_money', 'card'];
 const MIN_AMOUNT = 500;
 const MAX_AMOUNT = 10_000_000;
 
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
@@ -17,9 +18,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         if (rl.isLimited) return res.status(rl.statusCode).json(rl.body);
 
         const body = req.body || {};
-        const { amount, email, name, eventId, currency = 'UGX', method = 'mobile_money', phoneNumber, mobileMoneyNetwork } = body as {
+        const { amount, email, name, eventId, currency = 'UGX', method = 'mobile_money', phoneNumber, mobileMoneyNetwork, provider } = body as {
             amount: number | string; email?: string; name?: string; eventId?: string;
-            currency?: DonationCurrency; method?: DonationMethod; phoneNumber?: string; mobileMoneyNetwork?: string;
+            currency?: DonationCurrency; method?: DonationMethod; phoneNumber?: string; mobileMoneyNetwork?: string; provider?: string;
         };
 
         if (email && String(email).length > 255) return res.status(400).json({ error: 'Email too long.' });
@@ -42,9 +43,31 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const appBaseUrl = (process.env.BASE_URL || process.env.VITE_BASE_URL || `https://${req.headers.host}`).replace(/\/+$/, '');
         const normalizedName = name?.trim() || undefined;
 
-        const checkout = method === 'mobile_money'
-            ? await initializeFlutterwaveMobileMoneyCheckout({ amount: parsedAmount, currency, email: normalizedEmail, eventId, name: normalizedName, network: mobileMoneyNetwork?.trim(), phoneNumber: phoneNumber?.trim() || '', redirectUrl: `${appBaseUrl}/pay?provider=flutterwave` })
-            : await initializeMarzPayCheckout({ amount: parsedAmount, currency, email: normalizedEmail, name: normalizedName, eventId, callbackUrl: `${appBaseUrl}/api/marzpay/callback?provider=marzpay` });
+        // Always use Flutterwave for mobile money, MarzPay for card
+        let checkout;
+        if (method === 'mobile_money') {
+            checkout = await initializeFlutterwaveMobileMoneyCheckout({
+                amount: parsedAmount,
+                currency,
+                email: normalizedEmail,
+                eventId,
+                name: normalizedName,
+                network: mobileMoneyNetwork?.trim(),
+                phoneNumber: phoneNumber?.trim() || '',
+                redirectUrl: `${appBaseUrl}/pay?provider=flutterwave`
+            });
+        } else if (method === 'card') {
+            checkout = await initializeMarzPayCheckout({
+                amount: parsedAmount,
+                currency,
+                email: normalizedEmail,
+                name: normalizedName,
+                eventId,
+                callbackUrl: `${appBaseUrl}/api/marzpay/callback?provider=marzpay`
+            });
+        } else {
+            return res.status(400).json({ error: 'Unsupported donation method.' });
+        }
 
         return res.json(checkout);
     } catch (error) {
