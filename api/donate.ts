@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { rateLimit, getIPFromHeader } from '../lib/rate-limit';
-import { initializeFlutterwaveMobileMoneyCheckout } from '../lib/flutterwave';
-import { initializeMarzPayCheckout, type DonationCurrency, type DonationMethod } from '../lib/marzpay';
+import { rateLimit, getIPFromHeader } from '../src/lib/rate-limit';
+import { initializeFlutterwaveMobileMoneyCheckout } from '../src/lib/flutterwave';
+import { initializeMarzPayCheckout, type DonationCurrency, type DonationMethod } from '../src/lib/marzpay';
 
 const VALID_CURRENCIES: DonationCurrency[] = ['UGX'];
 const VALID_METHODS: DonationMethod[] = ['mobile_money', 'card'];
