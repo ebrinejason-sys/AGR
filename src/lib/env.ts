@@ -13,7 +13,7 @@
  * accidentally be included in the browser bundle through tree-shaking misses.
  */
 
-function getServerEnv(key: string, defaultValue: string = ''): string {
+export function getServerEnv(key: string, defaultValue: string = ''): string {
     if (typeof process === 'undefined') {
         // We are in a browser bundle — this should never happen.
         if (typeof window !== 'undefined') {

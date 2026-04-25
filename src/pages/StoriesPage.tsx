@@ -74,7 +74,7 @@ export default function StoriesPage() {
             <section className={styles.ctaBanner}>
                 <p className={styles.ctaBannerEyebrow}>Every Story Continues</p>
                 <h2 className={styles.ctaBannerTitle}>Be the reason a girl <span className="text-gradient">writes her next chapter</span></h2>
-                <button className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>
+                <button className="btn-premium reveal" onClick={() => setIsDonationModalOpen(true)}>
                     Support a Story <ArrowRight size={18} style={{ marginLeft: 8 }} />
                 </button>
             </section>
