@@ -2,6 +2,8 @@
 
 import { useEffect, useId, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Heart, CreditCard, Smartphone, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import styles from './DonationModal.module.css';
 import type { DonationMethod, DonationProvider } from '@/lib/marzpay';
 
@@ -51,20 +53,23 @@ const METHOD_OPTIONS: Array<{
   label: string;
   provider: string;
   value: DonationMethod;
+  icon: typeof CreditCard;
 }> = [
   {
-    description: 'Use the phone number below to receive an MTN MoMo or Airtel Money prompt.',
+    description: 'Use your phone number to receive an MTN MoMo or Airtel Money prompt.',
     helper: 'Approval happens on your phone after you continue.',
     label: 'Mobile Money',
     provider: 'Flutterwave',
     value: 'mobile_money',
+    icon: Smartphone,
   },
   {
-    description: 'Pay with Visa, Mastercard, or another supported card on MarzPay.',
+    description: 'Pay securely with Visa, Mastercard, or other cards via MarzPay.',
     helper: 'Card details are entered on MarzPay after you continue.',
-    label: 'Card',
+    label: 'Card Payment',
     provider: 'MarzPay',
     value: 'card',
+    icon: CreditCard,
   },
 ];
 
@@ -73,38 +78,25 @@ function formatUgx(amount: string): string {
   return Number.isFinite(value) && value > 0 ? `UGX ${value.toLocaleString()}` : 'Enter an amount';
 }
 
-function getSummaryNote(method: DonationMethod, network: MobileMoneyNetwork | ''): string {
-  return method === 'mobile_money'
-    ? network
-      ? `We will use Flutterwave to send an approval request to your ${network} line.`
-      : 'We will use Flutterwave to send a mobile money approval request to your phone.'
-    : 'We will open MarzPay so you can complete the card payment there.';
-}
-
 function persistPendingCheckout(checkout: DonationApiResponse) {
-  if (typeof window === 'undefined' || !checkout.provider) {
-    return;
-  }
-
+  if (typeof window === 'undefined' || !checkout.provider) return;
   try {
     window.sessionStorage.setItem(
       PENDING_DONATION_STORAGE_KEY,
       JSON.stringify({
-        authorizationUrl: typeof checkout.authorizationUrl === 'string' ? checkout.authorizationUrl : null,
+        authorizationUrl: checkout.authorizationUrl || null,
         provider: checkout.provider,
-        reference: typeof checkout.reference === 'string' ? checkout.reference : null,
-        status: typeof checkout.status === 'string' && checkout.status.trim() ? checkout.status.trim() : 'processing',
-        transactionId: typeof checkout.transactionId === 'string' ? checkout.transactionId : null,
+        reference: checkout.reference || null,
+        status: checkout.status || 'processing',
+        transactionId: checkout.transactionId || null,
       })
     );
-  } catch {
-    // Ignore storage failures and continue with checkout.
+  } catch (e) {
+    console.warn('Failed to persist checkout state', e);
   }
 }
 
 export default function DonationModal({ isOpen, onClose, eventId, eventTitle }: DonationModalProps) {
-  const titleId = useId();
-  const descriptionId = useId();
   const [method, setMethod] = useState<DonationMethod>('mobile_money');
   const [mobileMoneyNetwork, setMobileMoneyNetwork] = useState<MobileMoneyNetwork | ''>('');
   const [amount, setAmount] = useState('');
@@ -115,409 +107,247 @@ export default function DonationModal({ isOpen, onClose, eventId, eventTitle }: 
   const [error, setError] = useState('');
   const [isMounted, setIsMounted] = useState(false);
 
-  const selectedMethod = METHOD_OPTIONS.find((option) => option.value === method) ?? METHOD_OPTIONS[0];
-  const amountLabel = formatUgx(amount);
+  const selectedMethod = METHOD_OPTIONS.find((o) => o.value === method) ?? METHOD_OPTIONS[0];
 
   useEffect(() => {
     setIsMounted(true);
-
-    return () => {
-      setIsMounted(false);
-    };
+    return () => setIsMounted(false);
   }, []);
 
-  const resetForm = () => {
-    setMethod('mobile_money');
-    setMobileMoneyNetwork('');
-    setAmount('');
-    setName('');
-    setEmail('');
-    setPhone('');
-    setLoading(false);
-    setError('');
-  };
-
-  const handleClose = () => {
-    if (loading) {
-      return;
-    }
-
-    resetForm();
-    onClose();
-  };
-
   useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key !== 'Escape' || loading) {
-        return;
-      }
-
-      resetForm();
-      onClose();
-    };
-
-    // iOS-safe scroll lock.
-    // overflow:hidden on body does NOT stop scrolling on iOS Safari.
-    // The correct approach is to record scrollY, switch body to
-    // position:fixed (which freezes the page), then restore on close.
+    if (!isOpen) return;
     const scrollY = window.scrollY;
-    const prevStyle = document.body.getAttribute('style') || '';
     document.body.style.cssText = `position: fixed; width: 100%; top: -${scrollY}px; overflow-y: scroll;`;
-
-    window.addEventListener('keydown', handleEscape);
-
     return () => {
-      // Restore body and scroll position
-      document.body.setAttribute('style', prevStyle);
+      document.body.style.cssText = '';
       window.scrollTo(0, scrollY);
-      window.removeEventListener('keydown', handleEscape);
     };
-  }, [isOpen, loading, onClose]);
+  }, [isOpen]);
 
   const validate = () => {
-    const parsedAmount = Number(amount);
-
-    if (!amount.trim() || Number.isNaN(parsedAmount)) {
-      return 'Enter a valid donation amount in UGX.';
+    const val = Number(amount);
+    if (!amount.trim() || Number.isNaN(val)) return 'Please enter a valid donation amount.';
+    if (val < MIN_AMOUNT) return `The minimum donation is UGX ${MIN_AMOUNT.toLocaleString()}.`;
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) return 'Please enter a valid email address for your receipt.';
+    if (method === 'mobile_money') {
+      if (!phone.trim()) return 'Please enter your phone number for the prompt.';
+      if (!mobileMoneyNetwork) return 'Please select your mobile money network.';
     }
-
-    if (parsedAmount < MIN_AMOUNT) {
-      return `Minimum amount is UGX ${MIN_AMOUNT.toLocaleString()}.`;
-    }
-
-    if (!email.trim()) {
-      return 'Email address is required so we can send a donation confirmation.';
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      return 'Enter a valid email address.';
-    }
-
-    if (method === 'mobile_money' && !phone.trim()) {
-      return 'Enter the phone number that should receive the mobile money prompt.';
-    }
-
-    if (method === 'mobile_money' && !mobileMoneyNetwork) {
-      return 'Select the mobile money network that should receive the prompt.';
-    }
-
     return null;
   };
 
   const handleCheckout = async () => {
-    const validationError = validate();
-    if (validationError) {
-      setError(validationError);
+    const vError = validate();
+    if (vError) {
+      setError(vError);
       return;
     }
 
     try {
       setLoading(true);
       setError('');
-
-      const response = await fetch('/api/donate', {
+      const res = await fetch('/api/donate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          amount,
-          currency: 'UGX',
-          email: email.trim() || undefined,
-          method,
-          mobileMoneyNetwork: method === 'mobile_money' ? mobileMoneyNetwork : undefined,
-          name: name.trim() || undefined,
-          phoneNumber: phone.trim() || undefined,
-          eventId,
-        }),
+        body: JSON.stringify({ amount, email, method, mobileMoneyNetwork, name, phoneNumber: phone, eventId }),
       });
 
-      const data = (await response.json().catch(() => null)) as DonationApiResponse | null;
-      if (!response.ok || !data?.redirectUrl) {
-        setError(data?.error || 'Unable to start the secure checkout right now.');
+      const data = await res.json().catch(() => ({ error: 'Invalid server response' }));
+      if (!res.ok || !data.redirectUrl) {
+        setError(data.error || 'Checkout initiation failed. Please try again.');
         return;
       }
 
       persistPendingCheckout(data);
-      window.location.assign(data.redirectUrl as string);
-    } catch {
-      setError('A network error occurred while starting checkout. Please try again.');
+      window.location.assign(data.redirectUrl);
+    } catch (e) {
+      setError('A network error occurred. Please check your connection.');
     } finally {
       setLoading(false);
     }
   };
 
-  if (!isOpen || !isMounted) return null;
+  if (!isMounted) return null;
 
   return createPortal(
-    <div className={styles.modalOverlay} onClick={handleClose}>
-      <section
-        className={styles.modalCard}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        aria-describedby={descriptionId}
-        onClick={(event) => event.stopPropagation()}
-      >
-        <div className={styles.heroShell}>
-          <div className={styles.heroPanel}>
-            <span className={styles.kicker}>Donate in UGX</span>
-            <h2 id={titleId} className={styles.modalTitle}>
-              {eventTitle ? `Donate to ${eventTitle}` : 'Make a donation'}
-            </h2>
-            <p id={descriptionId} className={styles.modalSubtitle}>
-              Choose how you want to give. Mobile money payments go through Flutterwave, card payments go
-              through MarzPay, and we email a receipt after checkout.
-            </p>
-          </div>
+    <AnimatePresence>
+      {isOpen && (
+        <div className={styles.modalOverlay}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={styles.modalBackdrop}
+            onClick={onClose}
+          />
 
-          <div className={styles.providerRail}>
-            <div className={styles.providerRailItem}>
-              <span className={styles.providerRailLabel}>Mobile Money</span>
-              <strong>Flutterwave</strong>
-            </div>
-            <div className={styles.providerRailItem}>
-              <span className={styles.providerRailLabel}>Card Checkout</span>
-              <strong>MarzPay</strong>
-            </div>
-          </div>
-
-          <button type="button" className={styles.modalClose} onClick={handleClose} aria-label="Close donation modal">
-            ×
-          </button>
-        </div>
-
-        <div className={styles.modalBody}>
-          <div className={styles.section}>
-            <div className={styles.sectionHeading}>
-              <span className={styles.sectionLabel}>Payment method</span>
-              <span className={styles.sectionHint}>You can switch routes before continuing.</span>
+          <motion.section
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className={styles.modalCard}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className={styles.heroShell}>
+              <div className={styles.heroPanel}>
+                <span className={styles.kicker}>Support Her Rise</span>
+                <h2 className={styles.modalTitle}>
+                  {eventTitle ? `Support ${eventTitle}` : 'Make a Difference'}
+                </h2>
+                <p className={styles.modalSubtitle}>
+                  Your contribution directly funds education, safety, and recovery for girls in Uganda.
+                </p>
+              </div>
+              <button className={styles.modalClose} onClick={onClose} aria-label="Close">
+                <X size={20} />
+              </button>
             </div>
 
-            <div className={styles.methodGrid}>
-              {METHOD_OPTIONS.map((option) => (
-                <button
-                  key={option.value}
-                  type="button"
-                  className={`${styles.methodCard} ${method === option.value ? styles.methodCardActive : ''}`}
-                  onClick={() => {
-                    setMethod(option.value);
-                    setError('');
-                  }}
-                >
-                  <div className={styles.methodHeader}>
-                    <strong className={styles.methodTitle}>{option.label}</strong>
-                    <span className={styles.methodBadge}>{option.provider}</span>
-                  </div>
-                  <p className={styles.methodDescription}>{option.description}</p>
-                  <span className={styles.methodHelper}>{option.helper}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className={styles.section}>
-            <div className={styles.sectionHeading}>
-              <span className={styles.sectionLabel}>Amount</span>
-              <span className={styles.sectionHint}>All donations are collected in Ugandan shillings.</span>
-            </div>
-
-            <div className={styles.amountGrid}>
-              {QUICK_AMOUNTS.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  className={`${styles.amountChip} ${amount === item ? styles.amountChipActive : ''}`}
-                  onClick={() => {
-                    setAmount(item);
-                    setError('');
-                  }}
-                >
-                  UGX {Number(item).toLocaleString()}
-                </button>
-              ))}
-            </div>
-
-            <div className={styles.fieldRow}>
-              <label className={styles.field}>
-                <span className={styles.fieldLabel}>Donation Amount</span>
-                <input
-                  className={styles.input}
-                  type="number"
-                  min={String(MIN_AMOUNT)}
-                  step="1"
-                  value={amount}
-                  onChange={(event) => {
-                    setAmount(event.target.value);
-                    setError('');
-                  }}
-                  placeholder="e.g. 50,000"
-                />
-              </label>
-
-              {method === 'mobile_money' ? (
-                <label className={styles.field}>
-                  <span className={styles.fieldLabel}>
-                    Mobile Network
-                    <span className={styles.requiredMark}>Required</span>
-                  </span>
-                  <select
-                    className={`${styles.input} ${styles.selectInput}`}
-                    value={mobileMoneyNetwork}
-                    onChange={(event) => {
-                      setMobileMoneyNetwork(event.target.value as MobileMoneyNetwork | '');
-                      setError('');
-                    }}
-                  >
-                    <option value="">Select network</option>
-                    {MOBILE_MONEY_NETWORKS.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                  {mobileMoneyNetwork ? (
-                    <span className={styles.fieldInfoText}>
-                      {MOBILE_MONEY_NETWORKS.find((option) => option.value === mobileMoneyNetwork)?.helper}
-                    </span>
-                  ) : null}
-                </label>
-              ) : (
-                <div className={`${styles.field} ${styles.fieldInfoCard}`}>
-                  <span className={styles.fieldLabel}>Card Checkout</span>
-                  <p className={styles.fieldInfoText}>You will enter your card details on MarzPay after you continue.</p>
+            <div className={styles.modalBody}>
+              {/* Method Selection */}
+              <div className={styles.section}>
+                <div className={styles.sectionHeading}>
+                  <span className={styles.sectionLabel}>Select Payment Method</span>
                 </div>
-              )}
+                <div className={styles.methodGrid}>
+                  {METHOD_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.value}
+                      className={`${styles.methodCard} ${method === opt.value ? styles.methodCardActive : ''}`}
+                      onClick={() => { setMethod(opt.value); setError(''); }}
+                    >
+                      <div className={styles.methodHeader}>
+                        <opt.icon size={20} className={method === opt.value ? styles.activeIcon : ''} />
+                        <span className={styles.methodBadge}>{opt.provider}</span>
+                      </div>
+                      <strong className={styles.methodTitle}>{opt.label}</strong>
+                      <p className={styles.methodDescription}>{opt.description}</p>
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-              {method === 'mobile_money' ? (
-                <label className={`${styles.field} ${styles.fieldFullWidth}`}>
-                  <span className={styles.fieldLabel}>
-                    Phone Number
-                    <span className={styles.requiredMark}>Required</span>
-                  </span>
+              {/* Amount Selection */}
+              <div className={styles.section}>
+                <div className={styles.sectionHeading}>
+                  <span className={styles.sectionLabel}>Donation Amount (UGX)</span>
+                  <span className={styles.sectionHint}>Minimum: UGX 500</span>
+                </div>
+                <div className={styles.amountGrid}>
+                  {QUICK_AMOUNTS.map((amt) => (
+                    <button
+                      key={amt}
+                      className={`${styles.amountChip} ${amount === amt ? styles.amountChipActive : ''}`}
+                      onClick={() => { setAmount(amt); setError(''); }}
+                    >
+                      {Number(amt).toLocaleString()}
+                    </button>
+                  ))}
+                </div>
+                <div className={styles.inputWrapper}>
                   <input
                     className={styles.input}
-                    type="tel"
-                    value={phone}
-                    onChange={(event) => {
-                      setPhone(event.target.value);
-                      setError('');
-                    }}
-                    placeholder="+2567XXXXXXXX or 07XXXXXXXX"
+                    type="number"
+                    value={amount}
+                    onChange={(e) => { setAmount(e.target.value); setError(''); }}
+                    placeholder="Enter custom amount"
                   />
-                </label>
-              ) : null}
-            </div>
-          </div>
-
-          <div className={styles.section}>
-            <div className={styles.sectionHeading}>
-              <span className={styles.sectionLabel}>Your details</span>
-              <span className={styles.sectionHint}>We only use this for the receipt and donation follow-up.</span>
-            </div>
-
-            <div className={styles.fieldRow}>
-              <label className={styles.field}>
-                <span className={styles.fieldLabel}>
-                  Email Address
-                  <span className={styles.requiredMark}>Required</span>
-                </span>
-                <input
-                  className={styles.input}
-                  type="email"
-                  value={email}
-                  onChange={(event) => {
-                    setEmail(event.target.value);
-                    setError('');
-                  }}
-                  placeholder="name@example.com"
-                />
-              </label>
-
-              <label className={styles.field}>
-                <span className={styles.fieldLabel}>
-                  Full Name
-                  <span className={styles.optionalMark}>Optional</span>
-                </span>
-                <input
-                  className={styles.input}
-                  type="text"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                    setError('');
-                  }}
-                  placeholder="Your name"
-                />
-              </label>
-            </div>
-          </div>
-
-          <div className={styles.footerPanel}>
-            <div className={styles.summaryCard}>
-              <span className={styles.summaryLabel}>Review</span>
-              <div className={styles.summaryGrid}>
-                <div className={styles.summaryRow}>
-                  <span>Method</span>
-                  <strong>{selectedMethod.label}</strong>
+                  <div className={styles.inputAffix}>UGX</div>
                 </div>
-                <div className={styles.summaryRow}>
-                  <span>Provider</span>
-                  <strong>{selectedMethod.provider}</strong>
-                </div>
-                {method === 'mobile_money' ? (
-                  <div className={styles.summaryRow}>
-                    <span>Network</span>
-                    <strong>{mobileMoneyNetwork || 'Select a network'}</strong>
-                  </div>
-                ) : null}
-                <div className={styles.summaryRow}>
-                  <span>Amount</span>
-                  <strong>{amountLabel}</strong>
-                </div>
-                {eventTitle ? (
-                  <div className={styles.summaryRow}>
-                    <span>For</span>
-                    <strong>{eventTitle}</strong>
-                  </div>
-                ) : null}
               </div>
-              <p className={styles.summaryNote}>{getSummaryNote(method, mobileMoneyNetwork)}</p>
+
+              {/* Details Form */}
+              <div className={styles.section}>
+                <div className={styles.sectionHeading}>
+                  <span className={styles.sectionLabel}>Your Information</span>
+                </div>
+                <div className={styles.fieldRow}>
+                  <div className={styles.field}>
+                    <label className={styles.fieldLabel}>Email Address</label>
+                    <input
+                      className={styles.input}
+                      type="email"
+                      value={email}
+                      onChange={(e) => { setEmail(e.target.value); setError(''); }}
+                      placeholder="receipt@example.com"
+                    />
+                  </div>
+                  <div className={styles.field}>
+                    <label className={styles.fieldLabel}>Full Name (Optional)</label>
+                    <input
+                      className={styles.input}
+                      type="text"
+                      value={name}
+                      onChange={(e) => { setName(e.target.value); setError(''); }}
+                      placeholder="Jane Doe"
+                    />
+                  </div>
+                </div>
+
+                {method === 'mobile_money' && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    className={styles.fieldRow}
+                  >
+                    <div className={styles.field}>
+                      <label className={styles.fieldLabel}>Network</label>
+                      <select
+                        className={`${styles.input} ${styles.selectInput}`}
+                        value={mobileMoneyNetwork}
+                        onChange={(e) => setMobileMoneyNetwork(e.target.value as MobileMoneyNetwork)}
+                      >
+                        <option value="">Select Network</option>
+                        {MOBILE_MONEY_NETWORKS.map((n) => <option key={n.value} value={n.value}>{n.label}</option>)}
+                      </select>
+                    </div>
+                    <div className={styles.field}>
+                      <label className={styles.fieldLabel}>Phone Number</label>
+                      <input
+                        className={styles.input}
+                        type="tel"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="07XXXXXXXX"
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={styles.errorBox}
+                >
+                  <AlertCircle size={18} />
+                  <span>{error}</span>
+                </motion.div>
+              )}
+
+              <div className={styles.actionRow}>
+                <button className={styles.secondaryButton} onClick={onClose} disabled={loading}>Cancel</button>
+                <button className={styles.primaryButton} onClick={handleCheckout} disabled={loading}>
+                  {loading ? (
+                    <><Loader2 className={styles.spinner} size={18} /> Preparing Checkout...</>
+                  ) : (
+                    <><Heart size={18} /> {method === 'mobile_money' ? 'Pay with Mobile Money' : 'Pay with Card'}</>
+                  )}
+                </button>
+              </div>
+
+              <div className={styles.secureBadge}>
+                <CheckCircle2 size={14} />
+                <span>Secure payment powered by {selectedMethod.provider}</span>
+              </div>
             </div>
-
-            <div className={styles.trustCard}>
-              <span className={styles.summaryLabel}>Before you continue</span>
-              <ul className={styles.trustList}>
-                <li>Your receipt goes to the email address you enter.</li>
-                <li>All donations are charged in UGX.</li>
-                <li>
-                  {method === 'mobile_money'
-                    ? 'Use the same phone number and network that are registered for the wallet you want to debit.'
-                    : 'MarzPay handles the card checkout page.'}
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {error ? <div className={styles.errorBox} role="alert">{error}</div> : null}
-
-          <div className={styles.actionRow}>
-            <button type="button" className={styles.secondaryButton} onClick={handleClose} disabled={loading}>
-              Close
-            </button>
-            <button type="button" className={styles.primaryButton} onClick={handleCheckout} disabled={loading}>
-              {loading
-                ? 'Preparing Checkout...'
-                : method === 'mobile_money'
-                  ? 'Continue with Flutterwave'
-                  : 'Continue with MarzPay'}
-            </button>
-          </div>
+          </motion.section>
         </div>
-      </section>
-    </div>,
+      )}
+    </AnimatePresence>,
     document.body
   );
 }
