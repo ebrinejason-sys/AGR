@@ -108,6 +108,7 @@ export default function Footer() {
                             <li><Link to="/founder">The Founder</Link></li>
                             <li><Link to="/stories">Impact Stories</Link></li>
                             <li><Link to="/events">Events</Link></li>
+                            <li><Link to="/media/live">Live Feed</Link></li>
                         </ul>
                     </div>
 

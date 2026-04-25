@@ -68,7 +68,7 @@ export default function ProgramsPage() {
                 <h2 className="heading-section">Invest in a Girl&apos;s Future</h2>
                 <p className={styles.ctaCopy}>Your support helps fund practical care and pathways for girls to lead with confidence.</p>
                 <div className={styles.ctaActions}>
-                    <button type="button" className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>Support a Girl</button>
+                    <button type="button" className="btn-premium reveal" onClick={() => setIsDonationModalOpen(true)}>Support a Girl</button>
                     <Link to="/contact/partner" className="btn-glass" style={{ borderColor: 'rgba(255,255,255,0.4)' }}>Partner With Us</Link>
                 </div>
             </section>

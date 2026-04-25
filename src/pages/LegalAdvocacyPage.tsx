@@ -134,7 +134,7 @@ export default function LegalAdvocacyPage() {
                         &ldquo;The system did not protect my friends. So I decided to become someone who would. I chose law because justice is not given — it is fought for.&rdquo;
                     </blockquote>
                     <p className={styles.attribution}>&mdash; Akatwijuka Grace, Founder</p>
-                    <Link to="/founder" className="btn-premium">
+                    <Link to="/founder" className="btn-premium reveal">
                         Read Full Story <ArrowRight size={18} style={{ marginLeft: 8 }} />
                     </Link>
                 </div>
@@ -147,7 +147,7 @@ export default function LegalAdvocacyPage() {
                     Your contribution ensures that no girl in our community has to suffer in silence.
                 </p>
                 <div className={styles.ctaActions}>
-                    <button type="button" className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>Support Legal Rights</button>
+                    <button type="button" className="btn-premium reveal" onClick={() => setIsDonationModalOpen(true)}>Support Legal Rights</button>
                     <Link to="/contact" className="btn-glass" style={{ color: 'var(--text-primary)' }}>Contact Our Team</Link>
                 </div>
             </section>

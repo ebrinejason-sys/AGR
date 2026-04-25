@@ -116,7 +116,7 @@ export default function OurStoryPage() {
                         &ldquo;I put African Girl Rise Initiative in place to break the cycle that stole my friends. To give every girl a safe place to heal, skills to stand on her own, and leadership to lift others.&rdquo;
                     </blockquote>
                     <p className={styles.attribution}>&mdash; Akatwijuka Grace, Founder</p>
-                    <Link to="/founder" className="btn-premium">
+                    <Link to="/founder" className="btn-premium reveal">
                         Read Grace's Story <ArrowRight size={18} style={{ marginLeft: 8 }} />
                     </Link>
                 </div>
@@ -131,17 +131,17 @@ export default function OurStoryPage() {
                         <div className={styles.ctaCard}>
                             <h3>Donate</h3>
                             <p>Fund a girl's journey for a year. Your investment transforms generations, not just individuals.</p>
-                            <button className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>Contribute Now</button>
+                            <button className="btn-premium reveal" onClick={() => setIsDonationModalOpen(true)}>Contribute Now</button>
                         </div>
                         <div className={styles.ctaCard}>
                             <h3>Partner</h3>
                             <p>Bring your organization's resources to scale our impact across the region.</p>
-                            <Link to="/contact" className="btn-premium">Partner With Us</Link>
+                            <Link to="/contact" className="btn-premium reveal">Partner With Us</Link>
                         </div>
                         <div className={styles.ctaCard}>
                             <h3>Mentor</h3>
                             <p>Share your time and wisdom to guide a rising leader. Every girl needs a role model.</p>
-                            <Link to="/contact" className="btn-premium">Become a Mentor</Link>
+                            <Link to="/contact" className="btn-premium reveal">Become a Mentor</Link>
                         </div>
                     </div>
                 </div>
