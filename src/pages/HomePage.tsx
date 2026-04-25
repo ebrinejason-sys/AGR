@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Heart, Users, Home, BookOpen, Scale } from 'lucide-react';
 import styles from './HomePage.module.css';
 import AnimatedCounter from '@/components/AnimatedCounter';
+import { useReveal } from '@/hooks/useReveal';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
 
@@ -19,103 +20,107 @@ const impactStats = [
         label: 'Active sanctuaries',
         value: 12,
         suffix: '+',
-        desc: 'Trusted spaces and school-linked support points where girls find guidance.',
+        desc: 'Safe rooms equipped for emergency response, recovery, and hygiene support.',
         color: 'Purple',
         continuous: false,
     },
     {
-        label: '4 in 10 girls',
-        value: 4,
-        suffix: ' in 10',
-        desc: '4 in 10 girls in Uganda drop out before completing secondary school — we fight this.',
+        label: 'School retention',
+        value: 94,
+        suffix: '%',
+        desc: 'Of girls in our core programs remain in school or return after intervention.',
         color: 'Teal',
         continuous: false,
     },
-] as const;
+];
 
 const programCards = [
     {
-        title: 'Rise Sanctuaries',
         number: '01',
-        description: 'School-linked safe spaces where girls access counselling, peer support, and trusted adult follow-up.',
-        href: '/programs/rise-rooms',
-        Icon: Home,
-        color: 'Pink',
-    },
-    {
-        title: 'Education Support',
-        number: '02',
-        description: 'School retention support, scholastic materials, and practical help that keeps girls learning with dignity.',
-        href: '/programs/academic-rescue',
+        title: 'Education support',
+        description: 'Keeping girls in school through school kit drives, vocational support, and advocacy for affordable learning.',
         Icon: BookOpen,
+        color: 'Pink',
+        href: '/programs',
+    },
+    {
+        number: '02',
+        title: 'Rise Sanctuaries',
+        description: 'Emergency safe spaces providing hygiene kits, temporary shelter, and trauma-informed counseling.',
+        Icon: Home,
         color: 'Purple',
+        href: '/programs',
     },
     {
-        title: 'Legal Advocacy',
         number: '03',
-        description: 'Rights awareness, case management, and direct advocacy when girls face abuse, neglect, or exclusion.',
-        href: '/legal-advocacy',
-        Icon: Scale,
+        title: 'Rise Brothers',
+        description: 'Engaging boys and men as allies in the fight against child marriage and gender-based violence.',
+        Icon: Users,
         color: 'Teal',
+        href: '/programs/rise-brothers',
     },
     {
-        title: 'Rise Brothers',
         number: '04',
-        description: 'Engaging boys to understand what girls face, manage their own emotions, and become active allies.',
-        href: '/programs/rise-brothers',
-        Icon: Users,
-        color: 'Yellow',
+        title: 'Legal Advocacy',
+        description: 'Providing representation and monitoring for cases of defilement and illegal early marriage.',
+        Icon: Scale,
+        color: 'Pink',
+        href: '/legal-advocacy',
     },
-] as const;
+];
 
-const ROTATING_WORDS = ['Safe.', 'Heard.', 'Educated.', 'Empowered.', 'Rising.'];
-
+const ROTATING_WORDS = ['Safe', 'In School', 'Rising', 'Empowered'];
 const TICKER_ITEMS = [
-    '🎓 Education', '🛡️ Safety', '⚖️ Legal Advocacy', '👥 Community',
-    '💡 Mentorship', '🌍 Empowerment', '📚 School Retention', '❤️ Trauma Recovery',
-    '🤝 Partnerships', '🏡 Safe Spaces', '✊ Rights Awareness', '🌱 Growth',
+    'EDUCATION FOR ALL',
+    'SAFETY FIRST',
+    'LEGAL ADVOCACY',
+    'RISE SANCTUARIES',
+    'MEN AS ALLIES',
+    'IMPACT OVER INTENT',
 ];
 
 const MARQUEE_IMAGES_A = [
-    '/images/agr-photo-1.jpg',
-    '/images/agr-photo-2.jpg',
-    '/images/agr-photo-3.jpg',
-    '/images/agr-photo-4.jpg',
-    '/images/about-us.jpg',
-    '/images/worthy-dream.jpg',
-    '/images/program-3.jpg',
-    '/images/founder.jpg',
+    '/images/impact/impact-1.jpg',
+    '/images/impact/impact-2.jpg',
+    '/images/impact/impact-3.jpg',
+    '/images/impact/impact-4.jpg',
+    '/images/impact/impact-5.jpg',
 ];
 
-const MARQUEE_IMAGES_B = [...MARQUEE_IMAGES_A].reverse();
+const MARQUEE_IMAGES_B = [
+    '/images/impact/impact-6.jpg',
+    '/images/impact/impact-7.jpg',
+    '/images/impact/impact-8.jpg',
+    '/images/impact/impact-9.jpg',
+    '/images/impact/impact-10.jpg',
+];
 
 export default function HomePage() {
     const [wordIndex, setWordIndex] = useState(0);
     const [isExiting, setIsExiting] = useState(false);
     const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+    const revealRef = useReveal();
 
     useEffect(() => {
         const interval = setInterval(() => {
             setIsExiting(true);
             setTimeout(() => {
-                setWordIndex((i) => (i + 1) % ROTATING_WORDS.length);
+                setWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
                 setIsExiting(false);
-            }, 400);
+            }, 600);
         }, 3000);
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <div className={styles.container}>
-
+        <div className={styles.home} ref={revealRef}>
             {/* ─── Hero Section ─── */}
-            <section className={styles.heroSection}>
-                <div className={styles.heroBg} />
+            <section className={styles.hero}>
                 <div className={styles.heroInner}>
                     <div className={styles.heroContent}>
-                        <div className={styles.heroEyebrow}>
-                            <span className={styles.heroDot} />
-                            Uganda's Girl-Led Movement
+                        <div className={styles.heroBadge}>
+                            <span className={styles.heroBadgeDot} />
+                            Active in 5 Districts Across Uganda
                         </div>
                         <h1 className={styles.heroHeading}>
                             <span className={styles.heroLine1}>Help girls stay</span>
@@ -139,7 +144,6 @@ export default function HomePage() {
                         </div>
                     </div>
 
-                    {/* Floating stat chips */}
                     <div className={styles.heroStats}>
                         <div className={styles.heroStatChip}>
                             <span className={styles.heroStatNum}>56K+</span>
@@ -157,7 +161,6 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ─── Tag Ticker (Zavora-style) ─── */}
             <section className={styles.tickerSection}>
                 <div className={styles.tickerTrack}>
                     {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
@@ -168,8 +171,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ─── Impact Stats ─── */}
-            <section className={styles.statsSection}>
+            <section className={`${styles.statsSection} reveal`}>
                 <div className={styles.statsSectionInner}>
                     <div className={styles.statsHeadRow}>
                         <span className={styles.statsEyebrow}>Our Impact</span>
@@ -189,11 +191,9 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ─── Dual-row Community Marquee (Zavora style) ─── */}
-            <section className={styles.marqueeSection}>
+            <section className={`${styles.marqueeSection} reveal`}>
                 <div className={styles.marqueeOverlayLeft} />
                 <div className={styles.marqueeOverlayRight} />
-                {/* Row 1 — scrolls left */}
                 <div className={styles.marqueeRow}>
                     <div className={styles.marqueeTrackForward}>
                         {[...MARQUEE_IMAGES_A, ...MARQUEE_IMAGES_A].map((src, i) => (
@@ -203,7 +203,6 @@ export default function HomePage() {
                         ))}
                     </div>
                 </div>
-                {/* Row 2 — scrolls right */}
                 <div className={styles.marqueeRow}>
                     <div className={styles.marqueeTrackBackward}>
                         {[...MARQUEE_IMAGES_B, ...MARQUEE_IMAGES_B].map((src, i) => (
@@ -215,8 +214,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ─── Floating Program Cards (Zavora style) ─── */}
-            <section className={styles.pathwaysSection}>
+            <section className={`${styles.pathwaysSection} reveal`}>
                 <div className={styles.secHeader}>
                     <span className={styles.secEyebrow}>Core Pathways</span>
                     <h2 className={styles.secTitle}>
@@ -226,7 +224,7 @@ export default function HomePage() {
                         Strategic areas that address the root causes of school dropout and gender inequality.
                     </p>
                 </div>
-                <div className={styles.pathwaysGrid}>
+                <div className={`${styles.pathwaysGrid} stagger-reveal`}>
                     {programCards.map((p) => {
                         const { Icon } = p;
                         return (
@@ -254,8 +252,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ─── Founder Quote ─── */}
-            <section className={styles.quoteSection}>
+            <section className={`${styles.quoteSection} reveal`}>
                 <div className={styles.quoteContent}>
                     <span className={styles.quoteDecor}>"</span>
                     <p className={styles.quoteText}>
@@ -274,11 +271,10 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ─── Final CTA ─── */}
-            <section className={styles.ctaSection}>
+            <section className={`${styles.ctaSection} reveal`}>
                 <div className={styles.ctaContent}>
                     <span className={styles.ctaEyebrow}>Make a difference today</span>
-                    <h2 className={styles.ctaTitle}>Ready to change a girl's life?</h2>
+                    <h2 className={styles.ctaTitle}>Ready to change a girl&apos;s life?</h2>
                     <p className={styles.ctaText}>
                         Your contribution funds school fees, emergency response, safe spaces, and protection for girls across Uganda.
                     </p>

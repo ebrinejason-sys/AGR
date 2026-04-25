@@ -1,32 +1,27 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, BookOpen, Heart, Users, Scale, LayoutGrid, Star } from 'lucide-react';
+import { Menu, X, ChevronDown, Heart, Star, BookOpen, Users, LayoutGrid, Scale, PlayCircle } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import styles from './Navbar.module.css';
-
 const DonationModal = lazy(() => import('@/components/DonationModal'));
+import styles from './Navbar.module.css';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
     const [aboutOpen, setAboutOpen] = useState(false);
     const [programsOpen, setProgramsOpen] = useState(false);
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
     const location = useLocation();
 
-    const closeMenu = () => setIsOpen(false);
-
-    const isActive = (path: string) =>
-        path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
-
+    const isActive = (path: string) => location.pathname === path;
     const isAboutGroup = ['/our-story', '/founder', '/stories'].some(p => location.pathname.startsWith(p));
     const isProgramsGroup = ['/programs', '/legal-advocacy'].some(p => location.pathname.startsWith(p));
 
-    useEffect(() => {
-        closeMenu();
+    const closeMenu = () => {
+        setIsOpen(false);
         setAboutOpen(false);
         setProgramsOpen(false);
-    }, [location.pathname]);
+    };
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 20);
@@ -86,6 +81,11 @@ export default function Navbar() {
                             </div>
                         </div>
 
+                        <Link to="/media/live" className={`${styles.link} ${isActive('/media/live') ? styles.active : ''}`}>
+                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                                <PlayCircle size={16} /> Live Feed
+                            </span>
+                        </Link>
                         <Link to="/events" className={`${styles.link} ${isActive('/events') ? styles.active : ''}`}>Events</Link>
                         <Link to="/contact" className={`${styles.link} ${isActive('/contact') ? styles.active : ''}`}>Contact</Link>
 
@@ -177,6 +177,9 @@ export default function Navbar() {
                         </div>
                     </div>
 
+                    <Link to="/media/live" className={`${styles.mobileLink} ${isActive('/media/live') ? styles.mobileLinkActive : ''}`} onClick={closeMenu}>
+                        Live Feed
+                    </Link>
                     <Link to="/events" className={`${styles.mobileLink} ${isActive('/events') ? styles.mobileLinkActive : ''}`} onClick={closeMenu}>
                         Events
                     </Link>
@@ -205,4 +208,3 @@ export default function Navbar() {
         </>
     );
 }
-
