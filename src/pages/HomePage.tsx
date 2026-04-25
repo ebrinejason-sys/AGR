@@ -1,5 +1,6 @@
 import { lazy, Suspense, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Heart, Users, Home, BookOpen, Scale } from 'lucide-react';
 import styles from './HomePage.module.css';
 import AnimatedCounter from '@/components/AnimatedCounter';
@@ -89,40 +90,64 @@ const MARQUEE_IMAGES_A = [
 
 const MARQUEE_IMAGES_B = [...MARQUEE_IMAGES_A].reverse();
 
+const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-100px" },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as any }
+};
+
+const staggerContainer = {
+    initial: {},
+    whileInView: {
+        transition: {
+            staggerChildren: 0.1
+        }
+    },
+    viewport: { once: true, margin: "-100px" }
+};
+
 export default function HomePage() {
     const [wordIndex, setWordIndex] = useState(0);
-    const [isExiting, setIsExiting] = useState(false);
     const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setIsExiting(true);
-            setTimeout(() => {
-                setWordIndex((i) => (i + 1) % ROTATING_WORDS.length);
-                setIsExiting(false);
-            }, 400);
+            setWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
         }, 3000);
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <div className={styles.container}>
-
+        <div className={styles.homeWrapper}>
             {/* ─── Hero Section ─── */}
             <section className={styles.heroSection}>
-                <div className={styles.heroBg} />
                 <div className={styles.heroInner}>
-                    <div className={styles.heroContent}>
-                        <div className={styles.heroEyebrow}>
-                            <span className={styles.heroDot} />
-                            Uganda's Girl-Led Movement
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className={styles.heroContent}
+                    >
+                        <div className={styles.heroBadge}>
+                            <span className={styles.badgePulse} />
+                            African Girl Rise Ltd
                         </div>
                         <h1 className={styles.heroHeading}>
                             <span className={styles.heroLine1}>Help girls stay</span>
                             <div className={styles.heroWordRow}>
-                                <span className={`${styles.heroWordRotating} ${isExiting ? styles.wordExit : styles.wordEnter}`}>
-                                    {ROTATING_WORDS[wordIndex]}
-                                </span>
+                                <AnimatePresence mode="wait">
+                                    <motion.span
+                                        key={ROTATING_WORDS[wordIndex]}
+                                        initial={{ y: 20, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        exit={{ y: -20, opacity: 0 }}
+                                        transition={{ duration: 0.4 }}
+                                        className={styles.heroWordRotating}
+                                    >
+                                        {ROTATING_WORDS[wordIndex]}
+                                    </motion.span>
+                                </AnimatePresence>
                             </div>
                         </h1>
                         <p className={styles.heroSubtext}>
@@ -130,34 +155,45 @@ export default function HomePage() {
                             From trauma recovery to school retention — we build responses that work.
                         </p>
                         <div className={styles.heroActions}>
-                            <button onClick={() => setIsDonationModalOpen(true)} className={styles.heroBtnPrimary}>
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => setIsDonationModalOpen(true)}
+                                className={styles.heroBtnPrimary}
+                            >
                                 Support Her Rise <Heart size={18} />
-                            </button>
-                            <Link to="/programs" className={styles.heroBtnSecondary}>
-                                Explore Programs <ArrowRight size={18} />
-                            </Link>
+                            </motion.button>
+                            <motion.div whileHover={{ x: 5 }}>
+                                <Link to="/programs" className={styles.heroBtnSecondary}>
+                                    Explore Programs <ArrowRight size={18} />
+                                </Link>
+                            </motion.div>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Floating stat chips */}
                     <div className={styles.heroStats}>
-                        <div className={styles.heroStatChip}>
-                            <span className={styles.heroStatNum}>56K+</span>
-                            <span className={styles.heroStatLabel}>Girls Reached</span>
-                        </div>
-                        <div className={styles.heroStatChip}>
-                            <span className={styles.heroStatNum}>12+</span>
-                            <span className={styles.heroStatLabel}>Rise Sanctuaries</span>
-                        </div>
-                        <div className={styles.heroStatChip}>
-                            <span className={styles.heroStatNum}>4 in 10</span>
-                            <span className={styles.heroStatLabel}>Need Our Help</span>
-                        </div>
+                        {[
+                            { num: '56K+', label: 'Girls Reached' },
+                            { num: '12+', label: 'Rise Sanctuaries' },
+                            { num: '4 in 10', label: 'Need Our Help' }
+                        ].map((stat, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.5 + i * 0.1, type: 'spring' }}
+                                className={styles.heroStatChip}
+                            >
+                                <span className={styles.heroStatNum}>{stat.num}</span>
+                                <span className={styles.heroStatLabel}>{stat.label}</span>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* ─── Tag Ticker (Zavora-style) ─── */}
+            {/* ─── Tag Ticker ─── */}
             <section className={styles.tickerSection}>
                 <div className={styles.tickerTrack}>
                     {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
@@ -169,31 +205,41 @@ export default function HomePage() {
             </section>
 
             {/* ─── Impact Stats ─── */}
-            <section className={styles.statsSection}>
+            <motion.section
+                {...staggerContainer}
+                className={styles.statsSection}
+            >
                 <div className={styles.statsSectionInner}>
-                    <div className={styles.statsHeadRow}>
+                    <motion.div {...fadeInUp} className={styles.statsHeadRow}>
                         <span className={styles.statsEyebrow}>Our Impact</span>
                         <h2 className={styles.statsHeading}>Numbers that drive everything we do.</h2>
-                    </div>
+                    </motion.div>
                     <div className={styles.statsGrid}>
-                        {impactStats.map((stat) => (
-                            <div key={stat.label} className={`${styles.statCard} ${styles[`statCard${stat.color}`]}`}>
+                        {impactStats.map((stat, i) => (
+                            <motion.div
+                                key={stat.label}
+                                variants={{
+                                    initial: { opacity: 0, y: 20 },
+                                    whileInView: { opacity: 1, y: 0 }
+                                } as any}
+                                transition={{ delay: i * 0.1 }}
+                                className={`${styles.statCard} ${styles[`statCard${stat.color}`]}`}
+                            >
                                 <span className={`${styles.statValue} ${styles[`statValue${stat.color}`]}`}>
                                     <AnimatedCounter target={stat.value} suffix={stat.suffix} continuous={stat.continuous} />
                                 </span>
                                 <span className={styles.statLabel}>{stat.label}</span>
                                 <p className={styles.statDesc}>{stat.desc}</p>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
-            {/* ─── Dual-row Community Marquee (Zavora style) ─── */}
+            {/* ─── Community Marquee ─── */}
             <section className={styles.marqueeSection}>
                 <div className={styles.marqueeOverlayLeft} />
                 <div className={styles.marqueeOverlayRight} />
-                {/* Row 1 — scrolls left */}
                 <div className={styles.marqueeRow}>
                     <div className={styles.marqueeTrackForward}>
                         {[...MARQUEE_IMAGES_A, ...MARQUEE_IMAGES_A].map((src, i) => (
@@ -203,7 +249,6 @@ export default function HomePage() {
                         ))}
                     </div>
                 </div>
-                {/* Row 2 — scrolls right */}
                 <div className={styles.marqueeRow}>
                     <div className={styles.marqueeTrackBackward}>
                         {[...MARQUEE_IMAGES_B, ...MARQUEE_IMAGES_B].map((src, i) => (
@@ -215,8 +260,11 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ─── Floating Program Cards (Zavora style) ─── */}
-            <section className={styles.pathwaysSection}>
+            {/* ─── Core Pathways ─── */}
+            <motion.section
+                {...fadeInUp}
+                className={styles.pathwaysSection}
+            >
                 <div className={styles.secHeader}>
                     <span className={styles.secEyebrow}>Core Pathways</span>
                     <h2 className={styles.secTitle}>
@@ -226,36 +274,51 @@ export default function HomePage() {
                         Strategic areas that address the root causes of school dropout and gender inequality.
                     </p>
                 </div>
-                <div className={styles.pathwaysGrid}>
-                    {programCards.map((p) => {
+                <motion.div
+                    {...staggerContainer}
+                    className={styles.pathwaysGrid}
+                >
+                    {programCards.map((p, i) => {
                         const { Icon } = p;
                         return (
-                            <Link
+                            <motion.div
                                 key={p.title}
-                                to={p.href}
-                                className={`${styles.pathwayCard} ${styles[`pathwayCard${p.color}`]}`}
+                                variants={{
+                                    initial: { opacity: 0, scale: 0.9 },
+                                    whileInView: { opacity: 1, scale: 1 }
+                                } as any}
+                                transition={{ duration: 0.5 }}
+                                whileHover={{ y: -10 }}
                             >
-                                <div className={styles.pathwayCardInner}>
-                                    <span className={`${styles.pathwayNumber} ${styles[`pathwayNumber${p.color}`]}`}>
-                                        {p.number}
-                                    </span>
-                                    <div className={`${styles.pathwayIcon} ${styles[`pathwayIcon${p.color}`]}`}>
-                                        <Icon size={26} />
+                                <Link
+                                    to={p.href}
+                                    className={`${styles.pathwayCard} ${styles[`pathwayCard${p.color}`]}`}
+                                >
+                                    <div className={styles.pathwayCardInner}>
+                                        <span className={`${styles.pathwayNumber} ${styles[`pathwayNumber${p.color}`]}`}>
+                                            {p.number}
+                                        </span>
+                                        <div className={`${styles.pathwayIcon} ${styles[`pathwayIcon${p.color}`]}`}>
+                                            <Icon size={26} />
+                                        </div>
+                                        <h3 className={styles.pathwayTitle}>{p.title}</h3>
+                                        <p className={styles.pathwayDesc}>{p.description}</p>
+                                        <div className={`${styles.pathwayArrow} ${styles[`pathwayArrow${p.color}`]}`}>
+                                            Explore <ArrowRight size={16} />
+                                        </div>
                                     </div>
-                                    <h3 className={styles.pathwayTitle}>{p.title}</h3>
-                                    <p className={styles.pathwayDesc}>{p.description}</p>
-                                    <div className={`${styles.pathwayArrow} ${styles[`pathwayArrow${p.color}`]}`}>
-                                        Explore <ArrowRight size={16} />
-                                    </div>
-                                </div>
-                            </Link>
+                                </Link>
+                            </motion.div>
                         );
                     })}
-                </div>
-            </section>
+                </motion.div>
+            </motion.section>
 
             {/* ─── Founder Quote ─── */}
-            <section className={styles.quoteSection}>
+            <motion.section
+                {...fadeInUp}
+                className={styles.quoteSection}
+            >
                 <div className={styles.quoteContent}>
                     <span className={styles.quoteDecor}>"</span>
                     <p className={styles.quoteText}>
@@ -272,10 +335,13 @@ export default function HomePage() {
                         </Link>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* ─── Final CTA ─── */}
-            <section className={styles.ctaSection}>
+            <motion.section
+                {...fadeInUp}
+                className={styles.ctaSection}
+            >
                 <div className={styles.ctaContent}>
                     <span className={styles.ctaEyebrow}>Make a difference today</span>
                     <h2 className={styles.ctaTitle}>Ready to change a girl's life?</h2>
@@ -283,15 +349,22 @@ export default function HomePage() {
                         Your contribution funds school fees, emergency response, safe spaces, and protection for girls across Uganda.
                     </p>
                     <div className={styles.ctaActions}>
-                        <button onClick={() => setIsDonationModalOpen(true)} className={styles.ctaBtnPrimary}>
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => setIsDonationModalOpen(true)}
+                            className={styles.ctaBtnPrimary}
+                        >
                             Donate Now <Heart size={18} />
-                        </button>
-                        <Link to="/contact" className={styles.ctaBtnSecondary}>
-                            Volunteer With Us
-                        </Link>
+                        </motion.button>
+                        <motion.div whileHover={{ x: 5 }}>
+                            <Link to="/contact" className={styles.ctaBtnSecondary}>
+                                Volunteer With Us
+                            </Link>
+                        </motion.div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
             {isDonationModalOpen && (
                 <Suspense fallback={null}>

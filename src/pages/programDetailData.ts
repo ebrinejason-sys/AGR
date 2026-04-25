@@ -344,7 +344,7 @@ const FUTURE_PATHWAYS: ProgramDetail = {
                     ],
                     bullets: [
                         "University application support",
-                        "Scholarship opportunity tracking",
+                        "Education support tracking",
                         "Bridge-to-university mentorship",
                     ],
                 },

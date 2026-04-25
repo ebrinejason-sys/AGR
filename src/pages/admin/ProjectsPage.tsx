@@ -26,7 +26,7 @@ type ProjectItem = {
 
 const PILLARS = [
     { number: 1, name: 'Rise Sanctuaries (The Rise Room)', icon: LayoutGrid },
-    { number: 2, name: 'Academic Rescue & Scholarships', icon: LayoutGrid },
+    { number: 2, name: 'Academic Rescue & Education Grants', icon: LayoutGrid },
     { number: 3, name: 'Legal Advocacy & Protection', icon: LayoutGrid },
     { number: 4, name: 'The Rise Brothers Program', icon: LayoutGrid },
 ];

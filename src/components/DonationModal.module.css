@@ -1,46 +1,54 @@
 .modalOverlay {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   z-index: 1200;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background: rgba(15, 23, 42, 0.52);
-  overflow-y: auto;
+}
+
+.modalBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .modalCard {
+  position: relative;
   width: 100%;
-  max-width: 680px;
+  max-width: 640px;
   max-height: calc(100vh - 3rem);
   max-height: calc(100dvh - 3rem);
   overflow-y: auto;
   border: 1px solid var(--border-color);
-  border-radius: 24px;
+  border-radius: 28px;
   background: var(--surface);
-  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.18);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.4);
+  scrollbar-width: none;
+}
+
+.modalCard::-webkit-scrollbar {
+  display: none;
 }
 
 .heroShell {
   position: relative;
-  padding: 1.5rem 1.5rem 0;
-  background: var(--surface);
+  padding: 2rem 2rem 0;
 }
 
 .heroPanel {
-  padding: 0 3rem 1rem 0;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--border-color);
 }
 
 .kicker {
   display: inline-block;
-  margin-bottom: 0.7rem;
-  color: var(--color-pink);
-  font-size: 0.72rem;
+  margin-bottom: 0.75rem;
+  color: var(--accent-pink);
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -48,536 +56,320 @@
 
 .modalTitle {
   margin: 0;
-  color: var(--text-color);
+  color: var(--text-primary);
   font-family: var(--font-serif);
-  font-size: clamp(1.85rem, 4vw, 2.35rem);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
   font-weight: 800;
-  line-height: 1.08;
+  line-height: 1.1;
 }
 
 .modalSubtitle {
   margin: 0.75rem 0 0;
-  max-width: 40rem;
-  color: var(--text-muted);
-  font-size: 0.97rem;
-  line-height: 1.65;
-}
-
-.providerRail {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  padding: 1rem 0 0;
-}
-
-.providerRailItem {
-  padding: 0.85rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  background: var(--bg-color);
-}
-
-.providerRailItem strong {
-  color: var(--text-color);
+  color: var(--text-secondary);
   font-size: 0.95rem;
-  font-weight: 700;
-}
-
-.providerRailLabel {
-  display: block;
-  margin-bottom: 0.25rem;
-  color: var(--text-muted);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  line-height: 1.6;
 }
 
 .modalClose {
   position: absolute;
-  top: 1.15rem;
-  right: 1.15rem;
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(15, 23, 42, 0.1);
-  border-radius: 999px;
-  background: #ffffff;
-  color: var(--text-color);
-  font-size: 1.35rem;
-  line-height: 1;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modalClose:hover {
+  background: var(--bg-color);
+  color: var(--text-primary);
+  border-color: var(--accent-pink);
 }
 
 .modalBody {
-  padding: 1.35rem 1.5rem 1.5rem;
+  padding: 1.5rem 2rem 2rem;
 }
 
-.section + .section {
-  margin-top: 1.25rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--border-color);
+.section {
+  margin-bottom: 2rem;
 }
 
 .sectionHeading {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.85rem;
+  margin-bottom: 1rem;
 }
 
-.sectionLabel,
-.summaryLabel {
-  display: block;
-  color: var(--text-color);
-  font-size: 0.96rem;
+.sectionLabel {
+  font-size: 0.9rem;
   font-weight: 700;
+  color: var(--text-primary);
 }
 
 .sectionHint {
+  font-size: 0.8rem;
   color: var(--text-muted);
-  font-size: 0.88rem;
-  line-height: 1.5;
-}
-
-.methodCard,
-.amountChip,
-.secondaryButton,
-.primaryButton {
-  min-height: 48px;
-  font-family: inherit;
-  font-size: 0.92rem;
-  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
 
 .methodGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 }
 
 .methodCard {
-  display: grid;
-  gap: 0.55rem;
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
   border: 1px solid var(--border-color);
-  border-radius: 16px;
+  border-radius: 20px;
   background: var(--bg-color);
   text-align: left;
-  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .methodHeader {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  color: var(--text-secondary);
 }
 
-.methodTitle {
-  color: var(--text-color);
-  font-size: 0.98rem;
-  font-weight: 700;
+.activeIcon {
+  color: var(--accent-pink);
 }
 
 .methodBadge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.28rem 0.6rem;
-  border: 1px solid var(--border-color);
-  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.5rem;
   background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
   color: var(--text-muted);
-  font-size: 0.72rem;
+}
+
+.methodTitle {
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  color: var(--text-primary);
 }
 
 .methodDescription {
-  color: var(--text-color);
-  font-size: 0.91rem;
-  line-height: 1.55;
-}
-
-.methodHelper {
-  color: var(--text-muted);
-  font-size: 0.82rem;
-  line-height: 1.45;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
 }
 
 .methodCardActive {
-  border-color: rgba(233, 30, 99, 0.32);
-  background: var(--surface);
-  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.08);
+  border-color: var(--accent-pink);
+  background: hsla(var(--clr-accent-pink-raw) / 0.04);
+  box-shadow: 0 0 0 1px var(--accent-pink);
 }
 
 .amountGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.7rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .amountChip {
-  padding: 0.8rem 0.9rem;
+  padding: 0.75rem;
   border: 1px solid var(--border-color);
-  border-radius: 14px;
+  border-radius: 12px;
   background: var(--bg-color);
-  color: var(--text-color);
+  color: var(--text-primary);
   font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .amountChipActive {
-  border-color: rgba(233, 30, 99, 0.32);
-  background: rgba(233, 30, 99, 0.08);
-  color: var(--accent-pink);
+  background: var(--accent-pink);
+  border-color: var(--accent-pink);
+  color: white;
 }
 
-.fieldRow {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.85rem;
-  margin-top: 0.95rem;
-}
-
-.field {
-  display: grid;
-  gap: 0.45rem;
-  min-width: 0;
-}
-
-.fieldFullWidth {
-  grid-column: 1 / -1;
-}
-
-.fieldLabel {
+.inputWrapper {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  flex-wrap: wrap;
-  color: var(--text-color);
-  font-size: 0.83rem;
+}
+
+.inputAffix {
+  position: absolute;
+  right: 1rem;
+  font-size: 0.8rem;
   font-weight: 700;
-}
-
-.requiredMark,
-.optionalMark {
-  padding: 0.16rem 0.45rem;
-  border-radius: 999px;
-  font-size: 0.68rem;
-  font-style: normal;
-  font-weight: 700;
-}
-
-.requiredMark {
-  background: rgba(233, 30, 99, 0.09);
-  color: var(--color-pink);
-}
-
-.optionalMark {
-  background: #f1f5f9;
   color: var(--text-muted);
 }
 
 .input {
   width: 100%;
-  min-height: 48px;
-  padding: 0.85rem 0.95rem;
+  padding: 0.85rem 1rem;
+  background: var(--surface);
   border: 1px solid var(--border-color);
   border-radius: 14px;
-  background: var(--surface);
-  color: var(--text-color);
-  font-family: inherit;
+  color: var(--text-primary);
   font-size: 1rem;
+  transition: all 0.2s ease;
 }
 
 .input:focus {
   outline: none;
   border-color: var(--accent-pink);
-  box-shadow: 0 0 0 4px hsla(var(--clr-accent-pink-raw) / 0.08);
+  box-shadow: 0 0 0 4px hsla(var(--clr-accent-pink-raw) / 0.1);
 }
 
-.input::placeholder {
-  color: var(--text-muted);
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fieldLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
 }
 
 .selectInput {
   appearance: none;
-  background-image:
-    linear-gradient(45deg, transparent 50%, #64748b 50%),
-    linear-gradient(135deg, #64748b 50%, transparent 50%);
-  background-position:
-    calc(100% - 18px) calc(50% - 3px),
-    calc(100% - 12px) calc(50% - 3px);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-size: 6px 6px;
-  padding-right: 2.75rem;
-}
-
-.fieldInfoCard {
-  align-content: start;
-  padding: 0.95rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  background: var(--bg-color);
-}
-
-.fieldInfoText {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  line-height: 1.55;
-}
-
-.footerPanel {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  margin-top: 1.2rem;
-}
-
-.summaryCard,
-.trustCard {
-  padding: 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  background: var(--bg-color);
-}
-
-.summaryGrid {
-  display: grid;
-  gap: 0.55rem;
-}
-
-.summaryRow {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-bottom: 0.55rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.summaryRow:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.summaryRow span {
-  color: var(--text-muted);
-  font-size: 0.87rem;
-}
-
-.summaryRow strong {
-  color: var(--text-color);
-  font-size: 0.89rem;
-  text-align: right;
-}
-
-.summaryNote {
-  margin-top: 0.75rem;
-  color: var(--text-muted);
-  font-size: 0.88rem;
-  line-height: 1.55;
-}
-
-.trustList {
-  display: grid;
-  gap: 0.55rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.trustList li {
-  position: relative;
-  padding-left: 0.95rem;
-  color: var(--text-muted);
-  font-size: 0.88rem;
-  line-height: 1.5;
-}
-
-.trustList li::before {
-  content: '';
-  position: absolute;
-  top: 0.5rem;
-  left: 0;
-  width: 0.35rem;
-  height: 0.35rem;
-  border-radius: 50%;
-  background: rgba(15, 23, 42, 0.35);
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
 }
 
 .errorBox {
-  margin-top: 1rem;
-  padding: 0.9rem 1rem;
-  border: 1px solid rgba(233, 30, 99, 0.15);
-  border-radius: 14px;
-  background: hsla(var(--clr-accent-pink-raw) / 0.05);
-  color: var(--accent-pink);
-  font-size: 0.9rem;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background: hsla(0, 84%, 60%, 0.1);
+  border: 1px solid hsla(0, 84%, 60%, 0.2);
+  border-radius: 12px;
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
 .actionRow {
   display: grid;
-  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
-  gap: 0.75rem;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 1rem;
   margin-top: 1rem;
 }
 
-.secondaryButton {
-  border: 1px solid var(--border-color);
+.primaryButton, .secondaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem;
   border-radius: 14px;
-  background: var(--surface);
-  color: var(--text-color);
+  font-size: 0.95rem;
   font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .primaryButton {
+  background: var(--accent-pink);
+  color: white;
   border: none;
-  border-radius: 14px;
-  background: var(--color-pink);
-  color: #ffffff;
-  font-weight: 700;
-  box-shadow: 0 10px 24px rgba(233, 30, 99, 0.18);
+  box-shadow: 0 8px 20px hsla(var(--clr-accent-pink-raw) / 0.25);
 }
 
-@media (hover: hover) {
-  .modalClose:hover,
-  .methodCard:hover,
-  .amountChip:hover,
-  .secondaryButton:hover {
-    border-color: rgba(233, 30, 99, 0.2);
-  }
-
-  .modalClose:hover {
-    background: var(--bg-color);
-  }
-
-  .primaryButton:hover {
-    background: #d62461;
-  }
+.primaryButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px hsla(var(--clr-accent-pink-raw) / 0.35);
+  background: #f02e75;
 }
 
-.primaryButton:disabled,
-.secondaryButton:disabled {
-  opacity: 0.6;
+.secondaryButton {
+  background: var(--bg-color);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.secondaryButton:hover:not(:disabled) {
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.primaryButton:disabled {
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
-@media (max-width: 720px) {
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.secureBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 640px) {
   .modalOverlay {
-    align-items: flex-end;
     padding: 0;
+    align-items: flex-end;
   }
 
   .modalCard {
-    max-height: calc(100vh - 0.5rem);
-    max-height: calc(100dvh - 0.5rem);
-    border-radius: 24px 24px 0 0;
+    max-height: 92vh;
+    border-radius: 28px 28px 0 0;
   }
 
-  .heroShell,
+  .heroShell {
+    padding: 1.5rem 1.5rem 0;
+  }
+
   .modalBody {
-    padding-left: 1.15rem;
-    padding-right: 1.15rem;
+    padding: 1.5rem;
   }
 
-  .heroPanel {
-    padding-right: 2.5rem;
-  }
-
-  .providerRail,
-  .methodGrid,
-  .amountGrid,
-  .fieldRow,
-  .footerPanel,
-  .actionRow {
+  .methodGrid, .fieldRow, .actionRow {
     grid-template-columns: 1fr;
   }
 
-  .modalClose {
-    top: 0.95rem;
-    right: 0.95rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .heroShell {
-    padding: 1rem 1rem 0;
-  }
-
-  .modalBody {
-    padding: 1rem;
-  }
-
-  .heroPanel {
-    padding: 0 0 1rem;
-  }
-
-  .modalTitle {
-    font-size: clamp(1.5rem, 6vw, 2rem);
-  }
-
-  .modalSubtitle {
-    font-size: 0.9rem;
-  }
-
-  .providerRail {
-    gap: 0.5rem;
-  }
-
-  .providerRailItem {
-    padding: 0.7rem 0.85rem;
-  }
-
-  .amountGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.6rem;
-  }
-
-  .amountChip {
-    padding: 0.7rem 0.8rem;
-    font-size: 0.85rem;
-  }
-
-  .fieldRow {
-    gap: 0.7rem;
-  }
-
-  .field {
-    gap: 0.35rem;
-  }
-
-  .fieldLabel {
-    font-size: 0.78rem;
-  }
-
-  .input {
-    min-height: 44px;
-    padding: 0.75rem 0.85rem;
-    font-size: 16px;
-  }
-
-  .footerPanel {
-    gap: 0.6rem;
-  }
-
-  .summaryCard,
-  .trustCard {
-    padding: 0.85rem;
-  }
-
   .actionRow {
-    gap: 0.6rem;
-  }
-
-  .secondaryButton,
-  .primaryButton {
-    min-height: 44px;
-    font-size: 0.88rem;
-  }
-
-  .errorBox {
-    font-size: 0.85rem;
-    padding: 0.8rem 0.9rem;
+    display: flex;
+    flex-direction: column-reverse;
   }
 }
