@@ -26,7 +26,7 @@ export default function FounderPage() {
                 description="“My parents broke the cycle so I could rise. Now I spend my life proving that your beginning does not define your becoming.”"
                 actions={
                     <div className={styles.heroCtas}>
-                        <a href="https://wa.me/256703727965" className="btn-premium">
+                        <a href="https://wa.me/256703727965" className="btn-premium reveal">
                             <MessageSquare size={18} style={{ marginRight: 8 }} /> WhatsApp Grace
                         </a>
                         <Link to="/contact" className="btn-glass" style={{ color: 'var(--text-primary)' }}>
@@ -146,7 +146,7 @@ export default function FounderPage() {
                     <p>&ldquo;I am not special. I am simply a girl whose parents chose to break the cycle. Now I reach back to ignite that same transformation in others.&rdquo;</p>
                     <div className={styles.signature}>— Akatwijuka Grace, Founder</div>
                     <div className={styles.statementCtas}>
-                        <Link to="/our-story" className="btn-premium">Our Narrative</Link>
+                        <Link to="/our-story" className="btn-premium reveal">Our Narrative</Link>
                         <Link to="/contact" className="btn-glass" style={{ color: 'var(--text-primary)' }}>Partner With Us</Link>
                     </div>
                 </div>

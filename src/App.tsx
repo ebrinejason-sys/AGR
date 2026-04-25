@@ -20,6 +20,7 @@ const ContactPartnerPage = lazy(() => import('@/pages/ContactPartnerPage'));
 const OurStoryPage = lazy(() => import('@/pages/OurStoryPage'));
 const FounderPage = lazy(() => import('@/pages/FounderPage'));
 const LegalAdvocacyPage = lazy(() => import('@/pages/LegalAdvocacyPage'));
+const YouTubePage = lazy(() => import('@/pages/YouTubePage'));
 const PrivacyPage = lazy(() => import('@/pages/legal/PrivacyPage'));
 const TermsPage = lazy(() => import('@/pages/legal/TermsPage'));
 const RefundPage = lazy(() => import('@/pages/legal/RefundPage'));
@@ -69,6 +70,7 @@ function AppRoutes({ isIOSDevice }: { isIOSDevice: boolean }) {
             <Route path="/our-story" element={<OurStoryPage />} />
             <Route path="/founder" element={<FounderPage />} />
             <Route path="/legal-advocacy" element={<LegalAdvocacyPage />} />
+            <Route path="/media/live" element={<YouTubePage />} />
             <Route path="/legal/privacy" element={<PrivacyPage />} />
             <Route path="/legal/terms" element={<TermsPage />} />
             <Route path="/legal/refund" element={<RefundPage />} />
