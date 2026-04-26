@@ -478,6 +478,82 @@
     100% { transform: translateX(-50%); }
 }
 
+/* ─── Image Marquee ─── */
+.imageMarqueeSection {
+    width: 100%;
+    overflow: hidden;
+    padding: 2.5rem 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.imageMarqueeTrack {
+    display: flex;
+    gap: 1.25rem;
+    width: max-content;
+    animation: marquee 55s linear infinite;
+}
+
+.imageMarqueeTrackReverse {
+    animation-name: marqueeReverse;
+    animation-duration: 62s;
+}
+
+.imageMarqueeSection:hover .imageMarqueeTrack {
+    animation-play-state: paused;
+}
+
+.imageMarqueeItem {
+    width: 300px;
+    height: 210px;
+    flex-shrink: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    box-shadow:
+        0 0 0 2px hsla(var(--clr-accent-pink-raw) / 0.18),
+        0 8px 32px hsla(0, 0%, 0%, 0.18),
+        inset 0 1px 0 hsla(255, 100%, 100%, 0.06);
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.imageMarqueeItem:hover {
+    box-shadow:
+        0 0 0 2px hsla(var(--clr-accent-pink-raw) / 0.55),
+        0 16px 48px hsla(0, 0%, 0%, 0.28),
+        inset 0 1px 0 hsla(255, 100%, 100%, 0.1);
+    transform: translateY(-4px) scale(1.025);
+}
+
+.imageMarqueeItem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+}
+
+.imageMarqueeItem:hover img {
+    transform: scale(1.06);
+}
+
+@keyframes marqueeReverse {
+    0%   { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+@media (max-width: 768px) {
+    .imageMarqueeItem {
+        width: 210px;
+        height: 155px;
+        border-radius: 14px;
+    }
+}
+
 @media (max-width: 1024px) {
     .heroGrid,
     .featureSection,

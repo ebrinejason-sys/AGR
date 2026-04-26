@@ -223,6 +223,41 @@ export default function HomePage() {
                 </div>
             </section>
 
+            {/* ─── Image Marquee ─── */}
+            {(() => {
+                const rowA = [
+                    { src: '/images/agr-photo-1.jpg', alt: 'Girls in Rise Sanctuary' },
+                    { src: '/images/agr-photo-3.jpg', alt: 'Educational support session' },
+                    { src: '/images/about-us.jpg',    alt: 'About African Girl Rise' },
+                    { src: '/images/program-3.jpg',   alt: 'Program in action' },
+                ];
+                const rowB = [
+                    { src: '/images/agr-photo-2.jpg', alt: 'Community gathering' },
+                    { src: '/images/agr-photo-4.jpg', alt: 'Mentorship programme' },
+                    { src: '/images/worthy-dream.jpg',alt: 'A worthy dream' },
+                    { src: '/images/hero-bg.jpg',     alt: 'Girls rising' },
+                ];
+                const dupeRow = (arr: typeof rowA) => [...arr, ...arr, ...arr];
+                return (
+                    <section className={styles.imageMarqueeSection} aria-hidden="true">
+                        <div className={styles.imageMarqueeTrack}>
+                            {dupeRow(rowA).map((img, i) => (
+                                <div key={`a-${i}`} className={styles.imageMarqueeItem}>
+                                    <img src={img.src} alt={img.alt} />
+                                </div>
+                            ))}
+                        </div>
+                        <div className={`${styles.imageMarqueeTrack} ${styles.imageMarqueeTrackReverse}`}>
+                            {dupeRow(rowB).map((img, i) => (
+                                <div key={`b-${i}`} className={styles.imageMarqueeItem}>
+                                    <img src={img.src} alt={img.alt} />
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                );
+            })()}
+
             <section className={styles.programsSection}>
                 <div className={styles.sectionIntroRow}>
                     <div>
@@ -257,12 +292,12 @@ export default function HomePage() {
                     <span className="subheading">Built for trust</span>
                     <h2 className="heading-section">Professional enough for partners. Human enough for the girls we serve.</h2>
                     <p className={styles.sectionText}>
-                        The refreshed direction uses strong contrast, clearer hierarchy, and original component patterns inspired by modern 21st-style interfaces without depending on external generated snippets.
+                        African Girl Rise operates with transparency, measurable outcomes, and an unshakeable commitment to the communities we serve. Every program is designed to meet girls where they are — and carry them further than the world said they could go.
                     </p>
                     <div className={styles.featureList}>
-                        <div className={styles.featureItem}>Clear calls to action for donors, mentors, and partners</div>
-                        <div className={styles.featureItem}>Readable typography and visible contrast in both light and dark mode</div>
-                        <div className={styles.featureItem}>A stronger public-facing story anchored in safety, education, and advocacy</div>
+                        <div className={styles.featureItem}>Safe spaces where girls can heal, learn, and lead without fear</div>
+                        <div className={styles.featureItem}>Education pathways that reach girls who have been left behind by the system</div>
+                        <div className={styles.featureItem}>Legal and mental health support anchored in dignity, not charity</div>
                     </div>
                 </div>
             </section>
