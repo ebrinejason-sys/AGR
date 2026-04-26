@@ -106,6 +106,26 @@
     margin-bottom: 1.5rem;
 }
 
+.subsectionParagraph {
+    margin-bottom: 1rem;
+}
+
+.impactChipRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.impactChip {
+    padding: 0.25rem 0.625rem;
+    border-radius: 8px;
+    background: hsla(var(--clr-accent-teal-raw) / 0.1);
+    color: var(--accent-teal);
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
 .bulletList {
     list-style: none;
     margin-top: 1.5rem;
@@ -159,6 +179,11 @@
     font-size: 1rem;
 }
 
+.impactAfter {
+    font-weight: 700;
+    color: var(--accent-teal);
+}
+
 .statsSection {
     padding: 80px 8%;
 }
@@ -184,3 +209,22 @@
 }
 
 .btnBack:hover { color: var(--text-primary); }
+
+.inlineIconLeading {
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.inlineIconTrailing {
+    margin-left: 0.5rem;
+}
+
+.notFoundState {
+    padding: 160px 8%;
+    text-align: center;
+}
+
+.notFoundAction {
+    display: inline-flex;
+    margin-top: 2rem;
+}

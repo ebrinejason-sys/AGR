@@ -13,16 +13,16 @@ function SubSectionCard({ sub }: { sub: SubSection }) {
         <div className={styles.subsectionCard}>
             {sub.title && <h4 className={styles.subsectionTitle}>{sub.title}</h4>}
             {sub.quote && <p className={styles.subsectionQuote}>&ldquo;{sub.quote}&rdquo;</p>}
-            {sub.paragraphs?.map((p: string, i: number) => <p key={i} style={{ marginBottom: '1rem' }}>{p}</p>)}
+            {sub.paragraphs?.map((p: string, i: number) => <p key={i} className={styles.subsectionParagraph}>{p}</p>)}
             {sub.bullets && (
                 <ul className={styles.bulletList}>
                     {sub.bullets.map((b: string, i: number) => <li key={i}>{b}</li>)}
                 </ul>
             )}
             {sub.impact && (
-                <div style={{ marginTop: '1.5rem', display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                <div className={styles.impactChipRow}>
                     {sub.impact.map((imp, i) => (
-                        <span key={i} style={{ background: 'hsla(var(--clr-accent-teal-raw) / 0.1)', color: 'var(--accent-teal)', padding: '4px 10px', borderRadius: 8, fontSize: '0.75rem', fontWeight: 800 }}>
+                        <span key={i} className={styles.impactChip}>
                             {imp}
                         </span>
                     ))}
@@ -39,9 +39,9 @@ export default function ProgramDetailPage() {
 
     if (!detail) {
         return (
-            <div className={styles.container} style={{ padding: '160px 8%', textAlign: 'center' }}>
+            <div className={`${styles.container} ${styles.notFoundState}`}>
                 <h2 className="heading-section">Program not found</h2>
-                <Link to="/programs" className="btn-premium" style={{ marginTop: '2rem' }}>Back to Programs</Link>
+                <Link to="/programs" className={`btn-premium ${styles.notFoundAction}`}>Back to Programs</Link>
             </div>
         );
     }
@@ -96,7 +96,7 @@ export default function ProgramDetailPage() {
                                 {detail.impactTable.rows.map((row, i) => (
                                     <tr key={i}>
                                         <td>{row.before}</td>
-                                        <td style={{ fontWeight: 700, color: 'var(--accent-teal)' }}>{row.after}</td>
+                                        <td className={styles.impactAfter}>{row.after}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -107,10 +107,10 @@ export default function ProgramDetailPage() {
 
             <div className={styles.ctaRow}>
                 <Link to="/programs" className={styles.btnBack}>
-                    <ArrowLeft size={18} style={{ marginRight: 8, verticalAlign: 'middle' }} /> Back to Programs
+                    <ArrowLeft size={18} className={styles.inlineIconLeading} /> Back to Programs
                 </Link>
                 <button className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>
-                    Support This Program <Heart size={18} style={{ marginLeft: 8 }} />
+                    Support This Program <Heart size={18} className={styles.inlineIconTrailing} />
                 </button>
             </div>
 

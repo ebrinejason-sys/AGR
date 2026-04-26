@@ -22,19 +22,19 @@ function StoryCard({ story }: { story: Story }) {
         <article className={styles.storyCard}>
             {story.image_url && (
                 <div className={styles.storyCover}>
-                    <img src={story.image_url} alt={story.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img src={story.image_url} alt={story.title} className={styles.storyImage} />
                 </div>
             )}
             <div className={styles.storyCardInner}>
                 <h2>{story.title}</h2>
                 <div className={styles.meta}>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><User size={14} /> {story.author || 'African Girl Rise'}</span>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Calendar size={14} /> {formatDate(story.created_at)}</span>
+                    <span className={styles.metaItem}><User size={14} /> {story.author || 'African Girl Rise'}</span>
+                    <span className={styles.metaItem}><Calendar size={14} /> {formatDate(story.created_at)}</span>
                 </div>
                 <div className={`${styles.content} ${!expanded && needsExpansion ? styles.contentClamped : ''}`} dangerouslySetInnerHTML={{ __html: story.content }} />
                 {needsExpansion && (
                     <button className={styles.readMoreBtn} onClick={() => setExpanded(!expanded)}>
-                        {expanded ? 'Show Less' : 'Read More'} <ArrowRight size={14} style={{ marginLeft: 8 }} />
+                        {expanded ? 'Show Less' : 'Read More'} <ArrowRight size={14} className={styles.inlineIconTrailing} />
                     </button>
                 )}
             </div>
@@ -61,11 +61,11 @@ export default function StoriesPage() {
                 eyebrow="Voices of Change"
                 title="Stories of Rise"
             />
-            <section className={styles.storyGrid} style={{ paddingTop: '80px' }}>
+            <section className={`${styles.storyGrid} ${styles.storyGridTopPad}`}>
                 {loading ? (
-                    <div style={{ padding: '100px 0', textAlign: 'center', fontWeight: 700 }}>Loading stories...</div>
+                    <div className={styles.loadingState}>Loading stories...</div>
                 ) : (
-                    <div style={{ marginTop: '80px', display: 'grid', gridTemplateColumns: 'inherit', gap: 'inherit' }}>
+                    <div className={styles.storyGridInner}>
                         {stories.map(story => <StoryCard key={story.id} story={story} />)}
                     </div>
                 )}
@@ -75,7 +75,7 @@ export default function StoriesPage() {
                 <p className={styles.ctaBannerEyebrow}>Every Story Continues</p>
                 <h2 className={styles.ctaBannerTitle}>Be the reason a girl <span className="text-gradient">writes her next chapter</span></h2>
                 <button className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>
-                    Support a Story <ArrowRight size={18} style={{ marginLeft: 8 }} />
+                    Support a Story <ArrowRight size={18} className={styles.inlineIconTrailing} />
                 </button>
             </section>
 

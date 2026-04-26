@@ -80,7 +80,7 @@ export default function OurStoryPage() {
                         <div>
                             <span className="subheading">Vision</span>
                             <h2 className="heading-section">The World We Are <span className="text-gradient">Building</span></h2>
-                            <p className={styles.storyTextStack} style={{ marginTop: '2rem' }}>
+                            <p className={`${styles.storyTextStack} ${styles.storyIntroOffset}`}>
                                 We dream of a continent where you can look at any girl and see not where she comes from, but where she is going. A future where communities are led by women who have turned their pain into purpose.
                             </p>
                         </div>
@@ -117,7 +117,7 @@ export default function OurStoryPage() {
                     </blockquote>
                     <p className={styles.attribution}>&mdash; Akatwijuka Grace, Founder</p>
                     <Link to="/founder" className="btn-premium">
-                        Read Grace's Story <ArrowRight size={18} style={{ marginLeft: 8 }} />
+                        Read Grace's Story <ArrowRight size={18} className={styles.inlineIconTrailing} />
                     </Link>
                 </div>
             </section>

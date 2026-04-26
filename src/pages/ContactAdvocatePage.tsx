@@ -34,22 +34,22 @@ export default function ContactAdvocatePage() {
                     <h2>Ways to Advocate</h2>
                     <div className={styles.opportunityList}>
                         <div className={styles.opportunityCard}>
-                            <Megaphone className={styles.opportunityIcon} size={32} style={{ color: 'var(--accent-pink)', marginBottom: '1rem' }} />
+                            <Megaphone className={`${styles.opportunityIcon} ${styles.opportunityIconPink}`} size={32} />
                             <h3>Social Ambassador</h3>
                             <p>Share our stories, campaigns, and impact updates on your social channels.</p>
                         </div>
                         <div className={styles.opportunityCard}>
-                            <PenTool className={styles.opportunityIcon} size={32} style={{ color: 'var(--accent-teal)', marginBottom: '1rem' }} />
+                            <PenTool className={`${styles.opportunityIcon} ${styles.opportunityIconTeal}`} size={32} />
                             <h3>Content Creator</h3>
                             <p>Write posts, create videos, or produce podcasts highlighting our mission.</p>
                         </div>
                         <div className={styles.opportunityCard}>
-                            <Mic2 className={styles.opportunityIcon} size={32} style={{ color: 'var(--accent-purple)', marginBottom: '1rem' }} />
+                            <Mic2 className={`${styles.opportunityIcon} ${styles.opportunityIconPurple}`} size={32} />
                             <h3>Community Speaker</h3>
                             <p>Present about our work at schools, churches, and community events.</p>
                         </div>
                         <div className={styles.opportunityCard}>
-                            <Camera className={styles.opportunityIcon} size={32} style={{ color: 'var(--text-primary)', marginBottom: '1rem' }} />
+                            <Camera className={`${styles.opportunityIcon} ${styles.opportunityIconNeutral}`} size={32} />
                             <h3>Storyteller</h3>
                             <p>Help document and share the inspiring journeys of the girls we serve.</p>
                         </div>
@@ -78,7 +78,7 @@ export default function ContactAdvocatePage() {
                             </div>
                             {status === 'success' && <div className={styles.successMsg}>Thank you for joining our advocacy movement! We'll be in touch.</div>}
                             <button type="submit" className={styles.submitBtn} disabled={status === 'loading'}>
-                                {status === 'loading' ? 'Sending...' : 'Become an Advocate'} <ArrowRight size={18} style={{ marginLeft: 8 }} />
+                                {status === 'loading' ? 'Sending...' : 'Become an Advocate'} <ArrowRight size={18} className={styles.inlineIconTrailing} />
                             </button>
                         </form>
                     </div>

@@ -69,7 +69,7 @@ export default function ProgramsPage() {
                 <p className={styles.ctaCopy}>Your support helps fund practical care and pathways for girls to lead with confidence.</p>
                 <div className={styles.ctaActions}>
                     <button type="button" className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>Support a Girl</button>
-                    <Link to="/contact/partner" className="btn-glass" style={{ borderColor: 'rgba(255,255,255,0.4)' }}>Partner With Us</Link>
+                    <Link to="/contact/partner" className={`btn-glass ${styles.ctaGlass}`}>Partner With Us</Link>
                 </div>
             </section>
 

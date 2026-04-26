@@ -1,29 +1,27 @@
-import Navbar from './Navbar';
-import Footer from './Footer';
 import Preloader from '@/components/Preloader';
+import Footer from './Footer';
+import Navbar from './Navbar';
 import styles from './layout.module.css';
 
 export default function LayoutShell({
-    children,
-    isIOSDevice,
-    isAdmin,
+  children,
+  isIOSDevice,
+  isAdmin,
 }: {
-    children: React.ReactNode;
-    isIOSDevice: boolean;
-    isAdmin?: boolean;
+  children: React.ReactNode;
+  isIOSDevice: boolean;
+  isAdmin?: boolean;
 }) {
-    if (isAdmin) {
-        return <>{children}</>;
-    }
+  if (isAdmin) {
+    return <>{children}</>;
+  }
 
-    return (
-        <div className={styles.layoutContainer}>
-            <Preloader skip={isIOSDevice} />
-            <Navbar />
-            <main className={styles.mainContent}>
-                {children}
-            </main>
-            <Footer />
-        </div>
-    );
+  return (
+    <div className={styles.layoutContainer}>
+      <Preloader skip={isIOSDevice} />
+      <Navbar />
+      <main className={styles.mainContent}>{children}</main>
+      <Footer />
+    </div>
+  );
 }

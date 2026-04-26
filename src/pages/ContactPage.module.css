@@ -245,5 +245,9 @@
     width: 100%;
 }
 
+.inlineIconTrailing {
+    margin-left: 0.625rem;
+}
+
 .statusSuccess { color: var(--accent-teal); font-weight: 700; margin-top: 1rem; text-align: center; }
 .statusError { color: var(--accent-pink); font-weight: 700; margin-top: 1rem; text-align: center; }

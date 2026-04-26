@@ -34,22 +34,22 @@ export default function ContactMentorPage() {
                     <h2>Ways to Volunteer</h2>
                     <div className={styles.opportunityList}>
                         <div className={styles.opportunityCard}>
-                            <Users className={styles.opportunityIcon} size={32} style={{ color: 'var(--accent-pink)', marginBottom: '1rem' }} />
+                            <Users className={`${styles.opportunityIcon} ${styles.opportunityIconPink}`} size={32} />
                             <h3>Career Mentorship</h3>
                             <p>Guide girls through career exploration and professional development.</p>
                         </div>
                         <div className={styles.opportunityCard}>
-                            <GraduationCap className={styles.opportunityIcon} size={32} style={{ color: 'var(--accent-teal)', marginBottom: '1rem' }} />
+                            <GraduationCap className={`${styles.opportunityIcon} ${styles.opportunityIconTeal}`} size={32} />
                             <h3>Academic Support</h3>
                             <p>Tutoring, STEM workshops, and national exam preparation.</p>
                         </div>
                         <div className={styles.opportunityCard}>
-                            <Laptop className={styles.opportunityIcon} size={32} style={{ color: 'var(--accent-purple)', marginBottom: '1rem' }} />
+                            <Laptop className={`${styles.opportunityIcon} ${styles.opportunityIconPurple}`} size={32} />
                             <h3>Skills Training</h3>
                             <p>Teach digital literacy, financial skills, or entrepreneurship.</p>
                         </div>
                         <div className={styles.opportunityCard}>
-                            <Sparkles className={styles.opportunityIcon} size={32} style={{ color: 'var(--text-primary)', marginBottom: '1rem' }} />
+                            <Sparkles className={`${styles.opportunityIcon} ${styles.opportunityIconNeutral}`} size={32} />
                             <h3>Rise Sisterhood</h3>
                             <p>Provide ongoing encouragement and emotional guidance.</p>
                         </div>
@@ -82,7 +82,7 @@ export default function ContactMentorPage() {
                             </div>
                             {status === 'success' && <div className={styles.successMsg}>Thank you! We'll review your application and be in touch soon.</div>}
                             <button type="submit" className={styles.submitBtn} disabled={status === 'loading'}>
-                                {status === 'loading' ? 'Sending...' : 'Join the Network'} <ArrowRight size={18} style={{ marginLeft: 8 }} />
+                                {status === 'loading' ? 'Sending...' : 'Join the Network'} <ArrowRight size={18} className={styles.inlineIconTrailing} />
                             </button>
                         </form>
                     </div>

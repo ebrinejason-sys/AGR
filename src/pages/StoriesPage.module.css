@@ -31,7 +31,13 @@
 }
 
 .storyCover {
-    aspect-ratio: 16/9;
+    min-height: 14rem;
+}
+
+.storyImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .storyCardInner {
@@ -72,6 +78,12 @@
     margin-bottom: 2rem;
 }
 
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .content {
     font-size: 1.1rem;
     line-height: 1.7;
@@ -92,6 +104,27 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 0.85rem;
+}
+
+.inlineIconTrailing {
+    margin-left: 0.5rem;
+}
+
+.storyGridTopPad {
+    padding-top: 80px;
+}
+
+.loadingState {
+    padding: 100px 0;
+    text-align: center;
+    font-weight: 700;
+}
+
+.storyGridInner {
+    display: grid;
+    grid-template-columns: inherit;
+    gap: inherit;
+    margin-top: 80px;
 }
 
 /* ─── CTA Banner ─── */

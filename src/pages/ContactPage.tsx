@@ -172,7 +172,7 @@ export default function ContactPage() {
                                     <textarea rows={4} className={styles.input} required value={formData.message} onChange={set('message')} placeholder="How can we help?" />
                                 </div>
                                 <button type="submit" className={`btn-premium ${styles.fullWidthButton}`} disabled={status === 'loading'}>
-                                    {status === 'loading' ? 'Sending...' : 'Send Message'} <Send size={18} style={{ marginLeft: 10 }} />
+                                    {status === 'loading' ? 'Sending...' : 'Send Message'} <Send size={18} className={styles.inlineIconTrailing} />
                                 </button>
                                 {status === 'success' && <p className={styles.statusSuccess}>Message sent successfully.</p>}
                                 {status === 'error' && <p className={styles.statusError}>Failed to send. Please try again.</p>}

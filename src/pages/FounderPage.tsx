@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MessageSquare, Phone, Mail, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
+import { MessageSquare, Phone, Mail, ChevronDown, ChevronUp } from 'lucide-react';
 import PageHero from '../components/PageHero';
 import styles from './FounderPage.module.css';
 
@@ -27,9 +27,9 @@ export default function FounderPage() {
                 actions={
                     <div className={styles.heroCtas}>
                         <a href="https://wa.me/256703727965" className="btn-premium">
-                            <MessageSquare size={18} style={{ marginRight: 8 }} /> WhatsApp Grace
+                            <MessageSquare size={18} className={styles.inlineIconLeading} /> WhatsApp Grace
                         </a>
-                        <Link to="/contact" className="btn-glass" style={{ color: 'var(--text-primary)' }}>
+                        <Link to="/contact" className={`btn-glass ${styles.glassAction}`}>
                             Get in Touch
                         </Link>
                     </div>
@@ -82,17 +82,17 @@ export default function FounderPage() {
                     <div className={styles.editorialContent}>
                         <h2>A Girl Whose Parents <span>Broke the Cycle</span></h2>
                         <div className={styles.storyText}>
-                            <p style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>
+                            <p className={styles.storyLead}>
                                 AKATWIJUKA GRACE: FOUNDER & VISIONARY<br />African Girl Rise Initiative
                             </p>
                             <p>My parents broke the cycle so I could rise. Now I help other girls do the same and raise daughters who will rise even higher.</p>
                             {!isStoryExpanded ? (
-                                <button className="btn-glass" onClick={() => setIsStoryExpanded(true)} style={{ color: 'var(--text-primary)', marginTop: '2rem' }}>
-                                    Read Full Story <ChevronDown size={18} style={{ marginLeft: 8 }} />
+                                <button className={`btn-glass ${styles.storyToggle}`} onClick={() => setIsStoryExpanded(true)}>
+                                    Read Full Story <ChevronDown size={18} className={styles.inlineIconTrailing} />
                                 </button>
                             ) : (
                                 <>
-                                    <div style={{ marginTop: '2rem', textAlign: 'left', maxHeight: 600, overflowY: 'auto', paddingRight: 8 }}>
+                                    <div className={styles.storyExpanded}>
                                         <p>Welcome</p>
                                         <p>Hello. I am Grace.</p>
                                         <p>If you are reading this, you are someone who believes as I do that every girl deserves a chance to become who she was meant to be. You are someone who understands that a girl's beginning does not have to define her becoming.</p>
@@ -105,8 +105,8 @@ export default function FounderPage() {
                                         <p>My mother's life was hard from the very beginning...</p>
                                         {/* ...full story continues, all user-provided content, formatted as paragraphs and headings... */}
                                     </div>
-                                    <button className="btn-glass" onClick={() => setIsStoryExpanded(false)} style={{ color: 'var(--text-primary)', marginTop: '2rem' }}>
-                                        Show Less <ChevronUp size={18} style={{ marginLeft: 8 }} />
+                                    <button className={`btn-glass ${styles.storyToggle}`} onClick={() => setIsStoryExpanded(false)}>
+                                        Show Less <ChevronUp size={18} className={styles.inlineIconTrailing} />
                                     </button>
                                 </>
                             )}
@@ -126,12 +126,12 @@ export default function FounderPage() {
                         {/* Contact Cards */}
                         <div className={styles.contactCards}>
                             <a href="tel:+256763738733" className={styles.contactCard}>
-                                <Phone size={24} className={styles.contactCardIcon} style={{ color: 'var(--accent-pink)' }} />
+                                <Phone size={24} className={`${styles.contactCardIcon} ${styles.contactCardIconAccent}`} />
                                 <span className={styles.contactCardLabel}>Phone</span>
                                 <span className={styles.contactCardValue}>+256 763 738 733</span>
                             </a>
                             <a href="mailto:africangirlriseltd@gmail.com" className={styles.contactCard}>
-                                <Mail size={24} className={styles.contactCardIcon} style={{ color: 'var(--accent-pink)' }} />
+                                <Mail size={24} className={`${styles.contactCardIcon} ${styles.contactCardIconAccent}`} />
                                 <span className={styles.contactCardLabel}>Email</span>
                                 <span className={styles.contactCardValue}>africangirl@gmail.com</span>
                             </a>
@@ -147,7 +147,7 @@ export default function FounderPage() {
                     <div className={styles.signature}>— Akatwijuka Grace, Founder</div>
                     <div className={styles.statementCtas}>
                         <Link to="/our-story" className="btn-premium">Our Narrative</Link>
-                        <Link to="/contact" className="btn-glass" style={{ color: 'var(--text-primary)' }}>Partner With Us</Link>
+                        <Link to="/contact" className={`btn-glass ${styles.glassAction}`}>Partner With Us</Link>
                     </div>
                 </div>
             </section>

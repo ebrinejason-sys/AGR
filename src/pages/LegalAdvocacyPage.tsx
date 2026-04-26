@@ -72,15 +72,15 @@ export default function LegalAdvocacyPage() {
 
                     <div className={styles.premiumGrid}>
                         <div className={styles.truthCard}>
-                            <Scale className={styles.truthIcon} style={{ color: 'var(--accent-pink)' }} />
+                            <Scale className={`${styles.truthIcon} ${styles.truthIconPink}`} />
                             <p><strong>Many girls do not know</strong> that defilement is a crime punishable by law.</p>
                         </div>
                         <div className={styles.truthCard}>
-                            <Shield className={styles.truthIcon} style={{ color: 'var(--accent-purple)' }} />
+                            <Shield className={`${styles.truthIcon} ${styles.truthIconPurple}`} />
                             <p><strong>Many women do not know</strong> that the law protects them from domestic violence.</p>
                         </div>
                         <div className={styles.truthCard}>
-                            <Info className={styles.truthIcon} style={{ color: 'var(--accent-teal)' }} />
+                            <Info className={`${styles.truthIcon} ${styles.truthIconTeal}`} />
                             <p><strong>Many families do not know</strong> that forcing a girl into marriage is illegal in Uganda.</p>
                         </div>
                     </div>
@@ -135,7 +135,7 @@ export default function LegalAdvocacyPage() {
                     </blockquote>
                     <p className={styles.attribution}>&mdash; Akatwijuka Grace, Founder</p>
                     <Link to="/founder" className="btn-premium">
-                        Read Full Story <ArrowRight size={18} style={{ marginLeft: 8 }} />
+                        Read Full Story <ArrowRight size={18} className={styles.inlineIconTrailing} />
                     </Link>
                 </div>
             </section>
@@ -148,7 +148,7 @@ export default function LegalAdvocacyPage() {
                 </p>
                 <div className={styles.ctaActions}>
                     <button type="button" className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>Support Legal Rights</button>
-                    <Link to="/contact" className="btn-glass" style={{ color: 'var(--text-primary)' }}>Contact Our Team</Link>
+                    <Link to="/contact" className={`btn-glass ${styles.glassAction}`}>Contact Our Team</Link>
                 </div>
             </section>
 

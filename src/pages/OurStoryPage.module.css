@@ -53,6 +53,10 @@
     gap: 2rem;
 }
 
+.storyIntroOffset {
+    margin-top: 2rem;
+}
+
 .storyTextStack p {
     font-size: 1.15rem;
     line-height: 1.7;
@@ -219,6 +223,10 @@
     font-size: 1.1rem;
     color: var(--accent-pink);
     margin-bottom: 3rem;
+}
+
+.inlineIconTrailing {
+    margin-left: 0.5rem;
 }
 
 .ctaEditorial {

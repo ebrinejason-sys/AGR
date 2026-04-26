@@ -233,3 +233,7 @@
     justify-content: center;
     gap: 1.5rem;
 }
+
+.ctaGlass {
+    border-color: hsla(0, 0%, 100%, 0.4);
+}

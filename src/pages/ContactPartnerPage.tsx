@@ -34,22 +34,22 @@ export default function ContactPartnerPage() {
                     <h2>Opportunities</h2>
                     <div className={styles.opportunityList}>
                         <div className={styles.opportunityCard}>
-                            <Building2 className={styles.opportunityIcon} size={32} style={{ color: 'var(--accent-pink)', marginBottom: '1rem' }} />
+                            <Building2 className={`${styles.opportunityIcon} ${styles.opportunityIconPink}`} size={32} />
                             <h3>Corporate Partnerships</h3>
                             <p>CSR initiatives, employee engagement, and matching gift programs.</p>
                         </div>
                         <div className={styles.opportunityCard}>
-                            <GraduationCap className={styles.opportunityIcon} size={32} style={{ color: 'var(--accent-teal)', marginBottom: '1rem' }} />
+                            <GraduationCap className={`${styles.opportunityIcon} ${styles.opportunityIconTeal}`} size={32} />
                             <h3>Educational</h3>
                             <p>Mentorship, career exposure, and academic support programs.</p>
                         </div>
                         <div className={styles.opportunityCard}>
-                            <Globe className={styles.opportunityIcon} size={32} style={{ color: 'var(--accent-purple)', marginBottom: '1rem' }} />
+                            <Globe className={`${styles.opportunityIcon} ${styles.opportunityIconPurple}`} size={32} />
                             <h3>NGOs & Foundations</h3>
                             <p>Collaborative funding and knowledge sharing for scalable impact.</p>
                         </div>
                         <div className={styles.opportunityCard}>
-                            <Wrench className={styles.opportunityIcon} size={32} style={{ color: 'var(--text-primary)', marginBottom: '1rem' }} />
+                            <Wrench className={`${styles.opportunityIcon} ${styles.opportunityIconNeutral}`} size={32} />
                             <h3>Pro-Bono Services</h3>
                             <p>Legal, IT, Marketing, or specialized technical expertise.</p>
                         </div>
@@ -89,7 +89,7 @@ export default function ContactPartnerPage() {
                             </div>
                             {status === 'success' && <div className={styles.successMsg}>Thank you! We'll review your proposal and respond shortly.</div>}
                             <button type="submit" className={styles.submitBtn} disabled={status === 'loading'}>
-                                {status === 'loading' ? 'Sending...' : 'Submit Inquiry'} <ArrowRight size={18} style={{ marginLeft: 8 }} />
+                                {status === 'loading' ? 'Sending...' : 'Submit Inquiry'} <ArrowRight size={18} className={styles.inlineIconTrailing} />
                             </button>
                         </form>
                     </div>

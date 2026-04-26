@@ -14,7 +14,10 @@
 
 .heroImage {
     position: absolute;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .heroImage img {
@@ -26,7 +29,10 @@
 
 .heroImageOverlay {
     position: absolute;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background: linear-gradient(to right, var(--bg-color) 30%, hsla(var(--clr-bg-raw) / 0.5) 100%);
 }
 
@@ -89,6 +95,18 @@
     flex-wrap: wrap;
 }
 
+.inlineIconLeading {
+    margin-right: 0.5rem;
+}
+
+.inlineIconTrailing {
+    margin-left: 0.5rem;
+}
+
+.glassAction {
+    color: var(--text-primary);
+}
+
 /* ─── Bio Strip ─── */
 .bioStrip {
     display: grid;
@@ -141,6 +159,7 @@
 }
 
 .leftColumn {
+    position: -webkit-sticky;
     position: sticky;
     top: 120px;
 }
@@ -150,7 +169,7 @@
     border-radius: 40px;
     overflow: hidden;
     margin-bottom: 3rem;
-    aspect-ratio: 4/5;
+    min-height: 32rem;
 }
 
 .founderImageFrame img {
@@ -204,6 +223,24 @@
 
 .editorialContent h2 span {
     color: var(--accent-pink);
+}
+
+.storyLead {
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+}
+
+.storyToggle {
+    margin-top: 2rem;
+    color: var(--text-primary);
+}
+
+.storyExpanded {
+    margin-top: 2rem;
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    text-align: left;
 }
 
 .statsGrid {
@@ -272,6 +309,10 @@
     font-size: 1.5rem;
     display: block;
     margin-bottom: 1rem;
+}
+
+.contactCardIconAccent {
+    color: var(--accent-pink);
 }
 
 .contactCardLabel {

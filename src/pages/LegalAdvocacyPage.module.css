@@ -89,6 +89,18 @@
     margin-bottom: 1.5rem;
 }
 
+.truthIconPink {
+    color: var(--accent-pink);
+}
+
+.truthIconPurple {
+    color: var(--accent-purple);
+}
+
+.truthIconTeal {
+    color: var(--accent-teal);
+}
+
 .editorialBody {
     padding: 120px 8%;
     background: var(--bg-color);
@@ -201,4 +213,12 @@
     justify-content: center;
     gap: 1.5rem;
     margin-top: 4rem;
+}
+
+.inlineIconTrailing {
+    margin-left: 0.5rem;
+}
+
+.glassAction {
+    color: var(--text-primary);
 }

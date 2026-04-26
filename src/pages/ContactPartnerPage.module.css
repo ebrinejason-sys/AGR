@@ -69,6 +69,26 @@
     line-height: 1.5;
 }
 
+.opportunityIcon {
+    margin-bottom: 1rem;
+}
+
+.opportunityIconPink {
+    color: var(--accent-pink);
+}
+
+.opportunityIconTeal {
+    color: var(--accent-teal);
+}
+
+.opportunityIconPurple {
+    color: var(--accent-purple);
+}
+
+.opportunityIconNeutral {
+    color: var(--text-primary);
+}
+
 .formCard {
     padding: 4rem;
     background: var(--surface);
@@ -148,4 +168,8 @@
     color: var(--accent-teal);
     border-radius: 12px;
     font-weight: 700;
+}
+
+.inlineIconTrailing {
+    margin-left: 0.5rem;
 }
