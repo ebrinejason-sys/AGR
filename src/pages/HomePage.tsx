@@ -1,6 +1,6 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+﻿import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Heart, Home, Scale, ShieldCheck, Sparkles, Users } from 'lucide-react';
+import { ArrowRight, BookOpen, Heart, Home, Scale, Users } from 'lucide-react';
 import styles from './HomePage.module.css';
 import AnimatedCounter from '@/components/AnimatedCounter';
 
@@ -75,19 +75,6 @@ const trustStrip = [
     'Protection pathways',
     'Emergency support',
     'Mentorship that lasts',
-];
-
-const principleCards = [
-    {
-        title: 'Fast response, local trust',
-        description: 'Support begins where girls already are: schools, homes, and communities that know their realities.',
-        Icon: ShieldCheck,
-    },
-    {
-        title: 'Prevention with dignity',
-        description: 'We do not wait for crisis alone. We build belonging, confidence, and long-term protection around each girl.',
-        Icon: Sparkles,
-    },
 ];
 
 const ROTATING_WORDS = ['safe', 'seen', 'in school', 'protected', 'rising'];
@@ -170,36 +157,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-            <section className={styles.proofSection}>
-                <div className={styles.sectionIntro}>
-                    <span className="subheading">What moves the work</span>
-                    <h2 className="heading-section">A sharper model for real, local protection.</h2>
-                    <p className={styles.sectionText}>
-                        The site now speaks more clearly to donors, partners, and volunteers: what the organisation does, why it matters, and how support becomes action.
-                    </p>
-                </div>
-
-                <div className={styles.proofGrid}>
-                    {principleCards.map(({ title, description, Icon }) => (
-                        <article key={title} className={styles.principleCard}>
-                            <div className={styles.principleIcon}><Icon size={20} /></div>
-                            <h3>{title}</h3>
-                            <p>{description}</p>
-                        </article>
-                    ))}
-                    <article className={styles.storyCard}>
-                        <span className={styles.storyLabel}>Why it matters</span>
-                        <p className={styles.storyQuote}>
-                            “Your beginning does not define your becoming.”
-                        </p>
-                        <Link to="/founder" className={styles.storyLink}>
-                            Meet the founder <ArrowRight size={16} />
-                        </Link>
-                    </article>
-                </div>
-            </section>
-
-            <section className={styles.statsSection}>
+<section className={styles.statsSection}>
                 <div className={styles.sectionIntroRow}>
                     <div>
                         <span className="subheading">Impact</span>
