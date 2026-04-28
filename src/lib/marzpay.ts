@@ -59,7 +59,7 @@ export async function initializeMarzPayCheckout(input: MarzPayCheckoutInput): Pr
         throw new Error('MarzPay is not configured. Please set API keys.');
     }
 
-    const reference = `agr-mz-${Date.now()}`;
+    const reference = crypto.randomUUID();
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 8000);
     let response: Response;
@@ -101,7 +101,8 @@ export async function initializeMarzPayCheckout(input: MarzPayCheckoutInput): Pr
     if (!response.ok) {
         const detail = JSON.stringify(data);
         console.error(`MarzPay checkout failed (HTTP ${response.status}):`, detail);
-        throw new Error(`MarzPay (HTTP ${response.status}): ${detail}`);
+        const validationErrors = data.errors ? ` Errors: ${JSON.stringify(data.errors)}` : '';
+        throw new Error((data.message as string) || `MarzPay checkout failed (HTTP ${response.status})${validationErrors}`);
     }
 
     return {
