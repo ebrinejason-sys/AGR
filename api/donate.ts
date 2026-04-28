@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 // @ts-ignore: These imports are for runtime on Vercel, not for TypeScript
-import { rateLimit, getIPFromHeader } from '../src/lib/rate-limit';
-import { initializeFlutterwaveMobileMoneyCheckout } from '../src/lib/flutterwave';
-import { initializeMarzPayCheckout, type DonationCurrency, type DonationMethod } from '../src/lib/marzpay';
+import { rateLimit, getIPFromHeader } from '../src/lib/rate-limit.js';
+import { initializeFlutterwaveMobileMoneyCheckout } from '../src/lib/flutterwave.js';
+import { initializeMarzPayCheckout, type DonationCurrency, type DonationMethod } from '../src/lib/marzpay.js';
 
 const VALID_CURRENCIES: DonationCurrency[] = ['UGX'];
 const VALID_METHODS: DonationMethod[] = ['mobile_money', 'card'];
