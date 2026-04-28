@@ -75,14 +75,11 @@ export async function initializeMarzPayCheckout(input: MarzPayCheckoutInput): Pr
                 amount: input.amount,
                 currency: input.currency,
                 reference,
-                redirect_url: input.callbackUrl,
                 callback_url: input.callbackUrl,
                 description: input.eventId ? `AGR Event: ${input.eventId}` : 'AGR Donation',
                 method: 'card',
-                payment_method: 'card',
                 country: 'UG',
                 email: input.email,
-                customer_name: input.name,
                 name: input.name,
             }),
             signal: controller.signal,
@@ -96,13 +93,12 @@ export async function initializeMarzPayCheckout(input: MarzPayCheckoutInput): Pr
     try {
         data = JSON.parse(rawText);
     } catch {
-        throw new Error(`MarzPay returned non-JSON (HTTP ${response.status}): ${rawText.slice(0, 200)}`);
+        throw new Error(`MarzPay checkout failed (HTTP ${response.status})`);
     }
     if (!response.ok) {
         const detail = JSON.stringify(data);
         console.error(`MarzPay checkout failed (HTTP ${response.status}):`, detail);
-        const validationErrors = data.errors ? ` Errors: ${JSON.stringify(data.errors)}` : '';
-        throw new Error((data.message as string) || `MarzPay checkout failed (HTTP ${response.status})${validationErrors}`);
+        throw new Error((data.message as string) || `MarzPay checkout failed (HTTP ${response.status})`);
     }
 
     return {
@@ -127,7 +123,7 @@ export async function getMarzPayCollectionStatus(transactionId: string) {
     try {
         data = JSON.parse(rawText);
     } catch {
-        throw new Error(`MarzPay status returned non-JSON (HTTP ${response.status}): ${rawText.slice(0, 200)}`);
+        throw new Error(`MarzPay status check failed (HTTP ${response.status})`);
     }
     return (data.data as Record<string, unknown>) || data;
 }
