@@ -102,10 +102,10 @@ export async function initializeMarzPayCheckout(input: MarzPayCheckoutInput): Pr
         message: 'Redirecting to secure card payment...',
         method: 'card',
         provider: 'marzpay',
-        redirectUrl: data.data?.redirect_url || data.redirect_url,
+        redirectUrl: (data.data as Record<string, unknown>)?.redirect_url as string || data.redirect_url as string,
         reference,
         status: 'processing',
-        transactionId: data.data?.id || data.id,
+        transactionId: (data.data as Record<string, unknown>)?.id as string || data.id as string,
     };
 }
 
