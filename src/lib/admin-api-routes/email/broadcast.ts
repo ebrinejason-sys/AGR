@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getAdminSupabase } from '../../supabase.server';
-import { requireAdminSession, checkSupabaseAdminConfig } from '../../admin-api';
-import { isResendConfigured, resend, SENDER_EMAIL } from '../../resend';
+import { getAdminSupabase } from '../../supabase.server.js';
+import { requireAdminSession, checkSupabaseAdminConfig } from '../../admin-api.js';
+import { isResendConfigured, resend, SENDER_EMAIL } from '../../resend.js';
 
 const escapeHtml = (s: string) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 
