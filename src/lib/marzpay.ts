@@ -60,27 +60,40 @@ export async function initializeMarzPayCheckout(input: MarzPayCheckoutInput): Pr
     }
 
     const reference = `agr-mz-${Date.now()}`;
-    const response = await fetch(`${MARZPAY_BASE_URL}/collect-money`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': getMarzPayAuthorizationHeader(),
-            'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-            amount: input.amount,
-            currency: input.currency,
-            reference,
-            callback_url: input.callbackUrl,
-            description: input.eventId ? `AGR Event: ${input.eventId}` : 'AGR Donation',
-            method: 'card', // Specifically for cards
-            country: 'UG',
-        }),
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    let response: Response;
+    try {
+        response = await fetch(`${MARZPAY_BASE_URL}/collect-money`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': getMarzPayAuthorizationHeader(),
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                amount: input.amount,
+                currency: input.currency,
+                reference,
+                callback_url: input.callbackUrl,
+                description: input.eventId ? `AGR Event: ${input.eventId}` : 'AGR Donation',
+                country: 'UG',
+            }),
+            signal: controller.signal,
+        });
+    } finally {
+        clearTimeout(timeout);
+    }
 
-    const data = await response.json();
+    const rawText = await response.text();
+    let data: Record<string, unknown>;
+    try {
+        data = JSON.parse(rawText);
+    } catch {
+        throw new Error(`MarzPay returned non-JSON (HTTP ${response.status}): ${rawText.slice(0, 200)}`);
+    }
     if (!response.ok) {
-        throw new Error(data.message || 'MarzPay checkout failed');
+        throw new Error((data.message as string) || (data.error as string) || `MarzPay checkout failed (HTTP ${response.status})`);
     }
 
     return {
@@ -100,6 +113,12 @@ export async function getMarzPayCollectionStatus(transactionId: string) {
     const response = await fetch(`${MARZPAY_BASE_URL}/collect-money/${transactionId}`, {
         headers: { 'Authorization': getMarzPayAuthorizationHeader() }
     });
-    const data = await response.json();
-    return data.data || data;
+    const rawText = await response.text();
+    let data: Record<string, unknown>;
+    try {
+        data = JSON.parse(rawText);
+    } catch {
+        throw new Error(`MarzPay status returned non-JSON (HTTP ${response.status}): ${rawText.slice(0, 200)}`);
+    }
+    return (data.data as Record<string, unknown>) || data;
 }
