@@ -243,9 +243,6 @@ export default function HomePage() {
             </section>
 
             <section className={styles.featureSection}>
-                <div className={styles.featureMedia}>
-                    <img src="/images/founder.jpg" alt="Founder of African Girl Rise" className={styles.featureImage} />
-                </div>
                 <div className={styles.featureCopy}>
                     <span className="subheading">Built for trust</span>
                     <h2 className="heading-section">Professional enough for partners. Human enough for the girls we serve.</h2>
