@@ -75,9 +75,15 @@ export async function initializeMarzPayCheckout(input: MarzPayCheckoutInput): Pr
                 amount: input.amount,
                 currency: input.currency,
                 reference,
+                redirect_url: input.callbackUrl,
                 callback_url: input.callbackUrl,
                 description: input.eventId ? `AGR Event: ${input.eventId}` : 'AGR Donation',
+                method: 'card',
+                payment_method: 'card',
                 country: 'UG',
+                email: input.email,
+                customer_name: input.name,
+                name: input.name,
             }),
             signal: controller.signal,
         });
@@ -93,7 +99,9 @@ export async function initializeMarzPayCheckout(input: MarzPayCheckoutInput): Pr
         throw new Error(`MarzPay returned non-JSON (HTTP ${response.status}): ${rawText.slice(0, 200)}`);
     }
     if (!response.ok) {
-        throw new Error((data.message as string) || (data.error as string) || `MarzPay checkout failed (HTTP ${response.status})`);
+        const detail = JSON.stringify(data);
+        console.error(`MarzPay checkout failed (HTTP ${response.status}):`, detail);
+        throw new Error((data.message as string) || (data.error as string) || `MarzPay checkout failed (HTTP ${response.status}): ${detail}`);
     }
 
     return {

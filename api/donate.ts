@@ -73,7 +73,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.json(checkout);
     } catch (error) {
         const message = error instanceof Error ? error.message : 'Internal server error';
-        const status = /not configured/i.test(message) ? 503 : /required|valid|select|maximum|minimum/i.test(message) ? 400 : /checkout failed|non-json|timed? ?out|aborted/i.test(message) ? 503 : 502;
+        const status = /not configured/i.test(message) ? 503
+            : /required|valid|select|maximum|minimum|check your input/i.test(message) ? 400
+            : /checkout failed|non-json|timed? ?out|aborted/i.test(message) ? 503
+            : 502;
         console.error('Donation API Error:', error);
         return res.status(status).json({ error: message });
     }
