@@ -101,7 +101,7 @@ export async function initializeMarzPayCheckout(input: MarzPayCheckoutInput): Pr
     if (!response.ok) {
         const detail = JSON.stringify(data);
         console.error(`MarzPay checkout failed (HTTP ${response.status}):`, detail);
-        throw new Error((data.message as string) || (data.error as string) || `MarzPay checkout failed (HTTP ${response.status}): ${detail}`);
+        throw new Error(`MarzPay (HTTP ${response.status}): ${detail}`);
     }
 
     return {
