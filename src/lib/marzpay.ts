@@ -1,4 +1,10 @@
-import { MARZPAY_SECRET_KEY, MARZPAY_ENVIRONMENT, isConfigured } from './env.js';
+import {
+    MARZPAY_API_KEY,
+    MARZPAY_API_SECRET,
+    MARZPAY_BASIC_AUTH_TOKEN,
+    MARZPAY_SECRET_KEY,
+    isConfigured,
+} from './env.js';
 
 export type DonationCurrency = 'UGX';
 export type DonationMethod = 'mobile_money' | 'card';
@@ -28,6 +34,21 @@ type MarzPayCheckoutInput = {
 
 const MARZPAY_BASE_URL = 'https://wallet.wearemarz.com/api/v1';
 
+function getMarzPayAuthorizationHeader(): string {
+    if (MARZPAY_BASIC_AUTH_TOKEN) {
+        return `Basic ${MARZPAY_BASIC_AUTH_TOKEN}`;
+    }
+
+    if (MARZPAY_API_KEY && (MARZPAY_API_SECRET || MARZPAY_SECRET_KEY)) {
+        const secret = MARZPAY_API_SECRET || MARZPAY_SECRET_KEY;
+        const credentials = Buffer.from(`${MARZPAY_API_KEY}:${secret}`).toString('base64');
+        return `Basic ${credentials}`;
+    }
+
+    // Backward compatibility for setups using a bearer secret directly.
+    return `Bearer ${MARZPAY_SECRET_KEY}`;
+}
+
 /**
  * MarzPay Payment Integration
  * Primarily used for Card payments in Uganda.
@@ -43,7 +64,7 @@ export async function initializeMarzPayCheckout(input: MarzPayCheckoutInput): Pr
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${MARZPAY_SECRET_KEY}`,
+            'Authorization': getMarzPayAuthorizationHeader(),
             'Accept': 'application/json',
         },
         body: JSON.stringify({
@@ -77,7 +98,7 @@ export async function initializeMarzPayCheckout(input: MarzPayCheckoutInput): Pr
 
 export async function getMarzPayCollectionStatus(transactionId: string) {
     const response = await fetch(`${MARZPAY_BASE_URL}/collect-money/${transactionId}`, {
-        headers: { 'Authorization': `Bearer ${MARZPAY_SECRET_KEY}` }
+        headers: { 'Authorization': getMarzPayAuthorizationHeader() }
     });
     const data = await response.json();
     return data.data || data;

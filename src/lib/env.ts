@@ -36,7 +36,10 @@ export const FLUTTERWAVE_CLIENT_ID = getServerEnv('FLUTTERWAVE_CLIENT_ID');
 export const FLUTTERWAVE_CLIENT_SECRET = getServerEnv('FLUTTERWAVE_CLIENT_SECRET');
 export const FLUTTERWAVE_ENVIRONMENT = getServerEnv('FLUTTERWAVE_ENVIRONMENT', 'production');
 
-export const MARZPAY_SECRET_KEY = getServerEnv('MARZPAY_SECRET_KEY') || getServerEnv('MARZPAY_API_SECRET') || getServerEnv('VITE_MARZPAY_SECRET_KEY');
+export const MARZPAY_BASIC_AUTH_TOKEN = getServerEnv('MARZPAY_BASIC_AUTH_TOKEN') || getServerEnv('MARZPAY_BASE64_AUTH');
+export const MARZPAY_API_KEY = getServerEnv('MARZPAY_API_KEY');
+export const MARZPAY_API_SECRET = getServerEnv('MARZPAY_API_SECRET');
+export const MARZPAY_SECRET_KEY = getServerEnv('MARZPAY_SECRET_KEY') || MARZPAY_API_SECRET || getServerEnv('VITE_MARZPAY_SECRET_KEY');
 export const MARZPAY_ENVIRONMENT = getServerEnv('MARZPAY_ENVIRONMENT', 'production');
 
 // Email Configuration — SERVER ONLY
@@ -56,7 +59,7 @@ export const SUPABASE_SERVICE_ROLE_KEY = getServerEnv('SUPABASE_SERVICE_ROLE_KEY
 
 export const isConfigured = {
     flutterwave: Boolean(FLUTTERWAVE_SECRET_KEY || (FLUTTERWAVE_CLIENT_ID && FLUTTERWAVE_CLIENT_SECRET)),
-    marzpay: Boolean(MARZPAY_SECRET_KEY),
+    marzpay: Boolean(MARZPAY_BASIC_AUTH_TOKEN || (MARZPAY_API_KEY && (MARZPAY_API_SECRET || MARZPAY_SECRET_KEY)) || MARZPAY_SECRET_KEY),
     resend: Boolean(RESEND_API_KEY),
     admin: Boolean(ADMIN_LOGIN_EMAIL && ADMIN_LOGIN_PASSWORD && ADMIN_AUTH_SECRET),
     supabase: Boolean(SUPABASE_URL && SUPABASE_ANON_KEY),
