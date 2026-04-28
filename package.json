@@ -10,14 +10,17 @@
     "lint": "eslint src"
   },
   "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.2.11",
     "@fontsource/dm-sans": "^5.2.8",
     "@fontsource/manrope": "^5.2.8",
     "@fontsource/outfit": "^5.2.8",
+    "@fontsource/playfair-display": "^5.2.8",
     "@fontsource/plus-jakarta-sans": "^5.2.8",
     "@fontsource/space-grotesk": "^5.2.10",
     "@fontsource/syne": "^5.2.7",
     "@supabase/supabase-js": "^2.98.0",
     "@vercel/analytics": "^2.0.1",
+    "framer-motion": "^12.38.0",
     "lucide-react": "^0.575.0",
     "next-themes": "^0.4.6",
     "react": "^19.1.0",

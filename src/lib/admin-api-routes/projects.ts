@@ -37,6 +37,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             return res.status(201).json({ project: normalizeMediaUrls(data, ['image_url']) });
         }
 
+        if (req.method === 'PUT') {
+            const { id, title, description, image_url, status, pillar_number } = req.body || {};
+            if (!id) return res.status(400).json({ error: 'Project ID is required.' });
+            if (!title) return res.status(400).json({ error: 'Title is required.' });
+            if (status !== undefined && !VALID_STATUSES.has(String(status))) return res.status(400).json({ error: 'Invalid project status.' });
+            const parsedPillar = Number(pillar_number || 1);
+            if (!Number.isInteger(parsedPillar) || parsedPillar < 1 || parsedPillar > 4) return res.status(400).json({ error: 'pillar_number must be 1-4.' });
+
+            const { data, error } = await supabase.from('projects').update({
+                title,
+                description: description || null,
+                image_url: normalizeMediaUrl(image_url) || null,
+                status: status || 'draft',
+                pillar_number: parsedPillar,
+            }).eq('id', id).select('*').single();
+
+            if (error) return res.status(500).json({ error: error.message });
+            return res.json({ project: normalizeMediaUrls(data, ['image_url']) });
+        }
+
         return res.status(405).json({ error: 'Method not allowed' });
     } catch (err) {
         console.error('/api/admin/projects error:', err);

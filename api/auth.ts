@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { isResendConfigured, resend, SENDER_EMAIL } from '../src/lib/resend';
-import { rateLimit, getIPFromHeader, securityLog } from '../src/lib/rate-limit';
-import { ADMIN_OTP_COOKIE, ADMIN_SESSION_COOKIE } from '../src/lib/admin-constants';
-import { getCookieValue } from '../src/lib/admin-api';
+import { isResendConfigured, resend, SENDER_EMAIL } from '../src/lib/resend.js';
+import { rateLimit, getIPFromHeader, securityLog } from '../src/lib/rate-limit.js';
+import { ADMIN_OTP_COOKIE, ADMIN_SESSION_COOKIE } from '../src/lib/admin-constants.js';
+import { getCookieValue } from '../src/lib/admin-api.js';
 import {
     createAdminSessionToken,
     createOtpToken,
@@ -12,7 +12,7 @@ import {
     verifyOtpToken,
     safeCompare,
     generateSecureOtp,
-} from '../src/lib/admin-auth';
+} from '../src/lib/admin-auth.js';
 
 const normalizeEmail = (value: unknown) => typeof value === 'string' ? value.trim().toLowerCase() : '';
 const normalizeOtp = (value: unknown) => typeof value === 'string' ? value.replace(/\D/g, '').slice(0, 6) : '';

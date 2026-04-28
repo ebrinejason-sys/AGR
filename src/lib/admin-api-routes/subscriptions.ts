@@ -3,8 +3,6 @@ import { getAdminSupabase } from '../supabase.server';
 import { requireAdminSession, checkSupabaseAdminConfig } from '../admin-api';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-    if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
-
     const configError = checkSupabaseAdminConfig();
     if (configError) return res.status(configError.statusCode).json(configError.body);
 
@@ -13,9 +11,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     try {
         const supabase = getAdminSupabase();
-        const { data, error } = await supabase.from('subscriptions').select('*').order('created_at', { ascending: false });
-        if (error) return res.status(500).json({ error: error.message });
-        return res.json({ subscribers: data || [] });
+
+        if (req.method === 'GET') {
+            const { data, error } = await supabase.from('subscriptions').select('*').order('created_at', { ascending: false });
+            if (error) return res.status(500).json({ error: error.message });
+            return res.json({ subscribers: data || [] });
+        }
+
+        if (req.method === 'DELETE') {
+            const { id } = req.body || {};
+            if (!id) return res.status(400).json({ error: 'Subscriber ID is required.' });
+
+            const { error } = await supabase.from('subscriptions').delete().eq('id', id);
+            if (error) return res.status(500).json({ error: error.message });
+            return res.json({ success: true });
+        }
+
+        return res.status(405).json({ error: 'Method not allowed' });
     } catch (err) {
         console.error('/api/admin/subscriptions error:', err);
         return res.status(500).json({ error: err instanceof Error ? err.message : 'Internal server error' });

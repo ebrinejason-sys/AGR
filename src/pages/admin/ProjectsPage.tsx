@@ -81,13 +81,16 @@ export default function AdminProjectsPage() {
     const saveProject = async (e: React.FormEvent) => {
         e.preventDefault();
         const existing = projects.find(p => p.pillar_number === editingPillar);
-        // The projects API handles POST for both new and existing via unique pillar constraint logic
-        // But here we use a general approach
+        const method = existing ? 'PUT' : 'POST';
         try {
             const res = await fetch('/api/admin?action=projects', { 
-                method: 'POST', 
+                method,
                 headers: { 'Content-Type': 'application/json' }, 
-                body: JSON.stringify({ ...formData, pillar_number: editingPillar }) 
+                body: JSON.stringify({
+                    ...formData,
+                    pillar_number: editingPillar,
+                    id: existing?.id,
+                })
             });
             if (res.ok) { setEditingPillar(null); fetchProjects(); }
             else { const data = await res.json(); alert(data.error || 'Failed to save project.'); }
@@ -128,12 +131,14 @@ export default function AdminProjectsPage() {
                                                 type="text" 
                                                 required 
                                                 value={formData.title} 
+                                                title="Program title"
+                                                placeholder="Enter program title"
                                                 onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))} 
                                             />
                                         </div>
                                         <div className={styles.inputField}>
                                             <label>Status</label>
-                                            <select value={formData.status} onChange={e => setFormData(prev => ({ ...prev, status: e.target.value as any }))}>
+                                            <select title="Program status" value={formData.status} onChange={e => setFormData(prev => ({ ...prev, status: e.target.value as any }))}>
                                                 <option value="draft">Draft</option>
                                                 <option value="active">Active (Visible on Site)</option>
                                             </select>
@@ -143,6 +148,8 @@ export default function AdminProjectsPage() {
                                             <textarea 
                                                 rows={4} 
                                                 value={formData.description} 
+                                                title="Program description"
+                                                placeholder="Describe this program and its impact"
                                                 onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))} 
                                             />
                                         </div>
@@ -154,7 +161,7 @@ export default function AdminProjectsPage() {
                                                 {uploadingImage ? <Loader2 size={14} className={styles.spin} /> : <UploadCloud size={14} />}
                                                 Change Image
                                             </button>
-                                            <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
+                                            <input type="file" accept="image/*" title="Upload program image" ref={fileInputRef} className={styles.hiddenFileInput} onChange={handleImageUpload} />
                                         </div>
                                     </div>
                                     <div className={styles.formActions}>

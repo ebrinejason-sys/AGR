@@ -1,6 +1,7 @@
 ﻿import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Heart, Home, Scale, Users } from 'lucide-react';
+import { motion } from 'framer-motion';
 import styles from './HomePage.module.css';
 import AnimatedCounter from '@/components/AnimatedCounter';
 
@@ -94,11 +95,13 @@ export default function HomePage() {
     return (
         <div className={styles.page}>
             <section className={styles.heroSection}>
+                <div className={styles.heroBackdropImage} />
+                <div className={styles.heroBackdropVeil} />
                 <div className={styles.heroGlowPink} />
                 <div className={styles.heroGlowCyan} />
 
                 <div className={styles.heroGrid}>
-                    <div className={styles.heroCopy}>
+                    <motion.div className={styles.heroCopy} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
                         <div className={styles.heroEyebrow}>African Girl Rise | Uganda</div>
                         <h1 className={styles.heroTitle}>
                             Help girls stay
@@ -127,9 +130,14 @@ export default function HomePage() {
                                 <span className={styles.heroMetaLabel}>active sanctuaries and support points</span>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
 
-                    <aside className={styles.heroPanel}>
+                    <motion.aside
+                        className={styles.heroPanel}
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.16, duration: 0.65 }}
+                    >
                         <div className={styles.heroPanelTop}>
                             <span className={styles.panelLabel}>Field snapshot</span>
                             <span className={styles.panelBadge}>Girl-led, community-rooted</span>
@@ -143,7 +151,7 @@ export default function HomePage() {
                                 African Girl Rise combines safety, education, legal advocacy, and community accountability into one responsive system.
                             </p>
                         </div>
-                    </aside>
+                    </motion.aside>
                 </div>
             </section>
 
@@ -157,7 +165,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-<section className={styles.statsSection}>
+            <motion.section className={styles.statsSection} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} viewport={{ once: true, amount: 0.22 }}>
                 <div className={styles.sectionIntroRow}>
                     <div>
                         <span className="subheading">Impact</span>
@@ -169,17 +177,24 @@ export default function HomePage() {
                 </div>
 
                 <div className={styles.statsGrid}>
-                    {impactStats.map((stat) => (
-                        <article key={stat.label} className={`${styles.statCard} ${styles[`statCard${stat.color}`]}`}>
+                    {impactStats.map((stat, index) => (
+                        <motion.article
+                            key={stat.label}
+                            className={`${styles.statCard} ${styles[`statCard${stat.color}`]}`}
+                            initial={{ opacity: 0, y: 14 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.45, delay: index * 0.1 }}
+                            viewport={{ once: true, amount: 0.35 }}
+                        >
                             <span className={styles.statValue}>
                                 <AnimatedCounter target={stat.value} suffix={stat.suffix} continuous={stat.continuous} />
                             </span>
                             <h3 className={styles.statLabel}>{stat.label}</h3>
                             <p className={styles.statDescription}>{stat.desc}</p>
-                        </article>
+                        </motion.article>
                     ))}
                 </div>
-            </section>
+            </motion.section>
 
             {/* ─── Image Marquee ─── */}
             {(() => {
@@ -216,7 +231,7 @@ export default function HomePage() {
                 );
             })()}
 
-            <section className={styles.programsSection}>
+            <motion.section className={styles.programsSection} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} viewport={{ once: true, amount: 0.2 }}>
                 <div className={styles.sectionIntroRow}>
                     <div>
                         <span className="subheading">Programs</span>
@@ -228,8 +243,15 @@ export default function HomePage() {
                 </div>
 
                 <div className={styles.programGrid}>
-                    {programCards.map(({ title, number, description, href, Icon, tone }) => (
-                        <Link key={title} to={href} className={`${styles.programCard} ${styles[`programCard${tone}`]}`}>
+                    {programCards.map(({ title, number, description, href, Icon, tone }, index) => (
+                        <motion.div
+                            key={title}
+                            initial={{ opacity: 0, y: 14 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.45, delay: index * 0.08 }}
+                            viewport={{ once: true, amount: 0.25 }}
+                        >
+                            <Link to={href} className={`${styles.programCard} ${styles[`programCard${tone}`]}`}>
                             <div className={styles.programHeader}>
                                 <span className={styles.programNumber}>{number}</span>
                                 <span className={styles.programIcon}><Icon size={20} /></span>
@@ -237,10 +259,11 @@ export default function HomePage() {
                             <h3 className={styles.programTitle}>{title}</h3>
                             <p className={styles.programDescription}>{description}</p>
                             <span className={styles.programLink}>Explore <ArrowRight size={16} /></span>
-                        </Link>
+                            </Link>
+                        </motion.div>
                     ))}
                 </div>
-            </section>
+            </motion.section>
 
             <section className={styles.featureSection}>
                 <div className={styles.featureCopy}>
@@ -257,8 +280,8 @@ export default function HomePage() {
                 </div>
             </section>
 
-            <section className={styles.ctaSection}>
-                <div className={styles.ctaCard}>
+            <motion.section className={styles.ctaSection} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} viewport={{ once: true, amount: 0.2 }}>
+                <motion.div className={styles.ctaCard} whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
                     <div>
                         <span className="subheading">Take action</span>
                         <h2 className={styles.ctaTitle}>Fund the next safe space, school return, or emergency intervention.</h2>
@@ -272,8 +295,8 @@ export default function HomePage() {
                         </button>
                         <Link to="/contact/partner" className="btn-glass">Partner with us</Link>
                     </div>
-                </div>
-            </section>
+                </motion.div>
+            </motion.section>
 
             {isDonationModalOpen && (
                 <Suspense fallback={null}>

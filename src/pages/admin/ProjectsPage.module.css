@@ -250,6 +250,10 @@
     background: #f8fafc;
 }
 
+.hiddenFileInput {
+    display: none;
+}
+
 .formActions {
     margin-top: 32px;
     display: flex;

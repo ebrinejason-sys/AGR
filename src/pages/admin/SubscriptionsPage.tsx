@@ -70,6 +70,29 @@ export default function AdminSubscriptionsPage() {
         }
     };
 
+    const handleDeleteSubscriber = async (id: string) => {
+        if (!confirm('Remove this subscriber from the mailing list?')) return;
+
+        try {
+            const res = await fetch('/api/admin?action=subscriptions', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id }),
+            });
+
+            if (res.status === 401) { window.location.assign('/admin/login'); return; }
+            const data = await res.json();
+            if (!res.ok) {
+                setError(data.error || 'Failed to remove subscriber.');
+                return;
+            }
+
+            setSubscribers(prev => prev.filter(sub => sub.id !== id));
+        } catch {
+            setError('Network error while removing subscriber.');
+        }
+    };
+
     const filteredSubscribers = subscribers.filter(s => 
         s.email.toLowerCase().includes(searchQuery.toLowerCase()) || 
         (s.name && s.name.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -127,7 +150,7 @@ export default function AdminSubscriptionsPage() {
                     <div className={styles.broadcastPanel}>
                         <div className={styles.panelHeader}>
                             <h2 className={styles.panelTitle}>Send Community Broadcast</h2>
-                            <button className={styles.closePanel} onClick={() => setShowBroadcast(false)}><X size={20} /></button>
+                            <button className={styles.closePanel} title="Close broadcast panel" aria-label="Close broadcast panel" onClick={() => setShowBroadcast(false)}><X size={20} /></button>
                         </div>
                         <form className={styles.broadcastForm} onSubmit={handleBroadcast}>
                             <div className={styles.inputField}>
@@ -225,7 +248,7 @@ export default function AdminSubscriptionsPage() {
                                                 <span className={styles.activeBadge}>Active</span>
                                             </td>
                                             <td>
-                                                <button className={styles.deleteBtn} title="Remove Subscriber">
+                                                <button className={styles.deleteBtn} title="Remove Subscriber" onClick={() => handleDeleteSubscriber(sub.id)}>
                                                     <Trash2 size={16} />
                                                 </button>
                                             </td>

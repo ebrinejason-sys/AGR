@@ -26,6 +26,28 @@
         var(--surface);
 }
 
+.heroBackdropImage,
+.heroBackdropVeil {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.heroBackdropImage {
+    background:
+        linear-gradient(120deg, rgba(8, 12, 22, 0.62) 0%, rgba(8, 12, 22, 0.28) 52%, rgba(8, 12, 22, 0.68) 100%),
+        url('/images/hero-bg.jpg') center / cover no-repeat;
+    transform: scale(1.04);
+    filter: saturate(1.08) contrast(1.02);
+}
+
+.heroBackdropVeil {
+    background:
+        radial-gradient(circle at 16% 18%, hsla(var(--clr-accent-pink-raw) / 0.26), transparent 42%),
+        radial-gradient(circle at 84% 22%, hsla(var(--clr-accent-cyan-raw) / 0.22), transparent 40%),
+        linear-gradient(180deg, rgba(8, 12, 22, 0.05), rgba(8, 12, 22, 0.48));
+}
+
 .heroGlowPink,
 .heroGlowCyan {
     position: absolute;
@@ -76,10 +98,11 @@
 .heroTitle {
     max-width: 10ch;
     font-family: var(--font-display);
-    font-size: clamp(3.4rem, 9vw, 7rem);
-    font-weight: 700;
-    line-height: 0.9;
-    letter-spacing: -0.08em;
+    font-size: clamp(3.2rem, 8.2vw, 6.4rem);
+    font-weight: 600;
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    text-shadow: 0 10px 34px rgba(0, 0, 0, 0.36);
 }
 
 .heroWord {
@@ -90,7 +113,7 @@
     max-width: 54ch;
     font-size: 1.06rem;
     line-height: 1.8;
-    color: var(--text-secondary);
+    color: rgba(248, 251, 255, 0.9);
 }
 
 .heroActions {
@@ -110,9 +133,11 @@
     display: grid;
     gap: 0.45rem;
     padding: 1.15rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 24px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(5, 8, 16, 0.44);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .heroMetaValue {
@@ -132,9 +157,11 @@
     display: grid;
     gap: 1rem;
     padding: 1.1rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 28px;
-    background: var(--card-bg);
+    background: rgba(8, 12, 22, 0.56);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
     box-shadow: var(--shadow-soft);
 }
 
@@ -179,9 +206,9 @@
 .heroPanelTitle {
     font-family: var(--font-display);
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1.05;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.025em;
 }
 
 .heroPanelText,
