@@ -70,7 +70,7 @@ export default function RuntimeStabilityGuard() {
     const isOlderIOS = typeof iosMajorVersion === "number" && iosMajorVersion <= 15;
     const serverSafeMode = html.getAttribute("data-runtime-safe") === "1";
 
-    const shouldUseSafeMode = serverSafeMode || isIOS || reducedMotion || hasLowMemory || isLegacyWebView || isOlderIOS;
+    const shouldUseSafeMode = serverSafeMode || reducedMotion || hasLowMemory || isLegacyWebView || isOlderIOS;
 
     if (isIOS) {
       html.setAttribute("data-ios", "1");

@@ -114,7 +114,7 @@ const PROGRAMS = [
             'You cannot become what you cannot imagine. Girls in Ibanda rarely see female doctors, lawyers, engineers, or business owners. The Future Pathways Programme bridges that gap.',
             '1. Career Exposure — Career Days where professionals visit girls to share their journeys. Exposure tours to universities and businesses. Job shadowing: selected girls spend a day with a professional, ask questions, and build networks.',
             '2. Mentorship — Professional women in careers girls dream of, near-peer mentors who recently completed the programme, and lifetime mentoring relationships.',
-            '3. University & Vocational Preparation — Subject guidance, application support (personal statements and interviews), scholarship connections, and intensive exam preparation.',
+            '3. University & Vocational Preparation — Subject guidance, application support (personal statements and interviews), education grant connections, and intensive exam preparation.',
             '4. Vocational Training Pathways — For girls who prefer hands-on careers: Tailoring & Fashion Design, Catering & Hotel Management, Hairdressing & Cosmetology, Agriculture, Construction & Carpentry, or Information Technology.',
             '5. The "My Rise Plan" — Every girl creates a personalised roadmap: Where do I want to be in 5 years? What education and skills do I need? What steps will I take, and when? Who can help me?',
             '6. Rise Alumni Network — Graduates join a lifelong community, mentor current girls, access job and training opportunities, and carry the motto: "Rise. Then reach back. Always."',

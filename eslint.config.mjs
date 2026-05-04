@@ -32,7 +32,15 @@ export default [
           jsx: true,
         },
       },
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
     },
     plugins: {
       react,
@@ -46,6 +54,9 @@ export default [
       "react/react-in-jsx-scope": "off",
       "react-hooks/rules-of-hooks": "error",
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "react/no-unescaped-entities": "off",
+      "no-undef": "off",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 ];
