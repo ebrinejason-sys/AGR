@@ -25,14 +25,14 @@ type FlutterwaveMobileMoneyInput = {
   redirectUrl: string;
 };
 
-const FLUTTERWAVE_V4_BASE_URL = FLUTTERWAVE_ENVIRONMENT === 'production' 
+_FLUTTERWAVE_V4_BASE_URL = FLUTTERWAVE_ENVIRONMENT === 'production'
     ? 'https://f4bexperience.flutterwave.com' 
     : 'https://developersandbox-api.flutterwave.com';
 
-const FLUTTERWAVE_TOKEN_URL = 'https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token';
+_FLUTTERWAVE_TOKEN_URL = 'https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token';
 
 let cachedAccessToken: string | null = null;
-let cachedAccessTokenExpiresAt = 0;
+let _cachedAccessTokenExpiresAt = 0;
 
 function normalizePhoneNumber(phoneNumber: string) {
   const compact = phoneNumber.replace(/[\s()-]/g, '');

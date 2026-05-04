@@ -95,7 +95,6 @@ export default function HomePage() {
     return (
         <div className={styles.page}>
             <section className={styles.heroSection}>
-                <div className={styles.heroBackdropImage} />
                 <div className={styles.heroBackdropVeil} />
                 <div className={styles.heroGlowPink} />
                 <div className={styles.heroGlowCyan} />

@@ -26,22 +26,10 @@
         var(--surface);
 }
 
-.heroBackdropImage,
 .heroBackdropVeil {
     position: absolute;
     inset: 0;
     pointer-events: none;
-}
-
-.heroBackdropImage {
-    background:
-        linear-gradient(120deg, rgba(8, 12, 22, 0.62) 0%, rgba(8, 12, 22, 0.28) 52%, rgba(8, 12, 22, 0.68) 100%),
-        url('/images/hero-bg.jpg') center / cover no-repeat;
-    transform: scale(1.04);
-    filter: saturate(1.08) contrast(1.02);
-}
-
-.heroBackdropVeil {
     background:
         radial-gradient(circle at 16% 18%, hsla(var(--clr-accent-pink-raw) / 0.26), transparent 42%),
         radial-gradient(circle at 84% 22%, hsla(var(--clr-accent-cyan-raw) / 0.22), transparent 40%),
@@ -147,6 +135,14 @@
     line-height: 1;
 }
 
+.heroMetaCard:first-child .heroMetaValue {
+    color: var(--accent-pink);
+}
+
+.heroMetaCard:last-child .heroMetaValue {
+    color: var(--accent-cyan);
+}
+
 .heroMetaLabel {
     color: var(--text-secondary);
     font-size: 0.92rem;
@@ -235,6 +231,7 @@
     gap: 1rem;
     width: max-content;
     animation: marquee 18s linear infinite;
+    will-change: transform;
 }
 
 .stripItem {
@@ -515,6 +512,7 @@
     gap: 1.25rem;
     width: max-content;
     animation: marquee 55s linear infinite;
+    will-change: transform;
 }
 
 .imageMarqueeTrackReverse {

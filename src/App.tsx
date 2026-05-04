@@ -97,7 +97,6 @@ export default function App() {
   useEffect(() => {
     if (isIOSDevice) {
       document.documentElement.setAttribute('data-ios', '1');
-      document.documentElement.setAttribute('data-runtime-safe', '1');
     }
     document.documentElement.classList.add('antialiased');
   }, [isIOSDevice]);
