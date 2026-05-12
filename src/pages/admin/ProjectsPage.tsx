@@ -33,7 +33,7 @@ const PILLARS = [
 
 export default function AdminProjectsPage() {
     const [projects, setProjects] = useState<ProjectItem[]>([]);
-    _const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [editingPillar, setEditingPillar] = useState<number | null>(null);
     const [uploadingImage, setUploadingImage] = useState(false);
     const [error, setError] = useState<string | null>(null);

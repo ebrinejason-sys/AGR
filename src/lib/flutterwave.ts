@@ -25,11 +25,11 @@ type FlutterwaveMobileMoneyInput = {
   redirectUrl: string;
 };
 
-_FLUTTERWAVE_V4_BASE_URL = FLUTTERWAVE_ENVIRONMENT === 'production'
+const FLUTTERWAVE_V4_BASE_URL = FLUTTERWAVE_ENVIRONMENT === 'production'
     ? 'https://f4bexperience.flutterwave.com' 
     : 'https://developersandbox-api.flutterwave.com';
 
-_FLUTTERWAVE_TOKEN_URL = 'https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token';
+const FLUTTERWAVE_TOKEN_URL = 'https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token';
 
 let cachedAccessToken: string | null = null;
 let _cachedAccessTokenExpiresAt = 0;
