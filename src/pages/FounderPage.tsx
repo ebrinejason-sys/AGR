@@ -5,7 +5,7 @@ import PageHero from '../components/PageHero';
 import styles from './FounderPage.module.css';
 
 const timeline = [
-    { year: '2001', label: 'Born in Ibanda District, Western Uganda' },
+    { year: '2003', label: 'Born 29th April in Ibanda District, Western Uganda' },
     { year: '2018', label: 'Witnessed systemic barriers blocking girls from education' },
     { year: '2021', label: 'Began grassroots mentorship in local communities' },
     { year: '2023', label: 'Enrolled in Law at Uganda Christian University' },
