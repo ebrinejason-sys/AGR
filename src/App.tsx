@@ -12,6 +12,7 @@ const ProgramsPage = lazy(() => import('@/pages/ProgramsPage'));
 const ProgramDetailPage = lazy(() => import('@/pages/ProgramDetailPage'));
 const StoriesPage = lazy(() => import('@/pages/StoriesPage'));
 const EventsPage = lazy(() => import('@/pages/EventsPage'));
+const GalleryPage = lazy(() => import('@/pages/GalleryPage'));
 const PayPage = lazy(() => import('@/pages/PayPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const ContactAdvocatePage = lazy(() => import('@/pages/ContactAdvocatePage'));
@@ -61,6 +62,7 @@ function AppRoutes({ isIOSDevice }: { isIOSDevice: boolean }) {
             <Route path="/programs/:id" element={<ProgramDetailPage />} />
             <Route path="/stories" element={<StoriesPage />} />
             <Route path="/events" element={<EventsPage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/pay" element={<PayPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/contact/advocate" element={<ContactAdvocatePage />} />

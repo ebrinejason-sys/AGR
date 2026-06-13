@@ -1,7 +1,7 @@
 :root {
     --clr-accent-pink-raw: 333 88% 60%;
     --clr-accent-cyan-raw: 189 100% 52%;
-    --clr-accent-purple-raw: 334 72% 50%;
+    --clr-accent-purple-raw: 278 76% 58%;
     --clr-accent-teal-raw: 189 100% 52%;
     --clr-bg-raw: 225 29% 7%;
     --clr-surface-raw: 228 24% 11%;
@@ -40,7 +40,7 @@
     --border-accent: rgba(236, 72, 153, 0.3);
     --nav-hover-bg: rgba(255, 255, 255, 0.08);
 
-    --gradient-primary: linear-gradient(135deg, var(--accent-pink) 0%, var(--accent-cyan) 100%);
+    --gradient-primary: linear-gradient(135deg, var(--accent-pink) 0%, var(--accent-purple) 48%, var(--accent-cyan) 100%);
     --gradient-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
     --gradient-panel: linear-gradient(145deg, rgba(236, 72, 153, 0.14) 0%, rgba(34, 211, 238, 0.08) 100%);
     --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.18);
@@ -67,7 +67,7 @@
     --bg-color: hsl(var(--clr-bg-raw));
     --surface: hsl(var(--clr-surface-raw));
     --surface-elevated: hsl(var(--clr-surface-elevated-raw));
-    --surface-glass: hsla(0 0% 100% / 0.78);
+    --surface-glass: hsla(0 0% 100% / 0.9);
     --card-bg: rgba(255, 255, 255, 0.92);
     --card-hover-bg: #ffffff;
 

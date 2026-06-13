@@ -8,6 +8,7 @@
 .heroSection,
 .proofSection,
 .statsSection,
+.gallerySection,
 .programsSection,
 .featureSection,
 .ctaSection {
@@ -359,6 +360,36 @@
     gap: 1.2rem;
 }
 
+.galleryGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.galleryItem {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: 22px;
+    background: var(--card-bg);
+    box-shadow: var(--shadow-soft);
+}
+
+.galleryMedia {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    background: #111;
+}
+
+.galleryItem figcaption {
+    padding: 0.95rem;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.45;
+}
+
 .statCard {
     padding: 1.6rem;
 }
@@ -595,6 +626,7 @@
     .heroSection,
     .proofSection,
     .statsSection,
+    .gallerySection,
     .programsSection,
     .featureSection,
     .ctaSection {
