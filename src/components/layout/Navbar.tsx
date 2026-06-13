@@ -1,6 +1,6 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, BookOpen, Heart, Users, Scale, LayoutGrid, Star } from 'lucide-react';
+import { Menu, X, ChevronDown, BookOpen, Heart, Users, Scale, LayoutGrid, Star, Images, CalendarDays } from 'lucide-react';
 import { ModeToggle } from '@/components/ui/ModeToggle';
 import styles from './Navbar.module.css';
 
@@ -88,6 +88,7 @@ export default function Navbar() {
             </div>
 
             <Link to="/events" className={`${styles.link} ${isActive('/events') ? styles.active : ''}`}>Events</Link>
+            <Link to="/gallery" className={`${styles.link} ${isActive('/gallery') ? styles.active : ''}`}>Gallery</Link>
             <Link to="/contact" className={`${styles.link} ${isActive('/contact') ? styles.active : ''}`}>Contact</Link>
 
             <div className={styles.navActions}>
@@ -176,7 +177,10 @@ export default function Navbar() {
           </div>
 
           <Link to="/events" className={`${styles.mobileLink} ${isActive('/events') ? styles.mobileLinkActive : ''}`} onClick={closeMenu}>
-            Events
+            <CalendarDays size={17} /> Events
+          </Link>
+          <Link to="/gallery" className={`${styles.mobileLink} ${isActive('/gallery') ? styles.mobileLinkActive : ''}`} onClick={closeMenu}>
+            <Images size={17} /> Gallery
           </Link>
           <Link to="/contact" className={`${styles.mobileLink} ${isActive('/contact') ? styles.mobileLinkActive : ''}`} onClick={closeMenu}>
             Contact

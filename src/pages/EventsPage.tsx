@@ -8,7 +8,7 @@ import styles from './EventsPage.module.css';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
 
-type GalleryPhoto = { id: string; url: string; type: 'image' | 'video'; description: string };
+type GalleryPhoto = { id: string; url: string; type: 'image' | 'video'; description: string | null };
 type Event = { id: string; title: string; description: string; event_date: string; goal_amount: number; current_amount: number; status: 'upcoming' | 'completed' | 'cancelled'; cover_image?: string; location?: string; gallery?: GalleryPhoto[] };
 
 function getProgressPercent(event: Event) { 
@@ -59,6 +59,24 @@ function EventDetailModal({ event, onClose, onDonate }: { event: Event | null; o
                         {event.location && <span className={styles.modalMetaItem}><MapPin size={18} /> {event.location}</span>}
                     </div>
                     <p className={`${styles.modalDescription} ${styles.modalDescriptionLarge}`}>{event.description}</p>
+
+                    {event.gallery && event.gallery.length > 0 && (
+                        <div className={styles.eventGallery}>
+                            <h3 className={styles.eventGalleryTitle}>Gallery</h3>
+                            <div className={styles.eventGalleryGrid}>
+                                {event.gallery.map((item) => (
+                                    <figure key={item.id} className={styles.eventGalleryItem}>
+                                        {item.type === 'video' ? (
+                                            <video src={item.url} controls playsInline className={styles.eventGalleryMedia} />
+                                        ) : (
+                                            <img src={item.url} alt={item.description || event.title} className={styles.eventGalleryMedia} loading="lazy" />
+                                        )}
+                                        {item.description && <figcaption>{item.description}</figcaption>}
+                                    </figure>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                     
                     {event.goal_amount > 0 && (
                         <div className={styles.modalGoal}>

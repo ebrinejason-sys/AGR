@@ -7,6 +7,13 @@ import AnimatedCounter from '@/components/AnimatedCounter';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
 
+type PublicMedia = {
+    id: string;
+    url: string;
+    type: 'image' | 'video';
+    description: string | null;
+};
+
 const impactStats = [
     {
         label: 'Girls reached',
@@ -83,6 +90,7 @@ const ROTATING_WORDS = ['safe', 'seen', 'in school', 'protected', 'rising'];
 export default function HomePage() {
     const [wordIndex, setWordIndex] = useState(0);
     const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+    const [media, setMedia] = useState<PublicMedia[]>([]);
 
     useEffect(() => {
         const interval = window.setInterval(() => {
@@ -90,6 +98,25 @@ export default function HomePage() {
         }, 2600);
 
         return () => window.clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        let mounted = true;
+
+        fetch('/api/public/data')
+            .then((response) => response.json())
+            .then((data) => {
+                if (mounted && Array.isArray(data.media)) {
+                    setMedia(data.media);
+                }
+            })
+            .catch(() => {
+                if (mounted) setMedia([]);
+            });
+
+        return () => {
+            mounted = false;
+        };
     }, []);
 
     return (
@@ -229,6 +256,29 @@ export default function HomePage() {
                     </section>
                 );
             })()}
+
+            {media.length > 0 && (
+                <motion.section className={styles.gallerySection} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} viewport={{ once: true, amount: 0.18 }}>
+                    <div className={styles.sectionIntroRow}>
+                        <div>
+                            <span className="subheading">Gallery</span>
+                            <h2 className="heading-section">Recent moments from the field.</h2>
+                        </div>
+                    </div>
+                    <div className={styles.galleryGrid}>
+                        {media.map((item) => (
+                            <figure key={item.id} className={styles.galleryItem}>
+                                {item.type === 'video' ? (
+                                    <video src={item.url} controls playsInline className={styles.galleryMedia} />
+                                ) : (
+                                    <img src={item.url} alt={item.description || 'African Girl Rise gallery moment'} className={styles.galleryMedia} loading="lazy" />
+                                )}
+                                {item.description && <figcaption>{item.description}</figcaption>}
+                            </figure>
+                        ))}
+                    </div>
+                </motion.section>
+            )}
 
             <motion.section className={styles.programsSection} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} viewport={{ once: true, amount: 0.2 }}>
                 <div className={styles.sectionIntroRow}>

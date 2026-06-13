@@ -18,6 +18,39 @@
     font-size: 1.1rem;
     line-height: 1.7;
 }
+.eventGallery {
+    margin-top: 2.5rem;
+}
+.eventGalleryTitle {
+    font-size: 1.25rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+}
+.eventGalleryGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+.eventGalleryItem {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    background: hsla(0, 0%, 100%, 0.04);
+}
+.eventGalleryMedia {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    background: #111;
+}
+.eventGalleryItem figcaption {
+    padding: 0.8rem;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
 .modalProgressRow {
     display: flex;
     justify-self: space-between;
