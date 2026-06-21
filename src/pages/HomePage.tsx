@@ -1,7 +1,7 @@
 ﻿import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Heart, Home, Scale, Users } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import styles from './HomePage.module.css';
 import AnimatedCounter from '@/components/AnimatedCounter';
 
@@ -85,7 +85,7 @@ const trustStrip = [
     'Mentorship that lasts',
 ];
 
-const ROTATING_WORDS = ['safe', 'seen', 'in school', 'protected', 'rising'];
+const ROTATING_WORDS = ['rise', 'stay in school', 'stay safe', 'be seen', 'stay protected', 'keep rising'];
 
 export default function HomePage() {
     const [wordIndex, setWordIndex] = useState(0);
@@ -130,11 +130,22 @@ export default function HomePage() {
                     <motion.div className={styles.heroCopy} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
                         <div className={styles.heroEyebrow}>African Girl Rise | Uganda</div>
                         <h1 className={styles.heroTitle}>
-                            Help girls stay
-                            <span className={styles.heroWord}> {ROTATING_WORDS[wordIndex]}.</span>
+                            Empower girls to{' '}
+                            <AnimatePresence mode="wait" initial={false}>
+                                <motion.span
+                                    key={wordIndex}
+                                    className={styles.heroWord}
+                                    initial={{ opacity: 0, y: '0.4em' }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: '-0.4em' }}
+                                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                >
+                                    {ROTATING_WORDS[wordIndex]}.
+                                </motion.span>
+                            </AnimatePresence>
                         </h1>
                         <p className={styles.heroText}>
-                            We design local, practical support systems that help girls remain safe, remain visible, and remain in school.
+                            We build local, practical support systems that empower girls to stay safe, stay visible, and stay in school.
                         </p>
 
                         <div className={styles.heroActions}>

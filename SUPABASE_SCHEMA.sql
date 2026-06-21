@@ -201,9 +201,13 @@ EXCEPTION WHEN duplicate_object THEN END; $$;
 -- Do this in the Supabase Dashboard → Storage → New Bucket
 -- OR run the SQL below:
 -- ============================================================
+-- IMPORTANT: use DO UPDATE (not DO NOTHING) so that a bucket previously created
+-- as PRIVATE (Supabase's default) is flipped to public. A private bucket makes
+-- getPublicUrl() return URLs that return HTTP 403 for site visitors, so uploaded
+-- images never appear on the public website.
 INSERT INTO storage.buckets (id, name, public)
 VALUES ('media', 'media', true)
-ON CONFLICT (id) DO NOTHING;
+ON CONFLICT (id) DO UPDATE SET public = true;
 
 -- Allow anyone to upload to the media bucket (admin controls via API)
 DO $$ BEGIN
