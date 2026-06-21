@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getAdminSupabase } from '../supabase.server.js';
 import { requireAdminSession, checkSupabaseAdminConfig } from '../admin-api.js';
-import { normalizeMediaUrl, normalizeMediaUrls, normalizeRichTextMediaUrls } from '../media.js';
+import { normalizeMediaUrl, normalizeMediaUrls, normalizeRichTextMediaUrls, sanitizeHtmlContent } from '../media.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     const configError = checkSupabaseAdminConfig();
@@ -13,6 +13,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const supabase = getAdminSupabase();
 
     const normalizeStory = (s: Record<string, unknown>) => ({ ...normalizeMediaUrls(s, ['image_url']), content: normalizeRichTextMediaUrls(s.content as string) });
+    const cleanStoryContent = (content: unknown) => sanitizeHtmlContent(normalizeRichTextMediaUrls(content as string)) ?? '';
 
     try {
         if (req.method === 'GET') {
@@ -26,7 +27,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             if (!title || !content) return res.status(400).json({ error: 'Title and content are required.' });
 
             const { data, error } = await supabase.from('stories').insert({
-                title, content: normalizeRichTextMediaUrls(content),
+                title, content: cleanStoryContent(content),
                 author: author || session?.email || 'Admin',
                 image_url: normalizeMediaUrl(image_url) || null,
             }).select('*').single();
@@ -40,7 +41,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             if (!id || !title || !content) return res.status(400).json({ error: 'ID, title, and content are required.' });
 
             const { data, error } = await supabase.from('stories').update({
-                title, content: normalizeRichTextMediaUrls(content),
+                title, content: cleanStoryContent(content),
                 image_url: normalizeMediaUrl(image_url) ?? null,
                 ...(author ? { author } : {}),
             }).eq('id', id).select('*').single();

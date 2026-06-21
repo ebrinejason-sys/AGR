@@ -48,3 +48,40 @@ export function normalizeRichTextMediaUrls(html: string | null | undefined): str
         return `${attribute}=${quote}${normalized}${quote}`;
     });
 }
+
+// Tags that can execute script or load external/active content. Stripped entirely
+// (including their contents) before admin-authored rich text is stored/rendered.
+const DANGEROUS_TAG_BLOCK_PATTERN = /<\s*(script|style|iframe|object|embed|svg|math|template)\b[\s\S]*?<\s*\/\s*\1\s*>/gi;
+// Self-closing / unclosed variants of structural tags that should never appear in body HTML.
+const DANGEROUS_TAG_VOID_PATTERN = /<\s*\/?\s*(script|style|iframe|object|embed|svg|math|template|link|meta|base|form)\b[^>]*>/gi;
+// Inline event handlers e.g. onclick="..." onerror='...' onload=foo
+const EVENT_HANDLER_ATTR_PATTERN = /\son[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi;
+// javascript:/vbscript:/data: in href/src/style attributes
+const ACTIVE_URI_ATTR_PATTERN = /\s(?:href|src|xlink:href|action|formaction|style)\s*=\s*(["']?)\s*(?:javascript|vbscript|data)\s*:[^"'>\s]*\1/gi;
+
+/**
+ * Defence-in-depth sanitizer for admin-authored rich text (Quill HTML).
+ * Removes script-bearing tags, inline event handlers, and active-content URIs
+ * while preserving ordinary formatting (p, headings, lists, links, images, etc.).
+ * Not a replacement for a full DOM sanitizer, but blocks the common stored-XSS
+ * vectors before the HTML is persisted and later rendered via dangerouslySetInnerHTML.
+ */
+export function sanitizeHtmlContent(html: string | null | undefined): string | null | undefined {
+    if (typeof html !== 'string') {
+        return html;
+    }
+
+    let cleaned = html;
+    let previous: string;
+    // Loop to defeat nested / overlapping constructs revealed after a first pass.
+    do {
+        previous = cleaned;
+        cleaned = cleaned
+            .replace(DANGEROUS_TAG_BLOCK_PATTERN, '')
+            .replace(DANGEROUS_TAG_VOID_PATTERN, '')
+            .replace(EVENT_HANDLER_ATTR_PATTERN, '')
+            .replace(ACTIVE_URI_ATTR_PATTERN, '');
+    } while (cleaned !== previous);
+
+    return cleaned;
+}

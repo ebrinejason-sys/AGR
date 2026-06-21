@@ -8,13 +8,66 @@ export const config = { api: { bodyParser: false } };
 
 const sanitizeFileName = (n: string) => n.replace(/[^a-zA-Z0-9._-]/g, '-');
 
-function readRawBody(req: VercelRequest): Promise<Buffer> {
+// Upload constraints — enforced server-side (client MIME/size cannot be trusted).
+const MAX_FILE_BYTES = 25 * 1024 * 1024; // 25 MB per file
+const MAX_REQUEST_BYTES = MAX_FILE_BYTES + 1024 * 1024; // allow for multipart overhead
+// Whitelist of safe, non-active media content types. SVG is intentionally excluded
+// because it can carry inline script (stored XSS when rendered inline).
+const ALLOWED_CONTENT_TYPES = new Set([
+    'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif',
+    'video/mp4', 'video/webm', 'video/ogg', 'video/quicktime',
+]);
+const ALLOWED_EXTENSION_PATTERN = /\.(jpe?g|png|gif|webp|avif|mp4|webm|ogg|mov)$/i;
+
+class PayloadTooLargeError extends Error {}
+
+function readRawBody(req: VercelRequest, maxBytes = MAX_REQUEST_BYTES): Promise<Buffer> {
     return new Promise((resolve, reject) => {
         const chunks: Buffer[] = [];
-        req.on('data', (chunk: Buffer) => chunks.push(chunk));
+        let total = 0;
+        req.on('data', (chunk: Buffer) => {
+            total += chunk.length;
+            if (total > maxBytes) {
+                reject(new PayloadTooLargeError('Payload too large'));
+                req.destroy();
+                return;
+            }
+            chunks.push(chunk);
+        });
         req.on('end', () => resolve(Buffer.concat(chunks)));
         req.on('error', reject);
     });
+}
+
+// Cache the bucket-public check per warm serverless instance.
+let mediaBucketEnsured = false;
+
+/**
+ * Ensures the media storage bucket exists AND is public so that getPublicUrl()
+ * returns URLs that load for anonymous visitors. A bucket created privately
+ * (the Supabase default) causes uploaded images to 403 on the public site even
+ * though the admin/API can still see the rows — this is the root cause of
+ * "images don't appear for other people". Uses the service-role client which has
+ * storage-admin privileges.
+ */
+async function ensureMediaBucketPublic(
+    supabase: ReturnType<typeof getAdminSupabase>,
+    bucket: string,
+): Promise<void> {
+    if (mediaBucketEnsured) return;
+    try {
+        const { data, error } = await supabase.storage.getBucket(bucket);
+        if (error || !data) {
+            await supabase.storage.createBucket(bucket, { public: true });
+        } else if (!data.public) {
+            await supabase.storage.updateBucket(bucket, { public: true });
+        }
+        mediaBucketEnsured = true;
+    } catch (err) {
+        // Non-fatal: if this fails the upload will still proceed and surface a
+        // clear storage error. Do not cache success so a later request retries.
+        console.warn('ensureMediaBucketPublic failed (continuing):', err);
+    }
 }
 
 function parseMultipart(body: Buffer, boundary: string): {
@@ -97,21 +150,42 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             const boundaryMatch = contentType.match(/boundary=([^\s;]+)/);
             if (!boundaryMatch) return res.status(400).json({ error: 'Missing multipart boundary.' });
 
-            const rawBody = await readRawBody(req);
+            const declaredLength = Number(req.headers['content-length']);
+            if (Number.isFinite(declaredLength) && declaredLength > MAX_REQUEST_BYTES) {
+                return res.status(413).json({ error: 'File too large. Maximum upload size is 25 MB.' });
+            }
+
+            let rawBody: Buffer;
+            try {
+                rawBody = await readRawBody(req);
+            } catch (err) {
+                if (err instanceof PayloadTooLargeError) {
+                    return res.status(413).json({ error: 'File too large. Maximum upload size is 25 MB.' });
+                }
+                throw err;
+            }
+
             const { fields, file } = parseMultipart(rawBody, boundaryMatch[1]);
 
             if (!file) return res.status(400).json({ error: 'File is required.' });
-            if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
-                return res.status(400).json({ error: 'Only image and video files are supported.' });
+            if (file.data.length === 0) return res.status(400).json({ error: 'Uploaded file is empty.' });
+            if (file.data.length > MAX_FILE_BYTES) {
+                return res.status(413).json({ error: 'File too large. Maximum upload size is 25 MB.' });
+            }
+
+            const declaredType = file.type.toLowerCase().split(';')[0].trim();
+            if (!ALLOWED_CONTENT_TYPES.has(declaredType) || !ALLOWED_EXTENSION_PATTERN.test(file.name || '')) {
+                return res.status(400).json({ error: 'Unsupported file. Allowed: JPEG, PNG, GIF, WebP, AVIF images and MP4, WebM, OGG, MOV videos.' });
             }
 
             const bucket = getMediaBucketName();
+            await ensureMediaBucketPublic(supabase, bucket);
             const fileName = `${Date.now()}-${sanitizeFileName(file.name || 'upload')}`;
             const filePath = `uploads/${fileName}`;
 
             const { error: uploadError } = await supabase.storage
                 .from(bucket)
-                .upload(filePath, file.data, { contentType: file.type, upsert: false });
+                .upload(filePath, file.data, { contentType: declaredType, upsert: false });
 
             if (uploadError) return res.status(500).json({ error: `Storage upload failed: ${uploadError.message}` });
 
@@ -137,8 +211,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }
 
         if (req.method === 'DELETE') {
-            // For DELETE with bodyParser: false, parse body manually
-            const rawBody = await readRawBody(req);
+            // For DELETE with bodyParser: false, parse body manually (small JSON only)
+            const rawBody = await readRawBody(req, 64 * 1024);
             const body = JSON.parse(rawBody.toString());
             const { id } = body || {};
             if (!id) return res.status(400).json({ error: 'Media id is required.' });

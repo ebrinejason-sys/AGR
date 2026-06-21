@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getAdminSupabase } from '../../src/lib/supabase.server.js';
-import { normalizeMediaUrls, normalizeRichTextMediaUrls } from '../../src/lib/media.js';
+import { normalizeMediaUrls, normalizeRichTextMediaUrls, sanitizeHtmlContent } from '../../src/lib/media.js';
 
 type MediaRecord = {
     created_at?: string | null;
@@ -53,7 +53,7 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
         }));
 
         return res.json({
-            stories: (storiesRes.data || []).map(story => ({ ...normalizeMediaUrls(story, ['image_url']), content: normalizeRichTextMediaUrls(story.content) })),
+            stories: (storiesRes.data || []).map(story => ({ ...normalizeMediaUrls(story, ['image_url']), content: sanitizeHtmlContent(normalizeRichTextMediaUrls(story.content)) })),
             media: sortMedia(mediaRes.data || [], 'desc').map(item => normalizeMediaUrls(item, ['url'])),
             projects: (projectsRes.data || []).map(project => normalizeMediaUrls(project, ['image_url'])),
             events,
