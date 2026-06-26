@@ -85,7 +85,7 @@ const trustStrip = [
     'Mentorship that lasts',
 ];
 
-const ROTATING_WORDS = ['rise', 'stay in school', 'stay safe', 'be seen', 'stay protected', 'keep rising'];
+const ROTATING_WORDS = ['stay in school', 'lead the way', 'stay safe', 'be seen', 'thrive', 'keep rising'];
 
 export default function HomePage() {
     const [wordIndex, setWordIndex] = useState(0);
@@ -130,7 +130,7 @@ export default function HomePage() {
                     <motion.div className={styles.heroCopy} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
                         <div className={styles.heroEyebrow}>African Girl Rise | Uganda</div>
                         <h1 className={styles.heroTitle}>
-                            Empower girls to{' '}
+                            Empower girls{' '}
                             <AnimatePresence mode="wait" initial={false}>
                                 <motion.span
                                     key={wordIndex}
@@ -145,7 +145,7 @@ export default function HomePage() {
                             </AnimatePresence>
                         </h1>
                         <p className={styles.heroText}>
-                            We build local, practical support systems that empower girls to stay safe, stay visible, and stay in school.
+                            We build local, practical support systems that empower girls to stay safe, stay visible, and return to school.
                         </p>
 
                         <div className={styles.heroActions}>
