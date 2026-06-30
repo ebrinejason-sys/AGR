@@ -61,20 +61,14 @@
 }
 
 .logo img {
-    height: 40px;
-    width: 40px;
+    height: 44px;
+    width: 44px;
     border-radius: 999px;
     object-fit: cover;
     background: #ffffff;
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.68);
 }
 
-.logo span {
-    max-width: 13rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
 
 /* ─── Desktop menu ─── */
 .desktopMenu {
@@ -450,13 +444,10 @@
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.5));
 }
 
-[data-theme="light"] .logo {
-    background: rgba(255, 255, 255, 0.92);
+[data-theme="light"] .header {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.5));
 }
 
-@media (max-width: 420px) {
-    .logo span,
-    .mobileLogo span {
-        max-width: 9.5rem;
-    }
+[data-theme="light"] .logo {
+    background: rgba(255, 255, 255, 0.92);
 }

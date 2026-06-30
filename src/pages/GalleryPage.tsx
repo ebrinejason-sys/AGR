@@ -39,7 +39,11 @@ function getAllMedia(data: PublicData): GalleryMedia[] {
         (event.gallery || []).map((item) => ({ ...item, eventTitle: event.title }))
     );
 
-    return [...generalMedia, ...eventMedia];
+    return [...generalMedia, ...eventMedia].sort((a, b) => {
+        const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
+        const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+        return dateB - dateA;
+    });
 }
 
 export default function GalleryPage() {

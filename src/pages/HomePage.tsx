@@ -128,7 +128,7 @@ export default function HomePage() {
 
                 <div className={styles.heroGrid}>
                     <motion.div className={styles.heroCopy} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
-                        <div className={styles.heroEyebrow}>African Girl Rise | Uganda</div>
+                        <div className={styles.heroEyebrow}>Empowering her journey | Uganda</div>
                         <h1 className={styles.heroTitle}>
                             Empower girls{' '}
                             <AnimatePresence mode="wait" initial={false}>
@@ -325,7 +325,7 @@ export default function HomePage() {
                 </div>
             </motion.section>
 
-            <section className={styles.featureSection}>
+            <motion.section className={styles.featureSection} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true, amount: 0.2 }}>
                 <div className={styles.featureCopy}>
                     <span className="subheading">Built for trust</span>
                     <h2 className="heading-section">Professional enough for partners. Human enough for the girls we serve.</h2>
@@ -338,7 +338,7 @@ export default function HomePage() {
                         <div className={styles.featureItem}>Legal and mental health support anchored in dignity, not charity</div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
             <motion.section className={styles.ctaSection} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} viewport={{ once: true, amount: 0.2 }}>
                 <motion.div className={styles.ctaCard} whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
