@@ -56,8 +56,8 @@
     --transition-base: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     --transition-slow: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 
-    --font-sans: 'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-display: 'Syne', 'Playfair Display', 'Cormorant Garamond', var(--font-sans);
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --font-display: 'Syne', sans-serif;
     --font-serif: 'Cormorant Garamond', 'Playfair Display', var(--font-sans);
 }
 
@@ -136,7 +136,7 @@
 
 .btn-premium:hover,
 .btn-primary:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.02);
     box-shadow: 0 24px 50px rgba(236, 72, 153, 0.32);
     filter: saturate(1.05);
 }
@@ -174,7 +174,7 @@
 .btn-secondary:hover,
 .btn-glass:hover,
 .btn-white:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.02);
     border-color: var(--border-accent);
 }
 
@@ -240,7 +240,7 @@
     width: 100%;
     max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 2rem;
 }
 
 .grid {
@@ -301,8 +301,8 @@
 }
 
 .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
 }
 
 .card-content {

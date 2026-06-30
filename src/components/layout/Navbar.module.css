@@ -38,15 +38,10 @@
 .logo {
     display: flex;
     align-items: center;
-    gap: 11px;
-    font-weight: 900;
-    font-size: 0.88rem;
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
     color: var(--text-primary);
     flex-shrink: 0;
     min-height: 48px;
-    padding: 0.35rem 0.65rem 0.35rem 0.35rem;
+    padding: 0.35rem;
     border: 1px solid var(--border-strong);
     border-radius: 999px;
     background: color-mix(in srgb, var(--surface) 82%, transparent);
@@ -61,20 +56,14 @@
 }
 
 .logo img {
-    height: 40px;
-    width: 40px;
+    height: 48px;
+    width: 48px;
     border-radius: 999px;
     object-fit: cover;
     background: #ffffff;
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.68);
 }
 
-.logo span {
-    max-width: 13rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
 
 /* ─── Desktop menu ─── */
 .desktopMenu {
@@ -185,7 +174,6 @@
 .dropdownContent a {
     display: flex;
     align-items: center;
-    gap: 10px;
     padding: 10px 13px;
     font-size: 0.875rem;
     font-weight: 500;
@@ -311,17 +299,12 @@
 .mobileLogo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-weight: 900;
-    font-size: 0.78rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
     color: var(--text-primary);
 }
 
 .mobileLogo img {
-    height: 34px;
-    width: 34px;
+    height: 42px;
+    width: 42px;
     border-radius: 999px;
     background: #ffffff;
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7);
@@ -331,8 +314,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
+    width: 42px;
+    height: 42px;
     border-radius: 9px;
     color: var(--text-secondary);
     background: hsla(0,0%,100%,0.06);
@@ -455,8 +438,4 @@
 }
 
 @media (max-width: 420px) {
-    .logo span,
-    .mobileLogo span {
-        max-width: 9.5rem;
-    }
 }
