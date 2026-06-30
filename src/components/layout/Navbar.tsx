@@ -47,7 +47,7 @@ export default function Navbar() {
         <nav className={styles.nav}>
           <Link to="/" className={styles.logo} onClick={closeMenu}>
             <img src="/logo.png" alt="AGR Logo" />
-            <span>AFRICAN GIRL RISE</span>
+
           </Link>
 
           <div className={styles.desktopMenu}>
@@ -128,7 +128,7 @@ export default function Navbar() {
         <div className={styles.mobileHeader}>
           <Link to="/" className={styles.mobileLogo} onClick={closeMenu}>
             <img src="/logo.png" alt="AGR" />
-            <span>AFRICAN GIRL RISE</span>
+
           </Link>
           <button className={styles.mobileClose} onClick={() => setIsOpen(false)} aria-label="Close menu" type="button">
             <X size={20} />

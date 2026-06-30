@@ -1,4 +1,4 @@
-﻿import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Heart, Home, Scale, Users } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -128,7 +128,6 @@ export default function HomePage() {
 
                 <div className={styles.heroGrid}>
                     <motion.div className={styles.heroCopy} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
-                        <div className={styles.heroEyebrow}>African Girl Rise | Uganda</div>
                         <h1 className={styles.heroTitle}>
                             Empower girls{' '}
                             <AnimatePresence mode="wait" initial={false}>
@@ -152,50 +151,41 @@ export default function HomePage() {
                             <button type="button" className="btn-premium" onClick={() => setIsDonationModalOpen(true)}>
                                 Support Her Rise <Heart size={18} />
                             </button>
-                            <Link to="/programs" className="btn-glass">
-                                Explore Programs <ArrowRight size={18} />
-                            </Link>
+                            <Link to="/our-story" className="btn-glass">Our approach</Link>
                         </div>
 
                         <div className={styles.heroMetaRow}>
                             <div className={styles.heroMetaCard}>
-                                <span className={styles.heroMetaValue}>56K+</span>
-                                <span className={styles.heroMetaLabel}>girls reached through school and community support</span>
+                                <span className={styles.heroMetaValue}>56k+</span>
+                                <span className={styles.heroMetaLabel}>Girls reached directly</span>
                             </div>
                             <div className={styles.heroMetaCard}>
                                 <span className={styles.heroMetaValue}>12+</span>
-                                <span className={styles.heroMetaLabel}>active sanctuaries and support points</span>
+                                <span className={styles.heroMetaLabel}>Active safe spaces</span>
                             </div>
                         </div>
                     </motion.div>
 
-                    <motion.aside
-                        className={styles.heroPanel}
-                        initial={{ opacity: 0, y: 24 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.16, duration: 0.65 }}
-                    >
-                        <div className={styles.heroPanelTop}>
-                            <span className={styles.panelLabel}>Field snapshot</span>
-                            <span className={styles.panelBadge}>Girl-led, community-rooted</span>
+                    <motion.div className={styles.heroVisual} initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.15 }}>
+                        <div className={styles.heroPanel}>
+                            <div className={styles.heroPanelTop}>
+                                <span className={styles.panelLabel}>Rise Sanctuary</span>
+                                <span className={styles.panelBadge}>Live Impact</span>
+                            </div>
+                            <img src="/images/hero-bg.jpg" alt="Girls rising in Uganda" className={styles.heroImage} />
+                            <div className={styles.heroPanelBody}>
+                                <h3 className={styles.heroPanelTitle}>A worthy dream.</h3>
+                                <p className={styles.heroPanelText}>Local mentorship that keeps girls in the classroom.</p>
+                            </div>
                         </div>
-
-                        <img src="/images/agr-photo-2.jpg" alt="African Girl Rise community gathering" className={styles.heroImage} />
-
-                        <div className={styles.heroPanelBody}>
-                            <h2 className={styles.heroPanelTitle}>A modern protection network for girls who cannot afford to be missed.</h2>
-                            <p className={styles.heroPanelText}>
-                                African Girl Rise combines safety, education, legal advocacy, and community accountability into one responsive system.
-                            </p>
-                        </div>
-                    </motion.aside>
+                    </motion.div>
                 </div>
             </section>
 
             <section className={styles.stripSection}>
                 <div className={styles.stripTrack}>
-                    {[...trustStrip, ...trustStrip].map((item, index) => (
-                        <span key={`${item}-${index}`} className={styles.stripItem}>
+                    {trustStrip.concat(trustStrip).map((item, i) => (
+                        <span key={i} className={styles.stripItem}>
                             {item}
                         </span>
                     ))}
@@ -247,9 +237,16 @@ export default function HomePage() {
                     { src: '/images/worthy-dream.jpg',alt: 'A worthy dream' },
                     { src: '/images/hero-bg.jpg',     alt: 'Girls rising' },
                 ];
-                const dupeRow = (arr: typeof rowA) => [...arr, ...arr, ...arr];
+                const dupeRow = (arr: any[]) => [...arr, ...arr, ...arr];
                 return (
-                    <section className={styles.imageMarqueeSection} aria-hidden="true">
+                    <motion.section
+                        className={styles.imageMarqueeSection}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        aria-hidden="true"
+                    >
                         <div className={styles.imageMarqueeTrack}>
                             {dupeRow(rowA).map((img, i) => (
                                 <div key={`a-${i}`} className={styles.imageMarqueeItem}>
@@ -264,7 +261,7 @@ export default function HomePage() {
                                 </div>
                             ))}
                         </div>
-                    </section>
+                    </motion.section>
                 );
             })()}
 
@@ -325,7 +322,13 @@ export default function HomePage() {
                 </div>
             </motion.section>
 
-            <section className={styles.featureSection}>
+            <motion.section
+                className={styles.featureSection}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+            >
                 <div className={styles.featureCopy}>
                     <span className="subheading">Built for trust</span>
                     <h2 className="heading-section">Professional enough for partners. Human enough for the girls we serve.</h2>
@@ -338,10 +341,10 @@ export default function HomePage() {
                         <div className={styles.featureItem}>Legal and mental health support anchored in dignity, not charity</div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
             <motion.section className={styles.ctaSection} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} viewport={{ once: true, amount: 0.2 }}>
-                <motion.div className={styles.ctaCard} whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+                <motion.div className={styles.ctaCard} whileHover={{ y: -4, scale: 1.01 }} transition={{ duration: 0.2 }}>
                     <div>
                         <span className="subheading">Take action</span>
                         <h2 className={styles.ctaTitle}>Fund the next safe space, school return, or emergency intervention.</h2>
