@@ -147,7 +147,7 @@ export default function Footer() {
             <Link to="/legal/privacy">Privacy</Link>
             <Link to="/legal/terms">Terms</Link>
           </div>
-          <div className={styles.mission}>Pink for courage. Cyan for clarity. Every girl seen.</div>
+          <div className={styles.mission}>Empower girls to. Pink for courage. Cyan for clarity. Every girl seen.</div>
         </div>
       </div>
     </footer>
