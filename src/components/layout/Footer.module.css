@@ -197,13 +197,24 @@
     padding-left: 5px;
 }
 
-/* ─── Bottom Bar ─── */
+/* ─── Slogan reprise ─── */
+.sloganBand {
+    display: flex;
+    justify-content: center;
+    padding: 2.4rem 1.2rem 2rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--border-color);
+    border-radius: 28px 28px 0 0;
+    background:
+        radial-gradient(circle at 18% 20%, hsla(var(--clr-accent-pink-raw) / 0.14), transparent 42%),
+        radial-gradient(circle at 82% 80%, hsla(var(--clr-accent-cyan-raw) / 0.1), transparent 40%);
+}
+
 .bottomBar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 40px;
-    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
     color: var(--text-muted);
     font-size: 0.85rem;
 }
@@ -211,8 +222,15 @@
 @media (max-width: 768px) {
     .bottomBar {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
         text-align: center;
+        justify-content: center;
+    }
+
+    .legal {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem 1.5rem;
     }
 }
 
@@ -223,11 +241,4 @@
 
 .legal a:hover {
     color: var(--text-primary);
-}
-
-.mission {
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-secondary);
 }

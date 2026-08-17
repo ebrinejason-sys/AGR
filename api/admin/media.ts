@@ -2,6 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getAdminSupabase } from '../../src/lib/supabase.server.js';
 import { requireAdminSession, checkSupabaseAdminConfig } from '../../src/lib/admin-api.js';
 import { getMediaBucketName, normalizeMediaUrl, normalizeMediaUrls } from '../../src/lib/media.js';
+import { ensureMediaBucketPublic } from '../../src/lib/media-storage.js';
 
 // Disable Vercel body parser so we can handle raw multipart ourselves
 export const config = { api: { bodyParser: false } };
@@ -37,37 +38,6 @@ function readRawBody(req: VercelRequest, maxBytes = MAX_REQUEST_BYTES): Promise<
         req.on('end', () => resolve(Buffer.concat(chunks)));
         req.on('error', reject);
     });
-}
-
-// Cache the bucket-public check per warm serverless instance.
-let mediaBucketEnsured = false;
-
-/**
- * Ensures the media storage bucket exists AND is public so that getPublicUrl()
- * returns URLs that load for anonymous visitors. A bucket created privately
- * (the Supabase default) causes uploaded images to 403 on the public site even
- * though the admin/API can still see the rows — this is the root cause of
- * "images don't appear for other people". Uses the service-role client which has
- * storage-admin privileges.
- */
-async function ensureMediaBucketPublic(
-    supabase: ReturnType<typeof getAdminSupabase>,
-    bucket: string,
-): Promise<void> {
-    if (mediaBucketEnsured) return;
-    try {
-        const { data, error } = await supabase.storage.getBucket(bucket);
-        if (error || !data) {
-            await supabase.storage.createBucket(bucket, { public: true });
-        } else if (!data.public) {
-            await supabase.storage.updateBucket(bucket, { public: true });
-        }
-        mediaBucketEnsured = true;
-    } catch (err) {
-        // Non-fatal: if this fails the upload will still proceed and surface a
-        // clear storage error. Do not cache success so a later request retries.
-        console.warn('ensureMediaBucketPublic failed (continuing):', err);
-    }
 }
 
 function parseMultipart(body: Buffer, boundary: string): {
@@ -196,11 +166,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 return res.status(500).json({ error: 'Unable to generate public URL.' });
             }
 
+            const eventId = fields.event_id?.trim();
             const mediaType = file.type.startsWith('image/') ? 'image' : 'video';
             const { data, error: dbError } = await supabase.from('media').insert({
                 url, type: mediaType,
                 description: fields.description?.trim() || null,
-                event_id: fields.event_id?.trim() || null,
+                event_id: eventId || null,
             }).select('*').single();
 
             if (dbError) {

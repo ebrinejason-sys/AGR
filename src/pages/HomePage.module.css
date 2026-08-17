@@ -19,11 +19,13 @@
 .heroSection {
     position: relative;
     overflow: hidden;
-    padding: 7rem 1.25rem 2rem;
+    padding: 6.5rem 1.6rem 2.4rem;
     border: 1px solid var(--border-color);
-    border-radius: 38px;
+    border-radius: 44px;
     background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+        radial-gradient(circle at 12% 18%, hsla(var(--clr-accent-pink-raw) / 0.16), transparent 36%),
+        radial-gradient(circle at 88% 8%, hsla(var(--clr-accent-cyan-raw) / 0.12), transparent 32%),
+        linear-gradient(165deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01)),
         var(--surface);
 }
 
@@ -73,42 +75,28 @@
 .heroCopy {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1.45rem;
+    padding: 0.4rem 0.2rem 0.6rem;
 }
 
 .heroEyebrow {
+    width: fit-content;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid hsla(var(--clr-accent-pink-raw) / 0.28);
+    border-radius: 999px;
+    background: hsla(var(--clr-accent-pink-raw) / 0.1);
     color: var(--accent-pink);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.22em;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
 }
 
-.heroTitle {
-    max-width: 13ch;
-    font-family: var(--font-display);
-    font-size: clamp(3.2rem, 8.2vw, 6.4rem);
-    font-weight: 600;
-    line-height: 0.94;
-    letter-spacing: -0.035em;
-    text-shadow: 0 10px 34px rgba(0, 0, 0, 0.36);
-}
-
-.heroWord {
-    display: inline-block;
-    text-shadow: none;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-}
-
 .heroText {
-    max-width: 54ch;
-    font-size: 1.06rem;
-    line-height: 1.8;
-    color: rgba(248, 251, 255, 0.9);
+    max-width: 46ch;
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
 }
 
 .heroActions {
@@ -159,10 +147,12 @@
 .heroPanel {
     display: grid;
     gap: 1rem;
-    padding: 1.1rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 28px;
-    background: rgba(8, 12, 22, 0.56);
+    padding: 1rem;
+    border: 1px solid hsla(var(--clr-accent-pink-raw) / 0.18);
+    border-radius: 34px;
+    background:
+        linear-gradient(180deg, hsla(var(--clr-accent-pink-raw) / 0.1), transparent 32%),
+        var(--surface-glass);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
     box-shadow: var(--shadow-soft);
@@ -622,10 +612,6 @@
         align-items: start;
         flex-direction: column;
     }
-
-    .heroTitle {
-        max-width: 12ch;
-    }
 }
 
 @media (max-width: 768px) {
@@ -640,8 +626,8 @@
     }
 
     .heroSection {
-        padding: 6rem 1rem 1.25rem;
-        border-radius: 28px;
+        padding: 5.6rem 1.1rem 1.4rem;
+        border-radius: 32px;
     }
 
     .heroMetaRow {

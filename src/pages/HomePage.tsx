@@ -1,18 +1,15 @@
 ﻿import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Heart, Home, Scale, Users } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import styles from './HomePage.module.css';
 import AnimatedCounter from '@/components/AnimatedCounter';
+import EmpowerSlogan from '@/components/EmpowerSlogan';
+import { collectPublicMedia, type PublicMediaItem } from '@/lib/public-media';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
 
-type PublicMedia = {
-    id: string;
-    url: string;
-    type: 'image' | 'video';
-    description: string | null;
-};
+type PublicMedia = PublicMediaItem;
 
 const impactStats = [
     {
@@ -85,30 +82,21 @@ const trustStrip = [
     'Mentorship that lasts',
 ];
 
-const ROTATING_WORDS = ['stay in school', 'lead the way', 'stay safe', 'be seen', 'thrive', 'keep rising'];
-
 export default function HomePage() {
-    const [wordIndex, setWordIndex] = useState(0);
     const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
     const [media, setMedia] = useState<PublicMedia[]>([]);
-
-    useEffect(() => {
-        const interval = window.setInterval(() => {
-            setWordIndex((index) => (index + 1) % ROTATING_WORDS.length);
-        }, 2600);
-
-        return () => window.clearInterval(interval);
-    }, []);
 
     useEffect(() => {
         let mounted = true;
 
         fetch('/api/public/data')
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok) throw new Error('Public media could not be loaded.');
+                return response.json();
+            })
             .then((data) => {
-                if (mounted && Array.isArray(data.media)) {
-                    setMedia(data.media);
-                }
+                if (!mounted) return;
+                setMedia(collectPublicMedia(data).slice(0, 8));
             })
             .catch(() => {
                 if (mounted) setMedia([]);
@@ -128,22 +116,8 @@ export default function HomePage() {
 
                 <div className={styles.heroGrid}>
                     <motion.div className={styles.heroCopy} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
-                        <div className={styles.heroEyebrow}>African Girl Rise | Uganda</div>
-                        <h1 className={styles.heroTitle}>
-                            Empower girls{' '}
-                            <AnimatePresence mode="wait" initial={false}>
-                                <motion.span
-                                    key={wordIndex}
-                                    className={styles.heroWord}
-                                    initial={{ opacity: 0, y: '0.4em' }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: '-0.4em' }}
-                                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                                >
-                                    {ROTATING_WORDS[wordIndex]}.
-                                </motion.span>
-                            </AnimatePresence>
-                        </h1>
+                        <div className={styles.heroEyebrow}>African Girl Rise · Uganda</div>
+                        <EmpowerSlogan variant="hero" />
                         <p className={styles.heroText}>
                             We build local, practical support systems that empower girls to stay safe, stay visible, and return to school.
                         </p>
@@ -275,6 +249,9 @@ export default function HomePage() {
                             <span className="subheading">Gallery</span>
                             <h2 className="heading-section">Recent moments from the field.</h2>
                         </div>
+                        <Link to="/gallery" className={styles.inlineAction}>
+                            View gallery <ArrowRight size={16} />
+                        </Link>
                     </div>
                     <div className={styles.galleryGrid}>
                         {media.map((item) => (

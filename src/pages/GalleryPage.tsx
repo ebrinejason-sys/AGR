@@ -1,27 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Camera, CalendarDays, ImageOff, Images } from 'lucide-react';
 import PageHero from '@/components/PageHero';
+import { collectPublicMedia, type PublicMediaItem } from '@/lib/public-media';
 import styles from './GalleryPage.module.css';
 
-type GalleryMedia = {
-    id: string;
-    url: string;
-    type: 'image' | 'video';
-    description: string | null;
-    created_at?: string | null;
-    eventTitle?: string | null;
-};
-
-type PublicEvent = {
-    id: string;
-    title: string;
-    gallery?: GalleryMedia[];
-};
-
-type PublicData = {
-    media?: GalleryMedia[];
-    events?: PublicEvent[];
-};
+type GalleryMedia = PublicMediaItem;
 
 function formatMediaDate(date?: string | null) {
     if (!date) return null;
@@ -31,15 +14,6 @@ function formatMediaDate(date?: string | null) {
         day: 'numeric',
         year: 'numeric',
     }).format(new Date(date));
-}
-
-function getAllMedia(data: PublicData): GalleryMedia[] {
-    const generalMedia = (data.media || []).map((item) => ({ ...item, eventTitle: null }));
-    const eventMedia = (data.events || []).flatMap((event) =>
-        (event.gallery || []).map((item) => ({ ...item, eventTitle: event.title }))
-    );
-
-    return [...generalMedia, ...eventMedia];
 }
 
 export default function GalleryPage() {
@@ -53,11 +27,11 @@ export default function GalleryPage() {
         fetch('/api/public/data')
             .then((response) => {
                 if (!response.ok) throw new Error('Gallery data could not be loaded.');
-                return response.json() as Promise<PublicData>;
+                return response.json();
             })
             .then((data) => {
                 if (!mounted) return;
-                setMedia(getAllMedia(data));
+                setMedia(collectPublicMedia(data));
                 setError(null);
             })
             .catch(() => {
