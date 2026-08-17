@@ -1,10 +1,10 @@
 ﻿import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Heart, Home, Scale, Users } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import styles from './HomePage.module.css';
 import AnimatedCounter from '@/components/AnimatedCounter';
-import { EMPOWER_GIRL_PHRASES } from '@/lib/slogans';
+import EmpowerSlogan from '@/components/EmpowerSlogan';
 import { collectPublicMedia, type PublicMediaItem } from '@/lib/public-media';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
@@ -83,17 +83,8 @@ const trustStrip = [
 ];
 
 export default function HomePage() {
-    const [wordIndex, setWordIndex] = useState(0);
     const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
     const [media, setMedia] = useState<PublicMedia[]>([]);
-
-    useEffect(() => {
-        const interval = window.setInterval(() => {
-            setWordIndex((index) => (index + 1) % EMPOWER_GIRL_PHRASES.length);
-        }, 2600);
-
-        return () => window.clearInterval(interval);
-    }, []);
 
     useEffect(() => {
         let mounted = true;
@@ -125,22 +116,8 @@ export default function HomePage() {
 
                 <div className={styles.heroGrid}>
                     <motion.div className={styles.heroCopy} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
-                        <div className={styles.heroEyebrow}>African Girl Rise | Uganda</div>
-                        <h1 className={styles.heroTitle}>
-                            Empower girls{' '}
-                            <AnimatePresence mode="wait" initial={false}>
-                                <motion.span
-                                    key={wordIndex}
-                                    className={styles.heroWord}
-                                    initial={{ opacity: 0, y: '0.4em' }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: '-0.4em' }}
-                                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                                >
-                                    {EMPOWER_GIRL_PHRASES[wordIndex]}.
-                                </motion.span>
-                            </AnimatePresence>
-                        </h1>
+                        <div className={styles.heroEyebrow}>African Girl Rise · Uganda</div>
+                        <EmpowerSlogan variant="hero" />
                         <p className={styles.heroText}>
                             We build local, practical support systems that empower girls to stay safe, stay visible, and return to school.
                         </p>
