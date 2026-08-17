@@ -15,6 +15,28 @@ export function normalizeMediaUrl(url: string | null | undefined): string | null
     return cleaned.length > 0 ? cleaned : null;
 }
 
+export function hasEventLink(eventId: unknown): eventId is string {
+    return typeof eventId === 'string' && eventId.trim().length > 0;
+}
+
+export function parseSupabaseStorageUrl(url: string | null | undefined): { bucket: string; path: string } | null {
+    const cleaned = normalizeMediaUrl(url);
+    if (!cleaned) return null;
+
+    try {
+        const parsed = new URL(cleaned);
+        const match = parsed.pathname.match(/\/storage\/v1\/object\/(?:public|sign)\/([^/]+)\/(.+)$/);
+        if (!match) return null;
+
+        return {
+            bucket: decodeURIComponent(match[1]),
+            path: decodeURIComponent(match[2]),
+        };
+    } catch {
+        return null;
+    }
+}
+
 export function normalizeMediaUrls<T extends Record<string, unknown>>(
     record: T,
     keys: Array<keyof T>

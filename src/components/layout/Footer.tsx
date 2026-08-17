@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, MapPin, Phone, Send } from 'lucide-react';
+import { SLOGANS } from '@/lib/slogans';
 import styles from './Footer.module.css';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
@@ -141,13 +142,18 @@ export default function Footer() {
           </Suspense>
         )}
 
+        <div className={styles.sloganBand} aria-label="Our slogans">
+          {SLOGANS.map((slogan) => (
+            <p key={slogan} className={styles.slogan}>{slogan}</p>
+          ))}
+        </div>
+
         <div className={styles.bottomBar}>
           <div className={styles.legal}>
             <span>© {new Date().getFullYear()} African Girl Rise Ltd.</span>
             <Link to="/legal/privacy">Privacy</Link>
             <Link to="/legal/terms">Terms</Link>
           </div>
-          <div className={styles.mission}>Empower girls to. Pink for courage. Cyan for clarity. Every girl seen.</div>
         </div>
       </div>
     </footer>

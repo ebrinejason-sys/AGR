@@ -4,15 +4,12 @@ import { ArrowRight, BookOpen, Heart, Home, Scale, Users } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import styles from './HomePage.module.css';
 import AnimatedCounter from '@/components/AnimatedCounter';
+import { EMPOWER_GIRL_PHRASES } from '@/lib/slogans';
+import { collectPublicMedia, type PublicMediaItem } from '@/lib/public-media';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
 
-type PublicMedia = {
-    id: string;
-    url: string;
-    type: 'image' | 'video';
-    description: string | null;
-};
+type PublicMedia = PublicMediaItem;
 
 const impactStats = [
     {
@@ -85,8 +82,6 @@ const trustStrip = [
     'Mentorship that lasts',
 ];
 
-const ROTATING_WORDS = ['stay in school', 'lead the way', 'stay safe', 'be seen', 'thrive', 'keep rising'];
-
 export default function HomePage() {
     const [wordIndex, setWordIndex] = useState(0);
     const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
@@ -94,7 +89,7 @@ export default function HomePage() {
 
     useEffect(() => {
         const interval = window.setInterval(() => {
-            setWordIndex((index) => (index + 1) % ROTATING_WORDS.length);
+            setWordIndex((index) => (index + 1) % EMPOWER_GIRL_PHRASES.length);
         }, 2600);
 
         return () => window.clearInterval(interval);
@@ -104,11 +99,13 @@ export default function HomePage() {
         let mounted = true;
 
         fetch('/api/public/data')
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok) throw new Error('Public media could not be loaded.');
+                return response.json();
+            })
             .then((data) => {
-                if (mounted && Array.isArray(data.media)) {
-                    setMedia(data.media);
-                }
+                if (!mounted) return;
+                setMedia(collectPublicMedia(data).slice(0, 8));
             })
             .catch(() => {
                 if (mounted) setMedia([]);
@@ -140,7 +137,7 @@ export default function HomePage() {
                                     exit={{ opacity: 0, y: '-0.4em' }}
                                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                                 >
-                                    {ROTATING_WORDS[wordIndex]}.
+                                    {EMPOWER_GIRL_PHRASES[wordIndex]}.
                                 </motion.span>
                             </AnimatePresence>
                         </h1>
@@ -275,6 +272,9 @@ export default function HomePage() {
                             <span className="subheading">Gallery</span>
                             <h2 className="heading-section">Recent moments from the field.</h2>
                         </div>
+                        <Link to="/gallery" className={styles.inlineAction}>
+                            View gallery <ArrowRight size={16} />
+                        </Link>
                     </div>
                     <div className={styles.galleryGrid}>
                         {media.map((item) => (

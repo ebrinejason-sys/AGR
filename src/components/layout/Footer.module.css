@@ -198,12 +198,36 @@
 }
 
 /* ─── Bottom Bar ─── */
+.sloganBand {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1.25rem;
+    padding: 2rem 0 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.slogan {
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text-secondary);
+}
+
+.slogan:not(:last-child)::after {
+    content: '·';
+    margin-left: 1.25rem;
+    color: var(--accent-pink);
+    opacity: 0.55;
+}
+
 .bottomBar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 40px;
-    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
     color: var(--text-muted);
     font-size: 0.85rem;
 }
@@ -211,8 +235,15 @@
 @media (max-width: 768px) {
     .bottomBar {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
         text-align: center;
+        justify-content: center;
+    }
+
+    .legal {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem 1.5rem;
     }
 }
 
@@ -223,11 +254,4 @@
 
 .legal a:hover {
     color: var(--text-primary);
-}
-
-.mission {
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-secondary);
 }
