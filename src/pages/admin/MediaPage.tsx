@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Upload } from 'lucide-react';
+import { Trash2, Upload } from 'lucide-react';
 import styles from './MediaPage.module.css';
 
 type MediaItem = {
@@ -11,6 +11,7 @@ type MediaItem = {
 export default function AdminMediaPage() {
     const [description, setDescription] = useState('');
     const [uploading, setUploading] = useState(false);
+    const [deletingId, setDeletingId] = useState<string | null>(null);
     const [items, setItems] = useState<MediaItem[]>([]);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [events, setEvents] = useState<{ id: string; title: string }[]>([]);
@@ -19,7 +20,7 @@ export default function AdminMediaPage() {
 
     const fetchMedia = async () => {
         try {
-            const res = await fetch('/api/admin/media');
+            const res = await fetch('/api/admin/media', { cache: 'no-store' });
             if (res.status === 401) { window.location.assign('/admin/login'); return; }
             const data = await res.json();
             if (res.ok) { setItems(data.media || []); setError(null); }
@@ -46,7 +47,7 @@ export default function AdminMediaPage() {
         formData.append('file', selectedFile);
         formData.append('description', description);
         if (eventId) formData.append('event_id', eventId);
-        const res = await fetch('/api/admin/media', { method: 'POST', body: formData });
+        const res = await fetch('/api/admin/media', { method: 'POST', body: formData, cache: 'no-store' });
         if (res.status === 401) { window.location.assign('/admin/login'); return; }
         const data = await res.json();
         if (!res.ok) { alert(data.error || 'Upload failed.'); setUploading(false); return; }
@@ -54,11 +55,35 @@ export default function AdminMediaPage() {
         await fetchMedia();
     };
 
+    const handleDelete = async (item: MediaItem) => {
+        if (!confirm('Remove this file from the media library and the public site?')) return;
+        setDeletingId(item.id);
+        try {
+            const res = await fetch('/api/admin/media', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: item.id }),
+                cache: 'no-store',
+            });
+            if (res.status === 401) { window.location.assign('/admin/login'); return; }
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) {
+                alert(data.error || 'Failed to delete media.');
+                return;
+            }
+            setItems((current) => current.filter((entry) => entry.id !== item.id));
+        } catch {
+            alert('Network error while deleting media.');
+        } finally {
+            setDeletingId(null);
+        }
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
                 <h1 className={styles.title}>Media Library</h1>
-                <p className={styles.subtitle}>Upload images and videos with descriptions for the public gallery.</p>
+                <p className={styles.subtitle}>Upload images and videos for the public gallery. Deleting a file removes it from the site immediately.</p>
                 {error && <p className={styles.subtitle}>{error}</p>}
             </div>
             <div className={styles.uploaderBox}>
@@ -91,11 +116,23 @@ export default function AdminMediaPage() {
                     <div className={styles.mediaGrid}>
                         {items.map(item => (
                             <div key={item.id} className={styles.mediaCard}>
-                                {item.type === 'image' ? (
-                                    <img src={item.url} alt={item.description || 'Media item'} className={styles.previewImage} />
-                                ) : (
-                                    <video src={item.url} controls playsInline className={styles.previewImage} />
-                                )}
+                                <div className={styles.previewWrap}>
+                                    {item.type === 'image' ? (
+                                        <img src={item.url} alt={item.description || 'Media item'} className={styles.previewImage} />
+                                    ) : (
+                                        <video src={item.url} controls playsInline className={styles.previewImage} />
+                                    )}
+                                    <button
+                                        type="button"
+                                        className={styles.deleteBtn}
+                                        onClick={() => handleDelete(item)}
+                                        disabled={deletingId === item.id}
+                                        aria-label={`Delete ${item.description || 'media item'}`}
+                                    >
+                                        <Trash2 size={16} />
+                                        {deletingId === item.id ? 'Removing…' : 'Delete'}
+                                    </button>
+                                </div>
                                 <p>{item.description || 'No description'}</p>
                                 {item.events?.title && <p className={styles.mediaMeta}>Event: {item.events.title} ({item.events.status})</p>}
                             </div>

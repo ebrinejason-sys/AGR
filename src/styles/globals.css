@@ -16,6 +16,8 @@
 @import '@fontsource/cormorant-garamond/500-italic.css';
 @import '@fontsource/cormorant-garamond/600.css';
 @import '@fontsource/cormorant-garamond/600-italic.css';
+@import '@fontsource/cormorant-garamond/700.css';
+@import '@fontsource/cormorant-garamond/700-italic.css';
 @import './design-system.css';
 
 .app-loading {
@@ -42,14 +44,14 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at top left, hsla(var(--clr-accent-pink-raw) / 0.14), transparent 32%),
-    radial-gradient(circle at top right, hsla(var(--clr-accent-cyan-raw) / 0.12), transparent 30%),
-    radial-gradient(circle at 50% 120%, hsla(var(--clr-accent-purple-raw) / 0.1), transparent 45%),
+    radial-gradient(ellipse at 12% 0%, hsla(var(--clr-accent-pink-raw) / 0.12), transparent 38%),
+    radial-gradient(ellipse at 92% 8%, hsla(var(--clr-accent-cyan-raw) / 0.08), transparent 32%),
+    radial-gradient(ellipse at 50% 100%, hsla(var(--clr-accent-purple-raw) / 0.08), transparent 42%),
     var(--bg-color);
   background-attachment: fixed;
   color: var(--text-primary);
   font-family: var(--font-sans);
-  line-height: 1.5;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding-top: max(env(safe-area-inset-top), 0px);
@@ -99,27 +101,27 @@ select {
 
 .heading-display {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 8vw, 6.4rem);
-  font-weight: 700;
-  line-height: 0.92;
-  letter-spacing: -0.06em;
+  font-size: clamp(2.8rem, 7vw, 5.6rem);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
 }
 
 .heading-section {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: -0.05em;
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
 }
 
 .subheading {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.24em;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent-pink);
 }

@@ -141,7 +141,7 @@ export default function AdminEventsPage() {
 
     const deleteGalleryImage = async (mediaId: string) => {
         if (!confirm('Remove this photo from the gallery?')) return;
-        const res = await fetch('/api/admin/media', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: mediaId }) });
+        const res = await fetch('/api/admin/media', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: mediaId }), cache: 'no-store' });
         if (res.ok) setGallery(prev => prev.filter(g => g.id !== mediaId));
         else { const data = await res.json().catch(() => ({})); alert(data.error || 'Failed to delete image.'); }
     };

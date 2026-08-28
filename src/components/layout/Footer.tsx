@@ -81,7 +81,7 @@ export default function Footer() {
 
         <div className={styles.grid}>
           <div className={styles.brandCol}>
-            <h2 className={styles.brandName}>AFRICAN GIRL RISE</h2>
+            <h2 className={styles.brandName}>African Girl Rise</h2>
             <p className={styles.brandDescription}>
               Practical, local support that keeps girls safe, visible, and in school across Uganda.
             </p>

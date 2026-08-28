@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getAdminSupabase } from '../../src/lib/supabase.server.js';
 import { requireAdminSession, checkSupabaseAdminConfig } from '../../src/lib/admin-api.js';
 import { getMediaBucketName, normalizeMediaUrl, normalizeMediaUrls } from '../../src/lib/media.js';
-import { ensureMediaBucketPublic } from '../../src/lib/media-storage.js';
+import { ensureMediaBucketPublic, removeMediaObject, clearPublishedMediaReferences } from '../../src/lib/media-storage.js';
 
 // Disable Vercel body parser so we can handle raw multipart ourselves
 export const config = { api: { bodyParser: false } };
@@ -189,20 +189,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             if (!id) return res.status(400).json({ error: 'Media id is required.' });
 
             const { data: record } = await supabase.from('media').select('url').eq('id', id).single();
-            const normalizedUrl = normalizeMediaUrl(record?.url);
-            if (normalizedUrl) {
-                const urlParts = normalizedUrl.split('/object/public/');
-                if (urlParts.length === 2) {
-                    const [bucketAndPath] = urlParts[1].split('?');
-                    const slashIdx = bucketAndPath.indexOf('/');
-                    if (slashIdx !== -1) {
-                        await supabase.storage.from(bucketAndPath.slice(0, slashIdx)).remove([bucketAndPath.slice(slashIdx + 1)]);
-                    }
-                }
+            await removeMediaObject(supabase, record?.url);
+            try {
+                await clearPublishedMediaReferences(supabase, record?.url);
+            } catch (refError) {
+                console.warn('clearPublishedMediaReferences failed:', refError);
             }
 
             const { error } = await supabase.from('media').delete().eq('id', id);
             if (error) return res.status(500).json({ error: error.message });
+            res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
             return res.json({ success: true });
         }
 
