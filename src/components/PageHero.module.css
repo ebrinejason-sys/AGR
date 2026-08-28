@@ -6,7 +6,7 @@
     margin-top: 1rem;
     padding: 7rem 8% 4rem;
     border: 1px solid var(--border-color);
-    border-radius: 34px;
+    border-radius: var(--radius-xl);
     background-color: var(--surface-elevated);
     background-size: cover;
     background-position: center;
@@ -20,17 +20,17 @@
     bottom: 0;
     left: 0;
     background:
-        radial-gradient(circle at top right, rgba(34, 211, 238, 0.18), transparent 34%),
-        radial-gradient(circle at left center, rgba(236, 72, 153, 0.18), transparent 32%),
-        linear-gradient(135deg, rgba(8, 17, 31, 0.2), rgba(8, 17, 31, 0.78));
+        radial-gradient(circle at top right, rgba(34, 211, 238, 0.16), transparent 36%),
+        radial-gradient(circle at left center, rgba(236, 72, 153, 0.22), transparent 34%),
+        linear-gradient(165deg, rgba(42, 16, 28, 0.18), rgba(42, 16, 28, 0.72));
     z-index: 1;
 }
 
 .overlayDark {
     background:
-        radial-gradient(circle at top right, rgba(34, 211, 238, 0.2), transparent 34%),
-        radial-gradient(circle at left center, rgba(236, 72, 153, 0.22), transparent 32%),
-        linear-gradient(135deg, rgba(8, 17, 31, 0.34), rgba(8, 17, 31, 0.88));
+        radial-gradient(circle at top right, rgba(34, 211, 238, 0.18), transparent 36%),
+        radial-gradient(circle at left center, rgba(236, 72, 153, 0.24), transparent 34%),
+        linear-gradient(165deg, rgba(42, 16, 28, 0.32), rgba(42, 16, 28, 0.82));
 }
 
 .content {
@@ -44,14 +44,14 @@
     align-items: center;
     gap: 0.55rem;
     margin-bottom: 1.1rem;
-    padding: 0.55rem 0.95rem;
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    padding: 0.45rem 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
-    font-size: 0.76rem;
-    font-weight: 800;
-    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
 }
 
@@ -63,10 +63,10 @@
 
 .title {
     font-family: var(--font-display);
-    font-size: clamp(2.6rem, 6vw, 5.1rem);
-    font-weight: 700;
-    line-height: 0.92;
-    letter-spacing: -0.06em;
+    font-size: clamp(2.5rem, 5.8vw, 4.6rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
     color: #ffffff;
 }
 
@@ -80,12 +80,13 @@
 
 .subtitle {
     margin-top: 1rem;
-    font-family: var(--font-display);
-    font-size: clamp(1.1rem, 2.5vw, 1.8rem);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.04em;
-    color: rgba(255, 255, 255, 0.86);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.15rem, 2.4vw, 1.7rem);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 0.88);
 }
 
 .description {
