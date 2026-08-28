@@ -4,12 +4,12 @@ import { Calendar, MapPin, X, ArrowRight } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import PageHero from '@/components/PageHero';
 import TickerBanner from '@/components/TickerBanner';
+import { fetchPublicCms, type PublicEvent } from '@/lib/public-cms';
 import styles from './EventsPage.module.css';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
 
-type GalleryPhoto = { id: string; url: string; type: 'image' | 'video'; description: string | null };
-type Event = { id: string; title: string; description: string; event_date: string; goal_amount: number; current_amount: number; status: 'upcoming' | 'completed' | 'cancelled'; cover_image?: string; location?: string; gallery?: GalleryPhoto[] };
+type Event = PublicEvent;
 
 function getProgressPercent(event: Event) { 
     if (!event.goal_amount) return 0; 
@@ -27,7 +27,11 @@ function EventCard({ evt, onClick }: { evt: Event; onClick: () => void }) {
                 <h3 className={styles.eventTitle}>{evt.title}</h3>
                 <div className={styles.eventDate}><Calendar size={14} /> {formatDate(evt.event_date)}</div>
                 {evt.location && <div className={styles.eventLocation}><MapPin size={14} /> {evt.location}</div>}
-                <p className={styles.eventDescription}>{evt.description.slice(0, 120)}...</p>
+                <p className={styles.eventDescription}>
+                    {evt.description
+                        ? `${evt.description.slice(0, 120)}${evt.description.length > 120 ? '...' : ''}`
+                        : 'Event details coming soon.'}
+                </p>
                 <div className={styles.tapHint}>View Details <ArrowRight size={14} /></div>
             </div>
         </div>
@@ -58,7 +62,7 @@ function EventDetailModal({ event, onClose, onDonate }: { event: Event | null; o
                         <span className={styles.modalMetaItem}><Calendar size={18} /> {formatDate(event.event_date)}</span>
                         {event.location && <span className={styles.modalMetaItem}><MapPin size={18} /> {event.location}</span>}
                     </div>
-                    <p className={`${styles.modalDescription} ${styles.modalDescriptionLarge}`}>{event.description}</p>
+                    <p className={`${styles.modalDescription} ${styles.modalDescriptionLarge}`}>{event.description || 'Event details coming soon.'}</p>
 
                     {event.gallery && event.gallery.length > 0 && (
                         <div className={styles.eventGallery}>
@@ -102,15 +106,31 @@ function EventDetailModal({ event, onClose, onDonate }: { event: Event | null; o
 export default function EventsPage() {
     const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
     const [donationTarget, setDonationTarget] = useState<Event | null>(null);
 
     useEffect(() => {
-        fetch('/api/public/data')
-            .then(r => r.json())
-            .then(data => { if (data.events) setEvents(data.events); })
-            .catch(console.error)
-            .finally(() => setLoading(false));
+        let mounted = true;
+
+        fetchPublicCms()
+            .then((data) => {
+                if (!mounted) return;
+                setEvents(data.events);
+                setError(null);
+            })
+            .catch(() => {
+                if (!mounted) return;
+                setEvents([]);
+                setError('Events are temporarily unavailable.');
+            })
+            .finally(() => {
+                if (mounted) setLoading(false);
+            });
+
+        return () => {
+            mounted = false;
+        };
     }, []);
 
     const upcoming = events.filter(e => e.status === 'upcoming');
@@ -126,6 +146,10 @@ export default function EventsPage() {
             <section className={`${styles.eventSection} ${styles.eventSectionPad}`}>
                 {loading ? (
                     <div className={styles.loadingEvents}>Loading events...</div>
+                ) : error ? (
+                    <div className={styles.loadingEvents}>{error}</div>
+                ) : upcoming.length === 0 && completed.length === 0 ? (
+                    <div className={styles.loadingEvents}>No published events yet. Check back soon.</div>
                 ) : (
                     <>
                         {upcoming.length > 0 && (

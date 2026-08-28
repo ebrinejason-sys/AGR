@@ -37,7 +37,7 @@ export default function AdminProjectsPage() {
     const [editingPillar, setEditingPillar] = useState<number | null>(null);
     const [uploadingImage, setUploadingImage] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [formData, setFormData] = useState({ title: '', description: '', image_url: '', status: 'draft' as 'active' | 'draft' });
+    const [formData, setFormData] = useState({ title: '', description: '', image_url: '', status: 'active' as 'active' | 'draft' });
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const fetchProjects = async () => {
@@ -59,7 +59,7 @@ export default function AdminProjectsPage() {
         if (project) {
             setFormData({ title: project.title, description: project.description || '', image_url: project.image_url || '', status: project.status });
         } else {
-            setFormData({ title: PILLARS.find(p => p.number === pillarNumber)?.name || '', description: '', image_url: '', status: 'draft' });
+            setFormData({ title: PILLARS.find(p => p.number === pillarNumber)?.name || '', description: '', image_url: '', status: 'active' });
         }
     };
 

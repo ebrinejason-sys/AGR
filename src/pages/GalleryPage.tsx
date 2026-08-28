@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Camera, CalendarDays, ImageOff, Images } from 'lucide-react';
 import PageHero from '@/components/PageHero';
-import { collectPublicMedia, type PublicMediaItem } from '@/lib/public-media';
+import { fetchPublicCms } from '@/lib/public-cms';
+import type { PublicMediaItem } from '@/lib/public-media';
 import styles from './GalleryPage.module.css';
 
 type GalleryMedia = PublicMediaItem;
@@ -24,14 +25,10 @@ export default function GalleryPage() {
     useEffect(() => {
         let mounted = true;
 
-        fetch('/api/public/data')
-            .then((response) => {
-                if (!response.ok) throw new Error('Gallery data could not be loaded.');
-                return response.json();
-            })
+        fetchPublicCms()
             .then((data) => {
                 if (!mounted) return;
-                setMedia(collectPublicMedia(data));
+                setMedia(data.media);
                 setError(null);
             })
             .catch(() => {

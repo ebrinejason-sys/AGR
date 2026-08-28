@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 import styles from './HomePage.module.css';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import EmpowerSlogan from '@/components/EmpowerSlogan';
-import { collectPublicMedia, type PublicMediaItem } from '@/lib/public-media';
+import { fetchPublicCms } from '@/lib/public-cms';
+import type { PublicMediaItem } from '@/lib/public-media';
 
 const DonationModal = lazy(() => import('@/components/DonationModal'));
 
@@ -89,14 +90,10 @@ export default function HomePage() {
     useEffect(() => {
         let mounted = true;
 
-        fetch('/api/public/data')
-            .then((response) => {
-                if (!response.ok) throw new Error('Public media could not be loaded.');
-                return response.json();
-            })
+        fetchPublicCms()
             .then((data) => {
                 if (!mounted) return;
-                setMedia(collectPublicMedia(data).slice(0, 8));
+                setMedia(data.media.slice(0, 8));
             })
             .catch(() => {
                 if (mounted) setMedia([]);

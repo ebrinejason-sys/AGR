@@ -30,7 +30,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
             const { data, error } = await supabase.from('projects').insert({
                 title, description: description || null, image_url: normalizeMediaUrl(image_url) || null,
-                status: status || 'draft', pillar_number: parsedPillar,
+                status: status || 'active', pillar_number: parsedPillar,
             }).select('*').single();
 
             if (error) return res.status(500).json({ error: error.message });
@@ -49,7 +49,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 title,
                 description: description || null,
                 image_url: normalizeMediaUrl(image_url) || null,
-                status: status || 'draft',
+                status: status || 'active',
                 pillar_number: parsedPillar,
             }).eq('id', id).select('*').single();
 
