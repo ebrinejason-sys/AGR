@@ -22,14 +22,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }
 
         if (req.method === 'POST') {
-            const { title, description, event_date, goal_amount, cover_image, achievements, location, goal_text, donation_link } = req.body || {};
+            const { title, description, event_date, goal_amount, cover_image, achievements, location, goal_text, donation_link, status } = req.body || {};
             if (!title || !event_date) return res.status(400).json({ error: 'Title and event date are required.' });
             const goal = Number(goal_amount || 0);
             if (!Number.isFinite(goal) || goal < 0) return res.status(400).json({ error: 'Goal amount must be a positive number.' });
+            if (status && !VALID_STATUSES.has(String(status))) return res.status(400).json({ error: 'Invalid event status.' });
 
             const { data, error } = await supabase.from('events').insert({
                 title, description: description || null, event_date, goal_amount: goal,
-                current_amount: 0, status: 'upcoming',
+                current_amount: 0, status: status || 'upcoming',
                 cover_image: normalizeMediaUrl(cover_image) || null,
                 achievements: achievements || null, location: location || null,
                 goal_text: goal_text || null, donation_link: donation_link || null,

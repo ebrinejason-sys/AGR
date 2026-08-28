@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../pages/ProgramsPage.module.css';
+import { fetchPublicCms, type PublicProject } from '@/lib/public-cms';
 
 // Reusing the same PROGRAMS array
 const PROGRAMS = [
@@ -145,7 +146,24 @@ const PROGRAMS = [
 
 export default function ProgramsListClient() {
     const [expandedId, setExpandedId] = useState<string | null>(null);
+    const [cmsProjects, setCmsProjects] = useState<PublicProject[]>([]);
     const toggle = (id: string) => setExpandedId(prev => prev === id ? null : id);
+
+    useEffect(() => {
+        let mounted = true;
+
+        fetchPublicCms()
+            .then((data) => {
+                if (mounted) setCmsProjects(data.projects);
+            })
+            .catch(() => {
+                if (mounted) setCmsProjects([]);
+            });
+
+        return () => {
+            mounted = false;
+        };
+    }, []);
 
     return (
         <div className={styles.programsWrapper}>
@@ -157,6 +175,25 @@ export default function ProgramsListClient() {
                 </p>
             </div>
 
+            {cmsProjects.length > 0 && (
+                <div className={styles.cmsProjects}>
+                    <p className="subheading">Published by the team</p>
+                    <h3 className={styles.cmsProjectsTitle}>Latest programme updates</h3>
+                    <div className={styles.cmsGrid}>
+                        {cmsProjects.map((project) => (
+                            <article key={project.id} className={styles.cmsCard}>
+                                {project.image_url && (
+                                    <img src={project.image_url} alt={project.title} className={styles.cmsImage} />
+                                )}
+                                <div className={styles.cmsBody}>
+                                    <h4 className={styles.cmsTitle}>{project.title}</h4>
+                                    {project.description && <p className={styles.cmsDescription}>{project.description}</p>}
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </div>
+            )}
             {PROGRAMS.map(program => (
                 <div key={program.id} className={styles.programCard}>
                     <div id={program.id} className={styles.programAnchor} aria-hidden="true" />

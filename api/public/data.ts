@@ -13,6 +13,7 @@ type MediaRecord = {
     created_at?: string | null;
     display_order?: number | null;
     sort_order?: number | null;
+    eventTitle?: string | null;
 };
 
 function getManualOrder(item: MediaRecord): number | null {
@@ -35,6 +36,33 @@ function sortMedia<T extends MediaRecord>(items: T[], createdAtDirection: 'asc' 
     });
 }
 
+async function loadOrderedRows(
+    supabase: ReturnType<typeof getAdminSupabase>,
+    table: 'stories' | 'projects' | 'events',
+    orderColumn: string,
+    ascending: boolean,
+) {
+    const ordered = await supabase.from(table).select('*').order(orderColumn, { ascending });
+    if (!ordered.error) return ordered;
+
+    console.warn(`GET /api/public/data ${table} ordered select failed, retrying unsorted:`, ordered.error.message);
+    return supabase.from(table).select('*');
+}
+
+async function loadMediaRows(supabase: ReturnType<typeof getAdminSupabase>) {
+    const detailed = await supabase
+        .from('media')
+        .select('id, url, type, description, event_id, created_at')
+        .order('created_at', { ascending: false });
+
+    if (!detailed.error) return detailed;
+
+    // Older schemas may not have event_id. A failed select used to be mapped to
+    // `data || []`, so the public site looked empty while admin uploads existed.
+    console.warn('GET /api/public/data media select with event_id failed, retrying:', detailed.error.message);
+    return supabase.from('media').select('*').order('created_at', { ascending: false });
+}
+
 export default async function handler(_req: VercelRequest, res: VercelResponse) {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
 
@@ -46,37 +74,55 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
         await ensureMediaBucketPublic(supabase);
 
         const [storiesRes, mediaRes, projectsRes, eventsRes] = await Promise.all([
-            supabase.from('stories').select('*').order('created_at', { ascending: false }),
-            supabase.from('media').select('id, url, type, description, event_id, created_at').order('created_at', { ascending: false }),
-            supabase.from('projects').select('*').order('pillar_number', { ascending: true }),
-            supabase.from('events').select('*').order('event_date', { ascending: true }),
+            loadOrderedRows(supabase, 'stories', 'created_at', false),
+            loadMediaRows(supabase),
+            loadOrderedRows(supabase, 'projects', 'pillar_number', true),
+            loadOrderedRows(supabase, 'events', 'event_date', true),
         ]);
 
-        const queryErrors = [storiesRes.error, mediaRes.error, projectsRes.error, eventsRes.error].filter(Boolean);
+        const queryErrors = [storiesRes.error, mediaRes.error, projectsRes.error, eventsRes.error]
+            .filter(Boolean)
+            .map((error) => error?.message || 'Unknown query error');
+
         if (queryErrors.length) {
-            console.error('GET /api/public/data query errors:', queryErrors.map((error) => error?.message));
+            console.error('GET /api/public/data query errors:', queryErrors);
         }
 
-        // A failed media query used to be treated as "no uploads" because we mapped `data || []`.
-        if (mediaRes.error) {
-            return res.status(500).json({ error: 'Gallery media could not be loaded.' });
+        // Never convert a failed CMS query into a 200 with empty arrays. That made
+        // the live site look like the admin had never uploaded anything.
+        if (mediaRes.error || storiesRes.error || projectsRes.error || eventsRes.error) {
+            return res.status(500).json({
+                error: 'Published content could not be loaded.',
+                errors: queryErrors,
+            });
         }
 
         const mediaRows = sortMedia((mediaRes.data || []) as MediaRecord[], 'desc');
         const accessibleMedia = await withAccessibleMediaUrls(supabase, mediaRows, ['url']);
 
-        const galleryByEvent: Record<string, typeof accessibleMedia> = {};
-        for (const photo of sortMedia(accessibleMedia, 'asc')) {
+        const eventsWithCovers = await withAccessibleMediaUrls(
+            supabase,
+            (eventsRes.data || []) as Array<Record<string, unknown> & { id: string; title?: string | null }>,
+            ['cover_image'],
+        );
+
+        const eventTitleById: Record<string, string | null> = {};
+        for (const event of eventsWithCovers) {
+            eventTitleById[event.id] = typeof event.title === 'string' ? event.title.trim() || null : null;
+        }
+
+        const media = accessibleMedia.map((item) => ({
+            ...item,
+            eventTitle: hasEventLink(item.event_id) ? eventTitleById[item.event_id] || null : item.eventTitle ?? null,
+        }));
+
+        const galleryByEvent: Record<string, typeof media> = {};
+        for (const photo of sortMedia(media, 'asc')) {
             if (!hasEventLink(photo.event_id)) continue;
             if (!galleryByEvent[photo.event_id]) galleryByEvent[photo.event_id] = [];
             galleryByEvent[photo.event_id]!.push(photo);
         }
 
-        const eventsWithCovers = await withAccessibleMediaUrls(
-            supabase,
-            (eventsRes.data || []) as Array<Record<string, unknown> & { id: string }>,
-            ['cover_image'],
-        );
         const events = eventsWithCovers.map((ev) => ({
             ...ev,
             gallery: galleryByEvent[ev.id] || [],
@@ -89,16 +135,14 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
         );
         const stories = storiesWithImages.map((story) => ({
             ...story,
-            content: sanitizeHtmlContent(normalizeRichTextMediaUrls(story.content)),
+            content: sanitizeHtmlContent(normalizeRichTextMediaUrls(story.content)) || '',
         }));
 
         const projects = await withAccessibleMediaUrls(supabase, projectsRes.data || [], ['image_url']);
 
         return res.json({
             stories,
-            // Return every admin upload. Homepage and gallery previously hid event-linked
-            // rows, and empty-string event_id values were dropped from both lists.
-            media: accessibleMedia,
+            media,
             projects,
             events,
         });

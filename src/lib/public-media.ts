@@ -7,6 +7,15 @@ export type PublicMediaItem = {
     eventTitle?: string | null;
 };
 
+export type PublicProjectItem = {
+    id: string;
+    title: string;
+    description: string | null;
+    image_url?: string | null;
+    status?: string | null;
+    pillar_number?: number | null;
+};
+
 type PublicEventMedia = {
     title?: string | null;
     gallery?: PublicMediaItem[] | null;
@@ -44,4 +53,13 @@ export function collectPublicMedia(data: PublicMediaPayload | null | undefined):
     }
 
     return items;
+}
+
+export function isPublishedProject(project: PublicProjectItem | null | undefined): boolean {
+    if (!project?.id || !project.title) return false;
+    return project.status !== 'draft';
+}
+
+export function collectPublishedProjects(data: { projects?: PublicProjectItem[] | null } | null | undefined): PublicProjectItem[] {
+    return (data?.projects || []).filter(isPublishedProject);
 }
