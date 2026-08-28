@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { hasEventLink, parseSupabaseStorageUrl } from './media.ts';
+import { hasEventLink, isSameMediaObject, parseSupabaseStorageUrl, stripHtmlMediaByUrl } from './media.ts';
 import { collectPublicMedia, collectPublishedProjects } from './public-media.ts';
 
 describe('collectPublicMedia', () => {
@@ -63,6 +63,23 @@ describe('hasEventLink', () => {
         assert.equal(hasEventLink(''), false);
         assert.equal(hasEventLink('   '), false);
         assert.equal(hasEventLink('event-1'), true);
+    });
+});
+
+describe('isSameMediaObject', () => {
+    it('treats public and signed URLs for the same object as equal', () => {
+        const publicUrl = 'https://demo.supabase.co/storage/v1/object/public/media/uploads/photo.jpg';
+        const signedUrl = 'https://demo.supabase.co/storage/v1/object/sign/media/uploads/photo.jpg?token=abc';
+        assert.equal(isSameMediaObject(publicUrl, signedUrl), true);
+        assert.equal(isSameMediaObject(publicUrl, 'https://demo.supabase.co/storage/v1/object/public/media/uploads/other.jpg'), false);
+    });
+});
+
+describe('stripHtmlMediaByUrl', () => {
+    it('removes story images that point at the deleted object', () => {
+        const html = '<p>Hello</p><img src="https://demo.supabase.co/storage/v1/object/public/media/uploads/photo.jpg" alt="x"><p>More</p>';
+        const next = stripHtmlMediaByUrl(html, 'https://demo.supabase.co/storage/v1/object/sign/media/uploads/photo.jpg?token=abc');
+        assert.equal(next, '<p>Hello</p><p>More</p>');
     });
 });
 

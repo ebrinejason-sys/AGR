@@ -37,6 +37,31 @@ export function parseSupabaseStorageUrl(url: string | null | undefined): { bucke
     }
 }
 
+export function isSameMediaObject(left: string | null | undefined, right: string | null | undefined): boolean {
+    if (typeof left === 'string' && typeof right === 'string' && left.trim() === right.trim()) {
+        return left.trim().length > 0;
+    }
+
+    const parsedLeft = parseSupabaseStorageUrl(left);
+    const parsedRight = parseSupabaseStorageUrl(right);
+    return Boolean(
+        parsedLeft &&
+        parsedRight &&
+        parsedLeft.bucket === parsedRight.bucket &&
+        parsedLeft.path === parsedRight.path,
+    );
+}
+
+export function stripHtmlMediaByUrl(html: string | null | undefined, mediaUrl: string | null | undefined): string | null | undefined {
+    if (typeof html !== 'string' || !mediaUrl) return html;
+
+    return html.replace(/<img\b[^>]*>/gi, (tag) => {
+        const srcMatch = tag.match(/\bsrc=(["'])(.*?)\1/i);
+        if (!srcMatch) return tag;
+        return isSameMediaObject(srcMatch[2], mediaUrl) ? '' : tag;
+    });
+}
+
 export function normalizeMediaUrls<T extends Record<string, unknown>>(
     record: T,
     keys: Array<keyof T>
