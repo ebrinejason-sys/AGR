@@ -15,7 +15,8 @@ export default function AdminMediaPage() {
     const [uploading, setUploading] = useState(false);
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const [items, setItems] = useState<MediaItem[]>([]);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+    const [uploadProgress, setUploadProgress] = useState('');
     const [events, setEvents] = useState<{ id: string; title: string }[]>([]);
     const [eventId, setEventId] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -43,74 +44,83 @@ export default function AdminMediaPage() {
 
     const handleUpload = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!selectedFile) { alert('Please choose a file.'); return; }
+        if (selectedFiles.length === 0) { alert('Please choose at least one file.'); return; }
+        const invalidFile = selectedFiles.find((file) => !getMediaTypeForUpload(file.name, file.type));
+        if (invalidFile) {
+            alert(`${invalidFile.name}: unsupported file. Allowed: JPEG, PNG, GIF, WebP, AVIF images and MP4, WebM, OGG, MOV videos.`);
+            return;
+        }
+        const oversizedFile = selectedFiles.find((file) => file.size > MAX_MEDIA_FILE_BYTES);
+        if (oversizedFile) {
+            alert(`${oversizedFile.name}: file too large. Maximum upload size is 25 MB per file.`);
+            return;
+        }
+
         setUploading(true);
+        const failedFiles: File[] = [];
+        const failures: string[] = [];
+        let uploadedCount = 0;
+
         try {
-            const mediaType = getMediaTypeForUpload(selectedFile.name, selectedFile.type);
-            if (!mediaType) {
-                alert('Unsupported file. Allowed: JPEG, PNG, GIF, WebP, AVIF images and MP4, WebM, OGG, MOV videos.');
-                return;
-            }
-            if (selectedFile.size > MAX_MEDIA_FILE_BYTES) {
-                alert('File too large. Maximum upload size is 25 MB.');
-                return;
+            for (const [index, file] of selectedFiles.entries()) {
+                setUploadProgress(`Uploading ${index + 1} of ${selectedFiles.length}: ${file.name}`);
+                try {
+                    const prepareResponse = await fetch('/api/admin/media', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'prepare',
+                            fileName: file.name,
+                            contentType: file.type,
+                            size: file.size,
+                        }),
+                        cache: 'no-store',
+                    });
+                    if (prepareResponse.status === 401) { window.location.assign('/admin/login'); return; }
+                    const prepareData = await prepareResponse.json().catch(() => ({}));
+                    if (!prepareResponse.ok) throw new Error(prepareData.error || 'Unable to prepare upload.');
+
+                    const { error: uploadError } = await supabase.storage
+                        .from(prepareData.bucket)
+                        .uploadToSignedUrl(prepareData.path, prepareData.token, file, {
+                            contentType: file.type,
+                        });
+                    if (uploadError) throw new Error(`Storage upload failed: ${uploadError.message}`);
+
+                    const completeResponse = await fetch('/api/admin/media', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'complete',
+                            path: prepareData.path,
+                            contentType: file.type,
+                            description,
+                            event_id: eventId || null,
+                        }),
+                        cache: 'no-store',
+                    });
+                    if (completeResponse.status === 401) { window.location.assign('/admin/login'); return; }
+                    const completeData = await completeResponse.json().catch(() => ({}));
+                    if (!completeResponse.ok) throw new Error(completeData.error || 'Unable to add uploaded file to the media library.');
+
+                    uploadedCount += 1;
+                } catch (uploadError) {
+                    failedFiles.push(file);
+                    failures.push(`${file.name}: ${uploadError instanceof Error ? uploadError.message : 'Upload failed.'}`);
+                }
             }
 
-            const prepareResponse = await fetch('/api/admin/media', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'prepare',
-                    fileName: selectedFile.name,
-                    contentType: selectedFile.type,
-                    size: selectedFile.size,
-                }),
-                cache: 'no-store',
-            });
-            if (prepareResponse.status === 401) { window.location.assign('/admin/login'); return; }
-            const prepareData = await prepareResponse.json().catch(() => ({}));
-            if (!prepareResponse.ok) {
-                alert(prepareData.error || 'Unable to prepare upload.');
-                return;
+            setSelectedFiles(failedFiles);
+            if (uploadedCount > 0) await fetchMedia();
+            if (failures.length > 0) {
+                alert(`Uploaded ${uploadedCount} of ${selectedFiles.length} files. These files failed:\n${failures.join('\n')}`);
+            } else {
+                setDescription('');
+                setEventId('');
             }
-
-            const { error: uploadError } = await supabase.storage
-                .from(prepareData.bucket)
-                .uploadToSignedUrl(prepareData.path, prepareData.token, selectedFile, {
-                    contentType: selectedFile.type,
-                });
-            if (uploadError) {
-                alert(`Storage upload failed: ${uploadError.message}`);
-                return;
-            }
-
-            const completeResponse = await fetch('/api/admin/media', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'complete',
-                    path: prepareData.path,
-                    contentType: selectedFile.type,
-                    description,
-                    event_id: eventId || null,
-                }),
-                cache: 'no-store',
-            });
-            if (completeResponse.status === 401) { window.location.assign('/admin/login'); return; }
-            const completeData = await completeResponse.json().catch(() => ({}));
-            if (!completeResponse.ok) {
-                alert(completeData.error || 'Unable to add uploaded file to the media library.');
-                return;
-            }
-
-            setDescription('');
-            setSelectedFile(null);
-            setEventId('');
-            await fetchMedia();
-        } catch {
-            alert('Network error while uploading media.');
         } finally {
             setUploading(false);
+            setUploadProgress('');
         }
     };
 
@@ -150,8 +160,18 @@ export default function AdminMediaPage() {
                 <form onSubmit={handleUpload} className={styles.uploadForm}>
                     <div className={styles.fileDrop}>
                         <Upload size={40} className={styles.uploadIcon} />
-                        <p>{selectedFile ? selectedFile.name : 'Drag and drop or click to select a file (Image / Video, up to 25 MB)'}</p>
-                        <input id="media-file" type="file" required title="Select image or video file" aria-label="Select image or video file" className={styles.fileInput} accept="image/*,video/*" onChange={e => setSelectedFile(e.target.files?.[0] || null)} />
+                        <p>{selectedFiles.length ? `${selectedFiles.length} file${selectedFiles.length === 1 ? '' : 's'} selected: ${selectedFiles.map(file => file.name).join(', ')}` : 'Select one or more images or videos (up to 25 MB each)'}</p>
+                        <input
+                            id="media-file"
+                            type="file"
+                            required
+                            multiple
+                            title="Select one or more image or video files"
+                            aria-label="Select one or more image or video files"
+                            className={styles.fileInput}
+                            accept="image/*,video/*"
+                            onChange={e => setSelectedFiles(Array.from(e.target.files || []))}
+                        />
                     </div>
                     <div className={styles.inputGroup}>
                         <label htmlFor="media-description">Description (Optional, used as caption)</label>
@@ -164,7 +184,7 @@ export default function AdminMediaPage() {
                             {events.map(ev => <option key={ev.id} value={ev.id}>{ev.title}</option>)}
                         </select>
                     </div>
-                    <button type="submit" className={styles.submitBtn} disabled={uploading}>{uploading ? 'Uploading...' : 'Upload File'}</button>
+                    <button type="submit" className={styles.submitBtn} disabled={uploading}>{uploading ? uploadProgress || 'Uploading...' : `Upload ${selectedFiles.length > 1 ? `${selectedFiles.length} Files` : 'File'}`}</button>
                 </form>
             </div>
             <div className={styles.mediaGallery}>
