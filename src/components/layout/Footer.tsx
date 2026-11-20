@@ -81,12 +81,9 @@ export default function Footer() {
 
         <div className={styles.grid}>
           <div className={styles.brandCol}>
-            <div className={styles.brandIdentity}>
-              <img src="/logo.png" alt="" className={styles.brandLogo} />
-              <h2 className={styles.brandName}>African Girl Rise</h2>
-            </div>
+            <h2 className={styles.brandName}>African Girl Rise</h2>
             <p className={styles.brandDescription}>
-              We work with communities in Uganda to support girls’ safety, education, wellbeing, and opportunity.
+              Practical, local support that keeps girls safe, visible, and in school across Uganda.
             </p>
             <div className={styles.contactList}>
               <div className={styles.contactItem}>

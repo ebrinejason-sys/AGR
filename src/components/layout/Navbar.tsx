@@ -53,14 +53,8 @@ export default function Navbar() {
           <div className={styles.desktopMenu}>
             <Link to="/" className={`${styles.link} ${isActive('/') ? styles.active : ''}`}>Home</Link>
 
-            <div className={`${styles.dropdown} ${aboutOpen ? styles.dropdownOpen : ''}`}>
-              <button
-                type="button"
-                className={`${styles.dropbtn} ${isAboutGroup ? styles.dropbtnActive : ''}`}
-                aria-expanded={aboutOpen}
-                aria-haspopup="true"
-                onClick={() => setAboutOpen((open) => !open)}
-              >
+            <div className={styles.dropdown}>
+              <button type="button" className={`${styles.dropbtn} ${isAboutGroup ? styles.dropbtnActive : ''}`}>
                 About <ChevronDown size={13} className={styles.dropChevron} />
               </button>
               <div className={styles.dropdownContent}>
@@ -76,14 +70,8 @@ export default function Navbar() {
               </div>
             </div>
 
-            <div className={`${styles.dropdown} ${programsOpen ? styles.dropdownOpen : ''}`}>
-              <button
-                type="button"
-                className={`${styles.dropbtn} ${isProgramsGroup ? styles.dropbtnActive : ''}`}
-                aria-expanded={programsOpen}
-                aria-haspopup="true"
-                onClick={() => setProgramsOpen((open) => !open)}
-              >
+            <div className={styles.dropdown}>
+              <button type="button" className={`${styles.dropbtn} ${isProgramsGroup ? styles.dropbtnActive : ''}`}>
                 Programs <ChevronDown size={13} className={styles.dropChevron} />
               </button>
               <div className={styles.dropdownContent}>
@@ -105,7 +93,7 @@ export default function Navbar() {
 
             <div className={styles.navActions}>
               <ModeToggle />
-              <button className={`btn-premium ${styles.navDonateButton}`} type="button" onClick={() => setIsDonationModalOpen(true)}>
+              <button className="btn-premium" type="button" onClick={() => setIsDonationModalOpen(true)}>
                 Support Her Rise
               </button>
             </div>
@@ -117,7 +105,6 @@ export default function Navbar() {
               className={styles.mobileToggle}
               onClick={() => setIsOpen((open) => !open)}
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={isOpen}
               type="button"
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -129,7 +116,7 @@ export default function Navbar() {
       <div
         className={`${styles.mobileOverlay} ${isOpen ? styles.mobileOverlayOpen : ''}`}
         onClick={() => setIsOpen(false)}
-        aria-hidden={!isOpen}
+        aria-hidden="true"
       />
 
       <div
@@ -137,8 +124,6 @@ export default function Navbar() {
         role="dialog"
         aria-label="Navigation menu"
         aria-modal="true"
-        aria-hidden={!isOpen}
-        inert={!isOpen}
       >
         <div className={styles.mobileHeader}>
           <Link to="/" className={styles.mobileLogo} onClick={closeMenu}>
@@ -158,18 +143,13 @@ export default function Navbar() {
           <div className={styles.mobileGroup}>
             <button
               className={`${styles.mobileGroupBtn} ${isAboutGroup ? styles.mobileGroupBtnActive : ''}`}
-              aria-expanded={aboutOpen}
               onClick={() => setAboutOpen((open) => !open)}
               type="button"
             >
               <span>About</span>
               <ChevronDown size={16} className={`${styles.mobileChevron} ${aboutOpen ? styles.mobileChevronOpen : ''}`} />
             </button>
-            <div
-              className={`${styles.mobileGroupLinks} ${aboutOpen ? styles.mobileGroupLinksOpen : ''}`}
-              aria-hidden={!aboutOpen}
-              inert={!aboutOpen}
-            >
+            <div className={`${styles.mobileGroupLinks} ${aboutOpen ? styles.mobileGroupLinksOpen : ''}`}>
               <div>
                 <Link to="/our-story" onClick={closeMenu} className={isActive('/our-story') ? styles.mobileSubLinkActive : ''}>Our Story</Link>
                 <Link to="/founder" onClick={closeMenu} className={isActive('/founder') ? styles.mobileSubLinkActive : ''}>The Founder</Link>
@@ -181,18 +161,13 @@ export default function Navbar() {
           <div className={styles.mobileGroup}>
             <button
               className={`${styles.mobileGroupBtn} ${isProgramsGroup ? styles.mobileGroupBtnActive : ''}`}
-              aria-expanded={programsOpen}
               onClick={() => setProgramsOpen((open) => !open)}
               type="button"
             >
               <span>Programs</span>
               <ChevronDown size={16} className={`${styles.mobileChevron} ${programsOpen ? styles.mobileChevronOpen : ''}`} />
             </button>
-            <div
-              className={`${styles.mobileGroupLinks} ${programsOpen ? styles.mobileGroupLinksOpen : ''}`}
-              aria-hidden={!programsOpen}
-              inert={!programsOpen}
-            >
+            <div className={`${styles.mobileGroupLinks} ${programsOpen ? styles.mobileGroupLinksOpen : ''}`}>
               <div>
                 <Link to="/programs" onClick={closeMenu} className={isActive('/programs') && !isActive('/programs/rise') ? styles.mobileSubLinkActive : ''}>All Programs</Link>
                 <Link to="/programs/rise-brothers" onClick={closeMenu} className={isActive('/programs/rise-brothers') ? styles.mobileSubLinkActive : ''}>Rise Brothers</Link>
