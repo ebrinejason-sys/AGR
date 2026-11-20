@@ -116,7 +116,7 @@ export default function HomePage() {
                         <div className={styles.heroEyebrow}>African Girl Rise · Uganda</div>
                         <EmpowerSlogan variant="hero" />
                         <p className={styles.heroText}>
-                            We build local, practical support systems that empower girls to stay safe, stay visible, and return to school.
+                            We empower girls with mental health support, practical entrepreneurship, and skills development while keeping vulnerable girls in school to break cycles of poverty and transform communities.
                         </p>
 
                         <div className={styles.heroActions}>
