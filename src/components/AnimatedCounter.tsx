@@ -57,7 +57,8 @@ export default function AnimatedCounter({
         if (!isVisible) return;
 
         const isSafeMode = document.documentElement.getAttribute('data-runtime-safe') === '1';
-        if (isSafeMode) {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (isSafeMode || prefersReducedMotion) {
             setCount(target);
             return;
         }
