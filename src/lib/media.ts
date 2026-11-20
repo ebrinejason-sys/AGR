@@ -1,6 +1,29 @@
 const CONTROL_CHAR_PATTERN = /(?:%0D%0A|%0A|%0D|%09|[\r\n\t])+/gi;
 const HTML_URL_ATTR_PATTERN = /\b(src|href)=(["'])(.*?)\2/gi;
 
+const MEDIA_FILE_TYPES: Record<string, { contentType: string; type: 'image' | 'video' }> = {
+    '.jpg': { contentType: 'image/jpeg', type: 'image' },
+    '.jpeg': { contentType: 'image/jpeg', type: 'image' },
+    '.png': { contentType: 'image/png', type: 'image' },
+    '.gif': { contentType: 'image/gif', type: 'image' },
+    '.webp': { contentType: 'image/webp', type: 'image' },
+    '.avif': { contentType: 'image/avif', type: 'image' },
+    '.mp4': { contentType: 'video/mp4', type: 'video' },
+    '.webm': { contentType: 'video/webm', type: 'video' },
+    '.ogg': { contentType: 'video/ogg', type: 'video' },
+    '.mov': { contentType: 'video/quicktime', type: 'video' },
+};
+
+export const MAX_MEDIA_FILE_BYTES = 25 * 1024 * 1024;
+
+export function getMediaTypeForUpload(fileName: string, contentType: string): 'image' | 'video' | null {
+    const extension = fileName.slice(fileName.lastIndexOf('.')).toLowerCase();
+    const fileType = MEDIA_FILE_TYPES[extension];
+    const normalizedContentType = contentType.toLowerCase().split(';')[0]?.trim();
+
+    return fileType && fileType.contentType === normalizedContentType ? fileType.type : null;
+}
+
 export function getMediaBucketName(bucketName = process.env.SUPABASE_MEDIA_BUCKET): string {
     const trimmed = bucketName?.trim();
     return trimmed ? trimmed : 'media';

@@ -1,5 +1,5 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { getMediaBucketName, isSameMediaObject, normalizeMediaUrl, parseSupabaseStorageUrl, stripHtmlMediaByUrl } from './media.js';
+import { getMediaBucketName, isSameMediaObject, MAX_MEDIA_FILE_BYTES, normalizeMediaUrl, parseSupabaseStorageUrl, stripHtmlMediaByUrl } from './media.js';
 
 let mediaBucketEnsured = false;
 
@@ -12,18 +12,33 @@ let mediaBucketEnsured = false;
 export async function ensureMediaBucketPublic(
     supabase: SupabaseClient,
     bucket = getMediaBucketName(),
-): Promise<void> {
-    if (mediaBucketEnsured) return;
+): Promise<boolean> {
+    if (mediaBucketEnsured) return true;
     try {
         const { data, error } = await supabase.storage.getBucket(bucket);
         if (error || !data) {
-            await supabase.storage.createBucket(bucket, { public: true });
-        } else if (!data.public) {
-            await supabase.storage.updateBucket(bucket, { public: true });
+            const { error: createError } = await supabase.storage.createBucket(bucket, {
+                public: true,
+                fileSizeLimit: MAX_MEDIA_FILE_BYTES,
+            });
+            if (createError) throw createError;
+        } else {
+            const currentLimit = data.file_size_limit == null ? null : Number(data.file_size_limit);
+            const hasFileSizeLimit = currentLimit !== null && Number.isFinite(currentLimit) && currentLimit > 0;
+            const fileSizeLimit = hasFileSizeLimit ? Math.min(currentLimit, MAX_MEDIA_FILE_BYTES) : MAX_MEDIA_FILE_BYTES;
+            if (!data.public || currentLimit !== fileSizeLimit) {
+                const { error: updateError } = await supabase.storage.updateBucket(bucket, {
+                    public: true,
+                    fileSizeLimit,
+                });
+                if (updateError) throw updateError;
+            }
         }
         mediaBucketEnsured = true;
+        return true;
     } catch (err) {
         console.warn('ensureMediaBucketPublic failed (continuing):', err);
+        return false;
     }
 }
 
