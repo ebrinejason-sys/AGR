@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { hasEventLink, isSameMediaObject, parseSupabaseStorageUrl, stripHtmlMediaByUrl } from './media.ts';
+import { getMediaTypeForUpload, hasEventLink, isSameMediaObject, parseSupabaseStorageUrl, stripHtmlMediaByUrl } from './media.ts';
 import { collectPublicMedia, collectPublishedProjects } from './public-media.ts';
 
 describe('collectPublicMedia', () => {
@@ -63,6 +63,19 @@ describe('hasEventLink', () => {
         assert.equal(hasEventLink(''), false);
         assert.equal(hasEventLink('   '), false);
         assert.equal(hasEventLink('event-1'), true);
+    });
+});
+
+describe('getMediaTypeForUpload', () => {
+    it('accepts supported image and video filename/content-type pairs', () => {
+        assert.equal(getMediaTypeForUpload('photo.JPG', 'image/jpeg'), 'image');
+        assert.equal(getMediaTypeForUpload('impact.mp4', 'video/mp4'), 'video');
+        assert.equal(getMediaTypeForUpload('clip.mov', 'video/quicktime'), 'video');
+    });
+
+    it('rejects unsupported extensions and mismatched content types', () => {
+        assert.equal(getMediaTypeForUpload('animation.svg', 'image/svg+xml'), null);
+        assert.equal(getMediaTypeForUpload('impact.mp4', 'image/mp4'), null);
     });
 });
 

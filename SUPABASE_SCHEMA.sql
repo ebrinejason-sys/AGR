@@ -205,9 +205,9 @@ EXCEPTION WHEN duplicate_object THEN END; $$;
 -- as PRIVATE (Supabase's default) is flipped to public. A private bucket makes
 -- getPublicUrl() return URLs that return HTTP 403 for site visitors, so uploaded
 -- images never appear on the public website.
-INSERT INTO storage.buckets (id, name, public)
-VALUES ('media', 'media', true)
-ON CONFLICT (id) DO UPDATE SET public = true;
+INSERT INTO storage.buckets (id, name, public, file_size_limit)
+VALUES ('media', 'media', true, 26214400)
+ON CONFLICT (id) DO UPDATE SET public = true, file_size_limit = 26214400;
 
 -- Allow anyone to upload to the media bucket (admin controls via API)
 DO $$ BEGIN
